@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="mt-5">
+      <h4 class="mb-4 text-color col-4 text-center pb-2 pt-2 rounded-pill">会員情報編集</h4>
+
+        <%= form_with model: @company, url: companies_path, local:true do |f| %>
+
+          
+          <div class="field mb-1">
+            <%= f.label :"名前　　　　　　　　　　", class: 'col-3' %>
+            
+            <%= f.text_field :company_name, autofocus: true, class: 'rounded', placeholder: "株式会社◯◯" %>
+          </div>
+          
+          <div class="field mb-1">
+            <%= f.label :"フリガナ　　　　　　　　　", class: 'col-3' %>
+            
+            <%= f.text_field :company_name_kana, autofocus: true, class: 'rounded', placeholder: "カブシキガイシャ" %>
+          </div>
+        
+          <div class="field mb-1">
+            <%= f.label :"メールアドレス", class: 'col-3' %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'rounded', placeholder: "sample@examle.com" %>
+          </div>
+          
+          <div class="field mb-1">
+            <%= f.label :"郵便番号", class: 'col-3' %>
+            <%= f.text_field :postal_code, autofocus: true, class: 'rounded', placeholder: "0000000" %>
+          </div>
+          
+          <div class="field mb-1">
+            <%= f.label :"住所", class: 'col-3' %>
+            <%= f.text_field :address, autofocus: true, class: 'rounded', placeholder: "東京都渋谷区代々木神園町0-0" %>
+          </div>
+          
+          <div class="field mb-2">
+            <%= f.label :"電話番号", class: 'col-3' %>
+            <%= f.text_field :phone_number, autofocus: true, class: 'rounded', placeholder: "00000000000" %>
+          </div>
+        
+        
+          <div class="actions mb-3">
+            <%= f.label :"　", class: 'col-3' %>
+            <%= f.submit "編集内容を保存する", class: 'btn btn-success col-3' %>
+            <%= button_to '退会する', companies_unsubscribe_path, class:'btn btn-danger col-3' %>
+          </div>
+        <% end %>
+    </div>
+    
+
+    
+</div>

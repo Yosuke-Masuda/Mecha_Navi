@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mx-auto">
+      <h4 class="mb-5 col-2 text-center text-color">ログイン</h4>
+
+      <h5 class="mt-5 mb-4 ml-4 col-4 text-center text-color">会員の方はこちらからログイン</h5>
+      
+      <%= form_with model: @company, url: new_company_session_path, local: true do |f| %>
+
+
+       <div class="field mb-1">
+         <%= f.label :"メールアドレス", class: 'col-3' %>
+         <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@example.com" %>
+       </div>
+       <div class="field mb-1">
+         <%= f.label :"パスワード（６文字以上）", class: "col-3" %>
+         <% if @minimum_password_length %>
+         <% end %>
+         <%= f.password_field :password, autocomplete: "new-password", class: 'rounded'%>
+       </div>
+
+       <div class="actions">
+         <%= f.label :" ", class: 'col-3' %>
+         <%= f.submit "ログイン", class: 'btn btn-primary col-2' %>
+       </div>
+      <% end %>
+
+      <h4 class="mt-5 mb-4 ml-4 col-4 text-center login-color">会員登録がお済みでない方</h4>
+      <div class="ml-5">
+        <p><%= link_to "こちら", new_company_registration_path, class: 'text-decolation' %>から新規登録を行って下さい。</p>
+      </div>
+    </div>
+  </div>
+</div>
