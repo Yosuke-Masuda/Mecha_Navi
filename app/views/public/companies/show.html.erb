@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3><strong>企業マイページ</strong></h3>
+        <table class="table table-bordered table-condensed">
+            <p>
+                <strong class="information-link">登録情報</strong>
+                <%= link_to " 編集する", edit_companies_path, class: "glyphicon glyphicon-pencil btn btn-success" %>
+            </p>
+            <tr>
+                <td class="col-xs-2">氏名</td>
+                <td><%= current_company.company_name %></td>
+            </tr>
+
+            <tr>
+                <td class="col-xs-2">カナ</td>
+                <td><%= current_company.company_name_kana %></td>
+            </tr>
+
+            <tr>
+                <td class="col-xs-2">郵便番号</td>
+                <td><%= current_company.postal_code %></td>
+            </tr>
+
+            <tr>
+                <td class="col-xs-2">住所</td>
+                <td><%= current_company.address %></td>
+            </tr>
+
+            <tr>
+                <td class="col-xs-2">電話番号</td>
+                <td><%= current_company.phone_number %></td>
+            </tr>
+
+            <tr>
+                <td class="col-xs-2">メールアドレス</td>
+                <td><%= current_company.email %></td>
+            </tr>
+        </table>
+  <div>
+</div>

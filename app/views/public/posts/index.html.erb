@@ -1,0 +1,14 @@
+<h1>投稿一覧</h1>
+<%= link_to '新規投稿', public_new_posts_path %>
+<%= render @posts %>
+<div class="post-partial">
+  <li id="post-<%= @post.id %>">
+    <%= @post.title %>
+    <% @post.images.each do |image| %>
+      <%= image_tag(image, width:100) %>
+    <% end %>
+    <%= @post.caption %>
+    <%= link_to '編集', public_edit_posts_path(@post.id) %> 
+    <%= link_to '削除', @post, method: :delete, data: { confirm: '削除してよろしいですか?' } %>
+  </li>
+</div>

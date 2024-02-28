@@ -1,0 +1,9 @@
+<div class="post-partial">
+  <li id="post-<%= post.id %>">
+    <%= post.name %>
+    <% post.images.each do |image| %>
+      <%= image_tag Company.find(post.company_id)(image, width:100) %>
+    <% end %>
+    <%= link_to '削除', post, method: :delete, data: { confirm: '削除してよろしいですか?' } %>
+  </li>
+</div>

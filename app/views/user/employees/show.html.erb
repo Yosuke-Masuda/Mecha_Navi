@@ -1,0 +1,44 @@
+<section class="inner text-center">
+  <% if flash[:notice] %>
+    <p class="text-active"><%= flash[:notice] %></p>
+  <% end %>
+	<h2 class="section-ttl">マイページ</h2>
+	<h3>
+		登録情報
+		<%= link_to "編集する", edit_information_path, class: "btn btn-success ml2" %>
+		<%= link_to "パスワードを変更する", edit_employee_registration_path, class: "btn btn-success ml2" %>
+	</h3>
+	<table class="table table-bordered">
+		<thead>
+			<th></th>
+			<th></th>
+			<th></th>
+		</thead>
+		<tbody>
+		  <tr>
+				<td>会社名</td>
+			</tr>
+			<tr>
+				<td>所属</td>
+				<td><%= @employee.store.name %>店</td>
+			</tr>
+		  <tr>
+				<td>名前</td>
+				<td>(姓) <%= @employee.first_name %></td>
+				<td>(名) <%= @employee.last_name %></td>
+			</tr>
+			<tr>
+				<td>フリガナ</td>
+				<td>(セイ) <%= @employee.first_name_kana %></td>
+				<td>(メイ) <%= @employee.last_name_kana %></td>
+			</tr>
+			<tr>
+				<td>メールアドレス</td>
+				<td colspan="2"><%= @employee.email %></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="flex">
+		<%= link_to "投稿一覧", class: "btn btn-primary" %>
+	</div>
+</section>
