@@ -1,0 +1,41 @@
+<div class="col-2">
+  <div class="col mx-auto">
+    <h4>社員一覧</h4>
+  </div>
+  <div class="col-8"></div>
+</div>
+
+<div class="row table-row">
+  <div class="col-8 mx-auto">
+    <table class="table">
+      <thead class="thead-light">
+       <tr>
+         <th>会員ID</th>
+         <th>氏名</th>
+         <th>勤務地</th>
+         <th>メールアドレス</th>
+         <th>ステータス</th>
+       </tr>
+      </thead>
+      <tbody>
+        <% @employees.each do |employee| %>
+          <tr>
+            <td><%= employee.id %></td>
+            <td><%= link_to "#{employee.last_name} #{employee.first_name}", employee_path(employee.id), class: "text-dark border-bottom border-dark" %></td>
+            <td><%= employee.store.name %></td>
+            <td><%= employee.email %></td>
+            <td>
+              <% if employee.is_active == true %>
+                <p class="text-success">有効</p>
+              <% else %>
+                <p class="text-secondary">退職</p>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+    </div>
+  </div>
+</div>

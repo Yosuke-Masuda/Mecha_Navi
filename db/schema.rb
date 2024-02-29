@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 2024_02_25_154848) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "company_id"
+    t.integer "company_id", null: false
     t.integer "store_id"
     t.string "first_name"
     t.string "last_name"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 2024_02_25_154848) do
     t.boolean "is_active", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_employees_on_company_id"
     t.index ["email"], name: "index_employees_on_email", unique: true
     t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
   end
@@ -136,4 +137,5 @@ ActiveRecord::Schema.define(version: 2024_02_25_154848) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "employees", "companies"
 end
