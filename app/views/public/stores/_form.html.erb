@@ -8,3 +8,8 @@
 	<%= f.label :is_active, "無効", class: "text-invalid" %>
 	<%= f.submit submit, class: "btn btn-primary ml2" %>
 <% end %>
+create_table "genres", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
