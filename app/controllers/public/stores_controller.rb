@@ -1,16 +1,20 @@
 class Public::StoresController < ApplicationController
+  before_action :authenticate_company!
   def index
     @store = Store.new
-    @stores = Store.all
-  end
+    @stores = current_company.stores
 
+  end
+  
+  
+  
   def create
     @store =Store.new(store_params)
     @store.company_id = current_company.id
     if @store.save
       redirect_to stores_path
     else
-      @stores = Store.all
+      @stores = current_company.stores  
       render :index
     end
 

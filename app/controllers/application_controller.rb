@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
        companies_path
      when Employee
        flash[:notice] = "ログインに成功しました"
-       mypage_path
+       employees_path
      end
    end
    

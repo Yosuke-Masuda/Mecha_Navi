@@ -1,4 +1,17 @@
 class Public::CompaniesController < ApplicationController
+  
+  def new
+    @employee = Employee.new
+  end
+  def create
+    @employee = Employee.new(employee_params)
+    @employee.company_id = current_company.id if current_company
+    if @employee.save
+      redirect_to root_path, notice: 'Employee was successfully created.'
+    else
+      render :new
+    end
+  end
   def show
     @company = current_company
   end

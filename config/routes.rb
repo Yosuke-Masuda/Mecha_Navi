@@ -7,9 +7,8 @@ Rails.application.routes.draw do
   }
   
   scope module: :user do
-  devise_for :employees, skip: [:passwords,] ,controllers: {
+  devise_for :employees, skip: [:passwords, :registrations] ,controllers: {
     sessions: 'user/sessions',
-    registrations: 'user/registrations'
   }
   end
   
@@ -43,8 +42,11 @@ Rails.application.routes.draw do
    get 'top' => 'homes#top', as: 'top'      
    get "about" => "homes#about"
    resource :companies, only: [:show, :edit, :update]
-   get "companies/unsubscribe" => "customers#unsubscribe"
-   patch "companies/withdraw" => "customers#withdraw"
+   get "companies/unsubscribe" => "companies#unsubscribe"
+   patch "companies/withdraw" => "companies#withdraw"
+   resources :employees, only: [:new, :create, :index, :show, :edit, :update]
+   get "employees/unsubscribe" => "employees#unsubscribe"
+   patch "employees/withdraw" => "employees#withdraw"
    resources :stores, only: [:index, :create, :edit, :update]
    resources :genres, only: [:index, :create, :edit, :update]
    resources :car_names, only: [:index, :create, :edit, :update], param: :id
