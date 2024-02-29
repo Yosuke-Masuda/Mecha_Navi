@@ -1,6 +1,6 @@
-<%= form_with(model: store, url: url, local: true) do |f| %>
-	<%= render 'layouts/error_messages', resource: store %>
-	<%= f.label :name, "店舗名" %>
+<%= form_with(model: genre, url: url, local: true) do |f| %>
+	<%= render 'layouts/error_messages', resource: genre %>
+	<%= f.label :name, "ジャンル名:" %>
 	<%= f.text_field :name %>
 	<%= f.radio_button :is_active, true %>
 	<%= f.label :is_active, "有効", class: "text-active" %>
