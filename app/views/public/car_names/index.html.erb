@@ -2,6 +2,7 @@
 	<h2 class="section-ttl">車名管理</h2>
 	<div class="mb3">
 		<h3>車名新規登録</h3>
+  	<%= render 'form', car_name: @car_name, url: car_names_path, submit: '登録' %>
 	</div>
 	<div class="mb3">
 		<h3>車名一覧</h3>
@@ -9,6 +10,7 @@
 			<thead>
 				<tr>
 					<th>車名</th>
+					<th>型式</th>
 					<th>状態</th>
 					<th></th>
 				</tr>
@@ -17,6 +19,7 @@
 				<% @car_names.each do |car_name| %>
 					<tr>
 						<td><%= link_to car_name.name, car_names_path(car_name_id: car_name.id), class: "underline" %></td>
+						<td><%= link_to car_name.car_type, car_names_path(car_name_id: car_name.id), class: "underline" %></td>
 						<td>
 							<% if car_name.is_active? %>
 								<span class="text-active">有効</span>

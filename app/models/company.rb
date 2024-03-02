@@ -7,6 +7,7 @@ class Company < ApplicationRecord
   has_many :employees, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :genres, dependent: :destroy
+  has_many :car_names, dependent: :destroy
          
   validates :company_name, presence: true
   validates :company_name_kana, presence: true

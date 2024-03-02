@@ -1,11 +1,11 @@
-<section class="inner text-center">
+<div class="card text-center">
   <% if flash[:notice] %>
     <p class="text-active"><%= flash[:notice] %></p>
   <% end %>
-	<h2 class="section-ttl">マイページ</h2>
+	<h2 class="card-title">マイページ</h2>
 	<h3>
-		登録情報
-		<%= link_to "編集する", edit_information_path, class: "btn btn-success ml2" %>
+		登録情報</br>
+		<%= link_to "編集する", edit_information_path, class: "btn btn-outline-success btn-sm btn-block" %>
 	</h3>
 	<table class="table table-bordered">
 		<thead>
@@ -42,7 +42,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<div class="flex">
-		<%= link_to "投稿一覧", class: "btn btn-primary" %>
-	</div>
-</section>
+	<h3>
+		<%= link_to "投稿一覧", posts_path, class: "btn btn-outline-primary btn-sm" %>
+	</h3>
+</div>

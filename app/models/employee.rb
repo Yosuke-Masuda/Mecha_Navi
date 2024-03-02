@@ -6,18 +6,15 @@ class Employee < ApplicationRecord
   belongs_to :company
   belongs_to :store, optional: true
   has_many :posts, dependent: :destroy
+  has_many :genres, dependent: :destroy
   
   def company_name
     company.name if company.present?
   end
   
   scope :only_active, -> { where(is_active: true) }
+  
+  validates_presence_of :first_name, :last_name, :first_name_kana, :last_name_kana
+  validates_format_of :first_name_kana, :last_name_kana, with: /\A[ァ-ヶー－]+\z/
          
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :first_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
-  validates :last_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
-  def active_for_authentication?
-    super && (is_active?)
-  end  
 end

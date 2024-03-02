@@ -3,6 +3,7 @@ class User::EmployeesController < ApplicationController
   before_action :set_current_employee, only: [:show, :edit, :update, :unsubscribe, :withdraw]
   def new
     @employee = Employee.new
+    @genres = current_employee.company.genres
   end
   def create
   @employee = Employee.new(employee_params)
@@ -46,7 +47,7 @@ class User::EmployeesController < ApplicationController
   end
 
   def employee_params
-    params.require(:employee).permit(:company_id, :store_id, :last_name, :first_name, :first_name_kana, :last_name_kana, :email )
+    params.require(:employee).permit(:company_id, :store_id, :last_name, :first_name, :first_name_kana, :last_name_kana, :email, :password, :password_confirmation, :is_active)
   end
 
 end

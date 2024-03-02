@@ -53,8 +53,10 @@ ActiveRecord::Schema.define(version: 2024_02_25_154848) do
   end
 
   create_table "car_names", force: :cascade do |t|
+    t.integer "company_id", null: false
     t.string "name", null: false
     t.string "car_type", null: false
+    t.boolean "is_active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -120,8 +122,6 @@ ActiveRecord::Schema.define(version: 2024_02_25_154848) do
     t.integer "car_type_id", null: false
     t.string "title", null: false
     t.string "genre_id", null: false
-    t.string "image_id", null: false
-    t.string "video_id", null: false
     t.text "caption", null: false
     t.boolean "is_active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
@@ -140,4 +140,5 @@ ActiveRecord::Schema.define(version: 2024_02_25_154848) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "employees", "companies"
+  add_foreign_key "posts", "companies"
 end
