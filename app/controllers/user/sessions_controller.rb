@@ -18,10 +18,15 @@ class User::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # protected
+  protected
+
   def configure_permitted_parameters
-       devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password, :password_confirmation,])
+   devise_parameter_sanitizer.permit(:sign_in) do |user_params|
+    user_params.permit(:email, :password, :password_confirmation)
+   end
   end 
+  
+  
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])

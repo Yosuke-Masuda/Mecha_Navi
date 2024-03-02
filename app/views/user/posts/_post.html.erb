@@ -1,9 +1,11 @@
 <div class="post-partial">
   <li id="post-<%= post.id %>">
-    <%= post.name %>
+    <%= post.title %>
     <% post.images.each do |image| %>
-      <%= image_tag Company.find(post.company_id)(image, width:100) %>
+      <%= image_tag(image, width:100) %>
     <% end %>
+    <%= post.caption %>
+    <%= link_to '編集', edit_post_path(post.id) %>
     <%= link_to '削除', post, method: :delete, data: { confirm: '削除してよろしいですか?' } %>
   </li>
 </div>

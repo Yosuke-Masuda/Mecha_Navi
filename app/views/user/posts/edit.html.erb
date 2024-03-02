@@ -1,12 +1,16 @@
 <%= form_with(model: @post, local: true) do |f| %>
   <div>
-    <%= f.label :name, '名前' %>
-    <%= f.text_field :name %>
+    <%= f.label :title, 'タイトル' %>
+    <%= f.text_field :title %>
   </div>
 
   <div>
     <%= f.label :images, '画像' %>
     <%= f.file_field :images, multiple: true %>
+  </div>
+  <div>
+    <%= f.label :caption, '説明文' %>
+    <%= f.text_field :caption %>
   </div>
 
   <% if @post.images.present? %>

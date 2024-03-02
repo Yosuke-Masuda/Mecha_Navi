@@ -1,9 +1,11 @@
 class CarName < ApplicationRecord
   has_many :posts, dependent: :destroy
+  belongs_to :company
+  has_many :employees
   
+  
+  scope :only_active, -> { where(is_active: true) }
+  
+  validates :company_id, presence: true
   validates :car_type, presence: true
-  validates :name, presence: true, uniqueness: true
-  def is_active?
-    true # または必要なロジックに置き換えてください
-  end
 end

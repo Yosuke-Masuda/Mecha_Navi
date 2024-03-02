@@ -1,16 +1,55 @@
-<%= form_with(model: @post, local: true) do |f| %>
+<h1>投稿</h1>
+<%= form_with(model: @post, url: '/posts', local: true) do |f| %>
+<%= render 'layouts/error_messages', resource: @post %>
 
+  <tr>
+				<td>企業ID</td>
+				<td><%= @employee.company.id %></td>
+			</tr>
+		  　<tr>
+				<td>企業名</td>
+				<td><%= @employee.company.company_name %></td>
+			</tr>
+			<tr>
+				<td>所属</td>
+				<td><%= @employee.store.name %>店</td>
+			</tr>
+		  <tr>
+				<td>名前</td>
+				<td>(姓) <%= @employee.first_name %></td>
+				<td>(名) <%= @employee.last_name %></td>
+			</tr>
+			<tr>
+				<td>フリガナ</td>
+				<td>(セイ) <%= @employee.first_name_kana %></td>
+				<td>(メイ) <%= @employee.last_name_kana %></td>
+			</tr>
+  <div class="filed mb-1">
+    <th><%= f.label :genre_id, "ジャンルの選択:", class: 'col-3' %></th>
+    <td><%= f.collection_select :genre_id, current_employee.company.genres, :id, :name, :prompt => "--選択して下さい--", class: 'rounded' %></td>
+  </div>
+  <div class="filed mb-1">
+    <th><%= f.label :car_name_id, "車名の選択:", class: 'col-3' %></th>
+    <td><%= f.collection_select :car_name_id, current_employee.company.car_names, :id, :name, :prompt => "--選択して下さい--", class: 'rounded' %></td>
+  </div>
+  <div class="filed mb-1">
+    <th><%= f.label :car_name_id, "型式の選択:", class: 'col-3' %></th>
+    <td><%= f.collection_select :car_type_id, current_employee.company.car_names, :id, :car_type, :prompt => "--選択して下さい--", class: 'rounded' %></td>
+  </div>
   <div>
-    <%= f.label :name, '名前' %>
+    <%= f.label :title, 'タイトル' %>
     <%= f.text_field :title %>
   </div>
-
   <div>
     <%= f.label :images, '画像' %>
     <%= f.file_field :images, multiple: true %>
   </div>
   
-  <p class="text-justify"></p>
+  <div>
+    <%= f.label :caption, '説明' %>
+    <%= f.text_area :caption %>
+  </div>
+  
 
   <div>
     <%= f.submit  '投稿する' %>

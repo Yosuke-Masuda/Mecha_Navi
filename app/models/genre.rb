@@ -1,7 +1,7 @@
 class Genre < ApplicationRecord
   has_many :posts, dependent: :destroy
   belongs_to :company
-  has_many :employees
+  belongs_to :employee
   
   scope :only_active, -> { where(is_active: true) }
   
