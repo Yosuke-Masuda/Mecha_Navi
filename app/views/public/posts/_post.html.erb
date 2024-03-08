@@ -41,10 +41,10 @@
           
           <p class="card-text"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></small></p>
           <div class="card-body">
-            <% if post.employee_id == current_employee.id %>
-              <%= link_to '編集', edit_post_path(post.id) %>
-              <%= link_to '削除', post, method: :delete, data: { confirm: '削除してよろしいですか?' } %>
-            <% end %>
+            <% if post.company_id == current_company.id %>
+              <%= link_to '編集', public_edit_posts_path(post.id) %>
+              <%= link_to '削除', destroy_public_posts_path, method: :delete, data: { confirm: '削除してよろしいですか?' } %>
+            <% end %>  
           </div>
         </div>
       </div>

@@ -1,19 +1,14 @@
 <div class="container">
-  <div class="row mb-4">
-    <div class="col-12 text-center">
-      <h1 class="display-1 mb-4">About</h1>
-      <h3>
-        Mecha_Naviは整備を正確かつ効率的にするものです。<br>
-        整備スタッフのスキルアップ、<br>
-        コンディションの向上に繋がればと思います。<br>
-        「いつ」でも「どこ」でも、投稿したものならご確認いただけます。<br>
-        ぜひ皆さんでご投稿ください。
-      </h3>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title display-2">About</h5>
+         <p class="card-text">Mecha_Naviは整備を正確かつ効率的にするものです。
+                              整備スタッフのスキルアップ、
+                              コンディションの向上に繋がればと思います。
+                              「いつ」でも「どこ」でも、投稿したものならご確認いただけます。
+                              ぜひ皆さんでご投稿ください。</p>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-10 col-lg-8 col-xl-6 mx-auto">
-      <%= image_tag "kougu.jpg", class: "img-fluid rounded" %>
-    </div>
-  </div>
+        <img src=<%= asset_path('kougu.jpg') %> class="img-fluid" style="max-width: 100%; height: auto;" alt="Responsive image">
+   </div>
 </div>
+

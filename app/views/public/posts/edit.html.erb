@@ -8,6 +8,16 @@
     <%= f.label :images, '画像' %>
     <%= f.file_field :images, multiple: true %>
   </div>
+  
+  <div>
+    <%= f.label :caption, '説明文' %>
+    <%= f.text_field :caption %>
+  </div>
+  
+  <div>
+    <%= f.label :caption, '説明文' %>
+    <%= f.text_field :caption %>
+  </div>
 
   <% if @post.images.present? %>
     <p>現在登録されている画像（削除するものはチェックしてください）</p>
