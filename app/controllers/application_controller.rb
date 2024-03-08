@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
      new_company_session_path
     elsif resource_or_scope == :admin
      new_admin_session_path
-    elsif resouce_or_scope == :employee
+    elsif resource_or_scope == :employee
      new_employee_session_path
     else
      root_path

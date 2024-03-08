@@ -5,8 +5,9 @@ class Employee < ApplicationRecord
          :recoverable, :rememberable, :validatable
   belongs_to :company
   belongs_to :store, optional: true
-  has_many :posts, dependent: :destroy
+  has_many :posts, dependent: :nullify
   has_many :genres, dependent: :destroy
+  
   
   def company_name
     company.name if company.present?

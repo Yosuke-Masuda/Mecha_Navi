@@ -1,7 +1,8 @@
 class User::PostsController < ApplicationController
-  before_action :set_current_employee, only: [:new, :index, :show, :edit, :update, :unsubscribe, :withdraw]
+  before_action :set_current_employee, only: [:new, :index, :show, :edit, :update, :unsubscribe, :withdraw, :create]
   def index
     @posts = Post.all
+    @post = @posts.first
   end
   
   def new
@@ -15,22 +16,25 @@ class User::PostsController < ApplicationController
   
   def create
     @post = Post.new(post_params)
-    @post.store_id = current_employee.id
-    @post.company_id = current_employee.id if current_employee
+    @post.store_id = current_employee.store_id
+    @post.company_id = current_employee.company_id if current_employee
     @post.employee_id = current_employee.id
+    @post.genre_id = params[:post][:genre_id]
     @post.car_name_id = params[:post][:car_name_id]
     if params[:post][:images]
       @post.images.attach(params[:post][:images])
     end
+    
     if @post.save
-      flash[:success] = "作成しました"
-      redirect_to posts_path(@post)
+     flash[:success] = "作成しました"
+     redirect_to posts_path
     else
-      @posts = Post.all
-      @company = Company.find(current_employee.id)
-      render :new
+     @posts = Post.all
+     @company = Company.find(current_employee.company_id)
+     render :new
     end
   end
+  
   
   def edit
     @post = Post.find(params[:id])
@@ -44,7 +48,8 @@ class User::PostsController < ApplicationController
         image.purge
       end
     end
-    if post.update_attributes(post_params)
+    if post.update(post_params)
+      
       flash[:success] = "編集しました"
       redirect_to posts_path
     else
@@ -55,7 +60,7 @@ class User::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    flash[:success] = "作成しました"
+    flash[:success] = "削除しました"
     redirect_to posts_path
   end
 

@@ -1,28 +1,10 @@
 class Public::PostsController < ApplicationController
+  before_action :set_current_company, only: [:index, :show, :edit, :update, :unsubscribe, :withdraw, :create]
+  
   def index
     @posts = Post.all
+    @posts = Post.order(created_at: :desc)
     @company = Company.find(current_company.id)
-  end
-
-  def new
-    @post = Post.new
-  end
-
-  def create
-    @post = Post.new(post_params)
-    @post.store_id = current_company.id
-    @post.company_id = current_company.id
-    if params[:post][:images]
-      @post.images.attach(params[:post][:images])
-    end
-    if @post.save
-      flash[:success] = "作成しました"
-      redirect_to public_index_posts_path(@post)
-    else
-      @posts = Post.all
-      @company = Company.find(current_company.id)
-      render :new
-    end
   end
   
   def edit
@@ -55,9 +37,13 @@ class Public::PostsController < ApplicationController
   end
 
   private
+  
+  def set_current_company
+    @company = current_company
+  end
 
   def post_params
-    params.require(:post).permit(:title, :store_id, :car_name_id, :car_type_id, :image_id, :video_id, :caption, :is_active, images: [])
+    params.require(:post).permit(:employee_id, :company_id, :title, :store_id, :car_name_id, :car_type_id, :image_id, :video_id, :caption, :is_active, images: [])
   end
 end
 
