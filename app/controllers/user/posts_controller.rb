@@ -35,6 +35,11 @@ class User::PostsController < ApplicationController
     end
   end
   
+  def show
+    @post = Post.find(params[:id])
+    @image = @post.images.first
+    @post_comment = PostComment.new
+  end  
   
   def edit
     @post = Post.find(params[:id])

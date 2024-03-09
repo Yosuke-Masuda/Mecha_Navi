@@ -41,6 +41,7 @@
           
           <p class="card-text"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></small></p>
           <div class="card-body">
+            <%= link_to '投稿詳細', post_path(post.id) %>
             <% if post.employee_id == current_employee.id %>
               <%= link_to '編集', edit_post_path(post.id) %>
               <%= link_to '削除', post, method: :delete, data: { confirm: '削除してよろしいですか?' } %>

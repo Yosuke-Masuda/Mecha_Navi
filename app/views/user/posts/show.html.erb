@@ -1,0 +1,50 @@
+<div class="card" style="width: 75%;">
+  <%= image_tag(@image, width:"100%", height:"500") %>
+  <div class="card-body">
+    <h5 class="card-title">タイトル:<%= @post.title %></h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">会社名：<%= @post.employee.company.company_name %>　店舗名：<%= @post.employee.store.name %>店　投稿者：<%= @post.employee.last_name %>　<%= @post.employee.first_name %></li>
+    
+
+    <li class="list-group-item">車名：<%= @post.car_name.name if @post.car_name.present? %>　型式：<%= @post.car_name.car_type if @post.car_name.present? %>　ジャンル：<%= @post.genre.name if @post.genre.present? %></li>
+    
+  </ul>
+  
+  <div class="card-body">
+    
+    <p class="card-text">説明文：<%= @post.caption %></p>
+    
+    <p class="card-text">説明文：<%= @post.caption %></p>
+    
+    <p class="card-text"><small class="text-muted">投稿日：<%= @post.created_at.strftime('%Y/%m/%d') %></small></p>
+    
+    <p><%= link_to "#{@post.post_comments.count} コメント", post_path(@post.id) %></p>
+    
+    <div class="card-body">
+      <% if @post.employee_id == current_employee.id %>
+        <%= link_to '編集', edit_post_path(@post.id) %>
+        <%= link_to '削除', @post, method: :delete, data: { confirm: '削除してよろしいですか?' } %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div>
+<p>コメント件数：<%= @post.post_comments.count %></p>
+<% @post.post_comments.each do |post_comment| %>
+  <p><%= image_tag('kougu.jpg') %></p>
+  <%= post_comment.employee.last_name %><%= post_comment.employee.first_name %>
+  <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+  <% if post_comment.employee == current_employee %>
+  <div>
+    <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
+  </div>
+  <% end %>
+<% end %>
+</div>
+<div>
+<%= form_with(model:[@post, @post_comment], local: true) do |f| %>
+  <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに" %>
+  <%= f.submit "送信する" %>
+<% end %>
+</div>
