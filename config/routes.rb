@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   scope module: :user do
    root :to => "homes#top"
    get "about" => "homes#about"
-   get '/employees/sign_up', to: 'registrations#new', as: 'employee_sign_up'
    get 'employees/mypage' => 'employees#show', as: 'mypage'
    get 'employees/information/edit' => 'employees#edit', as: 'edit_information'
    patch 'employees/information' => 'employees#update', as: 'update_information'
@@ -53,6 +52,8 @@ Rails.application.routes.draw do
    get "companies/unsubscribe" => "companies#unsubscribe"
    patch "companies/withdraw" => "companies#withdraw"
    resources :employees, only: [:new, :create, :index, :show, :edit, :update]
+   get 'companies/employees/index' => 'employees#index', as: 'public_index_employees'
+   get 'companies/employees/show/:id' => 'employees#show', as: 'public_show_employees'
    get "employees/unsubscribe" => "employees#unsubscribe"
    patch "employees/withdraw" => "employees#withdraw"
    resources :stores, only: [:index, :create, :edit, :update]
@@ -60,9 +61,10 @@ Rails.application.routes.draw do
    resources :car_names, only: [:index, :create, :edit, :update], param: :id
    get 'companies/posts/new' => 'posts#new', as: 'public_new_posts'
    post 'companies/posts' => 'posts#create', as: 'public_posts'
+   post 'companies/post/:id' => 'posts#update', as: 'public_post'
    get 'companies/posts/index' => 'posts#index', as: 'public_index_posts'
-   get 'companies/posts/edit' => 'posts#edit', as: 'public_edit_posts'
-   get 'companies/posts/show' => 'posts#show', as: 'public_show_posts'
+   get 'companies/posts/edit/:id' => 'posts#edit', as: 'public_edit_posts'
+   get 'companies/posts/show/:id' => 'posts#show', as: 'public_show_post'
    patch 'companies/posts' => 'posts#update', as: 'public_update_posts'
    put 'companies/posts' => 'posts#update', as: 'public_update_post'
    delete 'companies/posts' => 'posts#destroy', as: 'destroy_public_posts'

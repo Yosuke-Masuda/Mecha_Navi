@@ -2,9 +2,13 @@ class Public::PostsController < ApplicationController
   before_action :set_current_company, only: [:index, :show, :edit, :update, :unsubscribe, :withdraw, :create]
   
   def index
-    @posts = Post.all
     @posts = Post.order(created_at: :desc)
     @company = Company.find(current_company.id)
+  end
+  
+  def show
+    @post = Post.find(params[:id])
+    @images = @post.images
   end
   
   def edit
@@ -20,9 +24,9 @@ class Public::PostsController < ApplicationController
         image.purge if image
        end
     end
-    if post.update_attributes(post_params)
+    if post.update(post_params)
       flash[:success] = "編集しました"
-      redirect_to posts_url
+      redirect_to public_show_post_path
     else
       render :edit
     end
