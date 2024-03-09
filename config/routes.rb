@@ -23,7 +23,10 @@ Rails.application.routes.draw do
    get 'employees/unsubscribe' => 'employees#unsubscribe', as: 'confirm_unsubscribe'
    patch 'employees/withdraw' => 'employees#withdraw', as: 'withdraw_employee'
    put 'employees/withdraw' => 'employees#withdraw'
-   resources :posts
+   resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+       resource :favorites, only: [:create, :destroy]
+       resources :post_comments, only: [:create, :destroy]
+     end
    
    end
 

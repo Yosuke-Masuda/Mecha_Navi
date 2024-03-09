@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_25_154848) do
+ActiveRecord::Schema.define(version: 2024_03_09_005141) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -114,6 +114,17 @@ ActiveRecord::Schema.define(version: 2024_02_25_154848) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "post_comments", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "employee_id"
+    t.text "comment", null: false
+    t.boolean "is_active", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_post_comments_on_employee_id"
+    t.index ["post_id"], name: "index_post_comments_on_post_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer "company_id"
     t.integer "store_id", null: false
@@ -140,5 +151,7 @@ ActiveRecord::Schema.define(version: 2024_02_25_154848) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "employees", "companies"
+  add_foreign_key "post_comments", "employees"
+  add_foreign_key "post_comments", "posts"
   add_foreign_key "posts", "companies"
 end
