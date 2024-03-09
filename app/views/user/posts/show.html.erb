@@ -31,6 +31,7 @@
 </div>
 <div>
 <p>コメント件数：<%= @post.post_comments.count %></p>
+<p>いいね件数：<%= @post.favorites.count %></p>
 <% @post.post_comments.each do |post_comment| %>
   <p><%= image_tag('kougu.jpg') %></p>
   <%= post_comment.employee.last_name %><%= post_comment.employee.first_name %>
@@ -39,6 +40,19 @@
   <div>
     <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
   </div>
+  <% end %>
+  <% if @post.favorited_by?(current_employee) %>
+    <p>
+      <%= link_to post_favorites_path(@post), method: :delete do %>
+        ♥<%= @post.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to post_favorites_path(@post), method: :post do %>
+        ♡<%= @post.favorites.count %> いいね
+      <% end %>
+    </p>
   <% end %>
 <% end %>
 </div>
