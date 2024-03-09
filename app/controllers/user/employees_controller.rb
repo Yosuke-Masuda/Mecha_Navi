@@ -30,6 +30,12 @@ class User::EmployeesController < ApplicationController
       render :edit
     end
   end
+  
+  def favorites
+    @employee = Employee.find(params[:id])
+    favorites= Favorite.where(employee_id: @employee.id).pluck(:post_id)
+    @favorite_posts = Post.find(favorites)
+  end
 
   def unsubscribe
   end
