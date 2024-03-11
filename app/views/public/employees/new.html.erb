@@ -6,17 +6,12 @@
 
 
 
-        <%= form_with model: @employee, url: '/employees', local: true do |f| %>
+        <%= form_with model: @employee, url: '/companies/employees', local: true do |f| %>
         <%= render 'layouts/error_messages', resource: @employee %>
 
           
           <div class="sign_up-pages col-12">
               <%= f.hidden_field :company_id, value: current_company.id %>
-              <%#= f.hidden_field :company_name, value: @company_name %>
-
-              
-
-              
 
             <div class="filed mb-1">
 
@@ -24,6 +19,13 @@
                 <td><%= f.collection_select :store_id, current_company.stores, :id, :name, :prompt => "--選択して下さい--", class: 'rounded' %>店</td>
 
             </div>
+            
+            <div class="field mb-1">
+              <%= f.label :"プロフィール画像", class: 'col-3' %>
+              <%= f.file_field :image, class: 'rounded' %>
+            </div>
+            
+          
             
             <div class="field mb-1">
             <%= f.label :"名前　　　　　　　　　　　(姓)", class: 'col-3' %>

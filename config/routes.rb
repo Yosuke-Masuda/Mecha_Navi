@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   }
   
   scope module: :user do
-  devise_for :employees, skip: [:passwords, :registrations] ,controllers: {
+  devise_for :employees, skip: [:registrations] ,controllers: {
     sessions: 'user/sessions',
   }
   end
@@ -51,7 +51,9 @@ Rails.application.routes.draw do
    resource :companies, only: [:show, :edit, :update]
    get "companies/unsubscribe" => "companies#unsubscribe"
    patch "companies/withdraw" => "companies#withdraw"
-   resources :employees, only: [:new, :create, :index, :show, :edit, :update]
+   resources :employees, only: [:create, :index, :show, :edit, :update]
+   post 'companies/employees' => 'employees#create', as: 'public_employees'
+   get 'companies/employees/new' => 'employees#new', as: 'public_new_employees'
    get 'companies/employees/index' => 'employees#index', as: 'public_index_employees'
    get 'companies/employees/show/:id' => 'employees#show', as: 'public_show_employees'
    get "employees/unsubscribe" => "employees#unsubscribe"

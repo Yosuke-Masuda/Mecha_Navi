@@ -44,6 +44,11 @@
     <%= f.label :images, '画像' %>
     <%= f.file_field :images, multiple: true %>
   </div>
+  
+  <div>
+    <%= f.label :video, '動画' %>
+    <p>video</p><%= f.file_field :video %>
+  </div>
   <div>
     <%= f.label :caption, '説明' %>
     <%= f.text_area :caption %>

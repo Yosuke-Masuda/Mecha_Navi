@@ -2,26 +2,28 @@
   <div class="row no-gutters">
     
       <div class="col-md-4">
-        <% if post.images.present? %>
-         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <% post.images.each_with_index do |image, index| %>
-                <div class="carousel-item <%= 'active' if index == 0 %>">
-                 <%= image_tag(image, width:"100%", height:"250") %>
-                </div>
-              <% end %>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <% if post.images.present? %>
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <% post.images.each_with_index do |image, index| %>
+              <div class="carousel-item <%= 'active' if index == 0 %>">
+                <%= image_tag(image, width:"100%", height:"250") %>
+              </div>
+            <% end %>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">前へ</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">次へ</span>
-           </a>
-          </div>
-       <% end %>
-      </div>
+          </a>
+        </div>
+      <% elsif post.video.attached? %>
+        <video src="<%= rails_blob_path(post.video) %>" type="video/mp4" controls width="100%" height="250"></video>
+      <% end %>
+    </div>
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">タイトル:<%= post.title %></h5>
@@ -41,11 +43,14 @@
           
           <p class="card-text"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></small></p>
           <div class="card-body">
-            <%= link_to '投稿詳細', post_path(post.id) %>
-            <% if post.employee_id == current_employee.id %>
-              <%= link_to '編集', edit_post_path(post.id) %>
-              <%= link_to '削除', post, method: :delete, data: { confirm: '削除してよろしいですか?' } %>
-            <% end %>
+            <div class="btn-group" role="group" aria-label="Basic example">
+             <%= link_to '投稿詳細', post_path(post.id), class: "btn btn-outline-primary" %>
+
+              <% if post.employee_id == current_employee.id %>
+               <%= link_to '編集', edit_post_path(post.id), class: "btn btn-outline-success" %>
+               <%= link_to '削除', post, method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>

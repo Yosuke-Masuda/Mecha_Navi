@@ -16,8 +16,9 @@ class User::EmployeesController < ApplicationController
   end
   
   def show
-    @employee = current_employee
-    @company = @employee.company
+   @company = current_employee.company
+   @my_posts = Post.where(employee_id: current_employee.id)
+   render :show
   end
 
   def edit
@@ -30,6 +31,8 @@ class User::EmployeesController < ApplicationController
       render :edit
     end
   end
+  
+  
   
   def favorites
     @employee = Employee.find(params[:id])
@@ -53,7 +56,7 @@ class User::EmployeesController < ApplicationController
   end
 
   def employee_params
-    params.require(:employee).permit(:company_id, :store_id, :last_name, :first_name, :first_name_kana, :last_name_kana, :email, :password, :password_confirmation, :is_active)
+    params.require(:employee).permit(:company_id, :store_id, :last_name, :first_name, :first_name_kana, :last_name_kana, :email, :password, :password_confirmation, :is_active, :image, images: [])
   end
 
 end

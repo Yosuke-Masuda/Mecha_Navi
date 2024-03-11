@@ -1,9 +1,12 @@
-<div class="card text-center">
-  
-	<h2 class="card-title">マイページ</h2>
+<div class="card">
+	
 	<h3>
-		登録情報</br>
-		<%= link_to "編集する", edit_information_path, class: "btn btn-outline-success btn-sm btn-block" %>
+		<%= link_to"お気に入り記事",favorites_employee_path(@employee), class: "btn btn-outline-warning" %>
+	</h3>
+  
+	<h2 class="card-title text-center">マイページ</h2>
+	<h3>
+		登録情報<%= link_to "編集する", edit_information_path, class: "btn btn-outline-success btn-sm btn-block" %>
 	</h3>
 	<table class="table table-bordered">
 		<thead>
@@ -11,6 +14,14 @@
 			<th></th>
 			<th></th>
 		</thead>
+		
+		<div>
+			<h3>プロフィール画像</h3>
+			<% if @employee.image.attached? %>
+             <%= image_tag(@employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+      <% end %>
+    </div>
+		
 		<tbody>
 			<tr>
 				<td>企業ID</td>
@@ -24,15 +35,25 @@
 				<td>所属</td>
 				<td><%= @employee.store.name %>店</td>
 			</tr>
+			<tr>
+				<td>プロフィール画像</td>
+				<td>
+					<% if @employee.image.attached? %>
+             <%= image_tag(@employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+          <% end %>
+        </td>
+			</tr>
+			
+			
 		  <tr>
 				<td>名前</td>
-				<td>(姓) <%= @employee.first_name %></td>
-				<td>(名) <%= @employee.last_name %></td>
+				<td>(姓) <%= @employee.last_name %></td>
+				<td>(名) <%= @employee.first_name %></td>
 			</tr>
 			<tr>
 				<td>フリガナ</td>
-				<td>(セイ) <%= @employee.first_name_kana %></td>
-				<td>(メイ) <%= @employee.last_name_kana %></td>
+				<td>(セイ) <%= @employee.last_name_kana %></td>
+				<td>(メイ) <%= @employee.first_name_kana %></td>
 			</tr>
 			<tr>
 				<td>メールアドレス</td>
@@ -40,8 +61,12 @@
 			</tr>
 		</tbody>
 	</table>
-	<h3>
+	<h3 class= "text-center">
 		<%= link_to "投稿一覧", posts_path, class: "btn btn-outline-primary btn-sm" %>
 	</h3>
 </div>
-<p><%=link_to"お気に入り記事",favorites_employee_path(@employee) %></p>
+<h1>自分が投稿した履歴</h1>
+
+<% @my_posts.each do |post| %>
+  <%= render "user/posts/post", post: post %>
+<% end %>
