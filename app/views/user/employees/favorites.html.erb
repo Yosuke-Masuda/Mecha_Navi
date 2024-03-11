@@ -1,58 +1,7 @@
 いいね一覧
+<h3>
+		<%= link_to"マイページへ戻る",mypage_path(@employee), class: "btn btn-outline-success" %>
+</h3>
 <% @favorite_posts.each do |post|%>
-<div class="card mb-3" style="max-width: autopx;">
-  <div class="row no-gutters">
-    
-      <div class="col-md-4">
-        <% if post.images.present? %>
-         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <% post.images.each_with_index do |image, index| %>
-                <div class="carousel-item <%= 'active' if index == 0 %>">
-                 <%= image_tag(image, width:"100%", height:"250") %>
-                </div>
-              <% end %>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">前へ</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">次へ</span>
-           </a>
-          </div>
-       <% end %>
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title">タイトル:<%= post.title %></h5>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">会社名：<%= post.employee.company.company_name %>　店舗名：<%= post.employee.store.name %>店　投稿者：<%= post.employee.last_name %>　<%= post.employee.first_name %></li>
-    
-
-            <li class="list-group-item">車名：<%= post.car_name.name if post.car_name.present? %>　型式：<%= post.car_name.car_type if post.car_name.present? %>　ジャンル：<%= post.genre.name if post.genre.present? %></li>
-    
-          </ul>
-        
-          <p class="card-text">説明文：<%= post.caption %></p>
-          
-          
-          
-          <p class="card-text">説明文：<%= post.caption %></p>
-          
-          <p class="card-text"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></small></p>
-          <div class="card-body">
-            <%= link_to '投稿詳細', post_path(post.id) %>
-            <% if post.employee_id == current_employee.id %>
-              <%= link_to '編集', edit_post_path(post.id) %>
-              <%= link_to '削除', post, method: :delete, data: { confirm: '削除してよろしいですか?' } %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-  </div>
-</div>
-<li id="post-<%= post.id %>"></li>
-
+ <%= render "user/posts/post", post: post %>
 <% end %>

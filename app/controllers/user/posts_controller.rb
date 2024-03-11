@@ -1,17 +1,21 @@
 class User::PostsController < ApplicationController
   before_action :set_current_employee, only: [:new, :index, :show, :edit, :update, :unsubscribe, :withdraw, :create]
   def index
-    @posts = Post.all
+    @posts = Post.order(created_at: :desc)
     @post = @posts.first
+    @images = @post.images
+    @post = @post.video
   end
   
+  
+  
   def new
-  @post = Post.new
-  @employee = current_employee
-  @company = @employee.company
-  @post = current_employee.posts.build
-  @genres = @company.genres
-  @car_names = @company.car_names
+   @post = Post.new
+   @employee = current_employee
+   @company = @employee.company
+   @post = current_employee.posts.build
+   @genres = @company.genres
+   @car_names = @company.car_names
   end
   
   def create
@@ -37,7 +41,8 @@ class User::PostsController < ApplicationController
   
   def show
     @post = Post.find(params[:id])
-    @image = @post.images.first
+    @images = @post.images
+    @video = @post.video
     @post_comment = PostComment.new
   end  
   
@@ -76,6 +81,6 @@ class User::PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:employee_id, :company_id, :title, :store_id, :genre_id, :car_name_id, :car_type_id, :video_id, :caption, :is_active, images: [])
+    params.require(:post).permit(:employee_id, :company_id, :title, :store_id, :genre_id, :car_name_id, :car_type_id, :video, :caption, :is_active, images: [])
   end
 end
