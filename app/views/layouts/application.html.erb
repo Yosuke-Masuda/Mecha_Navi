@@ -68,8 +68,8 @@
               EmployeeDropdown
              </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-             <a class="dropdown-item" href="/companies/employees/new">社員登録</a>
-             <a class="dropdown-item" href="/companies/employees/index">社員一覧</a>
+             <a class="dropdown-item" href="/companies/employees/new"><i class="fa-solid fa-user-plus"></i>社員登録</a>
+             <a class="dropdown-item" href="/companies/employees/index"><i class="fa-solid fa-users-viewfinder"></i>社員一覧</a>
              <a class="dropdown-item" href="/companies/employee/:id">社員詳細</a>
             </div>
           </li>
@@ -81,18 +81,18 @@
           </li>
          <% elsif employee_signed_in? %>
           <li class="nav-item active">
-             <a class="nav-link" href="/employees/mypage">マイページ <span class="sr-only">(current)</span></a>
+             <a class="nav-link" href="/employees/mypage"><i class="fa-solid fa-id-card"></i> マイページ <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-             <a class="nav-link" href="#"><i class="fa-solid fa-image fa-1a"></i>post_lists</a>
+             <a class="nav-link" href="#"><i class="fa-solid fa-image fa-1a"></i> post_lists</a>
           </li>
           <li class="nav-item dropdown">
              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                Dropdown
              </a>
            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-             <a class="dropdown-item" href="/posts/new">投稿</a>
-             <a class="dropdown-item" href="/posts">投稿一覧</a>
+             <a class="dropdown-item" href="/posts/new"><i class="fa-regular fa-square-plus"></i> 投稿</a>
+             <a class="dropdown-item" href="/posts"><i class="fa-regular fa-file-image"></i> 投稿一覧</a>
              <a class="dropdown-item"></a>
            </div>
           </li>

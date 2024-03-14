@@ -1,7 +1,10 @@
+<div class="card jumbotron mx-auto">
 <h1>投稿</h1>
 <%= form_with(model: @post, url: '/posts', local: true) do |f| %>
 <%= render 'layouts/error_messages', resource: @post %>
 
+<table class="table table-bordered">
+  <tbody>
   <tr>
 				<td>企業ID</td>
 				<td><%= @employee.company.id %></td>
@@ -16,50 +19,56 @@
 			</tr>
 		  <tr>
 				<td>名前</td>
-				<td>(姓) <%= @employee.first_name %></td>
-				<td>(名) <%= @employee.last_name %></td>
+				<td>(姓) <%= @employee.last_name %></td>
+				<td>(名) <%= @employee.first_name %></td>
 			</tr>
 			<tr>
 				<td>フリガナ</td>
-				<td>(セイ) <%= @employee.first_name_kana %></td>
-				<td>(メイ) <%= @employee.last_name_kana %></td>
+				<td>(セイ) <%= @employee.last_name_kana %></td>
+				<td>(メイ) <%= @employee.first_name_kana %></td>
 			</tr>
-  <div class="filed mb-1">
+			</tbody>
+			</table>
+  <div class="field mb-1">
     <th><%= f.label :genre_id, "ジャンルの選択:", class: 'col-3' %></th>
     <td><%= f.collection_select :genre_id, current_employee.company.genres, :id, :name, :prompt => "--選択して下さい--", class: 'rounded' %></td>
   </div>
-  <div class="filed mb-1">
+  <div class="field mb-1">
     <th><%= f.label :car_name_id, "車名の選択:", class: 'col-3' %></th>
     <td><%= f.collection_select :car_name_id, current_employee.company.car_names, :id, :name, :prompt => "--選択して下さい--", class: 'rounded' %></td>
   </div>
-  <div class="filed mb-1">
+  <div class="field mb-1">
     <th><%= f.label :car_name_id, "型式の選択:", class: 'col-3' %></th>
     <td><%= f.collection_select :car_type_id, current_employee.company.car_names, :id, :car_type, :prompt => "--選択して下さい--", class: 'rounded' %></td>
   </div>
-  <div>
-    <%= f.label :title, 'タイトル' %>
-    <%= f.text_field :title %>
-  </div>
-  <div>
-    <%= f.label :images, '画像' %>
-    <%= f.file_field :images, multiple: true %>
+  <div class="field mb-1">
+    <th><%= f.label :title, 'タイトル:', class: 'col-3' %></th>
+    <td><%= f.text_field :title, placeholder: "タイトル記入" %></td>
   </div>
   
-  <div>
-    <%= f.label :video, '動画' %>
-    <p>video</p><%= f.file_field :video %>
-  </div>
-  <div>
-    <%= f.label :caption, '説明' %>
-    <%= f.text_area :caption %>
-  </div>
-  <div>
-    <%= f.label :caption, '説明' %>
-    <%= f.text_area :caption %>
+  
+  <div class="field mb-1">
+   <%= f.label :images, '画像', class: 'col-3' %>
+    <div class="col-9">
+     <td><%= f.file_field :images, multiple: true, accept: "image/*" %></td>
+    </div>
   </div>
   
 
-  <div>
-    <%= f.submit  '投稿する' %>
+  <div class="field mb-1">
+    <%= f.label :video, '動画', class: 'col-3' %>
+    <div class="col-9">
+     <%= f.file_field :video %>
+    </div>
+  </div>
+  
+  <div class="field mb-1">
+    <th><%= f.label :caption, '説明', class: 'col-3' %></th>
+    <td><%= f.text_area :caption, class: "form-control" %></td>
+  </div>
+
+  <div class="field mb-1">
+    <th><%= f.submit  '投稿する', class: 'col-3' %></th>
   </div>
 <% end %>
+</div>

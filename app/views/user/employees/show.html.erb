@@ -6,21 +6,9 @@
   
 	<h2 class="card-title text-center">マイページ</h2>
 	<h3>
-		登録情報<%= link_to "編集する", edit_information_path, class: "btn btn-outline-success btn-sm btn-block" %>
+		登録情報　<%= link_to "編集する", edit_information_path, class: "btn btn-outline-success" %>
 	</h3>
 	<table class="table table-bordered">
-		<thead>
-			<th></th>
-			<th></th>
-			<th></th>
-		</thead>
-		
-		<div>
-			<h3>プロフィール画像</h3>
-			<% if @employee.image.attached? %>
-             <%= image_tag(@employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
-      <% end %>
-    </div>
 		
 		<tbody>
 			<tr>
@@ -39,9 +27,11 @@
 				<td>プロフィール画像</td>
 				<td>
 					<% if @employee.image.attached? %>
-             <%= image_tag(@employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
-          <% end %>
-        </td>
+                     <%= image_tag(@employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+                    <% else %>
+                     <%= image_tag("kougu.jpg", class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+                    <% end %>
+                </td>
 			</tr>
 			
 			
