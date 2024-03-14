@@ -1,14 +1,14 @@
 class User::PostsController < ApplicationController
   before_action :set_current_employee, only: [:new, :index, :show, :edit, :update, :unsubscribe, :withdraw, :create]
   def index
-    @posts = Post.order(created_at: :desc)
+    @posts = Post.page(params[:page]).order(created_at: :desc)
     @post = @posts.first
-    @images = @post.images
+    @images = @post.images.distinct
     @post = @post.video
   end
-  
-  
-  
+
+
+
   def new
    @post = Post.new
    @employee = current_employee
@@ -17,7 +17,7 @@ class User::PostsController < ApplicationController
    @genres = @company.genres
    @car_names = @company.car_names
   end
-  
+
   def create
     @post = Post.new(post_params)
     @post.store_id = current_employee.store_id
@@ -26,9 +26,15 @@ class User::PostsController < ApplicationController
     @post.genre_id = params[:post][:genre_id]
     @post.car_name_id = params[:post][:car_name_id]
     if params[:post][:images]
-      @post.images.attach(params[:post][:images])
+      unique_images = []
+      params[:post][:images].each do |image|
+        unless unique_images.include?(image)
+         unique_images << image
+        end
+      end
+      @post.images.attach(unique_images)
     end
-    
+
     if @post.save
      flash[:success] = "作成しました"
      redirect_to posts_path
@@ -38,18 +44,18 @@ class User::PostsController < ApplicationController
      render :new
     end
   end
-  
+
   def show
     @post = Post.find(params[:id])
-    @images = @post.images
+    @images = @post.images.distinct
     @video = @post.video
     @post_comment = PostComment.new
-  end  
-  
+  end
+
   def edit
     @post = Post.find(params[:id])
   end
-  
+
   def update
     post = Post.find(params[:id])
     if params[:post][:image_ids]
@@ -59,7 +65,7 @@ class User::PostsController < ApplicationController
       end
     end
     if post.update(post_params)
-      
+
       flash[:success] = "編集しました"
       redirect_to posts_path
     else
@@ -75,7 +81,7 @@ class User::PostsController < ApplicationController
   end
 
   private
-  
+
   def set_current_employee
     @employee = current_employee
   end

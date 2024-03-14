@@ -1,3 +1,20 @@
-<h1>投稿一覧</h1>
-<%= link_to '新規投稿', new_post_path %>
-<%= render partial: 'post', collection: @posts %>
+<div class="card jumbotron">
+    <h1 class="display-4">投稿一覧</h1>
+    <%= link_to '新規投稿', new_post_path, class: "btn btn-outline-success" %>
+    <%= render partial: 'post', collection: @posts %>
+    <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">Previous</a>
+    </li>
+    <% (1..@total_pages).each do |page| %>
+      <li class="page-item">
+        <a class="page-link" href="#"><%= page %></a>
+      </li>
+    <% end %>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
+</div>

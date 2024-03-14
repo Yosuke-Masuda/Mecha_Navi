@@ -17,7 +17,7 @@ class User::EmployeesController < ApplicationController
   
   def show
    @company = current_employee.company
-   @my_posts = Post.where(employee_id: current_employee.id)
+   @my_posts = Post.where(employee_id: current_employee.id).order(created_at: :desc)
    render :show
   end
 
