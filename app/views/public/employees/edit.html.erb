@@ -1,13 +1,9 @@
-<div class="row mx-auto">
-  <div class="edit-title mx-auto">
-    <h4 class="font-italic"><%= @employee.last_name %><%= @employee.first_name %>さんの会員情報編集</h4>
-  </div>
-</div>
+<div class="card-body jumbotron">
+    <h4 class="mb-3 text-center font-italic"><%= @employee.last_name %><%= @employee.first_name %>さんの会員情報編集</h4>
 
-<div class="card-body">
   <blockquote class="blockquote mb-0">
    <div>
-     <%= form_with( model: @employee, url: employee_path, local: true) do |f| %>
+     <%= form_with( model: @employee, url: public_update_employee_path, local: true) do |f| %>
          <table class="table table-bordered">
            <tbody>
              <tr>
@@ -31,7 +27,7 @@
                <td>
                  <%= f.label :is_active, '有効', value: true %>
                  <%= f.radio_button :is_active, true %>
-                 <%= f.label :is_active, '無効', value: false %>
+                 <%= f.label :is_active, '退職', value: false %>
                  <%= f.radio_button :is_active, false %>
                </td>
              </tr>

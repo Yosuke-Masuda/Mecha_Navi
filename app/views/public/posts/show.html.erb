@@ -23,10 +23,14 @@
     
 
     <div class="card-body">
-       <% if @post.employee.company_id == current_company.id %>
-         <%= link_to '編集', public_edit_posts_path(@post.id) %>
-         <%= link_to '削除', destroy_public_posts_path, method: :delete, data: { confirm: '削除してよろしいですか?' } %>
-       <% end %>
+      <div class="btn-group" role="group" aria-label="Basic example">
+             <%= link_to '投稿一覧へ', public_index_posts_path(@post_id), class: "btn btn-outline-primary" %>
+
+              <% if @post.employee.company_id == current_company.id %>
+               <%= link_to '編集', public_edit_posts_path(@post.id), class: "btn btn-outline-success" %>
+               <%= link_to '削除', destroy_public_posts_path, method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
+              <% end %>
+      </div>
     </div>
   </div>
 </div>

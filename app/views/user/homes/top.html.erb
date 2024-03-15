@@ -6,36 +6,36 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="<%= asset_path('top.jpg') %>", class="d-block w-100" alt="top1_s">
+      <div style="position: relative;">
+       <img src="<%= asset_path('top.jpg') %>", class="d-block w-100" alt="top">
       
-      <div class="card-img-overlay d-flex">
-          <div class="col-md-6 position-static p-4 pl-md-0">
-           <h5 class="mt-0">Mecha＿Navi</h5>
-           <p class="text-white">Mecha＿Naviは、サービスマニュアルだけではイメージイメージができない時などに使用します。作業の効率・質の向上に繋がればと思います。</p>
-           <a href="#" class="stretched-link">Go somewhere</a>
-          </div>
+
+        <div class="card-img-overlay d-flex">
+         <p class="text-white" style="position: absolute; top: 100px; right: 100px; width: 500px; font-size: 30px;">
+           Mecha＿Naviは、サービスマニュアルだけではイメージができない時や診断内容を共有する時などに使用します。作業の効率・質の向上に繋がればと思います。
+         </p>
+        </div>
       </div>
-      
-       <div class="carousel-caption d-none d-md-block">
-         <div class="d-print-none ">Screen Only (Hide on print only)</div>
-         <h5>Mecha＿Navi</h5>
-        <p>...</p>
-    </div>
 
     </div>
     <div class="carousel-item">
       <img src="<%= asset_path('top1_s.jpg') %>", class="d-block w-100" alt="top1_s">
-      <div class="carousel-caption d-none d-md-block">
-       <h5>...</h5>
-       <p>...</p>
+      <div class="carousel-caption d-none d-sm-block" style="position: absolute; top: 100px; right: 100px;">
+        <div class="text-left float-right">
+       <h1 class="text-sm font-weight-bold">【 積極的に投稿を 】</h1>
+       <h5 class="text-sm">　投稿をして作業内容の情報共有をして</br>
+       　効率・質を向上しましょう</h5>
+       </div>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="<%= asset_path('top2.jpg') %>", class="d-block w-100" alt="top1_s">
-      <div class="carousel-caption d-none d-md-block">
-    <h5>...</h5>
-    <p>...</p>
-  </div>
+      <img src="<%= asset_path('top2.jpg') %>", class="d-block w-100" alt="top2_s">
+      <div class="carousel-caption d-none d-sm-block" style="position: absolute; top: 100px; right: 100px;">
+        <div class="text-left float-right">
+       <h1 class="text-sm font-weight-bold">【 タスク確認を 】</h1>
+       <h5 class="text-sm">翌日のお客様を迎える準備をしましょう。</h5>
+       </div>
+      </div>
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

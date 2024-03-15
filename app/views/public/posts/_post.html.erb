@@ -39,11 +39,13 @@
           
           <p class="card-text">説明文：<%= post.caption %></p>
           
-          <p class="card-text"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></small></p>
+          <p class="card-text"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d/%H:%M') %></small></p>
           <div class="card-body">
-            <%= link_to '投稿詳細', public_show_post_path(post.id) %>
-              <%= link_to '編集', public_edit_posts_path(post.id) %>
-              <%= link_to '削除', destroy_public_posts_path, method: :delete, data: { confirm: '削除してよろしいですか?' } %>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <%= link_to '投稿詳細', public_show_post_path(post.id), class: "btn btn-outline-primary"%>
+              <%= link_to '編集', public_edit_posts_path(post.id), class: "btn btn-outline-success" %>
+              <%= link_to '削除', destroy_public_posts_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
+            </div>
           </div>
         </div>
       </div>
