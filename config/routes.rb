@@ -15,21 +15,22 @@ Rails.application.routes.draw do
   scope module: :user do
    root :to => "homes#top"
    get "about" => "homes#about"
-   get 'employees/mypage' => 'employees#show', as: 'mypage'
    get 'employees/information/edit' => 'employees#edit', as: 'edit_information'
+   resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+       resource :favorites, only: [:create, :destroy]
+       resources :post_comments, only: [:create, :destroy]
+     end
+   resources :employees, except: [:index] do
+      member do
+        get :favorites
+     end
+   get 'employees/mypage' => 'employees#show', as: 'mypage'
    patch 'employees/information' => 'employees#update', as: 'update_information'
    put 'employees/information' => 'employees#update'
    get 'employees/unsubscribe' => 'employees#unsubscribe', as: 'confirm_unsubscribe'
    patch 'employees/withdraw' => 'employees#withdraw', as: 'withdraw_employee'
    put 'employees/withdraw' => 'employees#withdraw'
-   resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
-       resource :favorites, only: [:create, :destroy]
-       resources :post_comments, only: [:create, :destroy]
-     end
-   resources :employees do
-      member do
-        get :favorites
-     end
+     
    end
    
    end
@@ -52,7 +53,9 @@ Rails.application.routes.draw do
    get "companies/unsubscribe" => "companies#unsubscribe"
    patch "companies/withdraw" => "companies#withdraw"
    resources :employees, only: [:create, :index, :show, :edit, :update]
+   patch 'companies/employees/:id' => 'employees#update', as: 'public_update_employee'
    post 'companies/employees' => 'employees#create', as: 'public_employees'
+   get 'companies/employees/edit/:id' => 'employees#edit', as: 'public_edit_employees'
    get 'companies/employees/new' => 'employees#new', as: 'public_new_employees'
    get 'companies/employees/index' => 'employees#index', as: 'public_index_employees'
    get 'companies/employees/show/:id' => 'employees#show', as: 'public_show_employees'

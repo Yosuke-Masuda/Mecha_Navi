@@ -44,11 +44,6 @@
           <div class="card-body">
             <div class="btn-group" role="group" aria-label="Basic example">
              <%= link_to '投稿詳細', post_path(post.id), class: "btn btn-outline-primary" %>
-
-              <% if post.employee_id == current_employee.id %>
-               <%= link_to '編集', edit_post_path(post.id), class: "btn btn-outline-success" %>
-               <%= link_to '削除', post, method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
-              <% end %>
             </div>
           </div>
         </div>

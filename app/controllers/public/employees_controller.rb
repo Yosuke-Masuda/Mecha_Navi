@@ -14,7 +14,7 @@ class Public::EmployeesController < ApplicationController
   end
   
   def index
-    @employees = current_company.employees
+    @employees = current_company.employees.page(params[:page]).per(10)
   end
   
   def show
@@ -34,7 +34,7 @@ class Public::EmployeesController < ApplicationController
   def update
     @employee = Employee.find(params[:id])
     if @employee.update(employee_params)
-      redirect_to employee_path(@employee.id), notice: "会員情報を変更しました"
+      redirect_to public_index_employees_path(@employee_id), notice: "会員情報を変更しました"
     else
       render "edit"
     end
