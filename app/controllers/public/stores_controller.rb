@@ -12,12 +12,19 @@ class Public::StoresController < ApplicationController
     @store =Store.new(store_params)
     @store.company_id = current_company.id
     if @store.save
+      flash[:notice] = "作成しました"
       redirect_to stores_path
     else
+      flash[:alert] = "作成に失敗しました"
       @stores = current_company.stores  
       render :index
     end
 
+  end
+  
+  def show
+    @store = Store.find(params[:id])
+    @employees = @store.employees
   end
 
   def edit
@@ -27,6 +34,7 @@ class Public::StoresController < ApplicationController
   def update
     @store = Store.find(params[:id])
     if @store.update(store_params)
+      flash[:notice] = "編集しました"
       redirect_to stores_path
     else
       render "edit"

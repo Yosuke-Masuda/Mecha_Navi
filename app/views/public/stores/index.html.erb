@@ -1,12 +1,10 @@
-<section class="inner">
-	<h2 class="section-ttl">店舗管理</h2>
-	<div class="mb3">
+<div class="card jumbotron">
+	<h2 class="text-center mb-3">店舗管理</h2>
+	<div class="card-body text-center mb-3">
 		<h3>店舗新規登録</h3>
   	<%= render 'form', store: @store, url: stores_path, submit: '登録' %>
-	</div>
-	<div class="mb3">
 		<h3>店舗一覧</h3>
-		<table class="store_info has_border">
+		<table class="table table-bordered col-10 mx-auto">
 			<thead>
 				<tr>
 					<th>店舗名</th>
@@ -17,7 +15,7 @@
 			<tbody>
 				<% @stores.each do |store| %>
 					<tr>
-						<td><%= link_to store.name, stores_path(store_id: store.id), class: "underline" %>店</td>
+						<td><%= link_to store.name, store_path(store.id), class: "underline" %>店</td>
 						<td>
 							<% if store.is_active? %>
 								<span class="text-active">有効</span>
@@ -25,10 +23,10 @@
 								<span class="text-invalid">無効</span>
 							<% end %>
 						</td>
-						<td class="text-center"><%= link_to "編集", edit_store_path(store), class: "btn btn-success" %></td>
+						<td class="text-center"><%= link_to "編集", edit_store_path(store), class: "col-4 btn btn-outline-success btn-sm" %></td>
 					</tr>
 				<% end %>
 			</tbody>
 		</table>
 	</div>
-</section>
+</div>
