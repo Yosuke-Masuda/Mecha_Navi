@@ -44,7 +44,10 @@
             <div class="btn-group" role="group" aria-label="Basic example">
               <%= link_to '投稿詳細', public_show_post_path(post.id), class: "btn btn-outline-primary"%>
               <%= link_to '編集', public_edit_posts_path(post.id), class: "btn btn-outline-success" %>
-              <%= link_to '削除', destroy_public_posts_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
+              <%= form_with url: destroy_public_posts_path(post.id), method: :delete do |f| %>
+                <%= f.submit 'delete' %>
+              <% end %>
+              <%= button_to '削除', destroy_public_posts_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
             </div>
           </div>
         </div>

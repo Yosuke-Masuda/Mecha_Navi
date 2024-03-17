@@ -5,6 +5,7 @@
   <% if @range == "Employee" %>
     <tbody>
      <% @employees.each do |employee| %>
+         <!--他企業の情報を見れないようにする) -->
        <% if employee.company_id == current_employee.company_id %>
          <tr>
            <td>会社名：<%= employee.company.company_name %>　
@@ -19,6 +20,7 @@
     <!--検索対象モデルがUserではない時(= 検索対象モデルがPostの時) -->
     <tbody>
       <% @posts.each do |post| %>
+               <!--他企業の情報を見れないようにする) -->
        <% if post.employee.company_id == current_employee.company_id %>
         <tr>
           <td>タイトル：<%= post.title %></td>

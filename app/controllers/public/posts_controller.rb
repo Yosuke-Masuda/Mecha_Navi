@@ -34,12 +34,12 @@ class Public::PostsController < ApplicationController
 
 
   def destroy
-   begin
+   #begin
    @post = Post.find(params[:id])
    @post.destroy
    flash[:success] = "削除しました"
    redirect_to public_index_posts_path
-   end
+   #end
   end
 
   private

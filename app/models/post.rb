@@ -19,7 +19,7 @@ class Post < ApplicationRecord
   
   def self.looks(search, word)
     if search == "perfect_match"
-      @post = Post.where("title = ? OR car_name_id = ? OR car_type_id = ?", word, word, word)
+      @post = Post.joins(:car_name).where("title = ? OR car_names.name = ? OR car_names.car_type = ?", word, word, word)
     elsif search == "forward_match"
       @post = Post.where("title LIKE? OR car_name_id LIKE ? OR car_type_id LIKE ?", "#{word}", "#{word}", "#{word}")
     elsif search == "backward_match"
