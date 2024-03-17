@@ -1,16 +1,16 @@
 <div class="card" style="width: 100%; margin: 0 auto;">
-  
+
   <div class="card-body">
     <h5 class="card-title">タイトル:<%= @post.title %></h5>
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">会社名：<%= @post.employee.company.company_name %>　店舗名：<%= @post.employee.store.name %>店　投稿者：<%= @post.employee.last_name %>　<%= @post.employee.first_name %></li>
-    
+
 
     <li class="list-group-item">車名：<%= @post.car_name.name if @post.car_name.present? %>　型式：<%= @post.car_name.car_type if @post.car_name.present? %>　ジャンル：<%= @post.genre.name if @post.genre.present? %></li>
-    
+
   </ul>
-  
+
   <% if @post.images.attached? %>
      <div style="text-align: center;">
       <% @post.images.distinct.each do |image| %>
@@ -22,16 +22,16 @@
           <%= video_tag rails_blob_path(@post.video), controls: true, class: 'responsive-video rounded', width: '100%' %>
         </div>
   <% end %>
-  
+
   <div class="card-body">
-    
+
     <p class="card-text">説明文：<%= @post.caption %></p>
-    
+
     <p class="card-text"><small class="text-muted">投稿日：<%= @post.created_at.strftime('%Y/%m/%d') %></small></p>
-    
+
     <p><%= link_to "#{@post.post_comments.count} コメント", post_path(@post.id) %></p>
-    
-    
+
+
   </div>
   <div class="card-body">
       <div class="btn-group" role="group" aria-label="Basic example">
@@ -39,7 +39,7 @@
 
               <% if @post.employee_id == current_employee.id %>
                <%= link_to '編集', edit_post_path(@post.id), class: "btn btn-outline-success" %>
-               <%= link_to '削除', @post, method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
+               <%= button_to '削除', @post, method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
               <% end %>
       </div>
     </div>
@@ -47,7 +47,7 @@
      <p>コメント件数：<%= @post.post_comments.count %></p>
      <p>いいね件数：<%= @post.favorites.count %></p>
      <% @post.post_comments.each do |post_comment| %>
-      
+
       <% if @employee.image.attached? %>
         <%= image_tag(@employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
       <% else %>
@@ -57,7 +57,7 @@
      <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
      <% if post_comment.employee == current_employee %>
       <div>
-       <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
+       <%= button_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
       </div>
      <% end %>
      <% if @post.favorited_by?(current_employee) %>

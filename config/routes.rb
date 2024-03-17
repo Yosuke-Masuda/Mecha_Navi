@@ -63,7 +63,7 @@ Rails.application.routes.draw do
    get 'companies/employees/show/:id' => 'employees#show', as: 'public_show_employees'
    get "employees/unsubscribe" => "employees#unsubscribe"
    patch "employees/withdraw" => "employees#withdraw"
-   resources :stores, only: [:index, :create, :edit, :update]
+   resources :stores, only: [:index, :create, :show, :edit, :update]
    resources :genres, only: [:index, :create, :edit, :update]
    resources :car_names, only: [:index, :create, :edit, :update], param: :id
    get 'companies/posts/new' => 'posts#new', as: 'public_new_posts'

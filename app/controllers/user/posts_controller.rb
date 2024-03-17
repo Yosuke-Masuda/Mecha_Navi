@@ -66,15 +66,15 @@ class User::PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
-    @post.destroy
-    flash[:alert] = "削除しました"
-    
-    if request.referrer == post_path
-      redirect_to posts_path
-    else
-      redirect_to mypage_path
-    end
+   @post = Post.find(params[:id])
+   @post.destroy
+   flash[:alert] = "削除しました"
+  
+   if request.referer == post_path(@post)
+     redirect_to posts_path
+   else
+     redirect_to mypage_path
+   end
   end
 
   private
