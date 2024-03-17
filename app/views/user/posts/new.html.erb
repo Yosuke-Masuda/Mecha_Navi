@@ -48,15 +48,19 @@
   
   
   <div class="field mb-1">
-   <%= f.label :images, '画像', class: 'col-3' %>
+    <label for="post_images" style="cursor: pointer;">
+      <i class="col-3 fas fa-image fa-lg"></i>
+    </label>
     <div class="col-9">
-     <td><%= f.file_field :images, multiple: true, accept: "image/*" %></td>
+     <td><%= f.file_field :images, id: "post_images", multiple: true, accept: "image/jpeg, iamge/gif, image/png" %></td>
     </div>
   </div>
   
 
   <div class="field mb-1">
-    <%= f.label :video, '動画', class: 'col-3' %>
+    <label for="post_video" style="cursor: pointer;">
+      <i class="col-3 fas fa-video fa-lg"></i>
+    </label>
     <div class="col-9">
      <%= f.file_field :video %>
     </div>

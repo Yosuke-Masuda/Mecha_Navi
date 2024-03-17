@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get "search" => "searches#search"    
+
 
   devise_for :admins, path: "/admin", skip: [:registrations, :passwords] ,controllers: {
     sessions: 'admin/sessions',
@@ -15,6 +17,7 @@ Rails.application.routes.draw do
   scope module: :user do
    root :to => "homes#top"
    get "about" => "homes#about"
+   get 'employees/mypage' => 'employees#show', as: 'mypage'
    get 'employees/information/edit' => 'employees#edit', as: 'edit_information'
    resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
        resource :favorites, only: [:create, :destroy]
@@ -24,15 +27,14 @@ Rails.application.routes.draw do
       member do
         get :favorites
      end
-   get 'employees/mypage' => 'employees#show', as: 'mypage'
+   end
    patch 'employees/information' => 'employees#update', as: 'update_information'
    put 'employees/information' => 'employees#update'
    get 'employees/unsubscribe' => 'employees#unsubscribe', as: 'confirm_unsubscribe'
    patch 'employees/withdraw' => 'employees#withdraw', as: 'withdraw_employee'
    put 'employees/withdraw' => 'employees#withdraw'
      
-   end
-   
+
    end
 
   

@@ -16,4 +16,18 @@ class Post < ApplicationRecord
   
   validates :title, presence: true
   validates :caption, presence: true
+  
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @post = Post.where("title = ? OR car_name_id = ? OR car_type_id = ?", word, word, word)
+    elsif search == "forward_match"
+      @post = Post.where("title LIKE? OR car_name_id LIKE ? OR car_type_id LIKE ?", "#{word}", "#{word}", "#{word}")
+    elsif search == "backward_match"
+      @post = Post.where("title LIKE? OR car_name_id LIKE ? OR car_type_id LIKE ?", "#{word}", "#{word}", "#{word}")
+    elsif search == "partial_match"
+      @post = Post.where("title LIKE? OR car_name_id LIKE ? OR car_type_id LIKE ?", "#{word}", "#{word}", "#{word}")
+    else
+      @post = Post.all
+    end
+  end
 end
