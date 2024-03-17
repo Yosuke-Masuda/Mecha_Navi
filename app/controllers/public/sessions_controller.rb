@@ -8,15 +8,17 @@ class Public::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+    #POST /resource/sign_in
+    def create
+      super
+      flash[:notice] = "ログインしました。"
+    end
 
-  # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+     #DELETE /resource/sign_out
+    def destroy
+     super
+     flash[:notice] = "ログアウトしました"# ログイン成功時のメッセージを追加する
+    end
 
   # protected
 

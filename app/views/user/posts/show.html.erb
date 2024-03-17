@@ -18,7 +18,9 @@
       <% end %>
      </div>
   <% elsif @post.video.attached? %>
-  <video src="<%= rails_blob_path(@post.video) %>" type="video/mp4" controls></video>
+        <div class='file-container'>
+          <%= video_tag rails_blob_path(@post.video), controls: true, class: 'responsive-video rounded', width: '100%' %>
+        </div>
   <% end %>
   
   <div class="card-body">

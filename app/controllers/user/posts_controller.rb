@@ -1,21 +1,17 @@
 class User::PostsController < ApplicationController
   before_action :set_current_employee, only: [:new, :index, :show, :edit, :update, :unsubscribe, :withdraw, :create]
   def index
-    @posts = Post.page(params[:page]).order(created_at: :desc)
-    @post = @posts.first
-    @images = @post.images.distinct
-    @post = @post.video
+    @posts = Post.page(params[:page]).order(created_at: :desc) #ページネーションと新しい投稿順に表示
+    @images = @posts.map { |post| post.images.map(&:blob) }.flatten.uniq #@postの中から重複を除いた画像を@imagesに代入します。
+    @video = @posts.first.video #動画の表示
   end
 
 
 
   def new
-   @post = Post.new
-   @employee = current_employee
-   @company = @employee.company
-   @post = current_employee.posts.build
-   @genres = @company.genres
-   @car_names = @company.car_names
+   @employee = current_employee #現在のユーザーが所属する会社と従業員の情報を取得します。
+   @company = @employee.company #現在のユーザーが所属する会社と従業員の情報を取得します。
+   @post = current_employee.posts.build #@postには、現在のユーザーが作成する投稿の情報を設定しています。
   end
 
   def create
@@ -25,19 +21,15 @@ class User::PostsController < ApplicationController
     @post.employee_id = current_employee.id
     @post.genre_id = params[:post][:genre_id]
     @post.car_name_id = params[:post][:car_name_id]
-    if params[:post][:images]
-      unique_images = []
-      params[:post][:images].each do |image|
-        unless unique_images.include?(image)
-         unique_images << image
-        end
-      end
-      @post.images.attach(unique_images)
-    end
+     if params[:post].present? && params[:post][:images].present?
+      @post.images.attach(params[:post][:images])
+     elsif params[:post].present? && params[:post][:video].present?
+      @post.video.attach(params[:post][:video])
+     end
 
     if @post.save
-     flash[:success] = "作成しました"
-     redirect_to posts_path
+     flash[:notice] = "作成しました"
+     redirect_to posts_path #indexへ
     else
      @posts = Post.all
      @company = Company.find(current_employee.company_id)
@@ -47,7 +39,7 @@ class User::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @images = @post.images.distinct
+    @images = @post.images.map(&:blob).uniq
     @video = @post.video
     @post_comment = PostComment.new
   end
@@ -59,14 +51,14 @@ class User::PostsController < ApplicationController
   def update
     post = Post.find(params[:id])
     if params[:post][:image_ids]
-      params[:post][:image_ids].each do |image_id|
+       params[:post][:image_ids].each do |image_id|
         image = post.images.find(image_id)
         image.purge
       end
     end
     if post.update(post_params)
 
-      flash[:success] = "編集しました"
+      flash[:notice] = "編集しました"
       redirect_to posts_path
     else
       render :edit
@@ -76,14 +68,19 @@ class User::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    flash[:success] = "削除しました"
-    redirect_to posts_path
+    flash[:alert] = "削除しました"
+    
+    if request.referrer == post_path
+      redirect_to posts_path
+    else
+      redirect_to mypage_path
+    end
   end
 
   private
 
   def set_current_employee
-    @employee = current_employee
+    @employee = current_employee #現在のユーザー（従業員）の情報を設定するために使用されます。
   end
 
   def post_params
