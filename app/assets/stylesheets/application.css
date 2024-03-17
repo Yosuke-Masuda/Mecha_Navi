@@ -13,15 +13,6 @@
  *= require_tree .
  *= require_self
  */
- .table-bordered {
-
-   border-color: blue;
-
-}
 
  
- @media (max-width: 768px) {
-  .text-white .p {
-    font-size: 14px !important;
-  }
-}
+ 

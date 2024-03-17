@@ -74,7 +74,7 @@ Rails.application.routes.draw do
    get 'companies/posts/show/:id' => 'posts#show', as: 'public_show_post'
    patch 'companies/posts' => 'posts#update', as: 'public_update_posts'
    put 'companies/posts' => 'posts#update', as: 'public_update_post'
-   delete 'companies/posts' => 'posts#destroy', as: 'destroy_public_posts'
+   delete 'companies/posts/:id' => 'posts#destroy', as: 'destroy_public_posts'
 
 
    end

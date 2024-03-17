@@ -22,7 +22,7 @@
         </div>
       <% elsif post.video.attached? %>
         <div class='file-container'>
-          <%= video_tag rails_blob_path(post.video), controls: true, class: 'responsive-video rounded', width: '100%', height: '250' %>
+          <%= video_tag rails_blob_url(post.video), controls: true, class: 'responsive-video rounded', width: '100%', height: '250' %>
         </div>
       <% end %>
       </div>
