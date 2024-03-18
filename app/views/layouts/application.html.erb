@@ -28,7 +28,7 @@
         <ul class="navbar-nav mr-auto">
          <% if admin_signed_in? %>
           <li class="nav-item active">
-           <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+           <a class="nav-link" href="/admin/top">投稿一覧 <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
            <a class="nav-link" href="/admin/companies">会員一覧</a>
@@ -42,7 +42,7 @@
              <a class="dropdown-item" href="/admin/car_names">車両管理</a>
            </div>
            <li class="nav-item">
-             <%= link_to destroy_admin_session_path, class: 'nav-link', method: :delete do %><i class="fa-solid fa-right-from-bracket"></i>logout<% end %>
+             <%= button_to destroy_admin_session_path, class: 'nav-link', method: :delete do %><i class="fa-solid fa-right-from-bracket"></i>logout<% end %>
            </li>
           </li>
          <% elsif company_signed_in? %>
@@ -61,6 +61,7 @@
              <a class="dropdown-item" href="/stores"><i class="fa-solid fa-shop"></i> 店舗管理</a>
              <a class="dropdown-item" href="/genres"><i class="fa-solid fa-list"></i> ジャンル管理</a>
              <a class="dropdown-item" href="/car_names"><i class="fa-solid fa-car"></i> 車両管理</a>
+             <a class="dropdown-item" href="/companies/tasks">タスク管理</a>
             </div>
           </li>
           <li class="nav-item dropdown">

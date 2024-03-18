@@ -1,0 +1,8 @@
+<%= form_with(model: task, url: url, local: true) do |f| %>
+	<%= render 'layouts/error_messages', resource: task %>
+	<%= f.label :name, "タスク名:" %>
+	<%= f.text_field :name %>
+	<%= f.label :body, "タスク内容:" %>
+	<%= f.text_field :body %>
+	<%= f.submit submit, class: "btn btn-primary ml2" %>
+<% end %>

@@ -1,0 +1,39 @@
+<div class="card jumbotron">
+  <div class="row">
+    <div class="col-7">
+      <div class="admin-heading col-7">
+        <h4><%= @company.company_name %>様の投稿履歴一覧</h4>
+      </div>
+      <div class="col-8"></div>
+    </div>
+    <div class="col-12 mx-auto">
+      <%= link_to '企業投稿一覧へ', admin_top_path, class: "btn btn-outline-primary" %>
+      <table class="table table_border">
+        <thead class="thead-light">
+          <div class="row table-row">
+            <div class="col-8 mx-auto">
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th>投稿者</th>
+                    <th>最近の投稿件数</th>
+                    <th>投稿全件数</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @recent_posts.each do |post| %>
+                    <tr>
+                      <td><%= post.employee.last_name %> <%= post.employee.first_name %></td>
+                      <td><%= post.recent_post_count %></td>
+                      <td><%= @all_posts_count %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>

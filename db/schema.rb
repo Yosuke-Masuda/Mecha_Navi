@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_09_032454) do
+ActiveRecord::Schema.define(version: 2024_03_18_171116) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -155,10 +155,25 @@ ActiveRecord::Schema.define(version: 2024_03_09_032454) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.integer "company_id"
+    t.integer "employee_id"
+    t.string "name"
+    t.string "body"
+    t.text "memo"
+    t.date "scheduled_date"
+    t.boolean "checked", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_tasks_on_company_id"
+    t.index ["employee_id"], name: "index_tasks_on_employee_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "employees", "companies"
   add_foreign_key "post_comments", "employees"
   add_foreign_key "post_comments", "posts"
   add_foreign_key "posts", "companies"
+  add_foreign_key "tasks", "employees"
 end

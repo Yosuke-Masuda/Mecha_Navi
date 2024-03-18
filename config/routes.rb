@@ -1,19 +1,19 @@
 Rails.application.routes.draw do
 
-  get "search" => "searches#search"    
+  get "search" => "searches#search"
 
 
   devise_for :admins, path: "/admin", skip: [:registrations, :passwords] ,controllers: {
     sessions: 'admin/sessions',
 
   }
-  
+
   scope module: :user do
   devise_for :employees, skip: [:registrations] ,controllers: {
     sessions: 'user/sessions',
   }
   end
-  
+
   scope module: :user do
    root :to => "homes#top"
    get "about" => "homes#about"
@@ -27,17 +27,16 @@ Rails.application.routes.draw do
       member do
         get :favorites
      end
+     resources :tasks, shallow: true, only: [:index], path: 'employees/tasks' # タスクのルーティングを追加
    end
    patch 'employees/information' => 'employees#update', as: 'update_information'
    put 'employees/information' => 'employees#update'
    get 'employees/unsubscribe' => 'employees#unsubscribe', as: 'confirm_unsubscribe'
-   patch 'employees/withdraw' => 'employees#withdraw', as: 'withdraw_employee'
-   put 'employees/withdraw' => 'employees#withdraw'
-     
+
 
    end
 
-  
+
   namespace :admin do
    get 'top' => 'homes#top', as: 'top'
    resources :genres, only: [:index, :create, :edit, :update]
@@ -45,13 +44,22 @@ Rails.application.routes.draw do
    resources :car_names, only: [:index, :create, :edit, :update], param: :id
    get 'admin/sign_out' => 'admin/sessions#destroy'
    resources :companies, only: [:index, :show, :edit, :update]
-
+   resources :posts
   end
-  
+
   scope module: :public do
-   get 'top' => 'homes#top', as: 'top'      
+   get 'top' => 'homes#top', as: 'top'
    get "about" => "homes#about"
-   resource :companies, only: [:show, :edit, :update]
+   resource :companies, only: [:show, :edit, :update] do
+    get '/tasks', to: 'tasks#index', as: 'public_tasks'
+    post '/tasks', to: 'tasks#create'
+    get '/tasks/new', to: 'tasks#new', as: 'new_public_task'
+    get '/tasks/:id/edit', to: 'tasks#edit', as: 'edit_public_task'
+    get '/tasks/:id', to: 'tasks#show', as: 'public_task'
+    patch '/tasks/:id', to: 'tasks#update'
+    put '/tasks/:id', to: 'tasks#update'
+    delete '/tasks/:id', to: 'tasks#destroy', as: 'destroy_public_task'
+   end
    get "companies/unsubscribe" => "companies#unsubscribe"
    patch "companies/withdraw" => "companies#withdraw"
    resources :employees, only: [:create, :index, :show, :edit, :update]
@@ -78,7 +86,7 @@ Rails.application.routes.draw do
 
 
    end
-   
+
    devise_for :companies, skip: [:passwords,] ,controllers: {
       sessions: 'public/sessions',
       registrations: 'public/registrations'

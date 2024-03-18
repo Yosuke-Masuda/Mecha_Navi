@@ -9,6 +9,7 @@ class Employee < ApplicationRecord
   has_many :genres, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :tasks
   has_one_attached :image
   
   
