@@ -1,0 +1,28 @@
+<section class="inner">
+	<h2 class="section-ttl">タスク管理</h2>
+	<div class="mb3">
+		<h3>タスク新規登録</h3>
+  	<%= render 'form', task: @task, url: tasks_companies_path, submit: '登録' %>
+	</div>
+	<div class="mb3">
+		<h3>タスク一覧</h3>
+		<table class="task_info has_border">
+			<thead>
+				<tr>
+					<th>タスク名</th>
+					<th>タスク内容</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @tasks.each do |task| %>
+					<tr>
+						<td><%= task.name %></td>
+						<td><%= task.body %></td>
+						<td class="text-center"><%= link_to "編集", edit_public_task_companies_path(task), class: "btn btn-success" %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</section>

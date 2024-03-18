@@ -34,6 +34,6 @@ class Admin::CarNamesController < ApplicationController
 
   private
    def car_name_params
-    params.require(:car_name).permit(:name, :car_type)
+    params.require(:car_name).permit(:name, :car_type, :is_active)
    end
 end
