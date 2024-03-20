@@ -13,6 +13,7 @@ class Post < ApplicationRecord
     favorites.where(employee_id: employee.id).exists?
   end
   
+  
   #最近の投稿件数を表示するためのメソッド
   def recent_post_count
     Post.where(employee_id: self.employee_id).count

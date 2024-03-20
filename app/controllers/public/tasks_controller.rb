@@ -34,7 +34,7 @@ class Public::TasksController < ApplicationController
   
 
   def destroy
-    @task = @company.tasks.find(params[:id])
+    @task = Task.find(params[:id])
     @task.destroy
 
     redirect_to public_tasks_companies_path(@company), notice: "タスクを削除しました。"
