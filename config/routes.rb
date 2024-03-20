@@ -17,9 +17,9 @@ Rails.application.routes.draw do
   scope module: :user do
    root :to => "homes#top"
    get "about" => "homes#about"
-   get 'employees/mypage' => 'employees#show', as: 'mypage'
+   get 'employees/mypage/:id' => 'employees#show', as: 'mypage'
    get 'employees/information/edit' => 'employees#edit', as: 'edit_information'
-   resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+   resources :posts do
        resource :favorites, only: [:create, :destroy]
        resources :post_comments, only: [:create, :destroy]
      end
@@ -29,6 +29,7 @@ Rails.application.routes.draw do
      end
      resources :tasks, shallow: true, only: [:index], path: 'employees/tasks' # タスクのルーティングを追加
    end
+   
    patch 'employees/information' => 'employees#update', as: 'update_information'
    put 'employees/information' => 'employees#update'
    get 'employees/unsubscribe' => 'employees#unsubscribe', as: 'confirm_unsubscribe'
