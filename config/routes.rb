@@ -27,7 +27,10 @@ Rails.application.routes.draw do
       member do
         get :favorites
      end
-     resources :tasks, shallow: true, only: [:index], path: 'employees/tasks' # タスクのルーティングを追加
+     resources :tasks, shallow: true, only: [:index], path: 'employees/tasks' do # タスクのルーティングを追加
+     patch :complete, on: :member
+     end
+     get 'tasks/complete', to: 'tasks#complete', as: 'tasks_complete'
    end
    
    patch 'employees/information' => 'employees#update', as: 'update_information'
