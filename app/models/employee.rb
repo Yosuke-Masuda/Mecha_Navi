@@ -11,17 +11,17 @@ class Employee < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :tasks
   has_one_attached :image
-  
-  
+
+
   def company_name
     company.name if company.present?
   end
-  
+
   scope :only_active, -> { where(is_active: true) }
-  
+
   validates_presence_of :first_name, :last_name, :first_name_kana, :last_name_kana
   validates_format_of :first_name_kana, :last_name_kana, with: /\A[ァ-ヶー－]+\z/
-  
+
   def self.looks(search, word)
    if search == "perfect_match"
      @employee = Employee.where("first_name LIKE? OR last_name LIKE?", "#{word}", "#{word}")
@@ -35,5 +35,5 @@ class Employee < ApplicationRecord
      @employee = Employee.all
    end
   end
-         
+
 end
