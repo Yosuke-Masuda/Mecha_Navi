@@ -61,3 +61,4 @@ gem "refile-mini_magick"
 gem 'kaminari','~> 1.2.1'
 gem 'jquery-rails'
 gem 'kaminari-bootstrap'
+gem 'simple_calendar'

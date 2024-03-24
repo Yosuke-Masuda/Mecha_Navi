@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <h1>確認画面</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">タスク名</th>
+          <th scope="col">タスク内容</th>
+          <th scope="col">チェック</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tasks.each_with_index do |task, index| %>
+            <tr>
+              <th scope="row"><%= index + 1 %></th>
+              <td><%= task.name %></td>
+              <td><%= task.body %></td>
+              <td><%= check_box_tag "task_#{task.id}", task.id, task.checked %></td>
+            </tr>
+            <%= hidden_field_tag "tasks[#{task.id}][checked]", task.checked %>
+            <%= hidden_field_tag "tasks[#{task.id}][memo]", task.memo %>
+        <% end %>
+      </tbody>
+    </table>
+    <%= @task.memo %>
+    <%= link_to '確認が完了しました', class: "btn btn-primary" %>
+  </div>
+</div>

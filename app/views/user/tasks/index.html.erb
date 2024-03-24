@@ -1,42 +1,15 @@
 <div class="container">
   <div class="row">
     <h1>タスク一覧</h1>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">タスク名</th>
-          <th scope="col">タスク内容</th>
-          <th scope="col">チェック</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @tasks.each_with_index do |task, index| %>
-          <tr>
-            <th scope="row"><%= index + 1 %></th>
-            <td><%= task.name %></td>
-            <td><%= task.body %></td>
-            <td><%= check_box_tag "task_ids[]", task.id, task.checked? %></td>
-          </tr>
+      <%= month_calendar(events: @daily_tasks) do |date, events| %>
+        <%= date.day %>
+        <% if events.size == 0 %>
+          <%= link_to_if current_employee, "タスク未入力", new_company_daily_task_path(@company, date: date) %>
+        <% elsif events.size == @tasks.size %>
+          OK
+        <% else %>
+          <%= link_to_if current_employee, "#{events.size}/#{@tasks.size}", new_company_daily_task_path(@company, date: date) %>
         <% end %>
-      </tbody>
-    </table>
+      <% end %>
   </div>
-  <%= form_with(url: complete_task_path(@tasks), method: :patch) do |form| %>
-    <% @tasks.each do |task| %>
-
-      <%= hidden_field_tag "task_ids[]", task.id %>
-
-    <% end %>
-    <div class="form-group d-flex justify-content-end">
-      <%= form.label :scheduled_date, 'タスク確認日', class: "form-control col-2" %>
-      <%= form.date_field :scheduled_date, class: "form-control col-2" %>
-    </div>
-    <div class="form-group">
-      <%= form.label :memo, 'メモ' %>
-      <%= form.text_area :memo, class: "form-control", rows: "3", placeholder: "忘れないために何でも記入していきましょう\n記入例\n-翌日13時に◯◯様来店時に注文部品を渡す\n-診断が難航しているので相談したい...etc" %>
-    </div>
-    <br>
-      <%= form.submit '完了', class: "btn btn-outline-primary" %>
-  <% end %>
 </div>
