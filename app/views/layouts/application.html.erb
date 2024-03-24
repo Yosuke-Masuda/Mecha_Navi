@@ -84,7 +84,7 @@
              <a class="nav-link" href="/employees/mypage"><i class="fa-solid fa-id-card"></i> mypage <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-             <a class="nav-link" href="#"><i class="fa-solid fa-image fa-1a"></i> Posts Lists</a>
+             <a class="nav-link" href="#"><i class="fa-solid fa-image"></i> Posts Lists</a>
           </li>
           <li class="nav-item dropdown">
              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -94,6 +94,7 @@
              <a class="dropdown-item" href="/posts/new"><i class="fa-regular fa-square-plus"></i> New Post</a>
              <a class="dropdown-item" href="/posts"><i class="fa-regular fa-file-image"></i> Posts Index</a>
              <a class="dropdown-item" href="/employees/:employee_id/employees/tasks"> Tasks Index</a>
+             
              <a class="dropdown-item"></a>
            </div>
           </li>
@@ -105,16 +106,16 @@
           </li>
          <% else %>
           <li class="nav-item active">
-             <a class="nav-link" href="/about"><i class="fa-regular fa-comment-dots fa-1a"></i>about <span class="sr-only">(current)</span></a>
+             <a class="nav-link" href="/about"><i class="fa-regular fa-message"></i> about <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-             <a class="nav-link" href="#"><i class="fa-solid fa-image fa-1a"></i>post_lists</a>
+             <a class="nav-link" href="#"><i class="fa-solid fa-image"></i> post_lists</a>
           </li>
           <li class="nav-item">
-             <a class="nav-link" href="/companies/sign_in"><i class="fa-solid fa-right-from-bracket"></i>company_login</a>
+             <a class="nav-link" href="/companies/sign_in"><i class="fa-solid fa-right-from-bracket"></i> company_login</a>
           </li>
           <li class="nav-item">
-             <a class="nav-link" href="/employees/sign_in"><i class="fa-solid fa-right-from-bracket"></i>employee_login</a>
+             <a class="nav-link" href="/employees/sign_in"><i class="fa-solid fa-right-from-bracket"></i> employee_login</a>
           </li>
          <% end %>
         </ul>

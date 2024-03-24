@@ -1,12 +1,33 @@
 class User::TasksController < ApplicationController
-  def index
+  
+  def new
     @tasks = current_employee.company.tasks
+    @task = Task.new
+  end
+  
+  def index
+    @company = current_employee.company
+    @tasks = @company.tasks
+    @daily_tasks = current_employee.daily_tasks.includes(:task).where("tasks.company_id": @company.id)
+    render "user/tasks/index"
+  end
+  
+  
+  
+  def confirm
+    @tasks = current_employee.company.tasks
+    @task = Task.new(task_params)
   end
 
   def complete
-    @tasks = current_employee.company.tasks.find(params[:task_id])
-    @tasks.update(completed: true)
-    redirect_to employee_tasks_complete_path, notice: "タスクを完了しました。"
+    
+  end
+  
+  
+  private
+
+  def task_params
+    params.require(:task).permit(:company_id, :employee_id, :name, :body, :memo, :scheduled_date, :start_time, :is_holiday, :checked, :status)  # 許可するパラメータを指定
   end
 
 end

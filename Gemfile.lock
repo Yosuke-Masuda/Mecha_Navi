@@ -239,6 +239,8 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     semantic_range (3.0.0)
+    simple_calendar (3.0.2)
+      rails (>= 6.1)
     sinatra (2.0.8.1)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -305,6 +307,7 @@ DEPENDENCIES
   refile-mini_magick
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)
+  simple_calendar
   spring
   sqlite3 (~> 1.4)
   turbolinks (~> 5)
