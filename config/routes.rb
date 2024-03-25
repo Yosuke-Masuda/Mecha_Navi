@@ -49,8 +49,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
    get 'top' => 'homes#top', as: 'top'
+   resources :stores, only: [:index, :create, :edit, :update]
    resources :genres, only: [:index, :create, :edit, :update]
-   #resources :car_names, only: [:index, :create, :edit, :update]
    resources :car_names, only: [:index, :create, :edit, :update], param: :id
    get 'admin/sign_out' => 'admin/sessions#destroy'
    resources :companies, only: [:index, :show, :edit, :update]
