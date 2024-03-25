@@ -1,0 +1,43 @@
+<div class="card mx-auto">
+	<div class="container">
+		<h2 class="text-center">ジャンル管理</h2>
+			<div class="mb-3">
+		    <h3>ジャンル新規登録</h3>
+  	    <%= render 'form', store: @store, url: admin_stores_path, submit: '登録' %>
+	    </div>
+	    <div class="mb-3">
+		    <h3>ジャンル一覧</h3>
+		    <table class="table">
+			    <thead>
+				    <tr>
+					    <th>企業名</th>
+					    <th>ジャンル名</th>
+					    <th>状態</th>
+					    <th></th>
+				    </tr>
+			    </thead>
+			  <tbody>
+          <% @stores.group_by(&:company).each do |company, stores| %>
+            <% stores.each do |store| %>
+              <tr>
+                <% if store == stores.first %>
+                  <td rowspan="<%= stores.size %>"><%= company.company_name %></td>
+                <% end %>
+                  <td><%= link_to store.name, admin_stores_path(store_id: store.id), class: "underline" %></td>
+                  <td>
+                    <% if store.is_active? %>
+                      <span class="text-active">有効</span>
+                    <% else %>
+                      <span class="text-invalid">無効</span>
+                    <% end %>
+                  </td>
+                  <td class="text-center"><%= link_to "編集", edit_admin_store_path(store), class: "btn btn-success" %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+		    </table>
+	    </div>
+    </div>
+	</div>
+</div>
