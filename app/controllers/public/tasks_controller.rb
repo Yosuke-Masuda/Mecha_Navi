@@ -1,22 +1,30 @@
 class Public::TasksController < ApplicationController
-  
+
   def index
+    @company = current_company
+    @tasks = @company.tasks
     @task = Task.new
-    @tasks = current_company.tasks
   end
-  
+
   def create
     @task = Task.new(task_params)
     @task.company_id = current_company.id
     if @task.save
       redirect_to public_tasks_companies_path(@company), notice: "タスクを作成しました"
     else
-      @tasks = current_company.tasks  
+      @tasks = current_company.tasks
       render :index
     end
 
   end
-  
+
+  def show
+    @company = Company.find(params[:id])
+    @company = current_company
+    @tasks = @company.tasks
+    @daily_tasks = current_company.daily_tasks.includes(:task).where("tasks.company_id": @company.id)
+  end
+
   def edit
     @task = Task.find(params[:id])
     @company = current_company
@@ -31,7 +39,7 @@ class Public::TasksController < ApplicationController
     end
 
   end
-  
+
 
   def destroy
     @task = Task.find(params[:id])
@@ -43,6 +51,6 @@ class Public::TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :body, :memo, :scheduled_date, :checked)
+    params.require(:task).permit(:company_id, :name, :body, :start_time)
   end
 end

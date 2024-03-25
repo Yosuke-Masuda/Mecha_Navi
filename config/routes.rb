@@ -38,7 +38,7 @@ Rails.application.routes.draw do
      end
      get 'tasks/complete', to: 'tasks#complete', as: 'tasks_complete'
    end
-   
+
    patch 'employees/information' => 'employees#update', as: 'update_information'
    put 'employees/information' => 'employees#update'
    get 'employees/unsubscribe' => 'employees#unsubscribe', as: 'confirm_unsubscribe'
@@ -68,7 +68,7 @@ Rails.application.routes.draw do
       post '/tasks', to: 'tasks#create'
       get '/tasks/new', to: 'tasks#new', as: 'new_public_task'
       get '/tasks/:id/edit', to: 'tasks#edit', as: 'edit_public_task'
-      get '/tasks/:id', to: 'tasks#show', as: 'public_task'
+      get '/employee_id/tasks/:id', to: 'tasks#show', as: 'public_task'
       patch '/tasks/:id', to: 'tasks#update'
       put '/tasks/:id', to: 'tasks#update'
       delete '/tasks/:id', to: 'tasks#destroy', as: 'destroy_public_task'
@@ -78,7 +78,9 @@ Rails.application.routes.draw do
     end
    get "companies/unsubscribe" => "companies#unsubscribe"
    patch "companies/withdraw" => "companies#withdraw"
-   resources :employees, only: [:create, :index, :show, :edit, :update]
+   resources :employees, only: [:create, :index, :show, :edit, :update] do
+     resources :tasks, only: [:show]
+   end
    patch 'companies/employees/:id' => 'employees#update', as: 'public_update_employee'
    post 'companies/employees' => 'employees#create', as: 'public_employees'
    get 'companies/employees/edit/:id' => 'employees#edit', as: 'public_edit_employees'

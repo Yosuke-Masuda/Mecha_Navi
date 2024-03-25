@@ -5,14 +5,17 @@ class Admin::CarNamesController < ApplicationController
   def index
     @car_name = CarName.new
     @car_names = CarName.all
+    @companies = Company.all
   end
 
   def create
     @car_name = CarName.new(car_name_params)
     if @car_name.save
+      flash[:notice] = "作成しました"
       redirect_to admin_car_names_path
     else
       @car_names = CarName.all
+      @companies = Company.all # 追加
       render :index
     end
 
@@ -25,6 +28,7 @@ class Admin::CarNamesController < ApplicationController
   def update
     @car_name = CarName.find(params[:id])
     if @car_name.update(car_name_params)
+      flash[:notice] = "編集しました"
       redirect_to admin_car_names_path
     else
       render "edit"
@@ -34,6 +38,6 @@ class Admin::CarNamesController < ApplicationController
 
   private
    def car_name_params
-    params.require(:car_name).permit(:name, :car_type, :is_active)
+    params.require(:car_name).permit(:name, :car_type, :is_active, :company_id)
    end
 end
