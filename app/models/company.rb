@@ -9,14 +9,15 @@ class Company < ApplicationRecord
   has_many :genres, dependent: :destroy
   has_many :car_names, dependent: :destroy
   has_many :tasks, dependent: :destroy
-         
+  has_many :daily_tasks
+
   validates :company_name, presence: true
   validates :company_name_kana, presence: true
   validates :postal_code, presence: true
   validates :address, presence: true
   validates :phone_number, presence: true
-            
+
   def active_for_authentication?
     super && (is_active?)
-  end  
+  end
 end

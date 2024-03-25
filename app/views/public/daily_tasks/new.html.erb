@@ -1,15 +1,35 @@
-<h1>Public::DailyTasks#new</h1>
-
-<% @daily_tasks.each do |daily_task| %>
-  <% task = daily_task.task %>
-  <%= form_with(model: daily_task, url: company_daily_tasks_path(@company), local: true) do |f| %>
-    <label><%= task.name %> <%= task.body %></label>
-    <%= f.hidden_field :task_id %>
-    <%= f.hidden_field :start_time %>
-    <% if daily_task.new_record? %>
-      <%= f.submit "x" %>
-    <% else %>
-      o <%= daily_task.employee.full_name %>
-    <% end %>
-  <% end %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <h1>タスク確認実行画面</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>タスク名</th>
+          <th>タスク内容</th>
+          <th>チェック</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @daily_tasks.each do |daily_task| %>
+          <% task = daily_task.task %>
+          <%= form_with(model: daily_task, url: company_daily_tasks_path(@company), local: true) do |f| %>
+            <tr>
+              <td><%= task.name %></td>
+              <td><%= task.body %></td>
+              <td>
+                <%= f.hidden_field :task_id %>
+                <%= f.hidden_field :start_time %>
+                <% if daily_task.new_record? %>
+                  <%= f.submit "v", class: 'btn btn-outline-success'%>
+                <% else %>
+                  チェック済
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+    <%= link_to "タスク一覧画面へ", employee_tasks_path(@company), class: 'btn btn-outline-primary' %>
+  </div>
+</div>

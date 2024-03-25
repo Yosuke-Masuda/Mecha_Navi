@@ -1,29 +1,29 @@
 class User::TasksController < ApplicationController
-  
+
   def new
     @tasks = current_employee.company.tasks
     @task = Task.new
   end
-  
+
   def index
     @company = current_employee.company
     @tasks = @company.tasks
     @daily_tasks = current_employee.daily_tasks.includes(:task).where("tasks.company_id": @company.id)
     render "user/tasks/index"
   end
-  
-  
-  
+
+
+
   def confirm
     @tasks = current_employee.company.tasks
     @task = Task.new(task_params)
   end
 
   def complete
-    
+
   end
-  
-  
+
+
   private
 
   def task_params

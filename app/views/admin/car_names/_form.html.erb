@@ -1,11 +1,17 @@
 <%= form_with(model: car_name, url: url, local: true) do |f| %>
-	<%= f.label :name, "車名:" %>
-	<%= f.text_field :name %>
-	<%= f.label :car_type, "型式" %>
-	<%= f.text_field :car_type %>
-	<%= f.radio_button :is_active, true %>
-	<%= f.label :is_active, "有効", class: "text-active" %>
-	<%= f.radio_button :is_active, false %>
-	<%= f.label :is_active, "無効", class: "text-invalid" %>
-	<%= f.submit submit, class: "btn btn-primary ml2" %>
+  <div class="form-group row mx-auto">
+  	<%= f.label :company_id, "企業の選択：　", class: "col-form-label" %>
+  	<%= f.collection_select :company_id, @companies, :id, :company_name, { prompt: "--選択して下さい--" }, class: 'form-control col-md-2 text-center' %>
+  	<%= f.label :name, "　車名：　", class: "col-form-label" %>
+  	<%= f.text_field :name, class: 'form-control col-md-2' %>
+  	<%= f.label :car_type, "　型式：　", class: "col-form-label" %>
+  	<%= f.text_field :car_type, class: 'form-control col-md-2' %>
+  	<div class="form-check form-check-inline mx-auto">
+  	  <%= f.radio_button :is_active, true %>
+	    <%= f.label :is_active, "有効", class: "text-active" %>
+	    <%= f.radio_button :is_active, false %>
+	    <%= f.label :is_active, "無効", class: "text-invalid" %>
+	  </div>
+	  <%= f.submit submit, class: "btn btn-primary ml2" %>
+  </div>
 <% end %>
