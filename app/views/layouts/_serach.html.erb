@@ -1,4 +1,19 @@
-<% if employee_signed_in? %>
+<% if admin_signed_in? %>
+  <form class="form-inline my-2 my-lg-0" action="<%= search_path %>" method="get">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="word">
+    <select class="form-control mr-sm-2" name="range">
+      <option>Employee</option>
+      <option>Post</option>
+    </select>
+    <select class="form-control mr-sm-2" name="search">
+      <option value="perfect_match">完全一致</option>
+      <option value="forward_match">前方一致</option>
+      <option value="backward_match">後方一致</option>
+      <option value="partial_match">部分一致</option>
+    </select>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+<% elsif employee_signed_in? %>
   <form class="form-inline my-2 my-lg-0" action="<%= search_path %>" method="get">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="word">
     <select class="form-control mr-sm-2" name="range">
