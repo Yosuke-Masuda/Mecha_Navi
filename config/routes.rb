@@ -53,8 +53,9 @@ Rails.application.routes.draw do
    resources :genres, only: [:index, :create, :edit, :update]
    resources :car_names, only: [:index, :create, :edit, :update], param: :id
    get 'admin/sign_out' => 'admin/sessions#destroy'
-   resources :companies, only: [:index, :show, :edit, :update]
-   resources :posts
+   resources :companies, only: [:index, :show, :edit, :update] do
+       resources :posts
+   end
    resources :employees, only: [:index, :show] do
      resources :tasks, only: [:index]
    end
