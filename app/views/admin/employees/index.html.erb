@@ -1,38 +1,25 @@
-<div class="card jumbotron">
-  <div class="row">
-    <div class="col-7">
-      <div class="admin-heading col-7">
-        <h4><%= @company.company_name %>様の投稿履歴一覧</h4>
-      </div>
-      <div class="col-8"></div>
-    </div>
-    <div class="col-12 mx-auto">
-      <%= link_to '企業投稿一覧へ', admin_top_path(company_id: @company.id), class: "btn btn-outline-primary" %>
-      <table class="table table_border">
-        <thead class="thead-light">
-          <div class="row table-row">
-            <div class="col-8 mx-auto">
-              <tr>
-                <th>投稿者</th>
-                <th>最近の投稿件数</th>
-                <th>投稿全件数</th>
-                <th>いいね全件数</th>
-              </tr>
-            </div>
-          </div>
-        </thead>
-        <tbody>
-        <% @recent_posts.each do |post| %>
-          <tr>
-            <td><%= link_to post.employee.full_name, admin_employee_path(post.employee) %></td>
-            <td><%= post.recent_post_count %>件</td>
-            <td><%= @all_posts_count_by_employee[post.employee_id] %>件</td>
-            <td><%= @favorites_count_by_employee[post.employee_id] %>件</td>
-          </tr>
+<h1>社員一覧</h1>
+<div class="card">
+  <div class="container">
+    <table class="table">
+      <therd>
+        <tr>
+          <th>所属</th>
+          <th>社員名</th>
+          <th>メールアドレス</th>
+          <th></th>
+        </tr>
+      </therd>
+      <tbody>
+        <% @employees.each do |employee| %>
+        <tr>
+          <td><%= employee.store.name %>店</td>
+          <td><%= link_to "#{employee.full_name}の詳細ページ", admin_company_employee_path(id: employee.id, company_id: @company.id), class: "text-dark border-bottom border-dark" %></td>
+          <td><%= employee.email %></td>
+          <td></td>
+        </tr>
         <% end %>
-        </tbody>
-      </table>
-      <div id="post-list"></div>
-    </div>
+      </tbody>
+    </table>
   </div>
 </div>
