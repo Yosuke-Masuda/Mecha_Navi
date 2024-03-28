@@ -1,44 +1,48 @@
 <div class="card">
   <h4>会員情報編集</h4>
   <blockquote class="blockquote mb-0">
-    <%= form_with( model: @employee, url: admin_company_employee_path, local: true) do |f| %>
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <th>プロフィール画像</th>
-            <td>
-					    <% if @employee.image.attached? %>
-                <%= image_tag(@employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
-              <% else %>
-                <%= image_tag("no_image.jpg", class: "rounded-circle", style: "width: 100px; height: 100px;") %>
-              <% end %>
-              <%= f.file_field :image, class: 'rounded' %>
-            </td>
-          </tr>
-          <tr>
-            <th>氏名</th>
-            <td><%= f.text_field :last_name %><%= f.text_field :first_name %></td>
-          </tr>
-          <tr>
-            <th>フリガナ</th>
-            <td><%= f.text_field :last_name_kana %><%= f.text_field :first_name_kana %></td>
-          </tr>
-          <tr>
-            <th>メールアドレス</th>
-            <td><%= f.text_field :email %></td>
-          </tr>
-          <tr>
-            <th>ステータス</th>
-            <td>
-              <%= f.label :is_active, '有効', value: true %>
-              <%= f.radio_button :is_active, true %>
-              <%= f.label :is_active, '退職', value: false %>
-              <%= f.radio_button :is_active, false %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <%= f.submit '変更を保存', class: "btn btn-outline-success btn-sm btn-block" %>
-    <% end %>
+    <div class="container">
+      <div class"row">
+        <%= form_with( model: @employee, url: admin_company_employee_path, local: true) do |f| %>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th>プロフィール画像</th>
+                <td>
+					        <% if @employee.image.attached? %>
+                    <%= image_tag(@employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+                  <% else %>
+                    <%= image_tag("no_image.jpg", class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+                  <% end %>
+                  <%= f.file_field :image, class: 'rounded' %>
+                </td>
+              </tr>
+              <tr>
+                <th>氏名</th>
+                <td><%= f.text_field :last_name %><%= f.text_field :first_name %></td>
+              </tr>
+              <tr>
+                <th>フリガナ</th>
+                <td><%= f.text_field :last_name_kana %><%= f.text_field :first_name_kana %></td>
+              </tr>
+              <tr>
+                <th>メールアドレス</th>
+                <td><%= f.text_field :email %></td>
+              </tr>
+              <tr>
+                <th>ステータス</th>
+                <td>
+                  <%= f.label :is_active, '有効', value: true %>
+                  <%= f.radio_button :is_active, true %>
+                  <%= f.label :is_active, '退職', value: false %>
+                  <%= f.radio_button :is_active, false %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <%= f.submit '変更を保存', class: "btn btn-outline-success btn-sm btn-block" %>
+        <% end %>
+      </div>
+    </div>
   </blockquote>
 </div>

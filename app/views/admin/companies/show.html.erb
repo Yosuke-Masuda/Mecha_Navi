@@ -1,54 +1,54 @@
-<section class="inner">
-	<h2 class="section-ttl"><%= @company.company_name %>さんのページ</h2>
-	<table class="company_info">
-		<thead>
-			<th></th>
-			<th></th>
-			<th></th>
-		</thead>
-		<tbody>
-			<tr>
-				<td>会員ID</td>
-				<td colspan="2"><%= @company.id %></td>
-			</tr>
-			<tr>
-				<td>名前</td>
-				<td>(会社名) <%= @company.first_name %></td>
-			</tr>
-			<tr>
-				<td>フリガナ</td>
-				<td><%= @company.company_name_kana %></td>
-			</tr>
-			<tr>
-				<td>メールアドレス</td>
-				<td colspan="2"><%= @company.email %></td>
-			</tr>
-			<tr>
-				<td>郵便番号</td>
-				<td colspan="2"><%= @company.postal_code %></td>
-			</tr>
-			<tr>
-				<td>住所</td>
-				<td colspan="2"><%= @company.address %></td>
-			</tr>
-			<tr>
-				<td>電話番号</td>
-				<td colspan="2"><%= @company.phone_number %></td>
-			</tr>
-			<tr>
-				<td>会員ステータス</td>
-				<td colspan="2">
-					<% if @company.is_active? %>
-						<span class="text-active">有効	</span>					
-					<% else %>
-						<span class="text-invalid">退会済み</span>
-					<% end %>
-				</td>
-			</tr>
-			<tr>
-				<td><%= link_to "編集", edit_admin_company_path, class: "btn btn-success" %></td>
-			</tr>
-		</tbody>
-	</table>
-	
-</section>
+<div class="card">
+	<blockquote class="blockquote mb-0">
+	  <div class="container">
+	  	<h2><%= @company.company_name %>さんのページ</h2>
+	  	<div class="row mx-auto">
+		    <table class="table table-bordered">
+		    	<tbody>
+		    		<tr>
+				      <td>会員ID</td>
+				      <td colspan="2"><%= @company.id %></td>
+			      </tr>
+			      <tr>
+				      <td>名前</td>
+				      <td>(会社名) <%= @company.first_name %></td>
+			      </tr>
+			      <tr>
+				      <td>フリガナ</td>
+				      <td><%= @company.company_name_kana %></td>
+			      </tr>
+			      <tr>
+				      <td>メールアドレス</td>
+				      <td colspan="2"><%= @company.email %></td>
+				    </tr>
+			      <tr>
+				      <td>郵便番号</td>
+				      <td colspan="2"><%= @company.postal_code %></td>
+			      </tr>
+			      <tr>
+				      <td>住所</td>
+				      <td colspan="2"><%= @company.address %></td>
+			      </tr>
+			      <tr>
+				      <td>電話番号</td>
+				      <td colspan="2"><%= @company.phone_number %></td>
+			      </tr>
+			      <tr>
+				      <td>会員ステータス</td>
+				      <td colspan="2">
+					      <% if @company.is_active? %>
+						      <span class="text-active">有効	</span>
+					      <% else %>
+						      <span class="text-invalid">退会済み</span>
+					      <% end %>
+				      </td>
+			      </tr>
+		    	</tbody>
+		    </table>
+		    <tr>
+				  <td><%= link_to "編集", edit_admin_company_path, class: "btn btn-outline-success btn-block" %></td>
+			  </tr>
+		    </div>
+	    </div>
+	</blockquote>
+</div>
