@@ -2,6 +2,7 @@ class Admin::EmployeesController < ApplicationController
   def index
     @company = Company.find(params[:company_id])
     @employees = @company.employees
+    @stores = Store.all
   end
 
   def show
