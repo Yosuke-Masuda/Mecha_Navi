@@ -1,7 +1,7 @@
 <div class="card">
 	<blockquote class="blockquote mb-0">
 	  <div class="container">
-	  	<h2><%= @company.company_name %>さんのページ</h2>
+	  	<h2><%= @company.company_name %>の詳細</h2>
 	  	<div class="row mx-auto">
 		    <table class="table table-bordered">
 		    	<tbody>
@@ -10,8 +10,8 @@
 				      <td colspan="2"><%= @company.id %></td>
 			      </tr>
 			      <tr>
-				      <td>名前</td>
-				      <td>(会社名) <%= @company.first_name %></td>
+				      <td>会社名</td>
+				      <td><%= @company.company_name %></td>
 			      </tr>
 			      <tr>
 				      <td>フリガナ</td>

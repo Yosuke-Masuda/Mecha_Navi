@@ -1,7 +1,7 @@
 <div class="card">
-  <h4>会員情報編集</h4>
   <blockquote class="blockquote mb-0">
     <div class="container">
+      <h1><%= @employee.full_name %>さんの編集</h1>
       <div class"row">
         <%= form_with( model: @employee, url: admin_company_employee_path, local: true) do |f| %>
           <table class="table table-bordered">
