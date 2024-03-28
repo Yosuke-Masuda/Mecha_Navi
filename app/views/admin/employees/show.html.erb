@@ -1,5 +1,4 @@
 <h1>詳細</h1>
-<%= link_to "社員一覧へ戻る", admin_company_employees_path(company_id: @company.id), class: 'btn btn-primary' %>
 <div class="card">
   <blockquote class="blockquote mb-0">
   <div class="container">
@@ -41,7 +40,7 @@
         </tbody>
       </table>
       <tr>
-		    <td><%= link_to "編集", edit_admin_company_employee_path, class: "btn btn-outline-success btn-sm btn-block" %></td>
+		    <td><%= link_to "編集", edit_admin_company_employee_path(@employee), class: "btn btn-outline-success btn-sm btn-block" %></td>
 	    </tr>
 	    <tr>
 		    <td><%= link_to "社員一覧へ戻る", admin_company_employees_path(company_id: @company.id), class: 'btn btn-outline-primary btn-block' %></td>

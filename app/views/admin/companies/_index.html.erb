@@ -30,7 +30,7 @@
                 <p class="text-secondary">退会</p>
               <% end %>
             </td>
-            <td><%= link_to "社員一覧へ", admin_company_employees_path(company_id: company.id), class: 'btn btn-outline-primary' %></td>
+            <td><%= link_to "社員一覧へ", admin_company_employees_path(id: @employee, company_id: company.id), class: 'btn btn-outline-primary' %></td>
           </tr>
           <% end %>
       </tbody>
