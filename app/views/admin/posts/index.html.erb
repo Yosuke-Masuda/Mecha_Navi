@@ -27,8 +27,8 @@
           <tr>
             <td><%= link_to post.employee.full_name, history_admin_company_employee_post_path(employee_id: post.employee_id, id: post.id) %></td>
             <td><%= post.recent_post_count %>件</td>
-            <td><%= @all_posts_count %>件</td>
-            <td><%= @favorites_count %>件</td>
+            <td><%= @all_posts_count_by_employee[post.employee_id] %>件</td>
+            <td><%= @favorites_count_by_employee[post.employee_id].to_i.zero? ? 0 : @favorites_count_by_employee[post.employee_id] %>件</td>
           </tr>
         <% end %>
         </tbody>

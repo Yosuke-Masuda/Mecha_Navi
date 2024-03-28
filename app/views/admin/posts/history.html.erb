@@ -43,6 +43,7 @@
               <div class="card-body">
                 <div class="btn-group" role="group" aria-label="Basic example">
                   <%= button_to '投稿詳細画面へ', admin_company_employee_post_path(company_id: post.company_id, id: post.id), method: :get, class: 'btn btn-outline-primary' %>
+                  <%= button_to "#{@company.company_name}"'の投稿一覧へ戻る', admin_company_employee_posts_path(@company), method: :get, class: 'btn btn-outline-primary' %>
                 </div>
               </div>
             </div>
