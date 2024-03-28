@@ -1,25 +1,35 @@
-<h1>社員一覧</h1>
-<div class="card">
+<div class="card jumbotron">
   <div class="container">
-    <table class="table">
-      <therd>
-        <tr>
-          <th>所属</th>
-          <th>社員名</th>
-          <th>メールアドレス</th>
-          <th></th>
-        </tr>
-      </therd>
-      <tbody>
-        <% @employees.each do |employee| %>
-        <tr>
-          <td><%= employee.store.name %>店</td>
-          <td><%= link_to "#{employee.full_name}の詳細ページ", admin_company_employee_path(id: employee.id, company_id: @company.id), class: "text-dark border-bottom border-dark" %></td>
-          <td><%= employee.email %></td>
-          <td></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <h1>社員一覧</h1>
+    <% @stores.each do |store| %>
+      <% employees_in_store = @employees.select { |employee| employee.store_id == store.id } %>
+      <% if employees_in_store.any? %>
+        <h2><%= store.name %>店</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>社員名</th>
+              <th>メールアドレス</th>
+              <th>ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% employees_in_store.each do |employee| %>
+              <tr>
+                <td><%= link_to "#{employee.full_name}の詳細ページ", admin_company_employee_path(id: employee.id, company_id: @company.id), class: "text-dark border-bottom border-dark" %></td>
+                <td><%= employee.email %></td>
+                <td>
+                  <% if employee.is_active? %>
+                    <p class="text-success">有効</p>
+                  <% else %>
+                    <p class="text-secondary">退職</p>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    <% end %>
   </div>
 </div>
