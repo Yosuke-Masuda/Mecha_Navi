@@ -7,6 +7,7 @@ class Admin::PostsController < ApplicationController
    end
 
    def history
+     @company = Company.find(params[:company_id])
      @employee = Employee.find(params[:employee_id])
      @posts = @employee.posts
      @images = @posts.map { |post| post.images }.flatten.uniq
@@ -15,6 +16,22 @@ class Admin::PostsController < ApplicationController
    end
 
    def show
+     @employee = Employee.find(params[:employee_id])
+     @post = @employee.posts.find(params[:id]) # @postを定義する
+     @posts = @employee.posts
+     @images = @post.images.map(&:blob).uniq
+     @video = @post.video
+   end
 
+   def edit
+
+   end
+
+   def destroy
+     @company = Company.find(params[:company_id])
+     @post = Post.find(params[:id])
+     @post.destroy
+     flash[:success] = "削除しました"
+     redirect_to history_admin_company_employee_post_path
    end
 end
