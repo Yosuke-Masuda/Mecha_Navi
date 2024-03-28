@@ -54,7 +54,7 @@ Rails.application.routes.draw do
    resources :car_names, only: [:index, :create, :edit, :update], param: :id
    get 'admin/sign_out' => 'admin/sessions#destroy'
    resources :companies, only: [:index, :show, :edit, :update, :destroy] do
-       resources :employees, only: [:index, :show] do
+       resources :employees, only: [:index, :show, :edit, :update] do
          resources :posts,  except: [:new, :create] do
              member do
                  get :history
