@@ -53,12 +53,13 @@ Rails.application.routes.draw do
    resources :genres, only: [:index, :create, :edit, :update]
    resources :car_names, only: [:index, :create, :edit, :update], param: :id
    get 'admin/sign_out' => 'admin/sessions#destroy'
-   resources :companies, only: [:index, :show, :edit, :update] do
+   resources :companies, only: [:index, :show, :edit, :update, :destroy] do
        resources :employees, only: [:index, :show] do
          resources :posts,  except: [:new, :create] do
              member do
                  get :history
              end
+             resources :post_comments, only: [:create, :destroy]
          end
          resources :tasks, only: [:index]
        end

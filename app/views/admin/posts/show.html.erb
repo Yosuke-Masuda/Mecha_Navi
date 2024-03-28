@@ -4,7 +4,7 @@
 
   <div class="card-body">
     <h5 class="card-title">タイトル:<%= @post.title %></h5>
-  </div>
+
   <ul class="list-group list-group-flush">
     <li class="list-group-item">会社名：<%= @post.employee.company.company_name %>　店舗名：<%= @post.employee.store.name %>店　投稿者：<%= @post.employee.last_name %>　<%= @post.employee.first_name %></li>
 
@@ -56,24 +56,11 @@
       <% end %>
        <%= post_comment.employee.last_name %><%= post_comment.employee.first_name %>
        <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
-       <% if post_comment.employee == current_employee %>
        <div>
-        <%= button_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
+        <%= button_to "削除", admin_company_employee_post_post_comment_path(post_comment.post.company, post_comment.post.employee, post_comment.post, post_comment), method: :delete, data: { confirm: "削除しますか？" } %>
        </div>
-       <% end %>
-       <% if @post.favorited_by?(current_employee) %>
-         <p>
-           <%= button_to post_favorites_path(@post), method: :delete do %>
-             ♥<%= @post.favorites.count %> 役に立った
-           <% end %>
-         </p>
-       <% else %>
-         <p>
-           <%= button_to post_favorites_path(@post), method: :post do %>
-             ♡<%= @post.favorites.count %> 役に立った
-           <% end %>
-         </p>
-       <% end %>
+
      <% end %>
+    </div>
     </div>
 </div>
