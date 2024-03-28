@@ -16,8 +16,8 @@ class Admin::PostsController < ApplicationController
    end
 
    def show
-     @employee = Employee.find(params[:employee_id])
-     @post = @employee.posts.find(params[:id]) # @postを定義する
+     @post = Post.find(params[:id]) # @postを定義する
+     @employee = @post.employee # @employeeを@postから取得する
      @posts = @employee.posts
      @images = @post.images.map(&:blob).uniq
      @video = @post.video
@@ -28,10 +28,13 @@ class Admin::PostsController < ApplicationController
    end
 
    def destroy
-     @company = Company.find(params[:company_id])
      @post = Post.find(params[:id])
-     @post.destroy
-     flash[:success] = "削除しました"
-     redirect_to history_admin_company_employee_post_path
+
+     if @post.destroy
+       redirect_to admin_company_employee_posts_path(@post.employee.company, @post.employee), notice: '投稿を削除しました。'
+     else
+       redirect_to admin_company_employee_posts_path(@post.employee.company, @post.employee), alert: '投稿の削除に失敗しました。'
+     end
    end
+
 end
