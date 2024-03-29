@@ -1,42 +1,47 @@
 <h2>Results index</h2>
 
-<table class="table table-hover table-inverse">
+<% if admin_signed_in? %>
+  <table class="table table-hover table-inverse">
   <!--検索対象モデルがEmployeeの時 -->
-  <% if @range == "Employee" %>
-    <tbody>
-     <% @employees.each do |employee| %>
-         <!--他企業の情報を見れないようにする) -->
-       <% if employee.company_id == current_employee.company_id %>
-         <tr>
-           <td>会社名：<%= employee.company.company_name %>　
-               店舗名：<%= employee.store.name %>店　
-               社員名：<%= employee.last_name %> <%= employee.first_name %>
-           </td>
-         </tr>
-       <% end %>
-     <% end %>
-    </tbody>
-  <% else %>
+    <% if @range == "Employee" %>
+      <tbody>
+       <%= render partial: 'employee', collection: @employees %>
+      </tbody>
+    <% else %>
     <!--検索対象モデルがUserではない時(= 検索対象モデルがPostの時) -->
-    <tbody>
-      <% @posts.each do |post| %>
-               <!--他企業の情報を見れないようにする) -->
-       <% if post.employee.company_id == current_employee.company_id %>
-        <tr>
-          <td>タイトル：<%= post.title %></td>
-          <td>会社名：<%= post.employee.company.company_name %>　
-              店舗名：<%= post.employee.store.name %>店　
-              投稿者：<%= post.employee.last_name %>　<%= post.employee.first_name %>
-          </td>
-          <td>車名：<%= post.car_name.name if post.car_name.present? %>　
-              型式：<%= post.car_name.car_type if post.car_name.present? %>　
-              ジャンル：<%= post.genre.name if post.genre.present? %>
-          </td>
-          <td>説明：<%= post.caption %></td>
-          <td><%= link_to '投稿詳細', post_path(post), class: "btn btn-outline-primary" %></td>
-        </tr>
-       <% end %>
-      <% end %>
-    </tbody>
-  <% end %>
-</table>
+      <tbody>
+        <%= render partial: 'post', collection: @posts %>
+      </tbody>
+    <% end %>
+  </table>
+    <!-- 管理者がログイン中の処理 -->
+<% elsif company_signed_in? %>
+  <table class="table table-hover table-inverse">
+  <!--検索対象モデルがEmployeeの時 -->
+    <% if @range == "Employee" %>
+      <tbody>
+       <%= render partial: 'employee', collection: @employees.select { |employee| employee.company_id == current_company.company_id } %>
+      </tbody>
+    <% else %>
+      <!--検索対象モデルがUserではない時(= 検索対象モデルがPostの時) -->
+      <tbody>
+        <%= render partial: 'post', collection: @posts.select { |post| post.employee.company_id == current_company.company_id } %>
+      </tbody>
+    <% end %>
+  </table>
+<% elsif employee_signed_in? %>
+  <table class="table table-hover table-inverse">
+  <!--検索対象モデルがEmployeeの時 -->
+    <% if @range == "Employee" %>
+      <tbody>
+        <%= render partial: 'employee', collection: @employees.select { |employee| employee.company_id == current_employee.company_id } %>
+      </tbody>
+    <% else %>
+      <!--検索対象モデルがUserではない時(= 検索対象モデルがPostの時) -->
+      <tbody>
+        <%= render partial: 'post', collection: @posts.select { |post| post.employee.company_id == current_employee.company_id } %>
+      </tbody>
+    <% end %>
+  </table>
+<% end %>
+

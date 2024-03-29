@@ -1,7 +1,4 @@
 class SearchesController < ApplicationController
-  
-  
-  before_action :authenticate_employee!
 
   def search
     @range = params[:range]
