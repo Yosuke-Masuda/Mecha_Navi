@@ -48,26 +48,23 @@
           </li>
          <% elsif company_signed_in? %>
           <li class="nav-item">
-           <a class="nav-link" href="/companies"><i class="fa-solid fa-house"></i> ホーム <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-           <a class="nav-link" href="/companies/posts/index"><i class="fa-solid fa-image fa-1a"></i> 投稿一覧</a>
+           <a class="nav-link" href="/companies"><i class="fa-solid fa-house"></i> ホーム<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             Dropdown
+             <i class="fa-solid fa-layer-group"></i> 管理
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-             <a class="dropdown-item" href="/companies/posts/index"><i class="fa-solid fa-image fa-1a"></i> 投稿</a>
+             <a class="dropdown-item" href="/companies/posts/index"><i class="fa-regular fa-image"></i> 投稿管理</a>
              <a class="dropdown-item" href="/stores"><i class="fa-solid fa-shop"></i> 店舗管理</a>
-             <a class="dropdown-item" href="/genres"><i class="fa-solid fa-list"></i> ジャンル管理</a>
              <a class="dropdown-item" href="/car_names"><i class="fa-solid fa-car"></i> 車両管理</a>
-             <a class="dropdown-item" href="/companies/tasks">タスク管理</a>
+             <a class="dropdown-item" href="/genres"><i class="fa-solid fa-list"></i> ジャンル管理</a>
+             <a class="dropdown-item" href="/companies/tasks"><i class="fa-solid fa-thumbtack"></i> タスク管理</a>
             </div>
           </li>
           <li class="nav-item dropdown">
              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa-solid fa-users"></i> EmployeeDropdown
+              <i class="fa-solid fa-users"></i> 社員
              </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
              <a class="dropdown-item" href="/companies/employees/new"><i class="fa-solid fa-user-plus"></i> 社員登録</a>
@@ -95,7 +92,6 @@
              <a class="dropdown-item" href="/posts/new"><i class="fa-regular fa-square-plus"></i> New Post</a>
              <a class="dropdown-item" href="/posts"><i class="fa-regular fa-file-image"></i> Posts Index</a>
              <a class="dropdown-item" href="/employees/:employee_id/employees/tasks"><i class="fa-solid fa-list-check"></i> Tasks Index</a>
-             
              <a class="dropdown-item"></a>
            </div>
           </li>
@@ -121,7 +117,13 @@
          <% end %>
         </ul>
        </div>
-        <%= render "layouts/serach" %>
+       <% if admin_signed_in? %>
+         <%= render "layouts/serach" %>
+       <% elsif company_signed_in? %>
+         <%= render "layouts/serach" %>
+       <% elsif employee_signed_in? %>
+         <%= render "layouts/serach" %>
+       <% end %>
       </nav>
      </header>
     <main>

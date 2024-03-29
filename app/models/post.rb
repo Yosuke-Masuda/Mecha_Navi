@@ -12,16 +12,16 @@ class Post < ApplicationRecord
   def favorited_by?(employee)
     favorites.where(employee_id: employee.id).exists?
   end
-  
-  
+
+
   #最近の投稿件数を表示するためのメソッド
   def recent_post_count
     Post.where(employee_id: self.employee_id).count
   end
-  
+
   validates :title, presence: true
   validates :caption, presence: true
-  
+
   def self.looks(search, word)
     if search == "perfect_match"
       @post = Post.joins(:car_name).where("title = ? OR car_names.name = ? OR car_names.car_type = ?", word, word, word)

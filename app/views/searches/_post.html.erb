@@ -1,0 +1,23 @@
+<tr>
+  <td>タイトル：<%= post.title %></td>
+  <td>
+    会社名：<%= post.employee.company.company_name %>
+    店舗名：<%= post.employee.store.name %>店
+    投稿者：<%= post.employee.last_name %> <%= post.employee.first_name %>
+  </td>
+  <td>
+    車名：<%= post.car_name.name if post.car_name.present? %>
+    型式：<%= post.car_name.car_type if post.car_name.present? %>
+    ジャンル：<%= post.genre.name if post.genre.present? %>
+  </td>
+  <td>説明：<%= post.caption %></td>
+  <td>
+    <% if admin_signed_in? %>
+      <%= link_to '投稿詳細', admin_company_employee_post_path(company_id: post.company_id, id: post.id, employee_id: post.employee_id), method: :get, class: "btn btn-outline-primary" %>
+    <% elsif company_signed_in? %>
+      <%= link_to '投稿詳細', class: "btn btn-outline-primary" %>
+    <% elsif employee_signed_in? %>
+      <%= link_to '投稿詳細', post_path(post), class: "btn btn-outline-primary" %>
+    <% end %>
+  </td>
+</tr>
