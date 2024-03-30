@@ -4,24 +4,21 @@ class ApplicationController < ActionController::Base
    def after_sign_in_path_for(resource)
      case resource
      when Admin
-       flash[:notice] = "ログインに成功しました"
        admin_root_path
      when Company
-       company_path(@company.id)
+       top_path(@company.id)
      when Employee
-       flash[:notice] = "ログインに成功しました"
        mypage_path(@employee.id)
      end
    end
 
    def after_sign_out_path_for(resource_or_scope)
     if resource_or_scope == :company
-     new_company_session_path
+     root_path
     elsif resource_or_scope == :admin
      new_admin_session_path
     elsif resource_or_scope == :employee
-     flash[:alert] = "ログアウトしました"
-     new_employee_session_path
+     root_path
     else
      root_path
     end
