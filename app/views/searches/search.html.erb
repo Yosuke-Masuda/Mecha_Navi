@@ -25,7 +25,7 @@
     <% else %>
       <!--検索対象モデルがUserではない時(= 検索対象モデルがPostの時) -->
       <tbody>
-        <%= render partial: 'post', collection: @posts.select { |post| post.employee.company_id == current_company.company_id } %>
+        <%= render partial: 'post', collection: @posts.select { |post| post.company.employee_ids == current_company.employee_ids } %>
       </tbody>
     <% end %>
   </table>

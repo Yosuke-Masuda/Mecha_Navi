@@ -79,13 +79,12 @@ Rails.application.routes.draw do
             get "unsubscribe"
             patch "withdraw"
         end
-
-
       resources :tasks
       resources :daily_tasks, only: [:new, :create]
     end
 
    resources :employees, only: [:create, :index, :show, :edit, :update] do
+
      resources :tasks, only: [:show]
    end
    patch 'companies/employees/:id' => 'employees#update', as: 'public_update_employee'

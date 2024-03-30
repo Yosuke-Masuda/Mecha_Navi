@@ -1,27 +1,10 @@
 <div class="card jumbotron">
   <div class="row">
-    <div class="col-7">
-      <div class="admin-heading col-7">
-        <h4><%= @company.company_name %>様の投稿履歴一覧</h4>
-      </div>
-      <div class="col-8"></div>
-    </div>
+    <%= render partial: 'shared/admin_heading' %>
     <div class="col-12 mx-auto">
       <%= link_to '企業投稿一覧へ', admin_top_path, class: "btn btn-outline-primary" %>
       <table class="table table_border">
-        <thead class="thead-light">
-          <div class="row table-row">
-            <div class="col-8 mx-auto">
-              <tr>
-                <th>投稿者</th>
-                <th>最近の投稿件数</th>
-                <th>投稿全件数</th>
-                <th>いいね全件数</th>
-                <th></th>
-              </tr>
-            </div>
-          </div>
-        </thead>
+        <%= render partial: 'shared/table_header' %>
         <tbody>
         <% @recent_posts.each do |post| %>
           <tr>
