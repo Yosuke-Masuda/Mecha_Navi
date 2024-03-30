@@ -20,7 +20,7 @@
 					  <tr>
 						  <td><%= task.name %></td>
 						  <td><%= task.body %></td>
-						  <td class="text-center"><%= link_to "編集", edit_company_task_path(company_id: @company.id, id: @tasks.ids), class: "btn btn-success" %></td>
+						  <td class="text-center"><%= link_to "編集", edit_company_task_path(company_id: current_company.id, id: task.id), class: "btn btn-success" %></td>
 					  </tr>
 				  <% end %>
 			  </tbody>
@@ -41,7 +41,7 @@
             <tr>
               <td><%= employee.store.name %></td>
               <% if employee.is_active == true %>
-                <td><%= link_to employee.full_name, company_tasks_path(@company), class: 'underline' %></td>
+                <td><%= link_to employee.full_name, employee_task_path(employee_id: employee.id, id: @tasks.ids), class: 'underline' %></td>
               <% else %>
                 <td><%= employee.full_name %></td>
               <% end %>
@@ -58,7 +58,7 @@
             <tr>
               <td></td>
               <% if employee.is_active == true %>
-                <td><%= link_to employee.full_name, class: 'underline' %></td>
+                <td><%= link_to employee.full_name, company_task_path(company_id: current_company.id, id: @tasks.ids), class: 'underline' %></td>
               <% else %>
                 <td><%= employee.full_name %></td>
               <% end %>
