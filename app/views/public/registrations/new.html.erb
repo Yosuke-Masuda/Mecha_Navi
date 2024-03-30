@@ -1,68 +1,54 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h4 class="mb-5 text-color col-3 text-center">新規会員登録</h4>
-      
-        <%= form_with model: @company, url: '/companies', local: true do |f| %>
-
-          <div class="sign_up-pages col-12">
-            <div class="field mb-1">
-            <%= f.label :"企業名　　　　　　　　　　　　　", class: 'col-3' %>
-
-            <%= f.text_field :company_name, autofocus: true, class: 'rounded', placeholder: "株式会社◯◯" %>
-            </div>
-          </div>
-
-          <div class="field mb-1">
-            <%= f.label :"フリガナ　　　　　　　　　", class: 'col-3' %>
-
-            <%= f.text_field :company_name_kana, autofocus: true, class: 'rounded', placeholder: "カブシキガイシャ◯◯" %>
-          </div>
-
-          <div class="field mb-1">
-            <%= f.label :"メールアドレス", class: 'col-3' %>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'rounded', placeholder: "sample@examle.com" %>
-          </div>
-
-          <div class="field mb-1">
-            <%= f.label :"郵便番号(ハイフンなし)", class: 'col-3' %>
-            <%= f.text_field :postal_code, autofocus: true, class: 'rounded', placeholder: "0000000" %>
-          </div>
-
-          <div class="field mb-1">
-            <%= f.label :"住所", class: 'col-3' %>
-            <%= f.text_field :address, autofocus: true, class: 'rounded', placeholder: "東京都渋谷区代々木神園町0-0" %>
-          </div>
-
-          <div class="field mb-1">
-            <%= f.label :"電話番号(ハイフンなし)", class: 'col-3' %>
-            <%= f.text_field :phone_number, autofocus: true, class: 'rounded', placeholder: "00000000000" %>
-          </div>
-
-
-          <div class="field mb-1">
-            <%= f.label :"パスワード(6文字以上)", class: 'col-3' %>
-            <% if @minimum_password_length %>
+<div class="card">
+  <blockquote class="blockquote mb-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h4 class="mb-5 text-color col-3 text-center">新規会員登録</h4>
+            <%= form_with model: @company, url: '/companies', local: true do |f| %>
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <th>企業名</th>
+                    <td><%= f.text_field :company_name, autofocus: true, class: 'form-control', placeholder: "株式会社◯◯" %></td>
+                  </tr>
+                  <tr>
+                    <th>フリガナ</th>
+                    <td><%= f.text_field :company_name_kana, autofocus: true, class: 'form-control', placeholder: "カブシキガイシャ◯◯" %></td>
+                  </tr>
+                  <tr>
+                    <th>メールアドレス</th>
+                    <td><%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: "sample@examle.com" %></td>
+                  </tr>
+                  <tr>
+                    <th>郵便番号(ハイフンなし)</th>
+                    <td><%= f.text_field :postal_code, autofocus: true, class: 'form-control', placeholder: "0000000" %></td>
+                  </tr>
+                  <tr>
+                    <th>電話番号(ハイフンなし)</th>
+                    <td><%= f.text_field :phone_number, autofocus: true, class: 'form-control', placeholder: "00000000000" %></td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <%= f.label :"パスワード(6文字以上)" %>
+                      <% if @minimum_password_length %>
+                      <% end %>
+                    </th>
+                    <td><%= f.password_field :password, autocomplete: "new-password", class: 'form-control', placeholder: "Password" %></td>
+                  </tr>
+                  <tr>
+                    <th>パスワード(確認用)</th>
+                    <td><%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', placeholder: "Password" %></td>
+                  </tr>
+                </tbody>
+              </table>
+              <%= f.submit "新規登録", class: 'btn btn-outline-primary btn-block' %>
             <% end %>
-            <%= f.password_field :password, autocomplete: "new-password", class: 'rounded' %>
-          </div>
-
-          <div class="field mb-1">
-            <%= f.label :"パスワード(確認用)", class: 'col-3' %>
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'rounded' %>
-          </div>
-
-          <div class="actions">
-            <%= f.label :"　", class: 'col-3' %>
-            <%= f.submit "新規登録", class: 'btn btn-primary col-2' %>
-          </div>
-          </div>
-        <% end %>
-
-        <h2 class="mt-5 mb-4 login-color col-4 text-center">既に登録済みの方</h2>
-        <div class="ml-5">
-          <p><%= link_to "こちら", new_company_session_path, class: 'text-decolation' %>からログインしてください。</p>
+            <div class="mx-auto text-right">
+              <h3>既に登録済みの方</h3>
+              <p><%= link_to "こちら", new_company_session_path, class: 'text-decolation' %>からログインしてください。</p>
+            </div>
         </div>
-
+      </div>
     </div>
-  </div>
+  </blockquote>
+</div>
