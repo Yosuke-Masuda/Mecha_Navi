@@ -1,0 +1,23 @@
+<tr>
+  <th>プロフィール画像</th>
+  <td>
+		<% if employee.image.attached? %>
+      <%= image_tag(employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+    <% else %>
+      <%= image_tag("no_image.jpg", class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+    <% end %>
+    <%= f.file_field :image, class: 'rounded' %>
+  </td>
+</tr>
+<tr>
+  <th>氏名</th>
+  <td><%= f.text_field :last_name %><%= f.text_field :first_name %></td>
+</tr>
+<tr>
+  <th>フリガナ</th>
+  <td><%= f.text_field :last_name_kana %><%= f.text_field :first_name_kana %></td>
+</tr>
+<tr>
+  <th>メールアドレス</th>
+  <td><%= f.text_field :email %></td>
+</tr>

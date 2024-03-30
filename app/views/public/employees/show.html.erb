@@ -1,6 +1,6 @@
 <div class="card-body">
   <blockquote class="blockquote mb-0">
-    <h2 class="font-weight-normal"><%= @employee.last_name %><%= @employee.first_name %>さんのページ</h2>
+    <h2 class="font-weight-normal"><%= @employee.full_name %>さんのページ</h2>
 	    <%= render partial: 'shared/employee_table', locals: { employee: @employee } %>
 	    <tr>
 		    <td>
