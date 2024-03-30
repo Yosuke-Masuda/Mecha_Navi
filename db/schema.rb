@@ -84,13 +84,12 @@ ActiveRecord::Schema.define(version: 2024_03_24_105428) do
   end
 
   create_table "daily_tasks", force: :cascade do |t|
-    t.integer "task_id", null: false
     t.integer "employee_id", null: false
+    t.integer "task_id", null: false
     t.datetime "start_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["employee_id"], name: "index_daily_tasks_on_employee_id"
-    t.index ["task_id"], name: "index_daily_tasks_on_task_id"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -177,7 +176,6 @@ ActiveRecord::Schema.define(version: 2024_03_24_105428) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "daily_tasks", "employees"
-  add_foreign_key "daily_tasks", "tasks"
   add_foreign_key "employees", "companies"
   add_foreign_key "post_comments", "employees"
   add_foreign_key "post_comments", "posts"

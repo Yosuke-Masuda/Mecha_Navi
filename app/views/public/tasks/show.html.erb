@@ -1,17 +1,18 @@
 <div class="container">
   <h1>タスク一覧</h1>
-    <div class="row">
-      <div class="card col-12 mx-auto">
-        <%= month_calendar(events: @companies) do |date, events| %>
-          <%= date.day %>
-          <% if events.size == 0 %>
-            <%= link_to_if current_employee, "タスク未入力", new_company_daily_task_path(@company, date: date) %>
-          <% elsif events.size == @tasks.size %>
-            完了
-          <% else %>
-            <%= link_to_if current_employee, "#{events.size}/#{@tasks.size}", new_company_daily_task_path(@company, date: date) %>
-          <% end %>
+  <h2><%= @employee.full_name %></h2>
+  <div class="row">
+    <div class="card col-12 mx-auto">
+      <%= month_calendar({ events: @daily_tasks, company_id: @company.id }) do |date, events| %>
+        <%= date.day %>
+        <% if events.size == 0 %>
+          タスク未入力
+        <% elsif events.size == @tasks.size %>
+          完了
+        <% else %>
+          "#{events.size}/#{@tasks.size}"
         <% end %>
-      </div>
+      <% end %>
     </div>
+  </div>
 </div>
