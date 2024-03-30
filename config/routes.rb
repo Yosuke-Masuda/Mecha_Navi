@@ -66,24 +66,25 @@ Rails.application.routes.draw do
    end
   end
 
+  devise_for :companies, skip: [:passwords,] ,controllers: {
+      sessions: 'public/sessions',
+      registrations: 'public/registrations'
+    }
+
   scope module: :public do
     get 'top' => 'homes#top', as: 'top'
     get "about" => "homes#about"
-    resource :companies, only: [:show, :edit, :update] do
-      get '/tasks', to: 'tasks#index', as: 'public_tasks'
-      post '/tasks', to: 'tasks#create'
-      get '/tasks/new', to: 'tasks#new', as: 'new_public_task'
-      get '/tasks/:id/edit', to: 'tasks#edit', as: 'edit_public_task'
-      get '/employee_id/tasks/:id', to: 'tasks#show', as: 'public_task'
-      patch '/tasks/:id', to: 'tasks#update'
-      put '/tasks/:id', to: 'tasks#update'
-      delete '/tasks/:id', to: 'tasks#destroy', as: 'destroy_public_task'
-    end
-    resources :companies, only: [] do
+    resources :companies, only: [:show, :edit, :update] do
+        member do
+            get "unsubscribe"
+            patch "withdraw"
+        end
+
+
+      resources :tasks
       resources :daily_tasks, only: [:new, :create]
     end
-   get "companies/unsubscribe" => "companies#unsubscribe"
-   patch "companies/withdraw" => "companies#withdraw"
+
    resources :employees, only: [:create, :index, :show, :edit, :update] do
      resources :tasks, only: [:show]
    end
@@ -111,9 +112,6 @@ Rails.application.routes.draw do
 
    end
 
-   devise_for :companies, skip: [:passwords,] ,controllers: {
-      sessions: 'public/sessions',
-      registrations: 'public/registrations'
-    }
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -1,5 +1,5 @@
 <section class="inner">
 	<h2 class="section-ttl">タスク編集</h2>
-  <%= render 'form', task: @task, url: public_task_companies_path(@task), submit: '更新' %>
-  <%= button_to "削除", destroy_public_task_path(@task), method: :delete, data: { confirm: "削除してもよろしいですか？" } %>
+  <%= render 'form', task: @task, url: company_task_path(company_id: @company.id, id: @tasks.ids), submit: '更新' %>
+  <%= button_to "削除", company_task_path(company_id: @company.id, id: @tasks.ids), method: :delete, data: { confirm: "削除してもよろしいですか？" } %>
 </section>

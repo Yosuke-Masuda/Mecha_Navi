@@ -33,7 +33,7 @@ class Public::TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      redirect_to public_tasks_companies_path(@company), notice: "タスクを更新しました"
+      redirect_to company_tasks_path(company_id: @company.id), notice: "タスクを更新しました"
     else
       render "edit"
     end
