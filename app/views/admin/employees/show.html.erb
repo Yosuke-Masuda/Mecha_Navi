@@ -3,42 +3,7 @@
   <div class="container">
     <h1><%= @employee.full_name %>さんの詳細</h1>
     <div class="row">
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <td>プロフィール画像</td>
-            <td colspan="2">
-					    <% if @employee.image.attached? %>
-                <%= image_tag(@employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
-              <% else %>
-                <%= image_tag("no_image.jpg", class: "rounded-circle", style: "width: 100px; height: 100px;") %>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td>名前</td>
-            <td colspan="2">（姓）<%= @employee.last_name %>　（名）<%= @employee.first_name %></td>
-          </tr>
-          <tr>
-            <td>フリガナ</td>
-            <td colspan="2">（セイ）<%= @employee.last_name_kana %>　（メイ）<%= @employee.first_name_kana %></td>
-          </tr>
-          <tr>
-            <td>メールアドレス</td>
-            <td colspan="2"><%= @employee.email %></td>
-          </tr>
-          <tr>
-            <td>ステータス</td>
-            <td colspan="2">
-              <% if @employee.is_active? %>
-						    <p class="text-success">有効</p>
-					    <% else %>
-						    <p class="text-secondary">退職</p>
-					    <% end %>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <%= render partial: 'shared/employee_table', locals: { employee: @employee } %>
       <tr>
 		    <td><%= link_to "編集", edit_admin_company_employee_path(@employee), class: "btn btn-outline-success btn-sm btn-block" %></td>
 	    </tr>

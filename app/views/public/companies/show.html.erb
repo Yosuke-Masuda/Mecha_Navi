@@ -1,40 +1,39 @@
-<div class="card jumbotron">
-  <div class="card-body">
-    <h3 class="mb-3 text-center"><strong>企業マイページ</strong></h3>
-        <table class="col-10 mx-auto table table-bordered table-condensed">
-            <p class="text-center">
-                <strong>登録情報</strong>
-                <%= link_to " 編集する", edit_company_path(@company), class: "glyphicon glyphicon-pencil btn btn-outline-success" %>
-            </p>
-            <tr>
-                <td class="col-xs-2">氏名</td>
-                <td><%= @company.company_name %></td>
-            </tr>
-
-            <tr>
-                <td class="col-xs-2">カナ</td>
-                <td><%= @company.company_name_kana %></td>
-            </tr>
-
-            <tr>
-                <td class="col-xs-2">郵便番号</td>
-                <td><%= @company.postal_code %></td>
-            </tr>
-
-            <tr>
-                <td class="col-xs-2">住所</td>
-                <td><%= @company.address %></td>
-            </tr>
-
-            <tr>
-                <td class="col-xs-2">電話番号</td>
-                <td><%= @company.phone_number %></td>
-            </tr>
-
-            <tr>
-                <td class="col-xs-2">メールアドレス</td>
-                <td><%= @company.email %></td>
-            </tr>
+<div class="card mx-auto">
+  <blockquote class="blockquote mb-0">
+    <div class="container">
+      <h3 class="mb-3 text-center"><strong>企業マイページ</strong></h3>
+        <table class="table table-bordered table-condensed">
+          <p class="text-left">
+            <strong>登録情報</strong>
+          </p>
+          <tr>
+            <td class="col-xs-2">氏名</td>
+            <td><%= @company.company_name %></td>
+          </tr>
+          <tr>
+            <td class="col-xs-2">カナ</td>
+            <td><%= @company.company_name_kana %></td>
+          </tr>
+          <tr>
+            <td class="col-xs-2">郵便番号</td>
+            <td><%= @company.postal_code %></td>
+          </tr>
+          <tr>
+            <td class="col-xs-2">住所</td>
+            <td><%= @company.address %></td>
+          </tr>
+          <tr>
+            <td class="col-xs-2">電話番号</td>
+            <td><%= @company.phone_number %></td>
+          </tr>
+          <tr>
+            <td class="col-xs-2">メールアドレス</td>
+            <td><%= @company.email %></td>
+          </tr>
         </table>
-  <div>
+        <%= link_to edit_company_path(@company), class: "btn btn-outline-success btn-block" do %>
+          <i class="fa-solid fa-pen-to-square"></i> 編集する
+        <% end %>
+    </div>
+  </blockquote>
 </div>
