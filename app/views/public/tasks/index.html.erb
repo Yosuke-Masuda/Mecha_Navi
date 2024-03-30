@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="mb3">
 		<h3>タスク新規登録</h3>
-  	<%= render 'form', task: @task, url: tasks_companies_path, submit: '登録' %>
+  	<%= render 'form', task: @task, url: company_tasks_path(@tasks), submit: '登録' %>
 	  </div>
 	  <div class="mx-auto">
 		  <h3>タスク一覧</h3>
@@ -20,7 +20,7 @@
 					  <tr>
 						  <td><%= task.name %></td>
 						  <td><%= task.body %></td>
-						  <td class="text-center"><%= link_to "編集", edit_public_task_companies_path(task), class: "btn btn-success" %></td>
+						  <td class="text-center"><%= link_to "編集", edit_company_task_path(company_id: @company.id, id: @tasks.ids), class: "btn btn-success" %></td>
 					  </tr>
 				  <% end %>
 			  </tbody>
@@ -41,7 +41,7 @@
             <tr>
               <td><%= employee.store.name %></td>
               <% if employee.is_active == true %>
-                <td><%= link_to employee.full_name, public_task_companies_path(@company), class: 'underline' %></td>
+                <td><%= link_to employee.full_name, company_tasks_path(@company), class: 'underline' %></td>
               <% else %>
                 <td><%= employee.full_name %></td>
               <% end %>

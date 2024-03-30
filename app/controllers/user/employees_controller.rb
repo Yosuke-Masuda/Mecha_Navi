@@ -1,19 +1,7 @@
 class User::EmployeesController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_current_employee, only: [:show, :edit, :update, :unsubscribe, :withdraw]
-  def new
-    @employee = Employee.new
-    @genres = current_employee.company.genres
-  end
-  def create
-  @employee = Employee.new(employee_params)
-  @employee.company_id = current_company.id if current_company
-    if @employee.save
-      redirect_to root_path, notice: 'Employee was successfully created.'
-    else
-      render :new
-    end
-  end
+  
   
   def show
    @company = current_employee.company
