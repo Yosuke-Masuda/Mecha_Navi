@@ -21,7 +21,6 @@ Rails.application.routes.draw do
    root :to => "homes#top"
    get "about" => "homes#about"
    get 'employees/mypage/:id' => 'employees#show', as: 'mypage'
-   get 'employees/information/edit' => 'employees#edit', as: 'edit_information'
    resources :posts do
        resource :favorites, only: [:create, :destroy]
        resources :post_comments, only: [:create, :destroy]
@@ -38,11 +37,6 @@ Rails.application.routes.draw do
      end
      get 'tasks/complete', to: 'tasks#complete', as: 'tasks_complete'
    end
-
-   patch 'employees/information' => 'employees#update', as: 'update_information'
-   put 'employees/information' => 'employees#update'
-   get 'employees/unsubscribe' => 'employees#unsubscribe', as: 'confirm_unsubscribe'
-
 
    end
 

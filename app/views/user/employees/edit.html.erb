@@ -3,19 +3,10 @@
     <div class="container">
       <h1><%= @employee.full_name %>さんの編集</h1>
         <div class"row">
-          <%= form_with( model: @employee, url: public_update_employee_path, local: true) do |f| %>
+          <%= form_with( model: @employee, url: employee_path(@employee), local: true) do |f| %>
             <table class="table table-bordered">
               <tbody>
                 <%= render partial: "shared/employee_table_row", locals: { f: f, employee: @employee } %>
-                  <tr>
-                    <th>会員ステータス</th>
-                    <td>
-                      <%= f.label :is_active, '有効', value: true %>
-                      <%= f.radio_button :is_active, true %>
-                      <%= f.label :is_active, '退職', value: false %>
-                      <%= f.radio_button :is_active, false %>
-                    </td>
-                  </tr>
               </tbody>
             </table>
             <%= button_tag type: "submit", class: 'btn btn-outline-success btn-block' do %>

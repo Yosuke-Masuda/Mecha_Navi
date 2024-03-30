@@ -1,14 +1,16 @@
 class User::EmployeesController < ApplicationController
   before_action :authenticate_employee!
   before_action :set_current_employee, only: [:show, :edit, :update, :unsubscribe, :withdraw]
-  
-  
+
+
   def show
    @company = current_employee.company
    @my_posts = Post.where(employee_id: current_employee.id).order(created_at: :desc)
   end
 
   def edit
+    @company = current_employee.company
+    render "edit"
   end
 
   def update
@@ -18,9 +20,9 @@ class User::EmployeesController < ApplicationController
       render :edit
     end
   end
-  
-  
-  
+
+
+
   def favorites
     @employee = Employee.find(params[:id])
     favorites= Favorite.where(employee_id: @employee.id).pluck(:post_id)
