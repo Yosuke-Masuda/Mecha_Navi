@@ -1,42 +1,20 @@
 <div class="card-body">
   <blockquote class="blockquote mb-0">
-  <h2 class="font-weight-normal"><%= @employee.last_name %><%= @employee.first_name %>さんのページ</h2>
-	  <table class="table table-bordered">
-		
-		  <tbody>
-			  <tr>
-				  <td>社員ID</td>
-				  <td colspan="2"><%= @employee.id %></td>
-			  </tr>
-			  <tr>
-				  <td>名前</td>
-				  <td>（姓）<%= @employee.last_name %>（名）<%= @employee.first_name %></td>
-			  </tr>
-			  <tr>
-				  <td>フリガナ</td>
-				  <td>（セイ）<%= @employee.last_name_kana %>（メイ）<%= @employee.first_name_kana %></td>
-			  </tr>
-			  <tr>
-				  <td>メールアドレス</td>
-				  <td colspan="2"><%= @employee.email %></td>
-			  </tr>
-			  <tr>
-				  <td>会員ステータス</td>
-				  <td colspan="2">
-					  <% if @employee.is_active? %>
-						  <span class="text-active">有効	</span>					
-					  <% else %>
-						  <span class="text-invalid">退職</span>
-					  <% end %>
-				  </td>
-			  </tr>
-		  </tbody>
-	  </table>
-	  <tr>
-		  <td><%= link_to "編集", public_edit_employees_path, class: "btn btn-outline-success btn-sm btn-block" %></td>
-	  </tr>
-	  <tr>
-		  <td><%= link_to "社員一覧へ戻る", public_index_employees_path, class: "btn btn-outline-primary btn-sm btn-block" %></td>
-	  </tr>
-	  </blockquote>
+    <h2 class="font-weight-normal"><%= @employee.last_name %><%= @employee.first_name %>さんのページ</h2>
+	    <%= render partial: 'shared/employee_table', locals: { employee: @employee } %>
+	    <tr>
+		    <td>
+		    	<%= link_to public_edit_employees_path, class: "btn btn-outline-success btn-sm btn-block" do %>
+		    	 <i class="fa-solid fa-pen-to-square"></i> 編集
+		    	<% end %>
+		    </td>
+	    </tr>
+	    <tr>
+		    <td>
+		    	<%= link_to public_index_employees_path, class: "btn btn-outline-primary btn-sm btn-block" do %>
+		    	  <i class="fa-solid fa-users"></i> 社員一覧へ
+		      <% end %>
+		    </td>
+	    </tr>
+  </blockquote>
 </div>
