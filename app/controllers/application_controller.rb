@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
      when Admin
        admin_root_path
      when Company
-       top_path(@company.id)
+       top_path
      when Employee
        mypage_path(@employee.id)
      end

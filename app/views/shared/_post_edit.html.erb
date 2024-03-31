@@ -1,0 +1,14 @@
+<% if post.images.present? %>
+  <p>現在登録されている画像（削除するものはチェックしてください）</p>
+  <% post.images.each do |image| %>
+    <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
+    <%= image_tag image, size:"100x100" %> <br>
+  <% end %>
+<% end %>
+<div class="field mb-1">
+  <th><%= f.label :caption, '説明', class: 'col-3' %></th>
+  <td><%= f.text_area :caption, class: "form-control" %></td>
+</div>
+<div class="field mb-1">
+  <%= f.submit  '編集する', class: 'btn btn-outline-success btn-block' %>
+</div>

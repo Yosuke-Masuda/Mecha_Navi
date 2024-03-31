@@ -1,33 +1,10 @@
-<%= form_with(model: @post, url: company_post_path(company_id: current_company.id, id: @post.id), method: :patch, local: true) do |f| %>
-  <div>
-    <%= f.label :title, 'タイトル' %>
-    <%= f.text_field :title %>
-  </div>
-
-  <div>
-    <%= f.label :images, '画像' %>
-    <%= f.file_field :images, multiple: true %>
-  </div>
-
-  <div>
-    <%= f.label :caption, '説明文' %>
-    <%= f.text_field :caption %>
-  </div>
-
-  <div>
-    <%= f.label :caption, '説明文' %>
-    <%= f.text_field :caption %>
-  </div>
-
-  <% if @post.images.present? %>
-    <p>現在登録されている画像（削除するものはチェックしてください）</p>
-    <% @post.images.each do |image| %>
-      <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
-      <%= image_tag image, size:"100x100" %> <br>
-    <% end %>
-  <% end %>
-
-  <div>
-    <%= f.submit  '編集する' %>
-  </div>
-<% end %>
+<div class="card jumbotron">
+  <blockquote class="blockquote mb-0">
+    <div class="container">
+      <%= form_with(model: @post, url: company_post_path(company_id: current_company.id, id: @post.id), method: :patch, local: true) do |f| %>
+        <%= render 'shared/post_form', f: f, user_type: "company" %>
+        <%= render 'shared/post_edit', f: f, post: @post %>
+      <% end %>
+    </div>
+  </blockquote>
+</div>
