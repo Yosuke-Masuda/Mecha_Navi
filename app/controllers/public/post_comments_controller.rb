@@ -1,4 +1,4 @@
-class Admin::PostCommentsController < ApplicationController
+class Public::PostCommentsController < ApplicationController
   before_action :set_post_comment, only: [:destroy]
 
   def create

@@ -1,20 +1,23 @@
 class Public::PostsController < ApplicationController
   before_action :set_current_company, only: [:index, :show, :edit, :update, :unsubscribe, :withdraw, :create]
-  
+
   def index
     @posts = Post.order(created_at: :desc)
     @company = Company.find(current_company.id)
   end
-  
+
   def show
     @post = Post.find(params[:id])
-    @images = @post.images
+    @employee = @post.employee # @employeeを@postから取得する
+    @posts = @employee.posts
+    @images = @post.images.map(&:blob).uniq
+    @video = @post.video
   end
-  
+
   def edit
     @post = Post.find(params[:id])
   end
-  
+
 
   def update
     post = Post.find(params[:id])
@@ -41,7 +44,7 @@ class Public::PostsController < ApplicationController
   end
 
   private
-  
+
   def set_current_company
     @company = current_company
   end
