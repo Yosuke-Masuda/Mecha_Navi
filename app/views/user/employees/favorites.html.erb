@@ -1,6 +1,5 @@
-いいね一覧
 <h3>
-		<%= link_to"マイページへ戻る",mypage_path(@employee.id), class: "btn btn-outline-success" %>
+		<%= link_to"マイページへ戻る", mypage_path(@employee.id), class: "btn btn-outline-success" %>
 </h3>
 <% @favorite_posts.each do |post|%>
  <%= render "user/posts/post", post: post %>
