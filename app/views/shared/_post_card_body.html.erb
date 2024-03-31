@@ -33,10 +33,10 @@
           <%= link_to '編集', edit_post_path(post.id), class: "btn btn-outline-success" %>
           <%= link_to '削除', admin_company_employee_post_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
         <% elsif company_signed_in? %>
-          <%= link_to '投稿一覧へ', public_index_posts_path(post), class: "btn btn-outline-primary" %>
+          <%= link_to '投稿一覧へ', company_posts_path(company_id: current_company.id), class: "btn btn-outline-primary" %>
             <% if post.employee.company_id == current_company.id %>
-              <%= link_to '編集', public_edit_posts_path(post.id), class: "btn btn-outline-success" %>
-              <%= link_to '削除', destroy_public_posts_path, method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
+              <%= link_to '編集', edit_company_post_path(company_id: current_company.id, id: post.id), class: "btn btn-outline-success" %>
+              <%= link_to '削除', company_post_path(company_id: current_company.id, id: post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
             <% end %>
         <% elsif employee_signed_in? %>
           <%= link_to '投稿一覧へ', posts_path(post.id), class: "btn btn-outline-primary" %>

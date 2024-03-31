@@ -2,7 +2,7 @@ class Public::PostsController < ApplicationController
   before_action :set_current_company, only: [:index, :show, :edit, :update, :unsubscribe, :withdraw, :create]
 
   def index
-    @posts = Post.order(created_at: :desc)
+    @posts = Post.page(params[:page]).order(created_at: :desc)
     @company = Company.find(current_company.id)
   end
 
@@ -28,8 +28,8 @@ class Public::PostsController < ApplicationController
        end
     end
     if post.update(post_params)
-      flash[:success] = "編集しました"
-      redirect_to public_show_post_path
+      flash[:notice] = "編集しました"
+      redirect_to company_post_path(company_id: current_company.id, id: post.id)
     else
       render :edit
     end
@@ -39,8 +39,8 @@ class Public::PostsController < ApplicationController
   def destroy
    @post = Post.find(params[:id])
    @post.destroy
-   flash[:success] = "削除しました"
-   redirect_to public_index_posts_path
+   flash[:notice] = "削除しました"
+   redirect_to company_posts_path(company_id: current_company.id)
   end
 
   private

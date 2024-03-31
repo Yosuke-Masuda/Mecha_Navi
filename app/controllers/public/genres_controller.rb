@@ -12,8 +12,10 @@ class Public::GenresController < ApplicationController
     @genre =Genre.new(genre_params)
     @genre.company_id = current_company.id
     if @genre.save
+      flash[:notice] = "作成しました"
       redirect_to genres_path
     else
+      flash[:alert] = "作成に失敗しました"
       @genres = current_company.genres  
       render :index
     end
@@ -27,8 +29,10 @@ class Public::GenresController < ApplicationController
   def update
     @genre = Genre.find(params[:id])
     if @genre.update(genre_params)
+      flash[:notice] = "編集しました"
       redirect_to genres_path
     else
+      flash[:alert] = "編集に失敗しました"
       render "edit"
     end
 
