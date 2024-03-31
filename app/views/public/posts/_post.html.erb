@@ -1,6 +1,6 @@
 <div class="card mb-3" style="max-width: autopx;">
   <div class="row no-gutters">
-    
+
       <div class="col-md-4">
         <% if post.images.present? %>
          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -27,27 +27,20 @@
           <h5 class="card-title">タイトル:<%= post.title %></h5>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">会社名：<%= post.employee.company.company_name %>　店舗名：<%= post.employee.store.name %>店　投稿者：<%= post.employee.last_name %>　<%= post.employee.first_name %></li>
-    
+
 
             <li class="list-group-item">車名：<%= post.car_name.name if post.car_name.present? %>　型式：<%= post.car_name.car_type if post.car_name.present? %>　ジャンル：<%= post.genre.name if post.genre.present? %></li>
-    
+
           </ul>
-        
+
           <p class="card-text">説明文：<%= post.caption %></p>
-          
-          
-          
-          <p class="card-text">説明文：<%= post.caption %></p>
-          
           <p class="card-text"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d/%H:%M') %></small></p>
+
           <div class="card-body">
             <div class="btn-group" role="group" aria-label="Basic example">
-              <%= link_to '投稿詳細', public_show_post_path(post.id), class: "btn btn-outline-primary"%>
-              <%= link_to '編集', public_edit_posts_path(post.id), class: "btn btn-outline-success" %>
-              <%= form_with url: destroy_public_posts_path(post.id), method: :delete do |f| %>
-                <%= f.submit 'delete' %>
-              <% end %>
-              <%= button_to '削除', destroy_public_posts_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
+              <%= link_to '投稿詳細', company_post_path(company_id: current_company.id, id: post.id), class: "btn btn-outline-primary"%>
+              <%= link_to '編集', edit_company_post_path(company_id: current_company.id, id: post.id), class: "btn btn-outline-success" %>
+              <%= link_to '削除', company_post_path(company_id: current_company.id, id: post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
             </div>
           </div>
         </div>
