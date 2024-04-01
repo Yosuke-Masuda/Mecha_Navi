@@ -5,7 +5,7 @@
         <%= month_calendar(events: @daily_tasks) do |date, events| %>
           <%= date.day %>
           <% if events.size == 0 %>
-            <%= link_to_if current_employee, "タスク未入力", new_company_daily_task_path(@company, date: date) %>
+            <%= link_to_if current_employee, "タスク未入力", new_company_daily_task_path(company_id: @company.id, date: date) %>
           <% elsif events.size == @tasks.size %>
             完了
           <% else %>

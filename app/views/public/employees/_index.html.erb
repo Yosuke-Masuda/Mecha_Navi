@@ -18,10 +18,10 @@
        </tr>
       </thead>
       <tbody>
-        <% @employees.each do |employee| %>
+        <% employees.each do |employee| %>
           <tr>
             <td><%= employee.id %></td>
-            <td><%= link_to "#{employee.last_name} #{employee.first_name}", company_employee_path(company_id: current_company.id, id: employee.id), class: "text-dark border-bottom border-dark" %></td>
+            <td><%= link_to "#{employee.last_name} #{employee.first_name}", company_employee_path(company_id: current_company.id, id: employee.id), class: "text-blue border-bottom border-dark" %></td>
             <td><%= employee.store.name %></td>
             <td><%= employee.email %></td>
             <td>

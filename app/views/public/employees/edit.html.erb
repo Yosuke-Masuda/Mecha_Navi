@@ -6,7 +6,7 @@
           <%= form_with( model: @employee, url: company_employee_path(company_id: current_company.id, id: @employee.id), local: true) do |f| %>
             <table class="table table-bordered">
               <tbody>
-                <%= render partial: "shared/employee_table_row", locals: { f: f, employee: @employee } %>
+                <%= render partial: "shared/employee_table_row", locals: { f: f, employee: @employee, user_type: "company" } %>
                   <tr>
                     <th>会員ステータス</th>
                     <td>

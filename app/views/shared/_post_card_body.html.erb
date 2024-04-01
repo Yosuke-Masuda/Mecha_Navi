@@ -30,7 +30,7 @@
     <div class="card-body text-center">
       <div class="btn-group btn-block" role="group" aria-label="Basic example">
         <% if admin_signed_in? %>
-          <%= link_to "#{post.employee.full_name}の投稿一覧へ戻る", history_admin_company_employee_post_path(employee_id: post.employee.id, id: post.id), method: :get, class: 'btn btn-outline-primary' %>
+          <%= link_to "#{post.employee.full_name}の投稿一覧へ戻る", history_admin_company_employee_post_path(employee_id: post.employee_id, id: post.id), method: :get, class: 'btn btn-outline-primary' %>
           <%= link_to '編集', edit_post_path(post.id), class: "btn btn-outline-success" %>
           <%= link_to '削除', admin_company_employee_post_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
         <% elsif company_signed_in? %>

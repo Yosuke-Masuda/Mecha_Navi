@@ -1,5 +1,4 @@
 <h1><%= @employee.full_name %>詳細ページ</h1>
-<%= button_to "#{@employee.full_name}"'の投稿一覧へ戻る', history_admin_company_employee_post_path(employee_id: @employee.id, id: @posts.ids), method: :get, class: 'btn btn-outline-primary' %>
 <div class="card" style="width: 100%; margin: 0 auto;">
   <%= render 'shared/post_card_body', post: @post %>
     <div>
