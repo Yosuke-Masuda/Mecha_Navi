@@ -14,7 +14,7 @@ class Public::EmployeesController < ApplicationController
   end
 
   def index
-    @employees = current_company.employees.page(params[:page]).per(10)
+    @employees = current_company.employees.includes(:store).order('stores.name').page(params[:page]).per(10)
   end
 
   def show

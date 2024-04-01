@@ -6,7 +6,7 @@
           <%= form_with( model: @employee, url: employee_path(@employee), local: true) do |f| %>
             <table class="table table-bordered">
               <tbody>
-                <%= render partial: "shared/employee_table_row", locals: { f: f, employee: @employee } %>
+                <%= render partial: "shared/employee_table_row", locals: { f: f, employee: @employee, user_type: "employee" } %>
               </tbody>
             </table>
             <%= button_tag type: "submit", class: 'btn btn-outline-success btn-block' do %>
