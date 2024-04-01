@@ -1,24 +1,18 @@
-<div class="card">
+<div class="card jumbotron bg-light">
   <blockquote class="blockquote mb-0">
-  <div class="container">
-    <h1><%= @employee.full_name %>さんの詳細</h1>
-    <div class="row">
-      <%= render partial: 'shared/employee_table', locals: { employee: @employee } %>
-      <tr>
-		    <td>
-		      <%= link_to edit_admin_company_employee_path(@employee), class: "btn btn-outline-success btn-sm btn-block" do %>
-		        <i class="fa-solid fa-pen-to-square"></i> 編集
-		      <% end %>
-		    </td>
-	    </tr>
-	    <tr>
-		    <td>
-		      <%= link_to admin_company_employees_path(company_id: @company.id), class: 'btn btn-outline-primary btn-block' do %>
-		        <i class="fa-solid fa-users"></i> 社員一覧へ
-		      <% end %>
-		    </td>
-	    </tr>
+    <div class="container">
+      <h1><%= @employee.full_name %>さんの詳細</h1>
+      <div class="row">
+        <%= render partial: 'shared/employee_table', locals: { employee: @employee } %>
+          <div class="btn-group btn-block" role="group" aria-label="Basic example">
+		        <%= link_to edit_admin_company_employee_path(@employee), class: "btn btn-outline-success" do %>
+		          <i class="fa-solid fa-pen-to-square"></i> 編集
+		        <% end %>
+		        <%= link_to admin_company_employees_path(company_id: @company.id), class: "btn btn-outline-primary" do %>
+		          <i class="fa-solid fa-users"></i> 社員一覧へ
+		        <% end %>
+		      </div>
+      </div>
     </div>
-  </div>
   </blockquote>
 </div>

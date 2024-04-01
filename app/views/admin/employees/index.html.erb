@@ -1,6 +1,7 @@
-<div class="card jumbotron">
+<div class="card jumbotron bg-light">
   <div class="container">
-    <h1>社員一覧</h1>
+    <h1><%= @company.company_name %>様の社員一覧</h1>
+    <%= link_to '会員一覧へ', admin_companies_path, class: 'btn btn-outline-primary' %>
     <% @stores.each do |store| %>
       <% employees_in_store = @employees.select { |employee| employee.store_id == store.id } %>
       <% if employees_in_store.any? %>

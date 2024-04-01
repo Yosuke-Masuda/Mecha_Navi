@@ -1,8 +1,8 @@
-<div class="card">
-	<blockquote class="blockquote mb-0">
+<div class="card jumbotron bg-light">
+	<blockquote class="blockquote">
 	  <div class="container">
 	  	<h2><%= @company.company_name %>の詳細</h2>
-	  	<div class="row mx-auto">
+	  	<div class="row">
 		    <table class="table table-bordered">
 		    	<tbody>
 		    		<tr>
@@ -45,9 +45,14 @@
 			      </tr>
 		    	</tbody>
 		    </table>
-		    <tr>
-				  <td><%= link_to "編集", edit_admin_company_path, class: "btn btn-outline-success btn-block" %></td>
-			  </tr>
+            <div class="btn-group btn-block" role="group" aria-label="Basic example">
+				      <%= link_to edit_admin_company_path, class: 'btn btn-outline-success' do %>
+				        <i class="fa-regular fa-pen-to-square"></i> 編集
+				      <% end %>
+				      <%= link_to admin_companies_path, class: 'btn btn-outline-primary' do %>
+				        <i class="fa-solid fa-users-viewfinder"></i> 会員一覧
+				      <% end %>
+				    </div>
 		    </div>
 	    </div>
 	</blockquote>

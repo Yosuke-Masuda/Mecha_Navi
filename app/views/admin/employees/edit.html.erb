@@ -1,9 +1,9 @@
-<div class="card">
+<div class="card jumbotron bg-light">
   <blockquote class="blockquote mb-0">
     <div class="container">
       <h1><%= @employee.full_name %>さんの編集</h1>
       <div class"row">
-        <%= form_with( model: @employee, url: admin_company_employee_path, local: true) do |f| %>
+        <%= form_with( model: @employee, url: admin_company_employee_path(company_id: @employee.company_id, id: @employee.id), local: true) do |f| %>
           <table class="table table-bordered">
             <tbody>
               <%= render partial: "shared/employee_table_row", locals: { f: f, employee: @employee, user_type: "admin" } %>
@@ -18,9 +18,14 @@
               </tr>
             </tbody>
           </table>
-          <%= button_tag type: "submit", class: 'btn btn-outline-success btn-block' do %>
+          <div class="btn-group btn-block" role="group" aria-label="Basic example">
+          <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
             <i class="fa-solid fa-floppy-disk"></i> 保存する
           <% end %>
+          <%= link_to admin_company_employee_path(id: @employee.id, company_id: @employee.company_id), class: "btn btn-outline-primary" do %>
+              <i class="fa-solid fa-user"></i> 詳細へ戻る
+          <% end %>
+          </div>
         <% end %>
       </div>
     </div>

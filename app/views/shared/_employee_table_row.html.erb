@@ -13,7 +13,7 @@
   <th>勤務地</th>
   <td>
     <% if user_type == "admin" %>
-      <%= f.collection_select :store_id, current_admin.stores, :id, :name, :prompt => "--選択して下さい--", class: 'rounded' %>店
+      <%= f.collection_select :store_id, @stores, :id, :name, prompt: "--選択して下さい--", class: 'rounded' %>店
     <% elsif user_type == "company" %>
       <%= f.collection_select :store_id, current_company.stores, :id, :name, :prompt => "--選択して下さい--", class: 'rounded' %>店
     <% elsif user_type == "employee" %>

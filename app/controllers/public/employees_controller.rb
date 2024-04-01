@@ -27,6 +27,7 @@ class Public::EmployeesController < ApplicationController
   end
 
   def edit
+    @employees = current_admin.stores
     @employee = Employee.find(params[:id])
     render "edit"
   end
