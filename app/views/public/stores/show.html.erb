@@ -1,30 +1,34 @@
-<div class="card jumbotron">
-   <h1 class="display-4"><%= @store.name %>店の所属社員</h1>
-     <div class="col-10 mx-auto" style="margin-top: 0px;">
-      <table class="table table-bordered">
-        <thead class="thead-light">
-          <tr>
-            <th>所属社員</th>
-            <th>メールアドレス</th>
-            <th>ステータス</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @store.employees.each do |employee| %>
-             <tr>
-               <td><%= employee.last_name %> <%= employee.first_name %></td><br>
-               <td><%= employee.email %></td>
-               <td>
-                <% if employee.is_active == true %>
-                 <p class="text-success">有効</p>
-                <% else %>
-                 <p class="text-secondary">退職</p>
-                <% end %>
-               </td>
-             </tr>
-          <% end %>
-        </tbody>
-      </table>
-        <a class="col mx-auto btn btn-outline-primary btn-sm" href="/stores" role="button">店舗一覧へ</a>
-     </div>
+<div class="card jumbotron bg-light">
+  <blockquote>
+    <div class="container">
+      <h1><%= @store.name %>店の所属社員</h1>
+      <div class="row">
+        <table class="table table-bordered">
+          <thead class="thead-light">
+            <tr>
+              <th>所属社員</th>
+              <th>メールアドレス</th>
+              <th>ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @store.employees.each do |employee| %>
+               <tr>
+                 <td><%= employee.last_name %> <%= employee.first_name %></td><br>
+                 <td><%= employee.email %></td>
+                 <td>
+                   <% if employee.is_active == true %>
+                     <p class="text-success">有効</p>
+                   <% else %>
+                     <p class="text-secondary">退職</p>
+                   <% end %>
+                 </td>
+               </tr>
+            <% end %>
+          </tbody>
+        </table>
+          <a class="col mx-auto btn btn-outline-primary btn-sm" href="/stores" role="button">店舗一覧へ</a>
+      </div>
+    </div>
+  </blockquote>
 </div>
