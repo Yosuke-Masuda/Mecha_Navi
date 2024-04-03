@@ -2,7 +2,6 @@
   <blockquote class="blockquote mb-0">
     <div class="container">
       <h1>投稿</h1>
-      <%= form_with(model: @post, url: '/posts', local: true) do |f| %>
         <%= render 'layouts/error_messages', resource: @post %>
         <table class="table table-bordered">
           <tbody>
@@ -30,10 +29,11 @@
 			      </tr>
 			    </tbody>
 			  </table>
+			  <%= form_with(model: @post, url: '/posts', local: true) do |f| %>
         <%= render 'shared/post_form', f: f, user_type: "employee" %>
         <div class="field mb-1">
-          <th><%= f.label :caption, '説明', class: 'col-3' %></th>
-          <td><%= f.text_area :caption, class: "form-control" %></td>
+          <%= f.label :caption, '説明', class: 'col-3' %>
+          <%= f.text_area :caption, class: "form-control" %>
         </div>
         <div class="field mb-1">
           <%= f.submit  '投稿する', class: 'btn btn-outline-primary btn-block' %>

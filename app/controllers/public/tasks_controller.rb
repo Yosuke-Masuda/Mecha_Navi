@@ -19,10 +19,10 @@ class Public::TasksController < ApplicationController
   end
 
   def show
-    @employee = Employee.find(params[:employee_id])
     @company = current_company
-    @tasks = @employee.tasks
-    @daily_tasks = current_company.daily_tasks.includes(:task).where("tasks.company_id": @company.id)
+    @employee = Employee.find(params[:id])
+    @tasks = @company.tasks
+    @daily_tasks = @employee.daily_tasks.includes(:task).where("tasks.company_id": @company.id)
   end
 
   def edit

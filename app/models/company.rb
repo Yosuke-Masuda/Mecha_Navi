@@ -3,13 +3,14 @@ class Company < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
   has_many :stores, dependent: :destroy
   has_many :employees, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :genres, dependent: :destroy
   has_many :car_names, dependent: :destroy
   has_many :tasks, dependent: :destroy
-  has_many :daily_tasks
+  has_many :daily_tasks, dependent: :destroy
 
   validates :company_name, presence: true
   validates :company_name_kana, presence: true

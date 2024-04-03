@@ -41,7 +41,7 @@
             <tr>
               <td><%= employee.store.name %></td>
               <% if employee.is_active == true %>
-                <td><%= link_to employee.full_name, employee_task_path(employee_id: employee.id, id: @tasks.ids), class: 'underline' %></td>
+                <td><%= link_to employee.full_name, company_task_path(company_id: @company.id, id: employee.id), class: 'underline' %></td>
               <% else %>
                 <td><%= employee.full_name %></td>
               <% end %>
@@ -58,7 +58,7 @@
             <tr>
               <td></td>
               <% if employee.is_active == true %>
-                <td><%= link_to employee.full_name, company_task_path(company_id: current_company.id, id: @tasks.ids), class: 'underline' %></td>
+                <td><%= link_to employee.full_name, company_task_path(company_id: current_company.id, id: employee.id), class: 'underline' %></td>
               <% else %>
                 <td><%= employee.full_name %></td>
               <% end %>

@@ -6,9 +6,16 @@
   <% end %>
 <% end %>
 <div class="field mb-1">
-  <th><%= f.label :caption, '説明', class: 'col-3' %></th>
-  <td><%= f.text_area :caption, class: "form-control" %></td>
+  <div><%= f.label :caption, '説明', class: 'col-3' %></div>
+  <div><%= f.text_area :caption, class: "form-control" %></div>
 </div>
 <div class="field mb-1">
-  <%= f.submit  '編集する', class: 'btn btn-outline-success btn-block' %>
+  <div class="btn-group btn-block" role="group" aria-label="Basic example">
+    <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+      <i class="fa-solid fa-floppy-disk"></i> 保存する
+    <% end %>
+    <%= link_to post_path(post.id), class: "btn btn-outline-primary" do %>
+      <i class="fa-solid fa-circle-info"></i> 投稿詳細
+    <% end %>
+  </div>
 </div>
