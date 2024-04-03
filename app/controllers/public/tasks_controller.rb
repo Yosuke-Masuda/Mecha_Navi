@@ -1,5 +1,6 @@
 class Public::TasksController < ApplicationController
 
+
   def index
     @company = Company.find(params[:company_id])
     @tasks = @company.tasks
@@ -18,9 +19,14 @@ class Public::TasksController < ApplicationController
 
   end
 
+  def confirm
+    @company = Company.find(params[:company_id])
+    @tasks = @company.tasks
+  end
+
   def show
     @company = current_company
-    @employee = Employee.find(params[:id])
+    @employee = Employee.find(params[:employee_id])
     @tasks = @company.tasks
     @daily_tasks = @employee.daily_tasks.includes(:task).where("tasks.company_id": @company.id)
   end

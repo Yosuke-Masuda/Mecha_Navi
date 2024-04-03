@@ -4,13 +4,13 @@
         <% if @employees.current_page == 1 %>
           <span class="page-link">Previous</span>
         <% else %>
-          <%= link_to 'Previous', '/posts?page=' + (@employees.current_page - 1).to_s, class: 'page-link' %>
+          <%= link_to 'Previous', url_for(page: @employees.current_page - 1), class: 'page-link' %>
         <% end %>
       </li>
 
       <% (1..@employees.total_pages).each do |page| %>
         <li class="page-item <%= 'active' if page == @employees.current_page %>">
-          <%= link_to page, url_for(params.permit(:controller, :action).merge({ page: page })), class: 'page-link' %>
+          <%= link_to page, url_for(page: page), class: 'page-link' %>
         </li>
       <% end %>
 
@@ -18,7 +18,7 @@
         <% if @employees.current_page == @employees.total_pages %>
           <span class="page-link">Next</span>
         <% else %>
-          <%= link_to 'Next', '/posts?page=' + (@employees.current_page + 1).to_s, class: 'page-link' %>
+          <%= link_to 'Next', url_for(page: @employees.current_page + 1), class: 'page-link' %>
         <% end %>
       </li>
     </ul>

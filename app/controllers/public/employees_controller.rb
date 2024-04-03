@@ -15,6 +15,8 @@ class Public::EmployeesController < ApplicationController
 
   def index
     @employees = current_company.employees.includes(:store).order('stores.name').page(params[:page]).per(10)
+    @company = Company.find(params[:company_id])
+    @tasks = @company.tasks
   end
 
   def show

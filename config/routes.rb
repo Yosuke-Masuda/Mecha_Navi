@@ -27,13 +27,8 @@ Rails.application.routes.draw do
       member do
         get :favorites
      end
-     resources :tasks, shallow: true, only: [:index, :new, :create, :show], path: 'employees/tasks' do # タスクのルーティングを追
-       collection do
-          post 'confirm'
-          get 'complete'
-       end
-     end
-     get 'tasks/complete', to: 'tasks#complete', as: 'tasks_complete'
+     resources :tasks, shallow: true, only: [:index, :new, :create, :show], path: 'employees/tasks' # タスクのルーティングを追
+
    end
 
    end
@@ -71,9 +66,11 @@ Rails.application.routes.draw do
             get "unsubscribe"
             patch "withdraw"
         end
-      resources :employees, only: [:new, :create, :index, :show, :edit, :update]
+      resources :tasks, except: [:new, :show]
       resources :posts, except: [:new]
-      resources :tasks, except: [:new]
+      resources :employees, only: [:new, :create, :index, :show, :edit, :update] do
+          resources :tasks, only: [:show]
+      end
       resources :daily_tasks, only: [:new, :create]
     end
 
