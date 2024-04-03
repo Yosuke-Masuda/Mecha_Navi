@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
-  namespace :public do
-    get 'daily_tasks/new'
-  end
+
   get "search" => "searches#search"
 
 

@@ -40,10 +40,16 @@
               <%= link_to '削除', company_post_path(company_id: current_company.id, id: post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
             <% end %>
         <% elsif employee_signed_in? %>
-          <%= link_to '投稿一覧へ', posts_path(post.id), class: "btn btn-outline-primary" %>
+          <%= link_to posts_path(post.id), class: "btn btn-outline-primary" do %>
+           <i class="fa-solid fa-photo-film"></i> 一覧
+          <% end %>
             <% if post.employee_id == current_employee.id %>
-              <%= link_to '編集', edit_post_path(post.id), class: "btn btn-outline-success" %>
-              <%= link_to '削除', post, method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
+              <%= link_to edit_post_path(post.id), class: "btn btn-outline-success" do %>
+                <i class="fa-solid fa-pen-to-square"></i> 編集
+              <% end %>
+              <%= link_to post, method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
+                <i class="fa-solid fa-trash"></i> 削除
+              <% end %>
             <% end %>
         <% end %>
       </div>

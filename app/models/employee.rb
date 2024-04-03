@@ -4,15 +4,15 @@ class Employee < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   belongs_to :company
-  belongs_to :store, optional: true
-  has_many :posts, dependent: :nullify
+  belongs_to :store
+  has_many :posts, dependent: :destroy
   has_many :genres, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :tasks
   has_many :daily_tasks
   has_one_attached :image
-  
+
   def full_name
     "#{last_name} #{first_name}"
   end

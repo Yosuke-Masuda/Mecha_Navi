@@ -12,21 +12,21 @@
       <tbody>
         <% @daily_tasks.each do |daily_task| %>
           <% task = daily_task.task %>
-          <%= form_with(model: daily_task, url: company_daily_tasks_path(@company), local: true) do |f| %>
             <tr>
               <td><%= task.name %></td>
               <td><%= task.body %></td>
               <td>
-                <%= f.hidden_field :task_id %>
-                <%= f.hidden_field :start_time %>
-                <% if daily_task.new_record? %>
-                  <%= f.submit "v", class: 'btn btn-outline-success'%>
-                <% else %>
-                  チェック済
+                <%= form_with(model: daily_task, url: company_daily_tasks_path(@company), local: true) do |f| %>
+                  <%= f.hidden_field :task_id %>
+                  <%= f.hidden_field :start_time %>
+                  <% if daily_task.new_record? %>
+                    <%= f.submit "v", class: 'btn btn-outline-success'%>
+                  <% else %>
+                    チェック済
+                  <% end %>
                 <% end %>
               </td>
             </tr>
-          <% end %>
         <% end %>
       </tbody>
     </table>

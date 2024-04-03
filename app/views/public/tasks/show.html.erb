@@ -1,9 +1,9 @@
 <div class="container">
   <h1>タスク一覧</h1>
-  <h2><%= @employee.full_name %></h2>
+  <h2><%#= @employee.full_name %></h2>
   <div class="row">
     <div class="card col-12 mx-auto">
-      <%= month_calendar({ events: @daily_tasks, company_id: @company.id }) do |date, events| %>
+      <%= month_calendar(events: @daily_tasks) do |date, events| %>
         <%= date.day %>
         <% if events.size == 0 %>
           タスク未入力

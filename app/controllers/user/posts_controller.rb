@@ -9,9 +9,9 @@ class User::PostsController < ApplicationController
 
 
   def new
-   @employee = current_employee #現在のユーザーが所属する会社と従業員の情報を取得します。
-   @company = @employee.company #現在のユーザーが所属する会社と従業員の情報を取得します。
-   @post = current_employee.posts.build #@postには、現在のユーザーが作成する投稿の情報を設定しています。
+   @employee = current_employee #所属する会社と従業員の情報を取得します。
+   @company = @employee.company #所属する会社と従業員の情報を取得します。
+   @post = current_employee.posts.build
   end
 
   def create
@@ -21,11 +21,10 @@ class User::PostsController < ApplicationController
     @post.employee_id = current_employee.id
     @post.genre_id = params[:post][:genre_id]
     @post.car_name_id = params[:post][:car_name_id]
-     if params[:post].present? && params[:post][:images].present?
-      @post.images.attach(params[:post][:images])
-     elsif params[:post].present? && params[:post][:video].present?
+
+    if params[:post].present? && params[:post][:video].present?
       @post.video.attach(params[:post][:video])
-     end
+    end
 
     if @post.save
      flash[:notice] = "作成しました"
@@ -69,7 +68,7 @@ class User::PostsController < ApplicationController
    @post = Post.find(params[:id])
    @post.destroy
    flash[:alert] = "削除しました"
-  
+
    if request.referer == post_path(@post)
      redirect_to posts_path
    else
