@@ -67,8 +67,8 @@ Rails.application.routes.draw do
             patch "withdraw"
         end
       resources :tasks, except: [:new, :show]
-      resources :posts, except: [:new]
       resources :employees, only: [:new, :create, :index, :show, :edit, :update] do
+          resources :posts, except: [:new]
           resources :tasks, only: [:show]
       end
       resources :daily_tasks, only: [:new, :create]

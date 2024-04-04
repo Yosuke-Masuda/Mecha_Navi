@@ -1,6 +1,6 @@
 <div class="card jumbotron">
   <h1 class="display-4">投稿一覧</h1>
   <%= link_to '新規投稿', new_post_path, class: "btn btn-outline-success" %>
-  <%= render partial: 'post', collection: @posts %>
-  <%= render partial: 'pagination' %>
+  <%= render partial: 'shared/post', collection: @posts %>
+  <%= render partial: 'shared/pagination' %>
 </div>
