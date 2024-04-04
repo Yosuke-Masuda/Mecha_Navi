@@ -1,14 +1,17 @@
 class Public::PostsController < ApplicationController
-  before_action :set_current_company, only: [:index, :show, :edit, :update, :unsubscribe, :withdraw, :create]
+  before_action :set_current_company, only: [:index, :show, :edit, :update, :unsubscribe, :withdraw]
 
   def index
-    @posts = Post.page(params[:page]).order(created_at: :desc)
+    @posts = Post.where(company_id: current_company.id).page(params[:page]).order(created_at: :desc)
     @company = Company.find(current_company.id)
+    @employee = Employee.find(params[:employee_id])
+
   end
 
   def show
+    @company = Company.find(params[:company_id])
+    @employee = Employee.find(params[:employee_id])
     @post = Post.find(params[:id])
-    @employee = @post.employee # @employeeを@postから取得する
     @posts = @employee.posts
     @images = @post.images.map(&:blob).uniq
     @video = @post.video
@@ -29,7 +32,7 @@ class Public::PostsController < ApplicationController
     end
     if post.update(post_params)
       flash[:notice] = "編集しました"
-      redirect_to company_post_path(company_id: current_company.id, id: post.id)
+      redirect_to company_employee_post_path(company_id: current_company.id, employee_id: post.employee_id, id: post.id)
     else
       render :edit
     end
@@ -40,7 +43,7 @@ class Public::PostsController < ApplicationController
    @post = Post.find(params[:id])
    @post.destroy
    flash[:notice] = "削除しました"
-   redirect_to company_posts_path(company_id: current_company.id)
+   redirect_to company_employee_posts_path(company_id: current_company.id, employee_id: current_company.employee_ids.first)
   end
 
   private

@@ -1,9 +1,19 @@
 <div class="card jumbotron">
   <blockquote class="blockquote mb-0">
     <div class="container">
-      <%= form_with(model: @post, url: company_post_path(company_id: current_company.id, id: @post.id), method: :patch, local: true) do |f| %>
+      <%= form_with(model: @post, url: company_employee_post_path(company_id: current_company.id, employee_id: current_company.employee_ids, id: @post.id), method: :patch, local: true) do |f| %>
         <%= render 'shared/post_form', f: f, user_type: "company" %>
         <%= render 'shared/post_edit', f: f, post: @post %>
+        <div class="field mb-1">
+          <div class="btn-group btn-block" role="group" aria-label="Basic example">
+            <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+              <i class="fa-solid fa-floppy-disk"></i> 保存する
+            <% end %>
+            <%= link_to company_employee_post_path(company_id: current_company.id, employee_id: @post.employee_id, id: @post.id), class: "btn btn-outline-primary" do %>
+              <i class="fa-solid fa-circle-info"></i> 投稿詳細
+            <% end %>
+          </div>
+        </div>
       <% end %>
     </div>
   </blockquote>
