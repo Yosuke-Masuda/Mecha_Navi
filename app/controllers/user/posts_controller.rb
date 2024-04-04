@@ -1,7 +1,8 @@
 class User::PostsController < ApplicationController
   before_action :set_current_employee, only: [:new, :index, :show, :edit, :update, :unsubscribe, :withdraw, :create]
   def index
-    @posts = Post.page(params[:page]).order(created_at: :desc) #ページネーションと新しい投稿順に表示
+    @company = current_employee.company
+    @posts = Post.where(company_id: @company.id).page(params[:page]).order(created_at: :desc)
     @images = @posts.map { |post| post.images.map(&:blob) }.flatten.uniq #@postの中から重複を除いた画像を@imagesに代入します。
     @video = @posts.first.video #動画の表示
   end

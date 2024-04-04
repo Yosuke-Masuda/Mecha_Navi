@@ -26,6 +26,7 @@ Rails.application.routes.draw do
    resources :employees, except: [:index] do
       member do
         get :favorites
+        get :history
      end
      resources :tasks, shallow: true, only: [:index, :new, :create, :show], path: 'employees/tasks' # タスクのルーティングを追
 
