@@ -1,0 +1,38 @@
+<div class="card jumbotron container-fluid">
+	<h2 class="text-center mb-3">タスク管理</h2>
+	<div class="card-body">
+		<h3>タスク新規登録</h3>
+    	<%= render 'shared/task_form', task: @task, url: admin_tasks_path, submit: '登録' %>
+  		<h3>一覧</h3>
+  		<div class="table-responsive-sm">
+			  <table class="table">
+				  <thead>
+					  <tr>
+					  	<th>企業名</th>
+					    <th>タスク名</th>
+					    <th>タスク内容</th>
+					    <th></th>
+					  </tr>
+				  </thead>
+				  <tbody>
+				  	<% @tasks.group_by(&:company).each do |company, tasks| %>
+					  <% tasks.each do |task| %>
+						  <tr>
+						  	<% if task == tasks.first %>
+                              <td rowspan="<%= tasks.size %>"><%= company.company_name %></td>
+                            <% end %>
+							  <td><%= task.name %></td>
+							  <td><%= task.body %></td>
+							  <td class="text-center">
+							  	<%= link_to edit_admin_task_path(id: task.id), class: "btn btn-outline-success" do %>
+							  	 <i class="fa-solid fa-pen-to-square"></i> 編集
+							  	<% end %>
+							  </td>
+						  </tr>
+					  <% end %>
+					  <% end %>
+				  </tbody>
+			  </table>
+		  </div>
+  </div>
+</div>

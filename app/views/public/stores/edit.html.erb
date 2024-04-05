@@ -1,6 +1,6 @@
 <div class="card jumbotron" style="margin-bottom: 0px;">
 	<h2 class="text-center">店舗編集</h2>
 	<div class="card-body text-center">
-  <%= render 'form', store: @store, url: store_path(@store), submit: '更新' %>
+	<%= render 'shared/store_form', store: @store, url: store_path(@store), submit: '保存' %>
   </div>
 </div>

@@ -2,7 +2,7 @@
 	<h2 class="text-center mb-3">店舗管理</h2>
 	<div class="card-body text-center mb-3">
 		<h3>店舗新規登録</h3>
-  	<%= render 'form', store: @store, url: stores_path, submit: '登録' %>
+  	<%= render 'shared/store_form', store: @store, url: stores_path(@store), submit: '登録' %>
 		<h3>店舗一覧</h3>
 		<table class="table table-bordered col-10 mx-auto">
 			<thead>

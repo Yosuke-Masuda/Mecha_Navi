@@ -23,6 +23,7 @@ class Admin::StoresController < ApplicationController
 
   def edit
     @store = Store.find(params[:id])
+    @companies = Company.all
   end
 
   def update
