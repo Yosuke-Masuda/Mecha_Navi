@@ -9,14 +9,17 @@
         <table class="table">
           <thead>
             <tr>
+              <th>社員ID</th>
               <th>社員名</th>
               <th>メールアドレス</th>
               <th>ステータス</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <% employees_in_store.each do |employee| %>
               <tr>
+                <td><%= employee.id %></td>
                 <td><%= link_to "#{employee.full_name}の詳細ページ", admin_company_employee_path(id: employee.id, company_id: @company.id), class: "text-dark border-bottom border-dark" %></td>
                 <td><%= employee.email %></td>
                 <td>
@@ -24,6 +27,13 @@
                     <p class="text-success">有効</p>
                   <% else %>
                     <p class="text-secondary">退職</p>
+                  <% end %>
+                </td>
+                <td>
+                  <% if employee.is_active == true %>
+                  <%= link_to admin_company_employee_task_path(@company, employee, @company.tasks), class: "btn btn-outline-primary" do %>
+                      <i class="fa-regular fa-chart-bar"></i> タスク状況
+                    <% end %>
                   <% end %>
                 </td>
               </tr>

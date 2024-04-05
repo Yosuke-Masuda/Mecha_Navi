@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
       <div class="col mx-auto">
-        <h4>社員一覧</h4>
+        <h4 class="text-center">社員一覧</h4>
       </div>
     </div>
   </div>
@@ -37,7 +37,13 @@
                     <p class="text-secondary">退職</p>
                   <% end %>
                 </td>
-                <td><%= link_to "タスク状況", company_employee_task_path(company_id: current_company.id, employee_id: employee.id, id: @tasks.ids), class: "btn btn-outline-primary" %></td>
+                <td>
+                  <% if employee.is_active == true %>
+                    <%= link_to company_employee_task_path(company_id: current_company.id, employee_id: employee.id, id: @tasks.ids), class: "btn btn-outline-primary" do %>
+                      <i class="fa-regular fa-chart-bar"></i> タスク状況
+                    <% end %>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           </tbody>
