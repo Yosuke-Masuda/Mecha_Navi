@@ -36,7 +36,7 @@ class Public::EmployeesController < ApplicationController
   def update
     @employee = Employee.find(params[:id])
     if @employee.update(employee_params)
-      redirect_to company_employee_path(company_id: current_company.id, id: @employee.id), notice: "会員情報を変更しました"
+      redirect_to company_employee_path(company_id: current_company.id, id: @employee.id), notice: "社員情報を変更しました"
     else
       render "edit"
     end

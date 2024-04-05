@@ -2,8 +2,8 @@ class Public::PostsController < ApplicationController
   before_action :set_current_company, only: [:index, :show, :edit, :update, :unsubscribe, :withdraw]
 
   def index
-    @posts = Post.where(company_id: current_company.id).page(params[:page]).order(created_at: :desc)
-    @company = Company.find(current_company.id)
+    @posts = Post.where(company_id: current_company.id).page(params[:page]).order(created_at: :desc) #他の企業の社員の投稿を見れないようにする
+    @company = Company.find(params[:company_id])
     @employee = Employee.find(params[:employee_id])
 
   end
@@ -53,7 +53,7 @@ class Public::PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:employee_id, :company_id, :title, :store_id, :car_name_id, :car_type_id, :image_id, :video_id, :caption, :is_active, images: [])
+    params.require(:post).permit(:company_id, :employee_id, :title, :genre_id, :store_id, :car_name_id, :car_type_id, :image_id, :video_id, :caption, :is_active, images: [])
   end
 end
 

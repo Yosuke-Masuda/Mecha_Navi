@@ -37,4 +37,10 @@ class Admin::PostsController < ApplicationController
      end
    end
 
+   private
+
+   def post_params
+     params.require(:post).permit(:employee_id, :company_id, :title, :store_id, :car_name_id, :car_type_id, :image_id, :video_id, :caption, :is_active, images: [])
+   end
+
 end

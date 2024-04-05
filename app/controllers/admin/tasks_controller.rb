@@ -22,6 +22,13 @@ class Admin::TasksController < ApplicationController
 
   end
 
+  def show
+    @company = Company.find(params[:company_id])
+    @employee = Employee.find(params[:employee_id])
+    @tasks = @company.tasks
+    @daily_tasks = @employee.daily_tasks.includes(:task).where("tasks.company_id": @company.id)
+  end
+
   def edit
     @task = Task.find(params[:id])
     @companies = Company.all
@@ -40,6 +47,6 @@ class Admin::TasksController < ApplicationController
 
   private
    def task_params
-    params.require(:task).permit(:company_id, :name, :body, :start_time)
+    params.require(:task).permit(:company_id, :employee_id, :task_id, :name, :body, :start_time)
    end
 end
