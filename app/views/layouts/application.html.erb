@@ -41,6 +41,9 @@
              <a class="dropdown-item" href="/admin/stores"><i class="fa-solid fa-shop"></i> 店舗管理</a>
              <a class="dropdown-item" href="/admin/genres"><i class="fa-solid fa-list"></i> ジャンル管理</a>
              <a class="dropdown-item" href="/admin/car_names"><i class="fa-solid fa-car"></i> 車両管理</a>
+             <%= link_to admin_tasks_path, class: 'dropdown-item' do %>
+              <i class="fa-solid fa-thumbtack"></i> タスク管理
+             <% end %>
            </div>
            <li class="nav-item">
              <%= link_to destroy_admin_session_path, class: 'nav-link', method: :delete do %>

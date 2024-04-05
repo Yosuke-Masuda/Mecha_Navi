@@ -40,6 +40,7 @@ Rails.application.routes.draw do
    resources :stores, only: [:index, :create, :edit, :update]
    resources :genres, only: [:index, :create, :edit, :update]
    resources :car_names, only: [:index, :create, :edit, :update], param: :id
+   resources :tasks, except: [:new, :show]
    get 'admin/sign_out' => 'admin/sessions#destroy'
    resources :companies, only: [:index, :show, :edit, :update, :destroy] do
        resources :employees, only: [:index, :show, :edit, :update] do
@@ -49,7 +50,7 @@ Rails.application.routes.draw do
              end
              resources :post_comments, only: [:create, :destroy]
          end
-         resources :tasks, only: [:index]
+         resources :tasks, only: [:show]
        end
    end
   end

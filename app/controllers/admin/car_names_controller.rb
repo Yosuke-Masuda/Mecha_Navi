@@ -23,6 +23,7 @@ class Admin::CarNamesController < ApplicationController
 
   def edit
    @car_name = CarName.find(params[:id])
+   @companies = Company.all
   end
 
   def update

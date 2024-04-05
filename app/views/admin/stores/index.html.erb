@@ -1,17 +1,17 @@
 <div class="card mx-auto">
 	<div class="container">
-		<h2 class="text-center">ジャンル管理</h2>
+		<h2 class="text-center">店舗管理</h2>
 			<div class="mb-3">
-		    <h3>ジャンル新規登録</h3>
-  	    <%= render 'form', store: @store, url: admin_stores_path, submit: '登録' %>
+		    <h3>店舗新規登録</h3>
+  	    <%= render 'shared/store_form', store: @store, url: admin_stores_path(@store), submit: '登録' %>
 	    </div>
 	    <div class="mb-3">
-		    <h3>ジャンル一覧</h3>
+		    <h3>一覧</h3>
 		    <table class="table">
 			    <thead>
 				    <tr>
 					    <th>企業名</th>
-					    <th>ジャンル名</th>
+					    <th>店舗名</th>
 					    <th>状態</th>
 					    <th></th>
 				    </tr>

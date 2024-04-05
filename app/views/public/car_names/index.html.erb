@@ -2,7 +2,7 @@
 	<h2 class="section-ttl">車名管理</h2>
 	<div class="mb3">
 		<h3>車名新規登録</h3>
-  	<%= render 'form', car_name: @car_name, url: car_names_path, submit: '登録' %>
+		<%= render 'shared/car_name_form', car_name: @car_name, url: car_names_path(@car_name), submit: '登録' %>
 	</div>
 	<div class="mb3">
 		<h3>車名一覧</h3>
