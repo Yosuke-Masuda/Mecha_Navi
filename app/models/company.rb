@@ -18,6 +18,8 @@ class Company < ApplicationRecord
   validates :address, presence: true
   validates :phone_number, presence: true
 
+  
+
   def active_for_authentication?
     super && (is_active?)
   end

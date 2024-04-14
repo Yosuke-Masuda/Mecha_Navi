@@ -65,7 +65,7 @@
              <%= link_to top_path, class: 'dropdown-item' do %>
              <i class="fa-solid fa-clock-rotate-left"></i> 投稿履歴管理
              <% end %>
-             <%= link_to company_employee_posts_path(company_id: current_company.id, employee_id: current_company.employee_ids.first), class: 'dropdown-item' do %>
+             <%= link_to company_employee_posts_path(company_id: current_company.id, employee_id: current_company.employee_ids), class: 'dropdown-item' do %>
                <i class="fa-regular fa-image"></i> 投稿管理</a>
              <% end %>
              <a class="dropdown-item" href="/stores"><i class="fa-solid fa-shop"></i> 店舗管理</a>

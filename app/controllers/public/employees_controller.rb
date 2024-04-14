@@ -15,13 +15,13 @@ class Public::EmployeesController < ApplicationController
 
   def index
     @employees = current_company.employees.includes(:store).order('stores.name').page(params[:page]).per(10)
-    @company = Company.find(params[:company_id])
+    @company = current_company
     @tasks = @company.tasks
   end
 
   def show
-    @employee = Employee.find(params[:id])
     if @employee
+      @employee = Employee.find(params[:id])
       @company = @employee.company
     else
       redirect_to company_employees_path(company_id: current_company.id), alert: '指定された社員が存在しません。'

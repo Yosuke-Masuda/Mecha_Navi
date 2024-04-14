@@ -3,7 +3,7 @@ class User::FavoritesController < ApplicationController
     @post = Post.find(params[:post_id])
     favorite = @post.favorites.new(employee_id: current_employee.id)
     favorite.save
-    flash[:notice] = "Liked post"
+    flash[:notice] = "いいねしました"
     redirect_to request.referer
   end
 
@@ -13,5 +13,5 @@ class User::FavoritesController < ApplicationController
     favorite.destroy
     redirect_to request.referer
   end
-  
+
 end

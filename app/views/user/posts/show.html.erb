@@ -19,19 +19,7 @@
         <%= button_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
        </div>
        <% end %>
-       <% if @post.favorited_by?(current_employee) %>
-         <p>
-           <%= button_to post_favorites_path(@post), method: :delete do %>
-             ♥<%= @post.favorites.count %> 役に立った
-           <% end %>
-         </p>
-       <% else %>
-         <p>
-           <%= button_to post_favorites_path(@post), method: :post do %>
-             ♡<%= @post.favorites.count %> 役に立った
-           <% end %>
-         </p>
-       <% end %>
+       <%= render "/user/likes/like", post_comment: post_comment %>
      <% end %>
     </div>
    <div>

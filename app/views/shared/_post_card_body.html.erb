@@ -14,7 +14,7 @@
 
   <% if post.images.attached? %>
     <div style="text-align: center;">
-      <% post.images.distinct.each do |image| %>
+      <% post.images.each do |image| %>
        <%= image_tag(image, width: "75%", class: "img-fluid") %>
       <% end %>
     </div>

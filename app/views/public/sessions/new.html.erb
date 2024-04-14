@@ -3,7 +3,7 @@
     <div class="col-12 mx-auto">
       <p class="mb-5 text-center"><%= image_tag("repair service.png", class: "rounded-circle", style: "width: 200px; height: 200px;") %></p>
       <h4 class="mb-5 text-center">企業ログイン</h4>
-      <%= form_with model: @company, url: new_company_session_path, local: true do |f| %>
+      <%= form_with model: @company, url: company_session_path, local: true do |f| %>
         <div class="field mb-3">
           <%= f.label :"メールアドレス", class: 'col-4 text-right' %>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@example.com", class: 'col-4' %>

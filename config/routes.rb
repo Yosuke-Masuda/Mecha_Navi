@@ -9,32 +9,6 @@ Rails.application.routes.draw do
 
   }
 
-  scope module: :user do
-  devise_for :employees, skip: [:registrations] ,controllers: {
-    sessions: 'user/sessions',
-  }
-  end
-
-  scope module: :user do
-   root :to => "homes#top"
-   get "about" => "homes#about"
-   get 'employees/mypage/:id' => 'employees#show', as: 'mypage'
-   resources :posts do
-       resource :favorites, only: [:create, :destroy]
-       resources :post_comments, only: [:create, :destroy]
-     end
-   resources :employees, except: [:index] do
-      member do
-        get :favorites
-        get :history
-     end
-     resources :tasks, shallow: true, only: [:index, :new, :create, :show], path: 'employees/tasks' # タスクのルーティングを追
-
-   end
-
-   end
-
-
   namespace :admin do
    get 'top' => 'homes#top', as: 'top'
    resources :stores, only: [:index, :create, :edit, :update]
@@ -55,10 +29,13 @@ Rails.application.routes.draw do
    end
   end
 
-  devise_for :companies, skip: [:passwords,] ,controllers: {
-      sessions: 'public/sessions',
-      registrations: 'public/registrations'
-    }
+
+  scope module: :public do
+      devise_for :companies, skip: [:passwords,] ,controllers: {
+          sessions: 'public/sessions',
+          registrations: 'public/registrations'
+        }
+  end
 
   scope module: :public do
     get 'top' => 'homes#top', as: 'top'
@@ -79,6 +56,34 @@ Rails.application.routes.draw do
    resources :stores, only: [:index, :create, :show, :edit, :update]
    resources :genres, only: [:index, :create, :edit, :update]
    resources :car_names, only: [:index, :create, :edit, :update]
+
+   end
+
+
+   scope module: :user do
+  devise_for :employees, skip: [:registrations] ,controllers: {
+    sessions: 'user/sessions',
+  }
+  end
+
+  scope module: :user do
+   root :to => "homes#top"
+   get "about" => "homes#about"
+   get 'employees/mypage/:id' => 'employees#show', as: 'mypage'
+   resources :posts do
+       resource :favorites, only: [:create, :destroy]
+       resources :post_comments, only: [:create, :destroy] do
+           resource :likes, only: [:create, :destroy]
+       end
+     end
+       resources :employees, except: [:index] do
+          member do
+            get :favorites
+            get :history
+         end
+         resources :tasks, shallow: true, only: [:index, :new, :create, :show], path: 'employees/tasks' # タスクのルーティングを追
+
+       end
 
    end
 

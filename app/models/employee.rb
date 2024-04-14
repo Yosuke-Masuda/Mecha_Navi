@@ -11,6 +11,7 @@ class Employee < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :tasks
   has_many :daily_tasks
+  has_many :likes, dependent: :destroy
   has_one_attached :image
 
   def full_name

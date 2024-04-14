@@ -35,7 +35,7 @@ class Public::CompaniesController < ApplicationController
   private
 
   def company_params
-    params.require(:company).permit(:email, :company_name, :company_name_kana, :address, :postal_code, :phone_number)
+    params.require(:company).permit(:email, :company_name, :company_name_kana, :address, :postal_code, :phone_number, :password, :password_confirmation,)
   end
 
 end

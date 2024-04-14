@@ -2,9 +2,10 @@ class User::PostsController < ApplicationController
   before_action :set_current_employee, only: [:new, :index, :show, :edit, :update, :unsubscribe, :withdraw, :create]
   def index
     @company = current_employee.company
-    @posts = Post.where(company_id: @company.id).page(params[:page]).order(created_at: :desc)
+    @posts = Post.where(company_id: [@company.id, current_employee.company_id]).page(params[:page]).order(created_at: :desc)
     @images = @posts.map { |post| post.images.map(&:blob) }.flatten.uniq #@postの中から重複を除いた画像を@imagesに代入します。
-    @video = @posts.first.video #動画の表示
+    @video = @posts.first.video # 動画の表示
+
   end
 
 
@@ -23,9 +24,6 @@ class User::PostsController < ApplicationController
     @post.genre_id = params[:post][:genre_id]
     @post.car_name_id = params[:post][:car_name_id]
 
-    if params[:post].present? && params[:post][:video].present?
-      @post.video.attach(params[:post][:video])
-    end
 
     if @post.save
      flash[:notice] = "作成しました"
