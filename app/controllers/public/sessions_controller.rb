@@ -8,24 +8,32 @@ class Public::SessionsController < Devise::SessionsController
   #   super
   # end
 
-    #POST /resource/sign_in
-    def create
-      super
-      flash[:notice] = "ログインしました。"
-    end
+  #POST /resource/sign_in
+  # def create
+  #   super
+  # end
 
-     #DELETE /resource/sign_out
-    def destroy
-     super
-     flash[:notice] = "ログアウトしました"# ログイン成功時のメッセージを追加する
-    end
+  #DELETE /resource/sign_out
+  # def destroy
+  # super
+  # end
 
-  # protected
+  protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
+  def configure_sign_in_params
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password, :password_confirmation])
+  end
+
+  def after_sign_in_path_for(resource)
+    flash[:notice] = "ログインしました。"
+    top_path
+  end
+
+  def after_sign_out_path_for(resource)
+    flash[:notice] = "ログアウトしました"
+    root_path
+  end
 
 
 

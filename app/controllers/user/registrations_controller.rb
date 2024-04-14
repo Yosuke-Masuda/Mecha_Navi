@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class User::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
-  
-  
+
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -42,9 +40,9 @@ class User::RegistrationsController < Devise::RegistrationsController
   # end
 
   # protected
-  def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:company_id, :name, :first_name, :last_name, :first_name_kana, :last_name_kana, :postal_code, :phone_number, :address, :store_id])
-  end
+  # def configure_sign_up_params
+  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:company_id, :name, :first_name, :last_name, :first_name_kana, :last_name_kana, :postal_code, :phone_number, :address, :store_id])
+  # end
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
   #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
@@ -56,17 +54,17 @@ class User::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up.
-  def after_sign_up_path_for(resource)
-    public_index_employees_path
-  end
+  # def after_sign_up_path_for(resource)
+  #   company_employees_path(company_id: current_company.id)
+  # end
 
-  def after_update_path_for(resource)
-    mypage_path
-  end
+  # def after_update_path_for(resource)
+  #   mypage_path
+  # end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
-  
+
 end
