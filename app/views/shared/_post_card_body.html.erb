@@ -4,6 +4,7 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       会社名：<%= post.employee.company.company_name %>　店舗名：<%= post.employee.store.name %>店　投稿者：<%= post.employee.full_name %>
+      <!--post.company.company_name-->
     </li>
     <li class="list-group-item">
       車名：<%= post.car_name.name if post.car_name.present? %>

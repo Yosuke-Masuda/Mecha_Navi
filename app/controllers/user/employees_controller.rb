@@ -1,5 +1,4 @@
 class User::EmployeesController < ApplicationController
-  before_action :authenticate_employee!
   before_action :set_current_employee, only: [:show, :edit, :update]
 
 
@@ -13,11 +12,13 @@ class User::EmployeesController < ApplicationController
 
   def edit
     @company = current_employee.company
+    @employee = current_employee
     render "edit"
   end
 
   def update
-    if @employee.update(employee_params)
+    @employee = current_employee
+    if @employee.update!(employee_params)
       redirect_to mypage_path, notice: '会員情報の更新が完了しました。'
     else
       render :edit

@@ -3,7 +3,7 @@
     <div class="container">
       <h1><%= @employee.full_name %>さんの編集</h1>
         <div class"row">
-          <%= form_with( model: @employee, url: employee_path(@employee), local: true) do |f| %>
+          <%= form_with( model: @employee, url: employees_mypage_path, local: true) do |f| %>
             <table class="table table-bordered">
               <tbody>
                 <%= render partial: "shared/employee_table_row", locals: { f: f, employee: @employee, user_type: "employee" } %>

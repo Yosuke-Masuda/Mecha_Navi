@@ -10,7 +10,7 @@
 	    </h3>
 	      <%= render partial: 'shared/employee_table', locals: { employee: @employee } %>
 	      <h3 class= "text-center">
-	      	<%= link_to edit_employee_path(id: @employee.id), class: "btn btn-outline-success btn-block" do %>
+	      	<%= link_to edit_mypage_path, class: "btn btn-outline-success btn-block" do %>
 	    	    <i class="fa-solid fa-pen-to-square"></i> 編集
 	    	  <% end %>
 		      <%= link_to posts_path, class: "btn btn-outline-primary btn-block" do %>

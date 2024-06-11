@@ -68,22 +68,25 @@ Rails.application.routes.draw do
 
   scope module: :user do
    root :to => "homes#top"
-   get "about" => "homes#about"
-   get 'employees/mypage/:id' => 'employees#show', as: 'mypage'
+   get 'employees/mypage' => 'employees#show', as: 'mypage'
+   get 'employees/mypage/edit', to: 'employees#edit', as: 'edit_mypage'
+   patch 'employees/mypage', to: 'employees#update'
    resources :posts do
        resource :favorites, only: [:create, :destroy]
        resources :post_comments, only: [:create, :destroy] do
            resource :likes, only: [:create, :destroy]
        end
+   end
+   resources :employees, except: [:new, :create, :index, :show, :edit, :update, :destroy] do
+      member do
+        get :favorites
+        get :history
      end
-       resources :employees, except: [:index] do
-          member do
-            get :favorites
-            get :history
-         end
-         resources :tasks, shallow: true, only: [:index, :new, :create, :show], path: 'employees/tasks' # タスクのルーティングを追
+     get "about" => "homes#about"
+     resources :tasks, only: [:index]
+     resources :daily_tasks, only: [:new, :create]
 
-       end
+   end
 
    end
 

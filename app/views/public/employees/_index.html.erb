@@ -39,7 +39,7 @@
                 </td>
                 <td>
                   <% if employee.is_active == true %>
-                    <%= link_to company_employee_task_path(company_id: current_company.id, employee_id: employee.id, id: @tasks.ids), class: "btn btn-outline-primary" do %>
+                    <%= link_to company_employee_task_path(company_id: current_company.id, employee_id: employee.id, id: @tasks), class: "btn btn-outline-primary" do %>
                       <i class="fa-regular fa-chart-bar"></i> タスク状況
                     <% end %>
                   <% end %>

@@ -3,7 +3,7 @@
 <% if admin_signed_in? %>
   <table class="table table-hover table-inverse">
   <!--検索対象モデルがEmployeeの時 -->
-    <% if @range == "Employee" %>
+    <% if @range == "社員" %>
       <tbody>
        <%= render partial: 'employee', collection: @employees %>
       </tbody>
@@ -18,9 +18,9 @@
 <% elsif company_signed_in? %>
   <table class="table table-hover table-inverse">
   <!--検索対象モデルがEmployeeの時 -->
-    <% if @range == "Employee" %>
+    <% if @range == "社員" %>
       <tbody>
-       <%= render partial: 'employee', collection: @employees.select { |employee| employee.company_id == current_company.company_id } %>
+       <%= render partial: 'employee', collection: @employees.select { |employee| employee.company.employee_ids == current_company.employee_ids } %>
       </tbody>
     <% else %>
       <!--検索対象モデルがUserではない時(= 検索対象モデルがPostの時) -->
@@ -32,7 +32,7 @@
 <% elsif employee_signed_in? %>
   <table class="table table-hover table-inverse">
   <!--検索対象モデルがEmployeeの時 -->
-    <% if @range == "Employee" %>
+    <% if @range == "社員" %>
       <tbody>
         <%= render partial: 'employee', collection: @employees.select { |employee| employee.company_id == current_employee.company_id } %>
       </tbody>
