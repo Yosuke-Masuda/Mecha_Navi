@@ -131,8 +131,8 @@ ActiveRecord::Schema.define(version: 2024_04_08_193928) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.integer "employee_id"
-    t.integer "post_comment_id"
+    t.integer "employee_id", null: false
+    t.integer "post_comment_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -173,8 +173,8 @@ ActiveRecord::Schema.define(version: 2024_04_08_193928) do
 
   create_table "tasks", force: :cascade do |t|
     t.integer "company_id"
-    t.string "name"
-    t.string "body"
+    t.string "name", null: false
+    t.string "body", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_tasks_on_company_id"

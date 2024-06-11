@@ -3,13 +3,14 @@
     <div class="row">
       <div class="card col-12 mx-auto">
         <%= month_calendar(events: @daily_tasks) do |date, events| %>
+        <% @employee = current_employee %>
           <%= date.day %>
           <% if events.size == 0 %>
-            <%= link_to_if current_employee, "タスク未入力", new_company_daily_task_path(company_id: @company.id, date: date) %>
+            <%= link_to_if current_employee, "タスク未入力", new_employee_daily_task_path(@employee) %>
           <% elsif events.size == @tasks.size %>
             完了
           <% else %>
-            <%= link_to_if current_employee, "#{events.size}/#{@tasks.size}", new_company_daily_task_path(@company, date: date) %>
+            <%= link_to_if current_employee, "#{events.size}/#{@tasks.size}", new_employee_daily_task_path(@employee) %>
           <% end %>
         <% end %>
       </div>

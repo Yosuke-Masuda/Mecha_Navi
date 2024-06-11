@@ -15,7 +15,7 @@
     <% if admin_signed_in? %>
       <%= link_to '投稿詳細', admin_company_employee_post_path(company_id: post.company_id, id: post.id, employee_id: post.employee_id), method: :get, class: "btn btn-outline-primary" %>
     <% elsif company_signed_in? %>
-      <%= link_to '投稿詳細', public_show_post_path(id: post.id), class: "btn btn-outline-primary" %>
+      <%= link_to '投稿詳細', company_employee_post_path(company_id: post.company_id, id: post.id, employee_id: post.employee_id, id: post.id), class: "btn btn-outline-primary" %>
     <% elsif employee_signed_in? %>
       <%= link_to '投稿詳細', post_path(post), class: "btn btn-outline-primary" %>
     <% end %>

@@ -21,20 +21,20 @@
 <div class="form-group row mx-auto">
   <div class="col-sm-12 text-center">
     <% if action_name == 'index' %>
-        <div class="button-layout">
-          <button type="submit" class=" btn btn-outline-primary col-sm-3">
-            <i class="fa-solid fa-registered"></i>
-            <%= submit %>
-          </button>
-        </div>
-      <% elsif action_name == 'edit' %>
-        <div class="button-layout">
-          <button type="submit" class="btn btn-outline-success col-sm-3">
-            <i class="fa-solid fa-floppy-disk"></i>
-            <%= submit %>
-          </button>
-        </div>
-      <% end %>
+      <div class="button-layout">
+        <button type="submit" class=" btn btn-outline-primary col-sm-3">
+          <i class="fa-solid fa-registered"></i>
+          <%= submit %>
+        </button>
+      </div>
+    <% elsif action_name == 'edit' %>
+      <div class="button-layout">
+        <button type="submit" class="btn btn-outline-success col-sm-3">
+          <i class="fa-solid fa-floppy-disk"></i>
+          <%= submit %>
+        </button>
+      </div>
+    <% end %>
   </div>
 </div>
 <% end %>

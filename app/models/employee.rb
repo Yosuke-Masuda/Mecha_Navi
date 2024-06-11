@@ -9,7 +9,6 @@ class Employee < ApplicationRecord
   has_many :genres, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  has_many :tasks
   has_many :daily_tasks
   has_many :likes, dependent: :destroy
   has_one_attached :image
@@ -20,7 +19,7 @@ class Employee < ApplicationRecord
 
 
   def company_name
-    company.name if company.present?
+    company.company_name if company.present?
   end
 
   scope :only_active, -> { where(is_active: true) }
