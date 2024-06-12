@@ -124,7 +124,7 @@
              <a class="dropdown-item" href="/posts/new"><i class="fa-regular fa-square-plus"></i> 新規投稿</a>
              <a class="dropdown-item" href="/posts"><i class="fa-regular fa-file-image"></i> 投稿一覧</a>
              <%= link_to employee_tasks_path(employee_id: current_employee), class: 'dropdown-item' do %>
-               <i class="fa-solid fa-list-check"></i> タスク一覧</a>
+               <i class="fa-solid fa-list-check"></i> タスク一覧
              <% end %>
              <a class="dropdown-item"></a>
            </div>
@@ -138,20 +138,28 @@
              <a class="navbar-brand">　<%= current_employee.full_name %> 様</a>
           </li>
          <% else %>
-          <li class="nav-item active">
-             <a class="nav-link" href="/about"><i class="fa-regular fa-message"></i> about <span class="sr-only">(current)</span></a>
+          <li class="nav-item">
+            <%= link_to about_path, class: 'nav-link' do %>
+              <i class="fa-regular fa-message"></i> about
+            <% end %>
           </li>
           <li class="nav-item">
-             <a class="nav-link" href="#"><i class="fa-solid fa-image"></i> post_lists</a>
+           <%= link_to new_company_registration_path, class: 'nav-link' do %>
+             <i class="fa-solid fa-right-from-bracket"></i> company_sign_up
+           <% end %>
           </li>
           <li class="nav-item">
-             <a class="nav-link" href="/companies/sign_up"><i class="fa-solid fa-right-from-bracket"></i> company_sign_up</a>
+            <%= link_to new_company_session_path, class: 'nav-link' do %>
+              <i class="fa-solid fa-right-from-bracket"></i> company_login
+            <% end %>
           </li>
           <li class="nav-item">
-             <a class="nav-link" href="/companies/sign_in"><i class="fa-solid fa-right-from-bracket"></i> company_login</a>
+            <%= link_to new_employee_session_path, class: 'nav-link' do %>
+              <i class="fa-solid fa-right-from-bracket"></i> employee_login
+            <% end %>
           </li>
           <li class="nav-item">
-             <a class="nav-link" href="/employees/sign_in"><i class="fa-solid fa-right-from-bracket"></i> employee_login</a>
+          <h6 class= "navbar">　　※会員でない方は下記のゲストログインからお試し頂けます</h6>
           </li>
          <% end %>
         </ul>
