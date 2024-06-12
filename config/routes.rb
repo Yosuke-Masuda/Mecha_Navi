@@ -35,6 +35,9 @@ Rails.application.routes.draw do
           sessions: 'company/sessions',
           registrations: 'company/registrations'
         }
+      devise_scope :company do
+        post 'companies/guest_sign_in', to: 'sessions#guest_sign_in'
+      end
   end
 
   scope module: :company do

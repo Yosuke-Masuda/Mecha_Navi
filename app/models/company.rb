@@ -18,9 +18,22 @@ class Company < ApplicationRecord
   validates :address, presence: true
   validates :phone_number, presence: true
 
-  
+
 
   def active_for_authentication?
     super && (is_active?)
+  end
+
+  def self.guest
+    find_or_create_by!(email: 'guest_company@example.com') do |company|
+      company.password = SecureRandom.urlsafe_base64
+      company.company_name = "株式会社ゲスト"
+      company.company_name_kana = "カブシキガイシャゲスト"
+      company.postal_code = "1111111"
+      company.address = "ゲスト１−１−１"
+      company.phone_number = "1111111111"
+      # user.confirmed_at = Time.now  # Confirmable を使用している場合は必要
+      # 例えば name を入力必須としているならば， user.name = "ゲスト" なども必要
+    end
   end
 end

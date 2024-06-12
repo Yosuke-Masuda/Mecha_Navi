@@ -8,7 +8,7 @@
     <div class="carousel-item active">
       <div style="position: relative;">
        <img src="<%= asset_path('top.jpg') %>", class="d-block w-100" alt="top">
-      
+
 
         <div class="card-img-overlay d-flex">
          <p class="text-white" style="position: absolute; top: 100px; right: 100px; width: 500px; font-size: 30px;">
@@ -47,3 +47,7 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+<h6>会員でない方はこちらからお試し頂けます。</h6>
+  <%= link_to  companies_guest_sign_in_path, class: 'btn btn-outline-primary', method: :post do %>
+   <i class="fa-solid fa-right-from-bracket"></i> ゲストログイン（企業用）
+  <% end %>
