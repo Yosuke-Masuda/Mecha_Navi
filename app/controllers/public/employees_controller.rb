@@ -20,9 +20,9 @@ class Public::EmployeesController < ApplicationController
   end
 
   def show
+    @employee = current_company.employees
     if @employee
       @employee = Employee.find(params[:id])
-      @company = @employee.company
     else
       redirect_to company_employees_path(company_id: current_company.id), alert: '指定された社員が存在しません。'
     end
