@@ -30,14 +30,14 @@ Rails.application.routes.draw do
   end
 
 
-  scope module: :public do
+  scope module: :company do
       devise_for :companies, skip: [:passwords,] ,controllers: {
-          sessions: 'public/sessions',
-          registrations: 'public/registrations'
+          sessions: 'company/sessions',
+          registrations: 'company/registrations'
         }
   end
 
-  scope module: :public do
+  scope module: :company do
     get 'top' => 'homes#top', as: 'top'
     get "about" => "homes#about"
     resources :companies, only: [:show, :edit, :update] do
@@ -60,13 +60,13 @@ Rails.application.routes.draw do
    end
 
 
-   scope module: :user do
+   scope module: :employee do
   devise_for :employees, skip: [:registrations] ,controllers: {
-    sessions: 'user/sessions',
+    sessions: 'employee/sessions',
   }
   end
 
-  scope module: :user do
+  scope module: :employee do
    root :to => "homes#top"
    get 'employees/mypage' => 'employees#show', as: 'mypage'
    get 'employees/mypage/edit', to: 'employees#edit', as: 'edit_mypage'
