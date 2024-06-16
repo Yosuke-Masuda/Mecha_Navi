@@ -11,11 +11,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
    get 'top' => 'homes#top', as: 'top'
+   get 'companies/:company_id/employees/:employee_id/calendar' => 'tasks#calendar', as: 'employee_calendar'
    resources :stores, only: [:index, :create, :edit, :update]
    resources :genres, only: [:index, :create, :edit, :update]
    resources :car_names, only: [:index, :create, :edit, :update], param: :id
    resources :tasks, except: [:new, :show]
-   get 'admin/sign_out' => 'admin/sessions#destroy'
    resources :companies, only: [:index, :show, :edit, :update, :destroy] do
        resources :employees, only: [:index, :show, :edit, :update] do
          resources :posts,  except: [:new, :create] do
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
              end
              resources :post_comments, only: [:create, :destroy]
          end
-         resources :tasks, only: [:show]
+         resources :daily_tasks, only: [:index]
        end
    end
   end
@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   scope module: :company do
     get 'top' => 'homes#top', as: 'top'
     get "about" => "homes#about"
+    get 'companies/:company_id/employees/:employee_id/calendar' => 'tasks#calendar', as: 'company_employee_calendar'
     resources :companies, only: [:show, :edit, :update] do
         member do
             get "unsubscribe"
@@ -50,9 +51,8 @@ Rails.application.routes.draw do
         end
       resources :tasks, except: [:new, :show]
       resources :employees, only: [:new, :create, :index, :show, :edit, :update] do
-          resources :posts, except: [:new]
-          resources :tasks, only: [:show]
-          resources :daily_tasks, only: [:index, :show]
+          resources :posts, except: [:new, :create]
+          resources :daily_tasks, only: [:index]
       end
     end
 

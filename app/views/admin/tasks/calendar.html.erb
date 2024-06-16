@@ -6,11 +6,11 @@
         <%= month_calendar(events: @daily_tasks) do |date, events| %>
           <%= date.day %>
           <% if events.size == 0 %>
-            タスク未入力
+            <%= link_to "タスク未入力", admin_company_employee_daily_tasks_path(@company,@employee, date: date) %>
           <% elsif events.size == @tasks.size %>
             完了
           <% else %>
-           <%= "#{events.size}/#{@tasks.size}" %>
+           <%= link_to "#{events.size}/#{@tasks.size}", admin_company_employee_daily_tasks_path(@company,@employee, date: date) %>
           <% end %>
         <% end %>
       </div>
