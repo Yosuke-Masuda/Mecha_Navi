@@ -28,15 +28,7 @@ class Employee < ApplicationRecord
   validates_format_of :first_name_kana, :last_name_kana, with: /\A[ァ-ヶー－]+\z/
 
   def self.guest
-    find_or_create_by!(email: 'guest_employee@example.com') do |employee|
-      employee.password = SecureRandom.urlsafe_base64
-      employee.full_name = "車 太郎"
-      employee.last_name_kana = "クルマ"
-      employee.first_name_kana = "タロウ"
-      company.postal_code = "1111111"
-      company.address = "ゲスト１−１−１"
-      company.phone_number = "1111111111"
-    end
+    find_by!(email: 'guest_employee@example.com')
   end
 
   def self.looks(search, word)

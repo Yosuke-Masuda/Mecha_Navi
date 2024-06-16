@@ -67,6 +67,9 @@ Rails.application.routes.draw do
   devise_for :employees, skip: [:registrations] ,controllers: {
     sessions: 'employee/sessions',
   }
+  devise_scope :company do
+        post 'employees/guest_sign_in', to: 'sessions#guest_sign_in'
+      end
   end
 
   scope module: :employee do
