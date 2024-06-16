@@ -22,9 +22,9 @@ class Admin::TasksController < ApplicationController
 
   end
 
-  def show
+  def calendar
     @company = Company.find(params[:company_id])
-    @employee = Employee.find(params[:employee_id])
+    @employee = @company.employees.find_by(id: params[:employee_id]) # パラメータから選択された社員を取得する
     @tasks = @company.tasks
     @daily_tasks = @employee.daily_tasks.includes(:task).where("tasks.company_id": @company.id)
   end

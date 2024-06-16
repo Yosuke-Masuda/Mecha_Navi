@@ -31,7 +31,7 @@
                 </td>
                 <td>
                   <% if employee.is_active == true %>
-                  <%= link_to admin_company_employee_task_path(@company, employee, @company.tasks), class: "btn btn-outline-primary" do %>
+                  <%= link_to admin_employee_calendar_path(@company, employee), class: "btn btn-outline-primary" do %>
                       <i class="fa-regular fa-chart-bar"></i> タスク状況
                     <% end %>
                   <% end %>

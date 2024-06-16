@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <h1><%= @employee.full_name %>のタスク進捗</h1>
+    <h1><%= @employee.full_name %>のタスク進捗画面</h1>
     <table class="table">
       <thead>
         <tr>
@@ -27,7 +27,7 @@
       </tbody>
     </table>
   </div>
-  <%= link_to company_employee_calendar_path(@company, @employee), class: "btn btn-outline-primary" do %>
+  <%= link_to  admin_employee_calendar_path(@company, @employee), class: "btn btn-outline-primary" do %>
     <i class="fa-solid fa-circle-left"></i> 戻る
   <% end %>
 </div>
