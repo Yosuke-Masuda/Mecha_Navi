@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <h1>タスク確認実行画面</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>タスク名</th>
+          <th>タスク内容</th>
+          <th>チェック</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @daily_tasks.each do |daily_task| %>
+          <% task = daily_task.task %>
+            <tr>
+              <td><%= task.name %></td>
+              <td><%= task.body %></td>
+              <td>
+                <%= form_with(model: daily_task, url: company_daily_tasks_path(@company), local: true) do |f| %>
+                  <%= f.hidden_field :task_id %>
+                  <%= f.hidden_field :start_time %>
+                  <% if daily_task.new_record? %>
+                    <%= f.submit "v", class: 'btn btn-outline-success'%>
+                  <% else %>
+                    チェック済
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= link_to "タスク一覧画面へ", employee_tasks_path(@company), class: 'btn btn-outline-primary' %>
+  </div>
+</div>

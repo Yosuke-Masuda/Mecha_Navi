@@ -47,7 +47,9 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+<% if !current_company && !current_admin && !current_employee %>
 <h6>会員でない方はこちらからお試し頂けます。</h6>
   <%= link_to  companies_guest_sign_in_path, class: 'btn btn-outline-primary', method: :post do %>
    <i class="fa-solid fa-right-from-bracket"></i> ゲストログイン（企業用）
   <% end %>
+<% end %>

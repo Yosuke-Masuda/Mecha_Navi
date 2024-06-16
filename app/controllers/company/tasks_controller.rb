@@ -28,7 +28,7 @@ class Company::TasksController < ApplicationController
     @company = current_company
     @employee = Employee.find(params[:employee_id])
     ##@tasks = @employee.tasks
-    
+
     @tasks = @company.tasks
     @daily_tasks = @employee.daily_tasks.includes(:task).where("tasks.company_id": @company.id)
   end
