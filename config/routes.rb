@@ -52,8 +52,8 @@ Rails.application.routes.draw do
       resources :employees, only: [:new, :create, :index, :show, :edit, :update] do
           resources :posts, except: [:new]
           resources :tasks, only: [:show]
+          resources :daily_tasks, only: [:index, :show]
       end
-      resources :daily_tasks, only: [:new, :create]
     end
 
    resources :stores, only: [:index, :create, :show, :edit, :update]

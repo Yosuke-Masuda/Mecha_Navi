@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2024_04_08_193928) do
     t.integer "employee_id", null: false
     t.integer "task_id", null: false
     t.datetime "start_time"
+    t.boolean "completed", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["employee_id"], name: "index_daily_tasks_on_employee_id"

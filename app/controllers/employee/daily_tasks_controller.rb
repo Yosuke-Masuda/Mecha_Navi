@@ -11,6 +11,7 @@ class Employee::DailyTasksController < ApplicationController
 
   def create
     daily_task = current_employee.daily_tasks.build(daily_task_params)
+    daily_task.completed = true
     daily_task.save!
 
     @company = daily_task.task.company
