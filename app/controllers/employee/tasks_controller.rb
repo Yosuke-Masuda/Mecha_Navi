@@ -12,7 +12,7 @@ class Employee::TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:company_id, :employee_id, :name, :body, :memo, :scheduled_date, :start_time, :is_holiday, :checked, :status)  # 許可するパラメータを指定
+    params.require(:task).permit(:company_id, :name, :body)
   end
 
 end
