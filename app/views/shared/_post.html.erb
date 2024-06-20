@@ -40,10 +40,26 @@
         <p class="card-text"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d/%H:%M') %></small></p>
         <div class="card-body">
           <div class="btn-group" role="group" aria-label="Basic example">
-            <% if company_signed_in? %>
-              <%= link_to '投稿詳細', company_employee_post_path(company_id: current_company.id, employee_id: post.employee_id, id: post.id), class: "btn btn-outline-primary"%>
-              <%= link_to '編集', edit_company_employee_post_path(company_id: current_company.id,employee_id: @employee.id, id: post.id), class: "btn btn-outline-success" %>
-              <%= link_to '削除', company_employee_post_path(company_id: current_company.id, employee_id: @employee.id, id: post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" %>
+            <% if admin_signed_in? %>
+                <%= link_to admin_company_employee_post_path(company_id: post.company_id, employee_id: post.employee_id, id: post.id), class: 'btn btn-outline-primary' do %>
+                 <i class="fa-solid fa-circle-info"></i> 詳細
+                <% end %>
+                <%= link_to edit_admin_company_employee_post_path(post.company_id, post.employee_id, post.id), class: "btn btn-outline-success" do %>
+                  <i class="fa-solid fa-pen-to-square"></i> 編集
+                <% end %>
+                <%= link_to admin_company_employee_post_path(company_id: post.company_id, employee_id: post.employee_id, id: post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
+                  <i class="fa-solid fa-trash"></i> 削除
+                <% end %>
+            <% elsif company_signed_in? %>
+              <%= link_to company_employee_post_path(company_id: current_company.id, employee_id: post.employee_id, id: post.id), class: "btn btn-outline-primary" do %>
+                <i class="fa-solid fa-circle-info"></i> 詳細
+              <% end %>
+              <%= link_to edit_company_employee_post_path(company_id: current_company.id,employee_id: post.employee.id, id: post.id), class: "btn btn-outline-success" do %>
+                <i class="fa-solid fa-pen-to-square"></i> 編集
+              <% end %>
+              <%= link_to company_employee_post_path(company_id: current_company.id, employee_id: post.employee.id, id: post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
+                <i class="fa-solid fa-trash"></i> 削除
+              <% end %>
             <% elsif employee_signed_in? %>
               <%= link_to post_path(post.id), class: "btn btn-outline-primary" do %>
                 <i class="fa-solid fa-circle-info"></i> 詳細
@@ -52,7 +68,7 @@
                 <%= link_to edit_post_path(post.id), class: "btn btn-outline-success" do %>
                   <i class="fa-solid fa-pen-to-square"></i> 編集
                 <% end %>
-                <%= link_to post, method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
+                <%= link_to post_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
                   <i class="fa-solid fa-trash"></i> 削除
                 <% end %>
               <% end %>

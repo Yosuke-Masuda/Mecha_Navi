@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
    get 'top' => 'homes#top', as: 'top'
+   get 'companies/:company_id/employees/:employee_id/history' => 'posts#history', as: 'posts_history'
    get 'companies/:company_id/employees/:employee_id/calendar' => 'tasks#calendar', as: 'employee_calendar'
    resources :stores, only: [:index, :create, :edit, :update]
    resources :genres, only: [:index, :create, :edit, :update]
@@ -44,6 +45,7 @@ Rails.application.routes.draw do
     get 'top' => 'homes#top', as: 'top'
     get "about" => "homes#about"
     get 'companies/:company_id/employees/:employee_id/calendar' => 'tasks#calendar', as: 'company_employee_calendar'
+    get 'companies/:company_id/employees/posts' => 'posts#index', as: 'company_employee_posts'
     resources :companies, only: [:show, :edit, :update] do
         member do
             get "unsubscribe"
@@ -51,7 +53,7 @@ Rails.application.routes.draw do
         end
       resources :tasks, except: [:new, :show]
       resources :employees, only: [:new, :create, :index, :show, :edit, :update] do
-          resources :posts, except: [:new, :create]
+          resources :posts, except: [:new, :create, :index]
           resources :daily_tasks, only: [:index]
       end
     end

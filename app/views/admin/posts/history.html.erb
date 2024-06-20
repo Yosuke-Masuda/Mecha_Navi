@@ -1,53 +1,8 @@
 
     <h4><%= @employee.full_name %>の投稿履歴</h4>
+      <%= link_to admin_company_employee_posts_path(@company, @employee), method: :get, class: 'btn btn-outline-primary' do %>
+        <i class="fa-solid fa-circle-left"></i> 戻る
+      <% end %>
 
-<div class="card mb-3 jumbotron" style="max-width: autopx;">
-  <div class="row no-gutters">
-    <% @posts.each do |post| %>
-    <div class="col-md-4">
-      <div id="<%= @posts %>">
-          <% if post.images.present? %>
-            <div id="carouselExampleControls<%= post.id %>" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <% post.images.distinct.each_with_index do |image, index| %>
-                <div class="carousel-item <%= 'active' if index.zero? %>">
-                  <%= image_tag image, width: "100%", height: "250" %>
-                </div>
-                <% end %>
-              </div>
-              <a class="carousel-control-prev" href="#carouselExampleControls<%= post.id %>" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">前へ</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleControls<%= post.id %>" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">次へ</span>
-              </a>
-            </div>
-          <% elsif post.video.attached? %>
-            <div class='file-container'>
-              <%= video_tag rails_blob_url(post.video), controls: true, class: 'responsive-video rounded', width: '100%', height: '250' %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="col-md-8">
-          <div class="card-body">
-              <h5 class="card-title">タイトル:<%= post.title %></h5>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">会社名：<%= post.employee.company.company_name %>　店舗名：<%= post.employee.store.name %>店　投稿者：<%= post.employee.last_name %>　<%= post.employee.first_name %></li>
-                <li class="list-group-item">車名：<%= post.car_name.name if post.car_name.present? %>　型式：<%= post.car_name.car_type if post.car_name.present? %>　ジャンル：<%= post.genre.name if post.genre.present? %></li>
-              </ul>
-              <p class="card-text">説明文：<%= post.caption %></p>
-              <p class="card-text"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d/%H:%M') %></small></p>
-              <div class="card-body">
-                <div class="btn-group" role="group" aria-label="Basic example">
-                  <%= link_to '投稿詳細画面へ', admin_company_employee_post_path(company_id: post.company_id, employee_id: post.employee_id, id: post.id), method: :get, class: 'btn btn-outline-primary' %>
-                  <%= link_to "#{@company.company_name}"'の投稿一覧へ戻る', admin_company_employee_posts_path(company_id: post.company_id, employee_id: post.employee_id), method: :get, class: 'btn btn-outline-primary' %>
-                </div>
-              </div>
-            </div>
-          </div>
-          <% end %>
-  </div>
-</div>
+
+  <%= render partial: 'shared/post', collection: @posts %>

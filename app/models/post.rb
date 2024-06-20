@@ -22,17 +22,20 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :caption, presence: true
 
+
   def self.looks(search, word)
     if search == "perfect_match"
-      @post = Post.joins(:car_name).where("title = ? OR car_names.name = ? OR car_names.car_type = ?", word, word, word)
+      @post = Post.joins(:car_name, :genre).where("title = ? OR car_names.name = ? OR car_names.car_type = ? OR genres.name = ?", word, word, word, word)
     elsif search == "forward_match"
-      @post = Post.where("title LIKE? OR car_name_id LIKE ? OR car_type_id LIKE ?", "#{word}", "#{word}", "#{word}")
+      @post = Post.joins(:car_name, :genre).where("title LIKE ? OR car_names.name LIKE ? OR car_names.car_type LIKE ? OR genres.name LIKE ?", "%#{word}%", "%#{word}%", "%#{word}%", "%#{word}%")
     elsif search == "backward_match"
-      @post = Post.where("title LIKE? OR car_name_id LIKE ? OR car_type_id LIKE ?", "#{word}", "#{word}", "#{word}")
+      @post = Post.joins(:car_name, :genre).where("title LIKE ? OR car_names.name LIKE ? OR car_names.car_type LIKE ? OR genres.name LIKE ?", "%#{word}%", "%#{word}%", "%#{word}%", "%#{word}%")
     elsif search == "partial_match"
-      @post = Post.where("title LIKE? OR car_name_id LIKE ? OR car_type_id LIKE ?", "#{word}", "#{word}", "#{word}")
+      @post = Post.joins(:car_name, :genre).where("title LIKE ? OR car_names.name LIKE ? OR car_names.car_type LIKE ? OR genres.name LIKE ?", "%#{word}%", "%#{word}%", "%#{word}%", "%#{word}%")
     else
       @post = Post.all
     end
   end
+
+
 end
