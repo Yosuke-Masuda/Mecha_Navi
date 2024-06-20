@@ -165,11 +165,11 @@
         </ul>
        </div>
        <% if admin_signed_in? %>
-         <%= render "layouts/serach" %>
+         <%= render "layouts/serach", genres: Genre.all %>
        <% elsif company_signed_in? %>
-         <%= render "layouts/serach" %>
+         <%= render "layouts/serach", genres: current_company.genres %>
        <% elsif employee_signed_in? %>
-         <%= render "layouts/serach" %>
+         <%= render "layouts/serach", genres: current_employee.company.genres %>
        <% end %>
       </nav>
      </header>
@@ -180,6 +180,7 @@
       <%= yield %>
     </main>
      <%= render 'layouts/footer' %>
+     <%= debug params if Rails.env.development? %>
     </div>
    </div>
   </body>

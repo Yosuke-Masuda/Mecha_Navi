@@ -1,13 +1,14 @@
 class SearchesController < ApplicationController
 
   def search
-    @range = params[:range]
-
-    if @range == "社員"
-      @employees = Employee.looks(params[:search], params[:word])
-    else
-      @posts = Post.looks("partial_match", params[:word])
+    if admin_signed_in?
+      @posts = Post.all
+    elsif company_signed_in?
+      @posts = current_company.posts
+    elsif employee_signed_in?
+      @posts = current_employee.company.posts
     end
+      
+    @posts = @posts.looks(params[:genre_id], params[:word])
   end
-
 end

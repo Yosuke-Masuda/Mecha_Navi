@@ -19,6 +19,8 @@ class Company::PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    @genres = current_company.genres
+    @car_names = current_company.car_names
   end
 
 

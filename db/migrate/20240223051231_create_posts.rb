@@ -7,7 +7,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.integer :car_name_id, null: false
       t.integer :car_type_id, null: false
       t.string :title, null: false
-      t.string :genre_id, null: false
+      t.integer :genre_id, null: false
       t.text :caption, null: false
       t.boolean :is_active, null: false, default: true
       t.timestamps
