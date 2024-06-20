@@ -1,0 +1,10 @@
+<div class="card jumbotron">
+  <blockquote class="blockquote mb-0">
+    <div class="container">
+      <%= form_with(model: @post, url: admin_company_employee_post_path(company_id: @post.company_id, employee_id: @post.employee_id, id: @post.id), method: :patch, local: true) do |f| %>
+        <%= render 'shared/post_form', f: f, user_type: "admin" %>
+        <%= render 'shared/post_edit', f: f, post: @post %>
+      <% end %>
+    </div>
+  </blockquote>
+</div>

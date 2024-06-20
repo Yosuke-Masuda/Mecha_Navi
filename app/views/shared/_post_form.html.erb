@@ -6,7 +6,7 @@
     <%= f.label :genre_id, "ジャンル選択", class: 'col-12' %>
   </div>
   <% if user_type == "admin" %>
-    <%= f.collection_select :genre_id, current_admin.genres, :id, :name, prompt: "--選択して下さい--", class: 'rounded col-sm-3' %>
+    <%= f.collection_select :genre_id, @genres, :id, :name, prompt: "--選択して下さい--", class: 'rounded col-sm-3' %>
   <% elsif user_type == "company" %>
     <%= f.collection_select :genre_id, current_company.genres, :id, :name, prompt: "--選択して下さい--", class: 'rounded col-sm-3' %>
   <% elsif user_type == "employee" %>
@@ -21,7 +21,7 @@
     <%= f.label :car_name_id, "車名選択", class: 'col-12' %>
   </div>
   <% if user_type == "admin" %>
-    <%= f.collection_select :car_name_id, current_admin.car_names, :id, :name, :prompt => "--選択して下さい--", class: 'rounded col-sm-3' %>
+    <%= f.collection_select :car_name_id, @car_names, :id, :name, :prompt => "--選択して下さい--", class: 'rounded col-sm-3' %>
   <% elsif user_type == "company" %>
     <%= f.collection_select :car_name_id, current_company.car_names, :id, :name, :prompt => "--選択して下さい--", class: 'rounded col-sm-3' %>
   <% elsif user_type == "employee" %>
@@ -36,7 +36,7 @@
     <%= f.label :car_name_id, "型式選択", class: 'col-12' %>
   </div>
   <% if user_type == "admin" %>
-    <%= f.collection_select :car_type_id, current_admin.car_names, :id, :car_type, :prompt => "--選択して下さい--", class: 'rounded col-sm-3' %>
+    <%= f.collection_select :car_type_id, @car_names, :id, :car_type, :prompt => "--選択して下さい--", class: 'rounded col-sm-3' %>
   <% elsif user_type == "company" %>
     <%= f.collection_select :car_type_id, current_company.car_names, :id, :car_type, :prompt => "--選択して下さい--", class: 'rounded col-sm-3' %>
   <% elsif user_type == "employee" %>

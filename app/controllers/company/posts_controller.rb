@@ -4,7 +4,7 @@ class Company::PostsController < ApplicationController
   def index
     @posts = Post.where(company_id: current_company.id).page(params[:page]).order(created_at: :desc) #他の企業の社員の投稿を見れないようにする
     @company = Company.find(params[:company_id])
-    @employee = Employee.find(params[:employee_id])
+    @employee = @company.employees
 
   end
 

@@ -6,7 +6,8 @@ class SearchesController < ApplicationController
     if @range == "社員"
       @employees = Employee.looks(params[:search], params[:word])
     else
-      @posts = Post.looks(params[:search], params[:word])
+      @posts = Post.looks("partial_match", params[:word])
     end
   end
+
 end
