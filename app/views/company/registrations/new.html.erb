@@ -5,6 +5,7 @@
         <div class="col-md-12">
           <h4 class="mb-5 text-color col-3 text-center">新規会員登録</h4>
             <%= form_with model: @company, url: company_registration_path, local: true do |f| %>
+            <%= render 'layouts/error_messages', resource: @company %>
               <table class="table table-bordered">
                 <tbody>
                   <tr>

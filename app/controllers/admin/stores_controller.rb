@@ -21,6 +21,12 @@ class Admin::StoresController < ApplicationController
 
   end
 
+  def show
+    @company = Company.find(params[:id])
+    @store = Store.find(params[:id])
+    @employees = @store.employees
+  end
+
   def edit
     @store = Store.find(params[:id])
     @companies = Company.all

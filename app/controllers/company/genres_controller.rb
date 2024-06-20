@@ -5,9 +5,9 @@ class Company::GenresController < ApplicationController
     @genres = current_company.genres
 
   end
-  
-  
-  
+
+
+
   def create
     @genre =Genre.new(genre_params)
     @genre.company_id = current_company.id
@@ -16,7 +16,7 @@ class Company::GenresController < ApplicationController
       redirect_to genres_path
     else
       flash[:alert] = "作成に失敗しました"
-      @genres = current_company.genres  
+      @genres = current_company.genres
       render :index
     end
 

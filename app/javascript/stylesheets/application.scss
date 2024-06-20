@@ -1,5 +1,7 @@
 @import '~bootstrap/scss/bootstrap';
 
+
+
 @media (max-width: 768px) {
   .carousel-item{
     font-size: 10px !important;
@@ -95,3 +97,6 @@
   .has-events {}
 }
 
+  .error {
+    color: red;
+  }

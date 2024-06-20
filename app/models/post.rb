@@ -9,6 +9,11 @@ class Post < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
+
+  validates :car_type_id, presence: true
+  validates :title, presence: true
+  validates :caption, presence: true, length: { maximum: 500 }
+
   def favorited_by?(employee)
     favorites.where(employee_id: employee.id).exists?
   end
@@ -18,10 +23,6 @@ class Post < ApplicationRecord
   def recent_post_count
     Post.where(employee_id: self.employee_id).count
   end
-
-  validates :title, presence: true
-  validates :caption, presence: true
-
 
   def self.looks(genre_id, word)
     posts = self.joins(:car_name, :genre)
