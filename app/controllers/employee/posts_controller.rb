@@ -11,9 +11,11 @@ class Employee::PostsController < ApplicationController
 
 
   def new
-   @employee = current_employee #所属する会社と従業員の情報を取得します。
-   @company = @employee.company #所属する会社と従業員の情報を取得します。
-   @post = current_employee.posts.build
+    @employee = current_employee #所属する会社と従業員の情報を取得します。
+    @company = @employee.company #所属する会社と従業員の情報を取得します。
+    @post = current_employee.posts.build
+    @genres = current_employee.company.genres
+    @car_names = current_employee.company.car_names
   end
 
   def create
@@ -23,6 +25,8 @@ class Employee::PostsController < ApplicationController
     @post.employee_id = current_employee.id
     @post.genre_id = params[:post][:genre_id]
     @post.car_name_id = params[:post][:car_name_id]
+    @genres = current_employee.company.genres
+    @car_names = current_employee.company.car_names
 
 
     if @post.save

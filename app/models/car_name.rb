@@ -7,5 +7,6 @@ class CarName < ApplicationRecord
   scope :only_active, -> { where(is_active: true) }
 
   validates :company_id, presence: true
+  validates :name, presence: true
   validates :car_type, presence: true
 end

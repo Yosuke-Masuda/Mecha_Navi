@@ -14,7 +14,7 @@
           <tbody>
             <% @store.employees.each do |employee| %>
                <tr>
-                 <td><%= link_to "#{employee.full_name}", company_employee_path(company_id: current_company.id, id: employee.id), class: "text-blue border-bottom border-dark" %></td>
+                 <td><%= link_to "#{employee.full_name}", admin_company_employee_path(@company, employee), class: "text-blue border-bottom border-dark" %></td>
                  <td><%= employee.email %></td>
                  <td>
                    <% if employee.is_active == true %>
@@ -27,7 +27,7 @@
             <% end %>
           </tbody>
         </table>
-        <%= link_to stores_path, class: 'col mx-auto btn btn-outline-primary btn-sm' do %>
+        <%= link_to admin_stores_path, class: 'col mx-auto btn btn-outline-primary btn-sm' do %>
           <i class="fa-solid fa-shop"></i> 店舗一覧</a>
         <% end %>
       </div>

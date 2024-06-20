@@ -13,9 +13,9 @@ Rails.application.routes.draw do
    get 'top' => 'homes#top', as: 'top'
    get 'companies/:company_id/employees/:employee_id/history' => 'posts#history', as: 'posts_history'
    get 'companies/:company_id/employees/:employee_id/calendar' => 'tasks#calendar', as: 'employee_calendar'
-   resources :stores, only: [:index, :create, :edit, :update]
+   resources :stores, only: [:index, :create, :show, :edit, :update]
    resources :genres, only: [:index, :create, :edit, :update]
-   resources :car_names, only: [:index, :create, :edit, :update], param: :id
+   resources :car_names, only: [:index, :create, :edit, :update]
    resources :tasks, except: [:new, :show]
    resources :companies, only: [:index, :show, :edit, :update, :destroy] do
        resources :employees, only: [:index, :show, :edit, :update] do

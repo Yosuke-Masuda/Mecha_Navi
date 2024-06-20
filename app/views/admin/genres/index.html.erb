@@ -23,12 +23,12 @@
                 <% if genre == genres.first %>
                   <td rowspan="<%= genres.size %>"><%= company.company_name %></td>
                 <% end %>
-                  <td><%= link_to genre.name, admin_genres_path(genre_id: genre.id), class: "underline" %></td>
+                  <td><%= genre.name %></td>
                   <td>
                     <% if genre.is_active? %>
-                      <span class="text-active">有効</span>
+                      <p class="text-success">有効</p>
                     <% else %>
-                      <span class="text-invalid">無効</span>
+                      <p class="text-secondary">無効</p>
                     <% end %>
                   </td>
                   <td class="text-center"><%= link_to "編集", edit_admin_genre_path(genre), class: "btn btn-success" %></td>

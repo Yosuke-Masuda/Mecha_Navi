@@ -2,37 +2,9 @@
   <blockquote class="blockquote col-12">
     <div class="container">
       <h1>投稿</h1>
-        <%= render 'layouts/error_messages', resource: @post %>
-        <div class="table table-responsive">
-	        <table class="table table-bordered">
-	          <tbody>
-	            <tr>
-					      <td>企業ID</td>
-					      <td><%= @employee.company.id %></td>
-				      </tr>
-			  　    <tr>
-					      <td>企業名</td>
-					      <td><%= @employee.company.company_name %></td>
-				      </tr>
-				      <tr>
-					      <td>所属</td>
-					      <td><%= @employee.store.name %>店</td>
-				      </tr>
-			        <tr>
-					      <td>名前</td>
-					      <td>(姓) <%= @employee.last_name %></td>
-					      <td>(名) <%= @employee.first_name %></td>
-				      </tr>
-				      <tr>
-					      <td>フリガナ</td>
-					      <td>(セイ) <%= @employee.last_name_kana %></td>
-					      <td>(メイ) <%= @employee.first_name_kana %></td>
-				      </tr>
-				    </tbody>
-				  </table>
-			  </div>
 			  <%= form_with(model: @post, url: '/posts', local: true) do |f| %>
-        <%= render 'shared/post_form', f: f, user_type: "employee" %>
+			  <%= render 'layouts/error_messages', resource: @post %>
+        <%= render 'shared/post_form', f: f %>
         <div class="field mb-1">
           <%= f.label :caption, '説明', class: 'col-sm-3' %>
           <%= f.text_area :caption, class: "form-control" %>
