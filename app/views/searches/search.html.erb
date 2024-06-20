@@ -2,46 +2,21 @@
 
 <% if admin_signed_in? %>
   <table class="table table-hover table-inverse">
-  <!--検索対象モデルがEmployeeの時 -->
-    <% if @range == "社員" %>
-      <tbody>
-       <%= render partial: 'employee', collection: @employees %>
-      </tbody>
-    <% else %>
-    <!--検索対象モデルがUserではない時(= 検索対象モデルがPostの時) -->
-      <tbody>
-        <%= render partial: 'post', collection: @posts %>
-      </tbody>
-    <% end %>
+    <tbody>
+      <%= render partial: 'post', collection: @posts %>
+    </tbody>
   </table>
-    <!-- 管理者がログイン中の処理 -->
 <% elsif company_signed_in? %>
   <table class="table table-hover table-inverse">
-  <!--検索対象モデルがEmployeeの時 -->
-    <% if @range == "社員" %>
-      <tbody>
-       <%= render partial: 'employee', collection: @employees.select { |employee| employee.company.employee_ids == current_company.employee_ids } %>
-      </tbody>
-    <% else %>
-      <!--検索対象モデルがUserではない時(= 検索対象モデルがPostの時) -->
-      <tbody>
-        <%= render partial: 'post', collection: @posts.select { |post| post.company.employee_ids == current_company.employee_ids } %>
-      </tbody>
-    <% end %>
+    <tbody>
+      <%= render partial: 'post', collection: @posts.select { |post| post.company.employee_ids == current_company.employee_ids } %>
+    </tbody>
   </table>
 <% elsif employee_signed_in? %>
   <table class="table table-hover table-inverse">
-  <!--検索対象モデルがEmployeeの時 -->
-    <% if @range == "社員" %>
-      <tbody>
-        <%= render partial: 'employee', collection: @employees.select { |employee| employee.company_id == current_employee.company_id } %>
-      </tbody>
-    <% else %>
-      <!--検索対象モデルがUserではない時(= 検索対象モデルがPostの時) -->
-      <tbody>
-        <%= render partial: 'post', collection: @posts.select { |post| post.employee.company_id == current_employee.company_id } %>
-      </tbody>
-    <% end %>
+    <tbody>
+      <%= render partial: 'post', collection: @posts.select { |post| post.employee.company_id == current_employee.company_id } %>
+    </tbody>
   </table>
 <% end %>
 

@@ -30,19 +30,4 @@ class Employee < ApplicationRecord
   def self.guest
     find_by!(email: 'guest_employee@example.com')
   end
-
-  def self.looks(search, word)
-   if search == "perfect_match"
-     @employee = Employee.where("first_name LIKE? OR last_name LIKE?", "#{word}", "#{word}")
-   elsif search == "forward_match"
-     @employee = Employee.where("first_name LIKE? OR last_name LIKE?", "#{word}%", "#{word}%")
-   elsif search == "backward_match"
-     @employee = Employee.where("first_name LIKE? OR last_name LIKE?", "%#{word}", "%#{word}")
-   elsif search == "partial_match"
-     @employee = Employee.where("first_name LIKE? OR last_name LIKE?", "%#{word}%", "%#{word}%")
-   else
-     @employee = Employee.all
-   end
-  end
-
 end

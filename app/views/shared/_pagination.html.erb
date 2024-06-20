@@ -9,7 +9,7 @@
     </li>
       <% (1..@posts.total_pages).each do |page| %>
         <li class="page-item <%= 'active' if page == @posts.current_page %>">
-          <%= link_to page, url_for(params.permit(:controller, :action).merge({ page: page })), class: 'page-link' %>
+          <%= link_to page, url_for(params.permit(:controller, :action, :company_id).merge({ page: page })), class: 'page-link' %>
         </li>
       <% end %>
     <li class="page-item <%= 'disabled' if @posts.current_page == @posts.total_pages %>">

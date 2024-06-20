@@ -28,7 +28,6 @@ class Admin::PostsController < ApplicationController
     @company = Company.find(params[:id])
     @genres = @company.genres
     @car_names = @company.car_names
-
    end
 
 

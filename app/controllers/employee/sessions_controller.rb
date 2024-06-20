@@ -41,6 +41,7 @@ class Employee::SessionsController < Devise::SessionsController
       root_path
     else
       flash[:alert] = "退職済みのアカウントです。"
+      sign_out(resource)
       new_employee_session_path
     end
   end

@@ -5,13 +5,7 @@
   <div class="d-none d-sm-block">
     <%= f.label :genre_id, "ジャンル選択", class: 'col-12' %>
   </div>
-  <% if user_type == "admin" %>
     <%= f.collection_select :genre_id, @genres, :id, :name, prompt: "--選択して下さい--", class: 'rounded col-sm-3' %>
-  <% elsif user_type == "company" %>
-    <%= f.collection_select :genre_id, current_company.genres, :id, :name, prompt: "--選択して下さい--", class: 'rounded col-sm-3' %>
-  <% elsif user_type == "employee" %>
-    <%= f.collection_select :genre_id, current_employee.company.genres, :id, :name, prompt: "--選択して下さい--", class: 'rounded col-sm-3' %>
-  <% end %>
 </div>
 <div class="field mb-1">
   <div class="d-sm-none">
@@ -20,13 +14,7 @@
   <div class="d-none d-sm-block">
     <%= f.label :car_name_id, "車名選択", class: 'col-12' %>
   </div>
-  <% if user_type == "admin" %>
     <%= f.collection_select :car_name_id, @car_names, :id, :name, :prompt => "--選択して下さい--", class: 'rounded col-sm-3' %>
-  <% elsif user_type == "company" %>
-    <%= f.collection_select :car_name_id, current_company.car_names, :id, :name, :prompt => "--選択して下さい--", class: 'rounded col-sm-3' %>
-  <% elsif user_type == "employee" %>
-    <%= f.collection_select :car_name_id, current_employee.company.car_names, :id, :name, :prompt => "--選択して下さい--", class: 'rounded col-sm-3' %>
-  <% end %>
 </div>
 <div class="field mb-1">
   <div class="d-sm-none">
@@ -35,13 +23,7 @@
   <div class="d-none d-sm-block">
     <%= f.label :car_name_id, "型式選択", class: 'col-12' %>
   </div>
-  <% if user_type == "admin" %>
     <%= f.collection_select :car_type_id, @car_names, :id, :car_type, :prompt => "--選択して下さい--", class: 'rounded col-sm-3' %>
-  <% elsif user_type == "company" %>
-    <%= f.collection_select :car_type_id, current_company.car_names, :id, :car_type, :prompt => "--選択して下さい--", class: 'rounded col-sm-3' %>
-  <% elsif user_type == "employee" %>
-    <%= f.collection_select :car_type_id, current_employee.company.car_names, :id, :car_type, :prompt => "--選択して下さい--", class: 'rounded col-sm-3' %>
-  <% end %>
 </div>
 <div class="field mb-1">
   <div><%= f.label :title, 'タイトル', class: 'col-sm-3' %></div>

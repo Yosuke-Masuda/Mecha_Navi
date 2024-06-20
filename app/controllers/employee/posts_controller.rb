@@ -27,7 +27,7 @@ class Employee::PostsController < ApplicationController
 
     if @post.save
      flash[:notice] = "作成しました"
-     redirect_to posts_path #indexへ
+     redirect_to posts_path
     else
      @posts = Post.all
      @company = Company.find(current_employee.company_id)
@@ -44,6 +44,8 @@ class Employee::PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    @genres = current_employee.company.genres
+    @car_names = current_employee.company.car_names
   end
 
   def update
