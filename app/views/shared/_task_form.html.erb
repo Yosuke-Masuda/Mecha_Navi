@@ -20,19 +20,26 @@
 </div>
 <div class="form-group row mx-auto">
   <div class="col-sm-12 text-center">
-    <% if action_name == 'index' %>
+    <% if task.new_record? %>
       <div class="button-layout">
         <button type="submit" class=" btn btn-outline-primary col-sm-3">
-          <i class="fa-solid fa-registered"></i>
-          <%= submit %>
+          <i class="fa-solid fa-registered"></i> 登録
         </button>
       </div>
-    <% elsif action_name == 'edit' %>
+    <% else %>
       <div class="button-layout">
         <button type="submit" class="btn btn-outline-success col-sm-3">
-          <i class="fa-solid fa-floppy-disk"></i>
-          <%= submit %>
+          <i class="fa-solid fa-floppy-disk"></i> 保存
         </button>
+        <% if admin_signed_in? %>
+          <%= link_to admin_task_path(@task), class: 'btn btn-outline-danger col-sm-3', method: :delete, data: { confirm: "削除してもよろしいですか？" } do %>
+  			    <i class="fa-solid fa-trash-can"></i> 削除
+  			  <% end %>
+  			<% else %>
+  			  <%= link_to company_task_path(company_id: current_company.id, id: @task.id), class: 'btn btn-outline-danger col-sm-3', method: :delete, data: { confirm: "削除してもよろしいですか？" } do %>
+            <i class="fa-solid fa-trash-can"></i> 削除
+          <% end %>
+        <% end %>
       </div>
     <% end %>
   </div>

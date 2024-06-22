@@ -14,174 +14,176 @@
   </head>
 
   <body>
-   <div class="container-fulid card">
-    <div class="card-header">
-     <header class="shadow-sm">
-       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <%= link_to image_tag("repair service.png", size: "50x50"), root_path, class: "image mt-2" %>
-        <a class="navbar-brand font-italic" href="/">MechaNavi</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-         <span class="navbar-toggler-icon"></span>
-        </button>
-
-       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-         <% if admin_signed_in? %>
-          <li class="nav-item active">
-           <a class="nav-link" href="/admin/top"><i class="fa-regular fa-file-image"></i> Posts History <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-           <a class="nav-link" href="/admin/companies"><i class="fa-solid fa-users-viewfinder"></i> Member Index</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             <i class="fa-solid fa-layer-group"></i> Service
-            </a>
-           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-             <a class="dropdown-item" href="/admin/stores"><i class="fa-solid fa-shop"></i> 店舗管理</a>
-             <a class="dropdown-item" href="/admin/genres"><i class="fa-solid fa-list"></i> ジャンル管理</a>
-             <a class="dropdown-item" href="/admin/car_names"><i class="fa-solid fa-car"></i> 車両管理</a>
-             <%= link_to admin_tasks_path, class: 'dropdown-item' do %>
-              <i class="fa-solid fa-thumbtack"></i> タスク管理
-             <% end %>
-           </div>
-           <li class="nav-item">
-             <%= link_to destroy_admin_session_path, class: 'nav-link', method: :delete do %>
-               <i class="fa-solid fa-right-from-bracket"></i>logout
-             <% end %>
-           </li>
-          </li>
-         <% elsif company_signed_in? %>
-          <li class="nav-item">
-           <%= link_to company_path(id: current_company.id), class: 'nav-link' do %>
-           <i class="fa-solid fa-house"></i> Mypage<span class="sr-only">(current)</span>
-           <% end %>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             <i class="fa-solid fa-layer-group"></i> Service
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-             <%= link_to top_path, class: 'dropdown-item' do %>
-             <i class="fa-solid fa-clock-rotate-left"></i> 投稿履歴管理
-             <% end %>
-             <%= link_to company_employee_posts_path(company_id: current_company.id), class: 'dropdown-item' do %>
-               <i class="fa-regular fa-image"></i> 投稿管理</a>
-             <% end %>
-             <a class="dropdown-item" href="/stores"><i class="fa-solid fa-shop"></i> 店舗管理</a>
-             <a class="dropdown-item" href="/car_names"><i class="fa-solid fa-car"></i> 車両管理</a>
-             <a class="dropdown-item" href="/genres"><i class="fa-solid fa-list"></i> ジャンル管理</a>
-             <%= link_to company_tasks_path(company_id: current_company.id), class: 'dropdown-item' do %>
-             <i class="fa-solid fa-thumbtack"></i> タスク管理
-             <% end %>
+    <div class="container-fulid card">
+      <div class="card-header">
+        <header class="shadow-sm">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <%= link_to image_tag("repair service.png", size: "50x50"), root_path, class: "image mt-2" %>
+            <a class="navbar-brand font-italic" href="/">MechaNavi</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <% if admin_signed_in? %>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/admin/top"><i class="fa-regular fa-file-image"></i> Posts History <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/companies"><i class="fa-solid fa-users-viewfinder"></i> Member Index</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa-solid fa-layer-group"></i> Service
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/admin/stores"><i class="fa-solid fa-shop"></i> 店舗管理</a>
+                    <a class="dropdown-item" href="/admin/genres"><i class="fa-solid fa-list"></i> ジャンル管理</a>
+                    <a class="dropdown-item" href="/admin/car_names"><i class="fa-solid fa-car"></i> 車両管理</a>
+                    <%= link_to admin_tasks_path, class: 'dropdown-item' do %>
+                      <i class="fa-solid fa-thumbtack"></i> タスク管理
+                    <% end %>
+                  </div>
+                  <li class="nav-item">
+                    <%= link_to destroy_admin_session_path, class: 'nav-link', method: :delete do %>
+                      <i class="fa-solid fa-right-from-bracket"></i>logout
+                    <% end %>
+                  </li>
+                </li>
+                <% elsif company_signed_in? %>
+                  <li class="nav-item">
+                    <%= link_to company_path(id: current_company.id), class: 'nav-link' do %>
+                      <i class="fa-solid fa-house"></i> Mypage<span class="sr-only">(current)</span>
+                    <% end %>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa-solid fa-layer-group"></i> Service
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <%= link_to top_path, class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-clock-rotate-left"></i> 投稿履歴管理
+                      <% end %>
+                      <%= link_to company_employee_posts_path(company_id: current_company.id), class: 'dropdown-item' do %>
+                        <i class="fa-regular fa-image"></i> 投稿管理</a>
+                      <% end %>
+                      <a class="dropdown-item" href="/stores"><i class="fa-solid fa-shop"></i> 店舗管理</a>
+                      <a class="dropdown-item" href="/car_names"><i class="fa-solid fa-car"></i> 車両管理</a>
+                      <a class="dropdown-item" href="/genres"><i class="fa-solid fa-list"></i> ジャンル管理</a>
+                      <%= link_to company_tasks_path(company_id: current_company.id), class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-thumbtack"></i> タスク管理
+                      <% end %>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa-solid fa-users"></i> Employee
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <%= link_to new_company_employee_path(company_id: current_company.id), class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-user-plus"></i> 社員登録</a>
+                      <% end %>
+                      <%= link_to company_employees_path(company_id: current_company.id), class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-users-viewfinder"></i> 社員一覧</a>
+                      <% end %>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to destroy_company_session_path, class: 'nav-link', method: :delete do %>
+                      <i class="fa-solid fa-right-from-bracket"></i> logout
+                    <% end %>
+                  </li>
+                  <li class="nav-item text-center">
+                     <a class="navbar-brand">　<%= current_company.company_name %>様</a>
+                  </li>
+                <% elsif employee_signed_in? %>
+                  <li class="nav-item active">
+                    <%= link_to mypage_path, class: 'nav-link' do %>
+                      <i class="fa-solid fa-house"></i> Mypage<span class="sr-only">(current)</span>
+                    <% end %>
+                  </li>
+                  <li class="nav-item active">
+                    <%= link_to employee_about_path(current_employee), class: 'nav-link' do %>
+                      <i class="fa-regular fa-message"></i> About <span class="sr-only">(current)</span>
+                    <% end %>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa-solid fa-layer-group"></i> Service
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <%= link_to favorites_employee_path(id: current_employee), class: 'dropdown-item' do %>
+                        <i class="fa-regular fa-bookmark"></i> お気に入り
+                      <% end %>
+                      <%= link_to history_employee_path(id: current_employee), class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-clock-rotate-left"></i> 投稿履歴
+                      <% end %>
+                      <a class="dropdown-item" href="/posts/new"><i class="fa-regular fa-square-plus"></i> 新規投稿</a>
+                      <a class="dropdown-item" href="/posts"><i class="fa-regular fa-file-image"></i> 投稿一覧</a>
+                      <%= link_to employee_tasks_path(employee_id: current_employee), class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-list-check"></i> タスクカレンダー
+                      <% end %>
+                      <a class="dropdown-item"></a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to destroy_employee_session_path, class: 'nav-link', method: :delete do %>
+                      <i class="fa-solid fa-right-from-bracket"></i> logout
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <a class="navbar-brand">　<%= current_employee.full_name %> 様</a>
+                  </li>
+                <% else %>
+                  <li class="nav-item">
+                    <%= link_to about_path, class: 'nav-link' do %>
+                      <i class="fa-regular fa-message"></i> about
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to new_company_registration_path, class: 'nav-link' do %>
+                     <i class="fa-solid fa-right-from-bracket"></i> company_sign_up
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to new_company_session_path, class: 'nav-link' do %>
+                      <i class="fa-solid fa-right-from-bracket"></i> company_login
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to new_employee_session_path, class: 'nav-link' do %>
+                      <i class="fa-solid fa-right-from-bracket"></i> employee_login
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <h6 class= "navbar">　　※会員でない方は下記のゲストログインからお試し頂けます</h6>
+                  </li>
+                <% end %>
+              </ul>
             </div>
-          </li>
-          <li class="nav-item dropdown">
-             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa-solid fa-users"></i> Employee
-             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-             <%= link_to new_company_employee_path(company_id: current_company.id), class: 'dropdown-item' do %>
-               <i class="fa-solid fa-user-plus"></i> 社員登録</a>
-             <% end %>
-             <%= link_to company_employees_path(company_id: current_company.id), class: 'dropdown-item' do %>
-               <i class="fa-solid fa-users-viewfinder"></i> 社員一覧</a>
-             <% end %>
-            </div>
-
-          </li>
-          <li class="nav-item">
-            <%= link_to destroy_company_session_path, class: 'nav-link', method: :delete do %>
-              <i class="fa-solid fa-right-from-bracket"></i> logout
+            <% if admin_signed_in? %>
+              <% if @company.present? %>
+                <%= render "layouts/serach", genres: @company.genres %>
+              <% else %>
+                <%= render "layouts/serach", genres: Genre.all %>
+              <% end %>
+            <% elsif company_signed_in? %>
+              <%= render "layouts/serach", genres: current_company.genres %>
+            <% elsif employee_signed_in? %>
+              <%= render "layouts/serach", genres: current_employee.company.genres %>
+            <% else %>
             <% end %>
-          </li>
-          <li class="nav-item text-center">
-             <a class="navbar-brand">　<%= current_company.company_name %>様</a>
-          </li>
-         <% elsif employee_signed_in? %>
-          <li class="nav-item active">
-           <%= link_to mypage_path, class: 'nav-link' do %>
-             <i class="fa-solid fa-house"></i> Mypage<span class="sr-only">(current)</span>
-           <% end %>
-             <!--<a class="nav-link" href="/employees/mypage"><i class="fa-solid fa-house"></i> Home<span class="sr-only">(current)</span></a>-->
-          </li>
-          <li class="nav-item active">
-            <%= link_to employee_about_path(current_employee), class: 'nav-link' do %>
-              <i class="fa-regular fa-message"></i> About <span class="sr-only">(current)</span>
-            <% end %>
-          </li>
-          <li class="nav-item dropdown">
-             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <i class="fa-solid fa-layer-group"></i> Service
-             </a>
-           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-             <%= link_to favorites_employee_path(id: current_employee), class: 'dropdown-item' do %>
-		            <i class="fa-regular fa-bookmark"></i> お気に入り
-		          <% end %>
-             <%= link_to history_employee_path(id: current_employee), class: 'dropdown-item' do %>
-               <i class="fa-solid fa-clock-rotate-left"></i> 投稿履歴
-             <% end %>
-             <a class="dropdown-item" href="/posts/new"><i class="fa-regular fa-square-plus"></i> 新規投稿</a>
-             <a class="dropdown-item" href="/posts"><i class="fa-regular fa-file-image"></i> 投稿一覧</a>
-             <%= link_to employee_tasks_path(employee_id: current_employee), class: 'dropdown-item' do %>
-               <i class="fa-solid fa-list-check"></i> タスクカレンダー
-             <% end %>
-             <a class="dropdown-item"></a>
-           </div>
-          </li>
-          <li class="nav-item">
-            <%= link_to destroy_employee_session_path, class: 'nav-link', method: :delete do %>
-              <i class="fa-solid fa-right-from-bracket"></i> logout
-            <% end %>
-          </li>
-          <li class="nav-item">
-             <a class="navbar-brand">　<%= current_employee.full_name %> 様</a>
-          </li>
-         <% else %>
-          <li class="nav-item">
-            <%= link_to about_path, class: 'nav-link' do %>
-              <i class="fa-regular fa-message"></i> about
-            <% end %>
-          </li>
-          <li class="nav-item">
-           <%= link_to new_company_registration_path, class: 'nav-link' do %>
-             <i class="fa-solid fa-right-from-bracket"></i> company_sign_up
-           <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to new_company_session_path, class: 'nav-link' do %>
-              <i class="fa-solid fa-right-from-bracket"></i> company_login
-            <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to new_employee_session_path, class: 'nav-link' do %>
-              <i class="fa-solid fa-right-from-bracket"></i> employee_login
-            <% end %>
-          </li>
-          <li class="nav-item">
-          <h6 class= "navbar">　　※会員でない方は下記のゲストログインからお試し頂けます</h6>
-          </li>
-         <% end %>
-        </ul>
-       </div>
-       <% if admin_signed_in? %>
-         <%= render "layouts/serach", genres: Genre.all %>
-       <% elsif company_signed_in? %>
-         <%= render "layouts/serach", genres: current_company.genres %>
-       <% elsif employee_signed_in? %>
-         <%= render "layouts/serach", genres: current_employee.company.genres %>
-       <% end %>
-      </nav>
-     </header>
-    <main>
-      <div id="flash">
-        <%= render "layouts/flash" %>
+          </nav>
+        </header>
+        <main>
+          <div id="flash">
+            <%= render "layouts/flash" %>
+          </div>
+          <%= yield %>
+        </main>
+          <%= render 'layouts/footer' %>
+          <%= debug params if Rails.env.development? %>
       </div>
-      <%= yield %>
-    </main>
-     <%= render 'layouts/footer' %>
-     <%= debug params if Rails.env.development? %>
     </div>
-   </div>
   </body>
 </html>

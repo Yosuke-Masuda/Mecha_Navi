@@ -45,6 +45,13 @@ class Admin::TasksController < ApplicationController
 
   end
 
+  def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+
+    redirect_to admin_tasks_path, notice: "タスクを削除しました。"
+  end
+
   private
    def task_params
     params.require(:task).permit(:company_id, :employee_id, :task_id, :name, :body, :start_time)
