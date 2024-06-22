@@ -13,18 +13,16 @@
 	    <%= f.radio_button :is_active, false %>
 	    <%= f.label :is_active, "無効", class: "text-invalid" %>
 	  </div>
-	    <% if action_name == 'index' %>
+	    <% if genre.new_record? %>
         <div class="button-layout">
           <button type="submit" class="btn btn-outline-primary">
-          	<i class="fa-solid fa-registered"></i>
-            <%= submit %>
+          	<i class="fa-solid fa-registered"></i> 登録
           </button>
         </div>
-      <% elsif action_name == 'edit' %>
+      <% else %>
         <div class="button-layout">
           <button type="submit" class="btn btn-outline-success">
-          	<i class="fa-solid fa-floppy-disk"></i>
-            <%= submit %>
+          	<i class="fa-solid fa-floppy-disk"></i> 保存
           </button>
         </div>
       <% end %>
