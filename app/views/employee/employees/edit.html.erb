@@ -9,9 +9,16 @@
                 <%= render partial: "shared/employee_table_row", locals: { f: f, employee: @employee, user_type: "employee" } %>
               </tbody>
             </table>
-            <%= button_tag type: "submit", class: 'btn btn-outline-success btn-block' do %>
-              <i class="fa-solid fa-floppy-disk"></i> 保存する
-            <% end %>
+            <div class="card-body">
+              <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+                  <i class="fa-solid fa-floppy-disk"></i> 保存
+                <% end %>
+                <%= link_to mypage_path, class: 'btn btn-outline-primary' do %>
+                  <i class="fa-solid fa-circle-left"></i> 戻る
+                <% end %>
+              </div>
+            </div>
           <% end %>
         </div>
     </div>

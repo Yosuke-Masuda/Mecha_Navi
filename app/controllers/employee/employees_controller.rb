@@ -1,5 +1,15 @@
 class Employee::EmployeesController < ApplicationController
-  before_action :set_current_employee, only: [:show, :edit, :update]
+  before_action :authenticate_employee!
+  before_action :set_current_employee, only: [:show, :history, :edit, :update, :favorites]
+  before_action :ensure_normal_employee, only: :update
+
+  def ensure_normal_employee
+    @company = current_employee.company
+    @employee = current_employee
+    if current_employee.email == 'guest_employee@example.com'
+      redirect_to edit_mypage_path, alert: 'ゲストユーザーでは権限がありません'
+    end
+  end
 
 
   def show

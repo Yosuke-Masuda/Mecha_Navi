@@ -9,19 +9,22 @@
 		    <% end %>
 	    </h3>
 	      <%= render partial: 'shared/employee_table', locals: { employee: @employee } %>
-	      <h3 class= "text-center">
+	      <div class="btn-group btn-block" role="group" aria-label="Basic example">
 	      	<% if current_employee.email == 'guest_employee@example.com' %>
             <h5>※ゲストログインはマイページの編集ができません。</h5>
+            <%= link_to edit_mypage_path, class: "btn btn-outline-success" do %>
+		    	    <i class="fa-solid fa-pen-to-square"></i> 編集
+		    	  <% end %>
           <% else %>
-		      	<%= link_to edit_mypage_path, class: "btn btn-outline-success btn-block" do %>
+		      	<%= link_to edit_mypage_path, class: "btn btn-outline-success" do %>
 		    	    <i class="fa-solid fa-pen-to-square"></i> 編集
 		    	  <% end %>
 		    	<% end %>
-		      <%= link_to posts_path, class: "btn btn-outline-primary btn-block" do %>
+		      <%= link_to posts_path, class: "btn btn-outline-primary" do %>
 		        <i class="fa-regular fa-image"></i> 投稿一覧
 		      <% end %>
-	      </h3>
-    </div>
+		    </div>
+      </div>
     </div>
   </blockquote>
 </div>

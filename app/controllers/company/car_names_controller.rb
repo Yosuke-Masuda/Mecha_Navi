@@ -1,13 +1,22 @@
 class Company::CarNamesController < ApplicationController
   before_action :authenticate_company!
+  before_action :ensure_normal_company, only: :update
+
+  def ensure_normal_company
+    @car_name = CarName.find(params[:id])
+    if current_company.email == 'guest_company@example.com'
+      redirect_to edit_car_name_path(@car_name), alert: 'ゲストユーザーでは権限がありません'
+    end
+  end
+
   def index
     @car_name = CarName.new
     @car_names = current_company.car_names
 
   end
-  
-  
-  
+
+
+
   def create
     @car_name =CarName.new(car_name_params)
     @car_name.company_id = current_company.id
@@ -16,7 +25,6 @@ class Company::CarNamesController < ApplicationController
       redirect_to car_names_path
     else
       @car_names = current_company.car_names
-      flash[:alert] = "作成に失敗しました"
       render :index
     end
 
@@ -32,7 +40,6 @@ class Company::CarNamesController < ApplicationController
       flash[:notice] = "編集しました"
       redirect_to car_names_path
     else
-      flash[:alert] = "編集に失敗しました"
       render "edit"
     end
 

@@ -1,4 +1,5 @@
 class Company::PostCommentsController < ApplicationController
+  before_action :authenticate_company!
   before_action :set_post_comment, only: [:destroy]
 
   def create

@@ -1,5 +1,6 @@
 class Company::PostsController < ApplicationController
-  before_action :set_current_company, only: [:index, :show, :edit, :update, :unsubscribe, :withdraw]
+  before_action :authenticate_company!
+  before_action :set_current_company, only: [:index, :show, :edit, :update, :destroy]
 
   def index
     @posts = Post.where(company_id: current_company.id).page(params[:page]).order(created_at: :desc) #他の企業の社員の投稿を見れないようにする

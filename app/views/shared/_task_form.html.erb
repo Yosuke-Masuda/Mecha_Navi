@@ -1,5 +1,5 @@
 <%= form_with(model: task, url: url, local: true) do |f| %>
-	<%= render 'layouts/error_messages', resource: task %>
+  <%= render 'layouts/error_messages', resource: f.object %>
 	<div class="form-group row mx-auto">
 	  <% if admin_signed_in? %>
   	  <%= f.label :company_id, "企業選択：", class: "ml-3 col-form-label" %>
@@ -7,13 +7,17 @@
 	  <% end %>
 	</div>
 	<div class="form-group row mx-auto">
+	  <div class="col">
 	  <%= f.label :name, "タスク名", class: 'mr-5 col-form-label col-form-label-lg col-sm-2' %>
+	  </div>
     <div class="col-sm-12">
       <%= f.text_field :name, class: 'form-control', placeholder: "タスク名の入力" %>
     </div>
   </div>
 <div class="form-group row mx-auto">
-  <%= f.label :body, "タスク内容", class: 'mr-5 col-form-label col-form-label-lg col-sm-2' %>
+  <div class="col">
+    <%= f.label :body, "タスク内容", class: 'mr-5 col-form-label col-form-label-lg col-sm-2' %>
+  </div>
   <div class="col-sm-12">
     <%= f.text_field :body, class: 'form-control', placeholder: "タスク内容の入力" %>
   </div>
@@ -26,28 +30,27 @@
           <i class="fa-solid fa-registered"></i> 登録
         </button>
       </div>
-    <% else %>
-      <% if current_company.email == 'guest_company@example.com' %>
-        <h5>※ゲストログインは編集・削除ができません。</h5>
-        <%= link_to company_tasks_path(company_id: current_company.id), class: 'btn btn-outline-primary col-sm-3' do %>
-          <i class="fa-solid fa-circle-left"></i> 戻る
-        <% end %>
-      <% else %>
-        <div class="button-layout">
-          <button type="submit" class="btn btn-outline-success col-sm-3">
-            <i class="fa-solid fa-floppy-disk"></i> 保存
-          </button>
-          <% if admin_signed_in? %>
-            <%= link_to admin_task_path(@task), class: 'btn btn-outline-danger col-sm-3', method: :delete, data: { confirm: "削除してもよろしいですか？" } do %>
-    			    <i class="fa-solid fa-trash-can"></i> 削除
-    			  <% end %>
-    			<% else %>
-    			  <%= link_to company_task_path(company_id: current_company.id, id: @task.id), class: 'btn btn-outline-danger col-sm-3', method: :delete, data: { confirm: "削除してもよろしいですか？" } do %>
-              <i class="fa-solid fa-trash-can"></i> 削除
-            <% end %>
+    <% elsif %>
+      <div class="button-layout">
+        <button type="submit" class="btn btn-outline-success col-sm-3">
+          <i class="fa-solid fa-floppy-disk"></i> 保存
+        </button>
+        <% if admin_signed_in? %>
+          <%= link_to admin_task_path(@task), class: 'btn btn-outline-danger col-sm-3', method: :delete, data: { confirm: "削除してもよろしいですか？" } do %>
+  			    <i class="fa-solid fa-trash-can"></i> 削除
+  			  <% end %>
+  			  <%= link_to admin_tasks_path, class: 'btn btn-outline-primary col-sm-3' do %>
+            <i class="fa-solid fa-circle-left"></i> 戻る
           <% end %>
-        </div>
-      <% end %>
+  			<% else company_signed_in? %>
+  			  <%= link_to company_task_path(company_id: current_company.id, id: @task.id), class: 'btn btn-outline-danger col-sm-3', method: :delete, data: { confirm: "削除してもよろしいですか？" } do %>
+            <i class="fa-solid fa-trash-can"></i> 削除
+          <% end %>
+          <%= link_to company_tasks_path(company_id: current_company.id), class: 'btn btn-outline-primary col-sm-3' do %>
+            <i class="fa-solid fa-circle-left"></i> 戻る
+          <% end %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>

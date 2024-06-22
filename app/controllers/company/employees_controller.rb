@@ -1,4 +1,20 @@
 class Company::EmployeesController < ApplicationController
+  before_action :authenticate_company!
+  before_action :ensure_normal_company, only: [:create, :update]
+
+  def ensure_normal_company
+    @company = current_company
+    if current_company.email == 'guest_company@example.com'
+      if action_name == "create"
+        redirect_to new_company_employee_path(current_company.id), alert: 'ゲストユーザーでは権限がありません'  # createアクションの時の遷移先
+      elsif action_name == "update"
+        @employee = Employee.find(params[:id])
+        redirect_to edit_company_employee_path(@company, @employee), alert: 'ゲストユーザーでは権限がありません'  # updateアクションの時の遷移先
+      end
+    end
+  end
+
+
   def new
     @employee = Employee.new
   end
