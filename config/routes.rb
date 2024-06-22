@@ -11,7 +11,6 @@ Rails.application.routes.draw do
 
   namespace :admin do
    get 'top' => 'homes#top', as: 'top'
-   get 'companies/:company_id/employees/:employee_id/history' => 'posts#history', as: 'posts_history'
    get 'companies/:company_id/employees/:employee_id/calendar' => 'tasks#calendar', as: 'employee_calendar'
    resources :stores, only: [:index, :create, :show, :edit, :update]
    resources :genres, only: [:index, :create, :edit, :update]
