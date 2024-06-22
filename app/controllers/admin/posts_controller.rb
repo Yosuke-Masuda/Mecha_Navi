@@ -1,4 +1,5 @@
 class Admin::PostsController < ApplicationController
+  before_action :authenticate_admin!
    def index
      @company = Company.find(params[:company_id])
      @recent_posts = Post.where(company_id: @company.id).group(:employee_id).order(created_at: :desc) #最近の投稿

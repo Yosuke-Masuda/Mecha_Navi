@@ -19,10 +19,15 @@
               </tbody>
             </table>
             <% if current_company.email == 'guest_company@example.com' %>
-              <h5>※ゲストログインは編集・削除ができません。</h5>
-              <%= link_to company_employee_path(company_id: current_company.id, id: @employee.id), class: 'btn btn-outline-primary col-sm-3' do %>
-                <i class="fa-solid fa-circle-left"></i> 戻る
-              <% end %>
+              <h5>※ゲストログインは編集ができません。</h5>
+              <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+                  <i class="fa-solid fa-floppy-disk"></i> 保存
+                <% end %>
+                <%= link_to company_employee_path(company_id: current_company.id, id: @employee.id), class: 'btn btn-outline-primary' do %>
+                  <i class="fa-solid fa-user"></i> 戻る
+                <% end %>
+              </div>
             <% else %>
               <div class="btn-group btn-block" role="group" aria-label="Basic example">
                 <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>

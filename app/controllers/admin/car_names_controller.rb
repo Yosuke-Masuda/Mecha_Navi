@@ -1,7 +1,6 @@
 class Admin::CarNamesController < ApplicationController
   before_action :authenticate_admin!
 
-
   def index
     @car_name = CarName.new
     @car_names = CarName.all
@@ -15,7 +14,7 @@ class Admin::CarNamesController < ApplicationController
       redirect_to admin_car_names_path
     else
       @car_names = CarName.all
-      @companies = Company.all # 追加
+      @companies = Company.all 
       render :index
     end
 

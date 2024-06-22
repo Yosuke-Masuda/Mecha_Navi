@@ -1,5 +1,6 @@
 class Company::DailyTasksController < ApplicationController
-  before_action :set_current_company
+  before_action :authenticate_company!
+  before_action :set_current_company, only: :index
 
   def index
     @company = current_company

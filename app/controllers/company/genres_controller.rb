@@ -1,12 +1,19 @@
 class Company::GenresController < ApplicationController
   before_action :authenticate_company!
+  before_action :ensure_normal_company, only: :update
+
+  def ensure_normal_company
+    @genre = Genre.find(params[:id])
+    if current_company.email == 'guest_company@example.com'
+      redirect_to edit_genre_path(@genre), alert: 'ゲストユーザーでは権限がありません'
+    end
+  end
+
   def index
     @genre = Genre.new
     @genres = current_company.genres
 
   end
-
-
 
   def create
     @genre =Genre.new(genre_params)
@@ -15,7 +22,6 @@ class Company::GenresController < ApplicationController
       flash[:notice] = "作成しました"
       redirect_to genres_path
     else
-      flash[:alert] = "作成に失敗しました"
       @genres = current_company.genres
       render :index
     end
@@ -32,7 +38,6 @@ class Company::GenresController < ApplicationController
       flash[:notice] = "編集しました"
       redirect_to genres_path
     else
-      flash[:alert] = "編集に失敗しました"
       render "edit"
     end
 

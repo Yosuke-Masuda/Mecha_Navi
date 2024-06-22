@@ -1,5 +1,14 @@
 class Company::StoresController < ApplicationController
   before_action :authenticate_company!
+  before_action :ensure_normal_company, only: :update
+
+  def ensure_normal_company
+    @store = Store.find(params[:id])
+    if current_company.email == 'guest_company@example.com'
+      redirect_to edit_store_path(@store), alert: 'ゲストユーザーでは権限がありません'
+    end
+  end
+
   def index
     @store = Store.new
     @stores = current_company.stores
@@ -15,7 +24,6 @@ class Company::StoresController < ApplicationController
       flash[:notice] = "作成しました"
       redirect_to stores_path
     else
-      flash[:alert] = "作成に失敗しました"
       @stores = current_company.stores
       render :index
     end
@@ -37,7 +45,6 @@ class Company::StoresController < ApplicationController
       flash[:notice] = "編集しました"
       redirect_to stores_path
     else
-      flash[:alert] = "編集に失敗しました"
       render "edit"
     end
 

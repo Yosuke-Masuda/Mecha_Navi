@@ -1,10 +1,11 @@
-
 <% if resource.errors.any? %>
   <div id="error_explanation">
-    <h2 class="error">エラーが発生しました。以下ご確認お願いいたします。</h2>
+    <div class="alert alert-danger">
+      <h4>エラーが発生しました。以下をご確認ください。</h4>
+    </div>
     <ul>
       <% resource.errors.full_messages.each do |message| %>
-        <li class="error"><%= raw message %></li>
+        <li><%= raw message %></li>
       <% end %>
     </ul>
   </div>

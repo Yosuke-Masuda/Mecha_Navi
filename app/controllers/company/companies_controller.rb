@@ -1,4 +1,13 @@
 class Company::CompaniesController < ApplicationController
+  before_action :authenticate_company!
+  before_action :ensure_normal_company, only: [:update, :unsubscribe]
+
+  def ensure_normal_company
+    @company = Company.find(params[:id])
+    if current_company.email == 'guest_company@example.com'
+      redirect_to edit_company_path(@company), alert: 'ゲストユーザーでは権限がありません'
+    end
+  end
 
 
   def show
