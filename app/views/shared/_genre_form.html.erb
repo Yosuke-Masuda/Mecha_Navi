@@ -13,18 +13,29 @@
 	    <%= f.radio_button :is_active, false %>
 	    <%= f.label :is_active, "無効", class: "text-invalid" %>
 	  </div>
-	    <% if genre.new_record? %>
-        <div class="button-layout">
-          <button type="submit" class="btn btn-outline-primary">
-          	<i class="fa-solid fa-registered"></i> 登録
-          </button>
-        </div>
-      <% else %>
-        <div class="button-layout">
-          <button type="submit" class="btn btn-outline-success">
-          	<i class="fa-solid fa-floppy-disk"></i> 保存
-          </button>
-        </div>
-      <% end %>
+	  <div class="form-group row mx-auto">
+      <div class="col-sm-12 text-center">
+		    <% if genre.new_record? %>
+	        <div class="button-layout">
+	          <button type="submit" class="btn btn-outline-primary">
+	          	<i class="fa-solid fa-registered"></i> 登録
+	          </button>
+	        </div>
+	      <% else %>
+	        <% if current_company.email == 'guest_company@example.com' %>
+	          <h5>※ゲストログインは編集・削除ができません。</h5>
+	          <%= link_to genres_path, class: 'btn btn-outline-primary col-sm-3' do %>
+	            <i class="fa-solid fa-circle-left"></i> 戻る
+	          <% end %>
+	        <% else %>
+		        <div class="button-layout">
+		          <button type="submit" class="btn btn-outline-success">
+		          	<i class="fa-solid fa-floppy-disk"></i> 保存
+		          </button>
+		        </div>
+		      <% end %>
+	      <% end %>
+      </div>
+    </div>
 	</div>
 <% end %>

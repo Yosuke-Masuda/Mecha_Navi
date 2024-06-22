@@ -22,11 +22,18 @@
         </button>
       </div>
     <% else %>
-      <div class="button-layout">
-        <button type="submit" class="btn btn-outline-success">
-          <i class="fa-solid fa-floppy-disk"></i> 保存
-        </button>
-      </div>
+      <% if current_company.email == 'guest_company@example.com' %>
+        <h5>※ゲストログインは編集・削除ができません。</h5>
+        <%= link_to car_names_path, class: 'btn btn-outline-primary col-sm-3' do %>
+          <i class="fa-solid fa-circle-left"></i> 戻る
+        <% end %>
+      <% else %>
+        <div class="button-layout">
+          <button type="submit" class="btn btn-outline-success">
+            <i class="fa-solid fa-floppy-disk"></i> 保存
+          </button>
+        </div>
+      <% end %>
     <% end %>
 
   </div>
