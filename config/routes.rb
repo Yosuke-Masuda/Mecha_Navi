@@ -19,7 +19,7 @@ Rails.application.routes.draw do
    resources :companies, only: [:index, :show, :edit, :update, :destroy] do
        resources :employees, only: [:index, :show, :edit, :update] do
          resources :posts,  except: [:new, :create] do
-             member do
+             collection do
                  get :history
              end
              resources :post_comments, only: [:create, :destroy]
@@ -43,10 +43,13 @@ Rails.application.routes.draw do
   scope module: :company do
     get 'top' => 'homes#top', as: 'top'
     get "about" => "homes#about"
+    get 'companies/mypage' => 'companies#show', as: 'companies_mypage'
+    get 'companies/mypage/edit', to: 'companies#edit', as: 'edit_company_mypage'
+    patch 'companies/mypage', to: 'companies#update'
     get 'companies/:company_id/employees/:employee_id/calendar' => 'tasks#calendar', as: 'company_employee_calendar'
     get 'companies/:company_id/employees/posts' => 'posts#index', as: 'company_employee_posts'
-    resources :companies, only: [:show, :edit, :update] do
-        member do
+    resources :companies, except: [:show, :edit, :update] do
+        collection do
             get "unsubscribe"
             patch "withdraw"
         end
@@ -68,7 +71,7 @@ Rails.application.routes.draw do
   devise_for :employees, skip: [:registrations] ,controllers: {
     sessions: 'employee/sessions',
   }
-  devise_scope :company do
+  devise_scope :employee do
         post 'employees/guest_sign_in', to: 'sessions#guest_sign_in'
       end
   end

@@ -32,12 +32,12 @@
           </tr>
         </table>
         <% if current_company.email == 'guest_company@example.com' %>
-          <h5>※ゲストログインはマイページの編集ができません。</h5>
-          <%= link_to edit_company_path(@company), class: "btn btn-outline-success btn-block" do %>
+          <h5>※ゲストユーザーはマイページの編集ができません。</h5>
+          <%= link_to edit_company_mypage_path, class: "btn btn-outline-success btn-block" do %>
             <i class="fa-solid fa-pen-to-square"></i> 編集
           <% end %>
         <% else %>
-          <%= link_to edit_company_path(@company), class: "btn btn-outline-success btn-block" do %>
+          <%= link_to edit_company_mypage_path, class: "btn btn-outline-success btn-block" do %>
             <i class="fa-solid fa-pen-to-square"></i> 編集
           <% end %>
         <% end %>

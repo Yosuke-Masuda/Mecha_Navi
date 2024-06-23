@@ -30,7 +30,7 @@
     <div class="card-body text-center">
       <div class="btn-group btn-block" role="group" aria-label="Basic example">
         <% if admin_signed_in? %>
-          <%= link_to admin_posts_history_path(company_id: post.company_id, employee_id: post.employee), class: "btn btn-outline-primary" do %>
+          <%= link_to history_admin_company_employee_posts_path(company_id: post.company_id, employee_id: post.employee), class: "btn btn-outline-primary" do %>
             <i class="fa-solid fa-photo-film"></i> 一覧
           <% end %>
           <%= link_to edit_admin_company_employee_post_path(post.company_id, post.employee_id, post.id), class: "btn btn-outline-success" do %>
