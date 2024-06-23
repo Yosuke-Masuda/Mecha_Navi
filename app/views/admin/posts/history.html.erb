@@ -1,5 +1,5 @@
 <h4><%= @employee.full_name %>の投稿履歴</h4>
-  <%= link_to admin_company_employee_posts_path(@company, @employee), method: :get, class: 'btn btn-outline-primary' do %>
+  <%= link_to admin_company_employee_posts_path(@company, @employee), class: 'btn btn-outline-primary' do %>
     <i class="fa-solid fa-circle-left"></i> 戻る
   <% end %>
   <%= render partial: 'shared/post', collection: @posts %>

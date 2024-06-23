@@ -1,5 +1,5 @@
 class Employee::PostsController < ApplicationController
-  before_action :set_current_employee, only: [:new, :index, :show, :edit, :update, :unsubscribe, :withdraw, :create]
+  before_action :set_current_employee, only: [:new, :create, :index, :show, :edit, :update, :destroy]
   def index
     @company = current_employee.company
     @posts = Post.where(company_id: [@company.id, current_employee.company_id]).page(params[:page]).order(created_at: :desc)
@@ -74,10 +74,10 @@ class Employee::PostsController < ApplicationController
    @post.destroy
    flash[:alert] = "削除しました"
 
-   if request.referer == post_path(@post)
-     redirect_to posts_path
-   else
-     redirect_to mypage_path
+   if request.referer == history_employee_url(current_employee.id) # employees/history.html.erbからのアクセスの場合
+    redirect_to history_employee_path(current_employee.id)
+   else # employees/posts/index.html.erbからのアクセスの場合
+    redirect_to posts_path
    end
   end
 

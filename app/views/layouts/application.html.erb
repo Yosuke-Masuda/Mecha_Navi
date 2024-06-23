@@ -62,7 +62,7 @@
                   </li>
                 <% elsif company_signed_in? %>
                   <li class="nav-item">
-                    <%= link_to company_path(id: current_company.id), class: 'nav-link' do %>
+                    <%= link_to companies_mypage_path, class: 'nav-link' do %>
                       <i class="fa-solid fa-house"></i> マイページ
                     <% end %>
                   </li>
