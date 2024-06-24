@@ -42,7 +42,6 @@ Rails.application.routes.draw do
 
   scope module: :company do
     get 'top' => 'homes#top', as: 'top'
-    get "about" => "homes#about"
     get 'companies/mypage' => 'companies#show', as: 'companies_mypage'
     get 'companies/mypage/edit', to: 'companies#edit', as: 'edit_company_mypage'
     patch 'companies/mypage', to: 'companies#update'
@@ -53,17 +52,15 @@ Rails.application.routes.draw do
             get "unsubscribe"
             patch "withdraw"
         end
+      resources :stores, only: [:index, :create, :show, :edit, :update]
+      resources :genres, only: [:index, :create, :edit, :update]
+      resources :car_names, only: [:index, :create, :edit, :update]
       resources :tasks, except: [:new, :show]
       resources :employees, only: [:new, :create, :index, :show, :edit, :update] do
           resources :posts, except: [:new, :create, :index]
           resources :daily_tasks, only: [:index]
       end
     end
-
-   resources :stores, only: [:index, :create, :show, :edit, :update]
-   resources :genres, only: [:index, :create, :edit, :update]
-   resources :car_names, only: [:index, :create, :edit, :update]
-
    end
 
 
@@ -78,24 +75,23 @@ Rails.application.routes.draw do
 
   scope module: :employee do
    root :to => "homes#top"
+   get "about" => "homes#about"
    get 'employees/mypage' => 'employees#show', as: 'mypage'
    get 'employees/mypage/edit', to: 'employees#edit', as: 'edit_mypage'
    patch 'employees/mypage', to: 'employees#update'
+   get 'employees/mypage/favorites', to: 'employees#favorites', as: 'favorites_mypage'
+   get 'employees/mypage/history', to: 'employees#history', as: 'history_mypage'
+
    resources :posts do
        resource :favorites, only: [:create, :destroy]
        resources :post_comments, only: [:create, :destroy] do
            resource :likes, only: [:create, :destroy]
        end
    end
-   resources :employees, except: [:new, :create, :index, :show, :edit, :update, :destroy] do
-      member do
-        get :favorites
-        get :history
-     end
-     get "about" => "homes#about"
+
+   resources :employees, only: [] do
      resources :tasks, only: [:index]
      resources :daily_tasks, only: [:new, :create]
-
    end
 
    end

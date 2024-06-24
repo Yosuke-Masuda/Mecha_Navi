@@ -3,7 +3,6 @@ class Company::PostCommentsController < ApplicationController
   before_action :set_post_comment, only: [:destroy]
 
   def create
-    # コメントの作成処理
   end
 
   def destroy

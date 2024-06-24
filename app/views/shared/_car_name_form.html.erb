@@ -48,7 +48,7 @@
                   <i class="fa-solid fa-circle-left"></i> 戻る
                 <% end %>
               <% else company_signed_in? %>
-                <%= link_to car_names_path, class: 'btn btn-outline-primary' do %>
+                <%= link_to company_car_names_path(current_company.id), class: 'btn btn-outline-primary' do %>
                   <i class="fa-solid fa-circle-left"></i> 戻る
                 <% end %>
               <% end %>

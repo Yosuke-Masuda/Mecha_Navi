@@ -1,13 +1,11 @@
 class Employee::TasksController < ApplicationController
-
+  before_action :authenticate_employee!
 
   def index
     @employee = current_employee.company
     @tasks = @employee.tasks
     @daily_tasks = current_employee.daily_tasks.includes(:task).where("tasks.company_id": @employee.id)
-    render "employee/tasks/index"
   end
-
 
   private
 

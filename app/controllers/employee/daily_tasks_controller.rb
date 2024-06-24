@@ -1,4 +1,5 @@
 class Employee::DailyTasksController < ApplicationController
+  before_action :authenticate_employee!
   before_action :set_current_employee
 
   def new
@@ -26,7 +27,7 @@ class Employee::DailyTasksController < ApplicationController
   private
 
   def set_current_employee
-    @current_employee = current_employee # ログインしている社員を取得する処理を実装する
+    @employee = current_employee # ログインしている社員を取得する処理を実装する
   end
 
   def daily_task_params

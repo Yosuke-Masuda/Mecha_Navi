@@ -1,6 +1,6 @@
 class Company::PostsController < ApplicationController
   before_action :authenticate_company!
-  before_action :set_current_company, only: [:index, :show, :edit, :update, :destroy]
+  before_action :set_current_company, only: [:edit, :update, :destroy]
 
   def index
     @posts = Post.where(company_id: current_company.id).page(params[:page]).order(created_at: :desc) #他の企業の社員の投稿を見れないようにする
@@ -19,23 +19,21 @@ class Company::PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
     @genres = current_company.genres
     @car_names = current_company.car_names
   end
 
 
   def update
-    post = Post.find(params[:id])
     if params[:post][:image_ids]
        params[:post][:image_ids].each do |image_id|
         image = post.images.find_by_id(image_id)
         image.purge if image
        end
     end
-    if post.update(post_params)
+    if @post.update(post_params)
       flash[:notice] = "編集しました"
-      redirect_to company_employee_post_path(company_id: current_company.id, employee_id: post.employee_id, id: post.id)
+      redirect_to company_employee_post_path(company_id: current_company.id, employee_id: @post.employee_id, id: @post)
     else
       render :edit
     end
@@ -43,16 +41,15 @@ class Company::PostsController < ApplicationController
 
 
   def destroy
-   @post = Post.find(params[:id])
    @post.destroy
    flash[:notice] = "削除しました"
-   redirect_to company_employee_posts_path(company_id: current_company.id, employee_id: current_company.employee_ids.first)
+   redirect_to company_employee_posts_path(company_id: current_company.id)
   end
 
   private
 
   def set_current_company
-    @company = current_company
+    @post = Post.find(params[:id])
   end
 
   def post_params
