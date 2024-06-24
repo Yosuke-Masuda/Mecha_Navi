@@ -1,18 +1,12 @@
 class Company::StoresController < ApplicationController
   before_action :authenticate_company!
+  before_action :set_current_company, only: [:show, :edit, :update]
   before_action :ensure_normal_company, only: :update
 
-  def ensure_normal_company
-    @store = Store.find(params[:id])
-    if current_company.email == 'guest_company@example.com'
-      redirect_to edit_store_path(@store), alert: 'ゲストユーザーでは権限がありません'
-    end
-  end
-
   def index
+    @company = current_company
+    @stores = @company.stores
     @store = Store.new
-    @stores = current_company.stores
-
   end
 
 
@@ -22,7 +16,7 @@ class Company::StoresController < ApplicationController
     @store.company_id = current_company.id
     if @store.save
       flash[:notice] = "作成しました"
-      redirect_to stores_path
+      redirect_to company_stores_path(current_company.id)
     else
       @stores = current_company.stores
       render :index
@@ -31,19 +25,16 @@ class Company::StoresController < ApplicationController
   end
 
   def show
-    @store = Store.find(params[:id])
-    @employees = @store.employees
   end
 
   def edit
-    @store = Store.find(params[:id])
+
   end
 
   def update
-    @store = Store.find(params[:id])
     if @store.update(store_params)
       flash[:notice] = "編集しました"
-      redirect_to stores_path
+      redirect_to company_stores_path(current_company.id)
     else
       render "edit"
     end
@@ -51,8 +42,26 @@ class Company::StoresController < ApplicationController
   end
 
   private
-   def store_params
+
+
+  def set_current_company
+    @store = current_company.stores.find_by(id: params[:id])
+    if @store.present? && @store.company_id == current_company.id
+      @store = Store.find(params[:id])
+    else
+      redirect_to company_stores_path(current_company.id), alert: 'アクセス権限がありません'
+    end
+  end
+
+  def ensure_normal_company
+    @store = Store.find(params[:id])
+    if current_company.email == 'guest_company@example.com'
+      redirect_to edit_company_store_path(current_comapny.id, @store), alert: 'ゲストユーザーでは権限がありません'
+    end
+  end
+
+  def store_params
     params.require(:store).permit(:name, :company_id, :is_active)
-   end
+  end
 
 end

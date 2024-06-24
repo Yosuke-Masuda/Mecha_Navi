@@ -107,3 +107,28 @@
 
 }
 
+  .vertical-text {
+    color: white;
+    writing-mode: vertical-rl;  /* 右から左に縦書き */
+    /* writing-mode: vertical-lr;  左から右に縦書き */
+    position: absolute;
+    top: 100px;
+    right: 150px;
+    width: 500px;
+    font-size: 30px;
+    line-height: 100px;    /* すべての行の高さ */
+  }
+
+  p:nth-child(1) {
+    margin-top: 0;
+  }
+
+  p:nth-child(2) {
+    margin-top: 50px;
+  }
+
+  p:nth-child(3) {
+    margin-top: 100px;
+  }
+
+

@@ -1,14 +1,8 @@
 class Company::TasksController < ApplicationController
   before_action :authenticate_company!
+  before_action :set_current_company, only: [:edit, :update, :destroy]
   before_action :ensure_normal_company, only: [:update, :destroy]
 
-  def ensure_normal_company
-    @task = Task.find(params[:id])
-    @company = Company.find(params[:company_id])
-    if current_company.email == 'guest_company@example.com'
-      redirect_to edit_company_task_path(@company, @task), alert: 'ゲストユーザーでは権限がありません'
-    end
-  end
 
   def index
     @company = Company.find(params[:company_id])
@@ -36,12 +30,9 @@ class Company::TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find(params[:id])
-    @company = Company.find(params[:company_id])
   end
 
   def update
-    @task = Task.find(params[:id])
     if @task.update(task_params)
       redirect_to company_tasks_path(company_id: current_company.id), notice: "タスクを更新しました"
     else
@@ -52,12 +43,28 @@ class Company::TasksController < ApplicationController
 
 
   def destroy
-    @task = Task.find(params[:id])
     @task.destroy
     redirect_to company_tasks_path(company_id: current_company.id, id: @task.id), notice: "タスクを削除しました。"
   end
 
   private
+
+  def set_current_company
+    @task = current_company.tasks.find_by(id: params[:id])
+    if @task.present? && @task.company_id == current_company.id
+      @task = Task.find(params[:id])
+    else
+      redirect_to company_tasks_path(current_company.id), alert: 'アクセス権限がありません'
+    end
+  end
+
+  def ensure_normal_company
+    @task = Task.find(params[:id])
+    @company = Company.find(params[:company_id])
+    if current_company.email == 'guest_company@example.com'
+      redirect_to edit_company_task_path(@company, @task), alert: 'ゲストユーザーでは権限がありません'
+    end
+  end
 
   def task_params
     params.require(:task).permit(:company_id, :name, :body)

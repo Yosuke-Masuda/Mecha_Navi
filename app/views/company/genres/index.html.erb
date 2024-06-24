@@ -3,7 +3,7 @@
 		<h2 class="text-center">ジャンル管理</h2>
 		<div class="mb-3">
 		  <h3>ジャンル新規登録</h3>
-		  <%= render 'shared/genre_form', genre: @genre, url: genres_path(@genre) %>
+		  <%= render 'shared/genre_form', genre: @genre, url: company_genres_path(current_company.id, @genre) %>
 		</div>
     <div class="mb-3">
 			<h3>ジャンル一覧</h3>
@@ -26,7 +26,7 @@
 								  <p class="text-secondary">無効</p>
 								<% end %>
 							</td>
-							<td class="text-center"><%= link_to "編集", edit_genre_path(genre), class: "btn btn-success" %></td>
+							<td class="text-center"><%= link_to "編集", edit_company_genre_path(current_company.id, genre), class: "btn btn-success" %></td>
 						</tr>
 					<% end %>
 				</tbody>

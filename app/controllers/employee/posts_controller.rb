@@ -1,18 +1,10 @@
 class Employee::PostsController < ApplicationController
-  before_action :set_current_employee, only: [:new, :create, :index, :show, :edit, :update, :destroy]
-  def index
-    @company = current_employee.company
-    @posts = Post.where(company_id: [@company.id, current_employee.company_id]).page(params[:page]).order(created_at: :desc)
-    @images = @posts.map { |post| post.images.map(&:blob) }.flatten.uniq #@postの中から重複を除いた画像を@imagesに代入します。
-    @video = @posts.first.present? ? @posts.first.video : nil
-
-  end
-
-
+  before_action :authenticate_employee!
+  before_action :set_current_employee, only: [:show, :edit, :update, :destroy]
 
   def new
-    @employee = current_employee #所属する会社と従業員の情報を取得します。
-    @company = @employee.company #所属する会社と従業員の情報を取得します。
+    @employee = current_employee
+    @company = @employee.company
     @post = current_employee.posts.build
     @genres = current_employee.company.genres
     @car_names = current_employee.company.car_names
@@ -28,7 +20,6 @@ class Employee::PostsController < ApplicationController
     @genres = current_employee.company.genres
     @car_names = current_employee.company.car_names
 
-
     if @post.save
      flash[:notice] = "作成しました"
      redirect_to posts_path
@@ -39,29 +30,30 @@ class Employee::PostsController < ApplicationController
     end
   end
 
+  def index
+    @company = current_employee.company
+    @posts = Post.where(company_id: [@company.id, current_employee.company_id]).page(params[:page]).order(created_at: :desc)
+    @images = @posts.map { |post| post.images.map(&:blob) }.flatten.uniq #@postの中から重複を除いた画像を@imagesに代入します。
+    @video = @posts.first.present? ? @posts.first.video : nil
+  end
+
   def show
-    @post = Post.find(params[:id])
-    @images = @post.images.map(&:blob).uniq
-    @video = @post.video
     @post_comment = PostComment.new
   end
 
   def edit
-    @post = Post.find(params[:id])
     @genres = current_employee.company.genres
     @car_names = current_employee.company.car_names
   end
 
   def update
-    post = Post.find(params[:id])
     if params[:post][:image_ids]
        params[:post][:image_ids].each do |image_id|
-        image = post.images.find(image_id)
+        image = @post.images.find(image_id)
         image.purge
       end
     end
-    if post.update(post_params)
-
+    if @post.update(post_params)
       flash[:notice] = "編集しました"
       redirect_to posts_path
     else
@@ -70,21 +62,26 @@ class Employee::PostsController < ApplicationController
   end
 
   def destroy
-   @post = Post.find(params[:id])
-   @post.destroy
-   flash[:alert] = "削除しました"
+    @post.destroy
+    flash[:alert] = "削除しました"
 
-   if request.referer == history_employee_url(current_employee.id) # employees/history.html.erbからのアクセスの場合
-    redirect_to history_employee_path(current_employee.id)
-   else # employees/posts/index.html.erbからのアクセスの場合
-    redirect_to posts_path
-   end
+    if request.referer == history_employee_url(current_employee.id) # employees/history.html.erbからのアクセスの場合
+     redirect_to history_employee_path(current_employee.id)
+    else # employees/posts/index.html.erbからのアクセスの場合
+     redirect_to posts_path
+    end
   end
 
   private
 
   def set_current_employee
-    @employee = current_employee #現在のユーザー（従業員）の情報を設定するために使用されます。
+    @post = current_employee.posts.find_by(id: params[:id])
+    if @post.present? && @post.company_id == current_employee.id
+      @post = Post.find(params[:id])
+    else
+      redirect_to posts_path, alert: 'アクセス権限がありません'
+    end
+    @post = Post.find(params[:id])
   end
 
   def post_params

@@ -90,13 +90,13 @@
                       <%= link_to company_employee_posts_path(current_company.id), class: 'dropdown-item' do %>
                         <i class="fa-regular fa-image"></i> 投稿管理</a>
                       <% end %>
-                      <%= link_to stores_path, class: 'dropdown-item' do %>
+                      <%= link_to company_stores_path(current_company.id), class: 'dropdown-item' do %>
                         <i class="fa-solid fa-shop"></i> 店舗管理
                       <% end %>
-                      <%= link_to car_names_path, class: 'dropdown-item' do %>
+                      <%= link_to company_car_names_path(current_company.id), class: 'dropdown-item' do %>
                         <i class="fa-solid fa-car"></i> 車両管理
                       <% end %>
-                      <%= link_to genres_path, class: 'dropdown-item' do %>
+                      <%= link_to company_genres_path(current_company.id), class: 'dropdown-item' do %>
                         <i class="fa-solid fa-list"></i> ジャンル管理
                       <% end %>
                       <%= link_to company_tasks_path(current_company.id), class: 'dropdown-item' do %>
@@ -119,7 +119,7 @@
                     <% end %>
                   </li>
                   <li class="nav-item">
-                    <%= link_to employee_about_path(current_employee), class: 'nav-link' do %>
+                    <%= link_to about_path, class: 'nav-link' do %>
                       <i class="fa-regular fa-message"></i> About
                     <% end %>
                   </li>
@@ -128,18 +128,15 @@
                       <i class="fa-solid fa-layer-group"></i> サービス
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <%= link_to favorites_employee_path(id: current_employee), class: 'dropdown-item' do %>
-                        <i class="fa-regular fa-bookmark"></i> お気に入り
+                      <%= link_to new_post_path, class: 'dropdown-item' do %>
+                        <i class="fa-regular fa-square-plus"></i> 新規投稿
                       <% end %>
-                      <%= link_to history_employee_path(id: current_employee), class: 'dropdown-item' do %>
-                        <i class="fa-solid fa-clock-rotate-left"></i> 投稿履歴
+                      <%= link_to posts_path, class: 'dropdown-item' do %>
+                        <i class="fa-regular fa-file-image"></i> 投稿一覧
                       <% end %>
-                      <a class="dropdown-item" href="/posts/new"><i class="fa-regular fa-square-plus"></i> 新規投稿</a>
-                      <a class="dropdown-item" href="/posts"><i class="fa-regular fa-file-image"></i> 投稿一覧</a>
                       <%= link_to employee_tasks_path(employee_id: current_employee), class: 'dropdown-item' do %>
                         <i class="fa-solid fa-list-check"></i> タスクカレンダー
                       <% end %>
-                      <a class="dropdown-item"></a>
                     </div>
                   </li>
                   <li class="nav-item">

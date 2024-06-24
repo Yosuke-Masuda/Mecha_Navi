@@ -1,6 +1,6 @@
 <div class="card jumbotron mx-auto">
   <div class="container">
 	  <h2 class="section-ttl">車名編集</h2>
-	  <%= render 'shared/car_name_form', car_name: @car_name, url: car_name_path(@car_name) %>
+	  <%= render 'shared/car_name_form', car_name: @car_name, url: company_car_name_path(current_company.id, @car_name) %>
   </div>
 </div>

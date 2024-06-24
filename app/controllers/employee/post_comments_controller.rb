@@ -1,6 +1,5 @@
 class Employee::PostCommentsController < ApplicationController
-  
-  
+
   def create
    post = Post.find(params[:post_id])
    comment = current_employee.post_comments.new(post_comment_params)
@@ -12,7 +11,7 @@ class Employee::PostCommentsController < ApplicationController
     end
     redirect_to post_path(post)
   end
-  
+
   def destroy
   comment = PostComment.find_by(id: params[:id])
     if comment
@@ -23,12 +22,12 @@ class Employee::PostCommentsController < ApplicationController
     end
     redirect_to post_path(params[:post_id])  # 処理の結果に応じてリダイレクト
   end
-  
-  
+
+
   private
 
   def post_comment_params
     params.require(:post_comment).permit(:comment)
   end
-  
+
 end

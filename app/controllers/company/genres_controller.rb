@@ -1,13 +1,9 @@
 class Company::GenresController < ApplicationController
   before_action :authenticate_company!
+  before_action :set_current_company, only: [:edit, :update]
   before_action :ensure_normal_company, only: :update
 
-  def ensure_normal_company
-    @genre = Genre.find(params[:id])
-    if current_company.email == 'guest_company@example.com'
-      redirect_to edit_genre_path(@genre), alert: 'ゲストユーザーでは権限がありません'
-    end
-  end
+
 
   def index
     @genre = Genre.new
@@ -20,7 +16,7 @@ class Company::GenresController < ApplicationController
     @genre.company_id = current_company.id
     if @genre.save
       flash[:notice] = "作成しました"
-      redirect_to genres_path
+      redirect_to company_genres_path(current_company.id)
     else
       @genres = current_company.genres
       render :index
@@ -29,14 +25,12 @@ class Company::GenresController < ApplicationController
   end
 
   def edit
-    @genre = Genre.find(params[:id])
   end
 
   def update
-    @genre = Genre.find(params[:id])
     if @genre.update(genre_params)
       flash[:notice] = "編集しました"
-      redirect_to genres_path
+      redirect_to company_genres_path(current_company.id)
     else
       render "edit"
     end
@@ -44,8 +38,25 @@ class Company::GenresController < ApplicationController
   end
 
   private
-   def genre_params
+
+  def set_current_company
+    @genre = current_company.genres.find_by(id: params[:id])
+    if @genre.present? && @genre.company_id == current_company.id
+      @genre = Genre.find(params[:id])
+    else
+      redirect_to company_genres_path(current_company.id), alert: 'アクセス権限がありません'
+    end
+  end
+
+  def ensure_normal_company
+    @genre = Genre.find(params[:id])
+    if current_company.email == 'guest_company@example.com'
+      redirect_to edit_company_genre_path(current_company.id, @genre), alert: 'ゲストユーザーでは権限がありません'
+    end
+  end
+
+  def genre_params
     params.require(:genre).permit(:name, :company_id, :is_active)
-   end
+  end
 
 end
