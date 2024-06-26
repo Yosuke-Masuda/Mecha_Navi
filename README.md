@@ -27,11 +27,11 @@
 - 共有することで企業としての業務効率化・お客様満足に繋がります。
 
 ## 設計書
-- ER図
+- ER図.
 https://drive.google.com/file/d/12MJdVg16038Iocix1Jl_8mjPC-K8XapP/view?usp=sharing
-- テーブル定義書
+- テーブル定義書.
 https://docs.google.com/spreadsheets/d/19EI3O9hzCiey3ttdHfMXlccY5uMUfIrT/edit?usp=sharing&ouid=114599228704168091645&rtpof=true&sd=true
-- 詳細設計書
+- 詳細設計書.
 https://docs.google.com/spreadsheets/d/1DEpw1ERK6g9Yh6Qqvq34DiLpi1Euhjn9bmmB658gcmQ/edit?usp=sharing
 
 ## 機能一覧

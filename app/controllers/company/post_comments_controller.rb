@@ -2,8 +2,6 @@ class Company::PostCommentsController < ApplicationController
   before_action :authenticate_company!
   before_action :set_post_comment, only: [:destroy]
 
-  def create
-  end
 
   def destroy
     if @post_comment
@@ -12,7 +10,7 @@ class Company::PostCommentsController < ApplicationController
     else
       flash[:alert] = '対象のコメントが見つかりませんでした。'
     end
-    redirect_to admin_company_employee_post_path(params[:company_id], params[:employee_id], params[:post_id])
+    redirect_to company_employee_post_path(params[:company_id], params[:employee_id], params[:post_id])
   end
 
   private

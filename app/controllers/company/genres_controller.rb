@@ -1,14 +1,11 @@
 class Company::GenresController < ApplicationController
   before_action :authenticate_company!
-  before_action :set_current_company, only: [:edit, :update]
+  before_action :set_current_company, only: [:index, :edit, :update]
   before_action :ensure_normal_company, only: :update
 
 
 
   def index
-    @genre = Genre.new
-    @genres = current_company.genres
-
   end
 
   def create
@@ -40,11 +37,18 @@ class Company::GenresController < ApplicationController
   private
 
   def set_current_company
-    @genre = current_company.genres.find_by(id: params[:id])
-    if @genre.present? && @genre.company_id == current_company.id
-      @genre = Genre.find(params[:id])
+    if params[:action].in?(%w[index])
+      @company = Company.find(params[:company_id])
+      @genre = Genre.new
+      @genres = current_company.genres
+      redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
     else
-      redirect_to company_genres_path(current_company.id), alert: 'アクセス権限がありません'
+      @genre = current_company.genres.find_by(id: params[:id])
+      if @genre.present? && @genre.company_id == current_company.id
+        @genre = Genre.find(params[:id])
+      else
+        redirect_to company_genres_path(current_company.id), alert: 'アクセス権限がありません'
+      end
     end
   end
 

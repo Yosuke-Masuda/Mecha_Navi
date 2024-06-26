@@ -1,12 +1,9 @@
 class Company::StoresController < ApplicationController
   before_action :authenticate_company!
-  before_action :set_current_company, only: [:show, :edit, :update]
+  before_action :set_current_company, only: [:index, :show, :edit, :update]
   before_action :ensure_normal_company, only: :update
 
   def index
-    @company = current_company
-    @stores = @company.stores
-    @store = Store.new
   end
 
 
@@ -45,11 +42,18 @@ class Company::StoresController < ApplicationController
 
 
   def set_current_company
-    @store = current_company.stores.find_by(id: params[:id])
-    if @store.present? && @store.company_id == current_company.id
-      @store = Store.find(params[:id])
+    if params[:action].in?(%w[index])
+      @company = Company.find(params[:company_id])
+      @stores = @company.stores
+      @store = Store.new
+      redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
     else
-      redirect_to company_stores_path(current_company.id), alert: 'アクセス権限がありません'
+      @store = current_company.stores.find_by(id: params[:id])
+      if @store.present? && @store.company_id == current_company.id
+        @store = Store.find(params[:id])
+      else
+        redirect_to company_stores_path(current_company.id), alert: 'アクセス権限がありません'
+      end
     end
   end
 

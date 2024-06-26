@@ -22,7 +22,7 @@ Rails.application.routes.draw do
              collection do
                  get :history
              end
-             resources :post_comments, only: [:create, :destroy]
+             resources :post_comments, only: [:destroy]
          end
          resources :daily_tasks, only: [:index]
        end
@@ -57,7 +57,9 @@ Rails.application.routes.draw do
       resources :car_names, only: [:index, :create, :edit, :update]
       resources :tasks, except: [:new, :show]
       resources :employees, only: [:new, :create, :index, :show, :edit, :update] do
-          resources :posts, except: [:new, :create, :index]
+          resources :posts, except: [:new, :create, :index] do
+              resources :post_comments, only: [:destroy]
+          end
           resources :daily_tasks, only: [:index]
       end
     end

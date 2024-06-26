@@ -1,11 +1,10 @@
 class Company::TasksController < ApplicationController
   before_action :authenticate_company!
-  before_action :set_current_company, only: [:edit, :update, :destroy]
+  before_action :set_current_company, only: [:index, :calendar, :edit, :update, :destroy]
   before_action :ensure_normal_company, only: [:update, :destroy]
 
 
   def index
-    @company = Company.find(params[:company_id])
     @tasks = @company.tasks
     @task = Task.new
   end
@@ -23,7 +22,6 @@ class Company::TasksController < ApplicationController
   end
 
   def calendar
-    @company = current_company
     @employee = Employee.find(params[:employee_id])
     @tasks = @company.tasks
     @daily_tasks = @employee.daily_tasks.includes(:task).where("tasks.company_id": @company.id)
@@ -44,17 +42,22 @@ class Company::TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to company_tasks_path(company_id: current_company.id, id: @task.id), notice: "タスクを削除しました。"
+    redirect_to company_tasks_path(company_id: current_company.id), notice: "タスクを削除しました。"
   end
 
   private
 
   def set_current_company
-    @task = current_company.tasks.find_by(id: params[:id])
-    if @task.present? && @task.company_id == current_company.id
-      @task = Task.find(params[:id])
+    if params[:action].in?(%w[index calendar])
+      @company = Company.find(params[:company_id])
+      redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
     else
-      redirect_to company_tasks_path(current_company.id), alert: 'アクセス権限がありません'
+      @task = current_company.tasks.find_by(id: params[:id])
+      if @task.present? && @task.company_id == current_company.id
+        @task = Task.find(params[:id])
+      else
+        redirect_to company_tasks_path(current_company.id), alert: 'アクセス権限がありません'
+      end
     end
   end
 

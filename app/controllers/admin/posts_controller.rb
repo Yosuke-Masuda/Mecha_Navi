@@ -18,7 +18,7 @@ class Admin::PostsController < ApplicationController
    end
 
    def show
-     @employee = @post.employees # @employeeを@postから取得する
+     @employee = @post.employee # @employeeを@postから取得する
      @posts = @employee.posts
      @images = @post.images.map(&:blob).uniq
      @video = @post.video

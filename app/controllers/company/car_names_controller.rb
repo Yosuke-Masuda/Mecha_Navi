@@ -1,12 +1,9 @@
 class Company::CarNamesController < ApplicationController
   before_action :authenticate_company!
-  before_action :set_current_company, only: [:edit, :update]
+  before_action :set_current_company, only: [:index, :edit, :update]
   before_action :ensure_normal_company, only: :update
 
   def index
-    @car_name = CarName.new
-    @car_names = current_company.car_names
-
   end
 
 
@@ -40,11 +37,18 @@ class Company::CarNamesController < ApplicationController
   private
 
   def set_current_company
-    @car_name = current_company.car_names.find_by(id: params[:id])
-    if @car_name.present? && @car_name.company_id == current_company.id
-      @car_name = CarName.find(params[:id])
+    if params[:action].in?(%w[index])
+      @company = Company.find(params[:company_id])
+      @car_name = CarName.new
+      @car_names = current_company.car_names
+      redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
     else
-      redirect_to company_car_names_path(current_company.id), alert: 'アクセス権限がありません'
+      @car_name = current_company.car_names.find_by(id: params[:id])
+      if @car_name.present? && @car_name.company_id == current_company.id
+        @car_name = CarName.find(params[:id])
+      else
+        redirect_to company_car_names_path(current_company.id), alert: 'アクセス権限がありません'
+      end
     end
   end
 
