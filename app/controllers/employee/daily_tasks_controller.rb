@@ -33,4 +33,5 @@ class Employee::DailyTasksController < ApplicationController
   def daily_task_params
     params.require(:daily_task).permit(:employee_id, :task_id, :start_time)
   end
+  
 end

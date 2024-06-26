@@ -2,7 +2,6 @@ class Company::PostCommentsController < ApplicationController
   before_action :authenticate_company!
   before_action :set_post_comment, only: [:destroy]
 
-
   def destroy
     if @post_comment
       @post_comment.destroy
@@ -18,4 +17,5 @@ class Company::PostCommentsController < ApplicationController
   def set_post_comment
     @post_comment = PostComment.find_by(id: params[:id])
   end
+  
 end

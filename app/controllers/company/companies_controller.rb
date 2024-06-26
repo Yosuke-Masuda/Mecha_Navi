@@ -3,8 +3,6 @@ class Company::CompaniesController < ApplicationController
   before_action :set_current_company, only: [:show, :edit, :update, :unsubscribe, :withdraw]
   before_action :ensure_normal_company, only: [:update, :unsubscribe]
 
-
-
   def show
   end
 

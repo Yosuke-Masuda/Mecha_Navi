@@ -1,10 +1,9 @@
 class Admin::TasksController < ApplicationController
   before_action :authenticate_admin!
 
-
   def index
     @task = Task.new
-    @tasks = Task.all
+    @tasks = Task.page(params[:page])
     @companies = Company.all
 
   end
@@ -19,7 +18,6 @@ class Admin::TasksController < ApplicationController
       @companies = Company.all
       render :index
     end
-
   end
 
   def calendar
@@ -42,18 +40,18 @@ class Admin::TasksController < ApplicationController
     else
       render "edit"
     end
-
   end
 
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-
     redirect_to admin_tasks_path, notice: "タスクを削除しました。"
   end
 
   private
-   def task_params
+
+  def task_params
     params.require(:task).permit(:company_id, :employee_id, :task_id, :name, :body, :start_time)
-   end
+  end
+
 end

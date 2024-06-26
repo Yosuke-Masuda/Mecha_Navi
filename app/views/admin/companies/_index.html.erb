@@ -2,13 +2,13 @@
   <div class="col-12 mx-auto">
     <table class="table">
       <thead class="thead-light">
-       <tr>
-         <th>会員ID</th>
-         <th>氏名</th>
-         <th>メールアドレス</th>
-         <th>ステータス</th>
-         <th></th>
-       </tr>
+        <tr>
+          <th>会員ID</th>
+          <th>氏名</th>
+          <th>メールアドレス</th>
+          <th>ステータス</th>
+          <th></th>
+        </tr>
       </thead>
       <tbody>
         <% companies.each do |company| %>
@@ -25,7 +25,7 @@
             </td>
             <td><%= link_to "社員一覧へ", admin_company_employees_path(id: @employee, company_id: company.id), class: 'btn btn-outline-primary' %></td>
           </tr>
-          <% end %>
+        <% end %>
       </tbody>
     </table>
   </div>

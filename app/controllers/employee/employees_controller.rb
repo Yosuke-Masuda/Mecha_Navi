@@ -4,15 +4,13 @@ class Employee::EmployeesController < ApplicationController
   before_action :ensure_normal_employee, only: :update
 
   def show
-
   end
 
   def history
-    @posts = Post.where(employee_id: current_employee.id).order(created_at: :desc).page(params[:page]).per(10)
+    @posts = Post.where(employee_id: current_employee.id).order(created_at: :desc).page(params[:page])
   end
 
   def edit
-
   end
 
   def update
@@ -23,11 +21,9 @@ class Employee::EmployeesController < ApplicationController
     end
   end
 
-
-
   def favorites
     favorites= Favorite.where(employee_id: current_employee.id).pluck(:post_id)
-    @favorite_posts = Post.find(favorites)
+    @favorite_posts = Post.where(id: favorites).page(params[:page])
   end
 
   private

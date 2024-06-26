@@ -6,8 +6,6 @@ class Company::CarNamesController < ApplicationController
   def index
   end
 
-
-
   def create
     @car_name =CarName.new(car_name_params)
     @car_name.company_id = current_company.id
@@ -18,7 +16,6 @@ class Company::CarNamesController < ApplicationController
       @car_names = current_company.car_names
       render :index
     end
-
   end
 
   def edit
@@ -31,7 +28,6 @@ class Company::CarNamesController < ApplicationController
     else
       render "edit"
     end
-
   end
 
   private
@@ -40,7 +36,7 @@ class Company::CarNamesController < ApplicationController
     if params[:action].in?(%w[index])
       @company = Company.find(params[:company_id])
       @car_name = CarName.new
-      @car_names = current_company.car_names
+      @car_names = current_company.car_names.page(params[:page])
       redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
     else
       @car_name = current_company.car_names.find_by(id: params[:id])

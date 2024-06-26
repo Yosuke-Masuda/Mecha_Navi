@@ -13,7 +13,7 @@ class Admin::CompaniesController < ApplicationController
   end
 
   def update
-    @company.update(company_params) ? (redirect_to admin_company_path(@company)) : (render :edit)
+    @company.update(company_params) ? (redirect_to admin_company_path(@company), notice: "更新しました") : (render :edit, alert: "失敗しました")
   end
 
   private

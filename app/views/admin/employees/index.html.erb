@@ -52,5 +52,5 @@
       <% end %>
     <% end %>
   </div>
-  <%= render partial: 'shared/pagination_employee' %>
+  <%= render partial: 'shared/pagination', locals: { items: @employees } %>
 </div>

@@ -1,23 +1,25 @@
 <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item <%= 'disabled' if @posts.current_page == 1 %>">
-      <% if @posts.current_page == 1 %>
-        <span class="page-link">Previous</span>
-      <% else %>
-        <%= link_to 'Previous', '/posts?page=' + (@posts.current_page - 1).to_s, class: 'page-link' %>
-      <% end %>
-    </li>
-      <% (1..@posts.total_pages).each do |page| %>
-        <li class="page-item <%= 'active' if page == @posts.current_page %>">
-          <%= link_to page, url_for(params.permit(:controller, :action, :company_id).merge({ page: page })), class: 'page-link' %>
+    <ul class="pagination justify-content-center">
+      <li class="page-item <%= 'disabled' if items.current_page == 1 %>">
+        <% if items.current_page == 1 %>
+          <span class="page-link">Previous</span>
+        <% else %>
+          <%= link_to 'Previous', url_for(page: items.current_page - 1), class: 'page-link' %>
+        <% end %>
+      </li>
+
+      <% (1..items.total_pages).each do |page| %>
+        <li class="page-item <%= 'active' if page == items.current_page %>">
+          <%= link_to page, url_for(page: page), class: 'page-link' %>
         </li>
       <% end %>
-    <li class="page-item <%= 'disabled' if @posts.current_page == @posts.total_pages %>">
-      <% if @posts.current_page == @posts.total_pages %>
-        <span class="page-link">Next</span>
-      <% else %>
-        <%= link_to 'Next', '/posts?page=' + (@posts.current_page + 1).to_s, class: 'page-link' %>
-      <% end %>
-    </li>
-  </ul>
-</nav>
+
+      <li class="page-item <%= 'disabled' if items.current_page == items.total_pages %>">
+        <% if items.current_page == items.total_pages %>
+          <span class="page-link">Next</span>
+        <% else %>
+          <%= link_to 'Next', url_for(page: items.current_page + 1), class: 'page-link' %>
+        <% end %>
+      </li>
+    </ul>
+  </nav>

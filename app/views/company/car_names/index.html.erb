@@ -3,34 +3,35 @@
     <h2 class="mb-3 text-center">車名管理</h2>
 	    <h3>車名新規登録</h3>
 		<%= render 'shared/car_name_form', car_name: @car_name, url: company_car_names_path(current_company.id, @car_name) %>
-	<div class="mb3">
-		<h3>車名一覧</h3>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>車名</th>
-					<th>型式</th>
-					<th>状態</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @car_names.each do |car_name| %>
+		<div class="mb3">
+			<h3>車名一覧</h3>
+			<table class="table">
+				<thead>
 					<tr>
-						<td><%= car_name.name %></td>
-						<td><%= car_name.car_type %></td>
-						<td>
-							<% if car_name.is_active? %>
-								<p class="text-success">有効</p>
-							<% else %>
-								<p class="text-secondary">無効</p>
-							<% end %>
-						</td>
-						<td class="text-center"><%= link_to "編集", edit_company_car_name_path(current_company.id, car_name), class: "btn btn-success" %></td>
+						<th>車名</th>
+						<th>型式</th>
+						<th>状態</th>
+						<th></th>
 					</tr>
-				<% end %>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<% @car_names.each do |car_name| %>
+						<tr>
+							<td><%= car_name.name %></td>
+							<td><%= car_name.car_type %></td>
+							<td>
+								<% if car_name.is_active? %>
+									<p class="text-success">有効</p>
+								<% else %>
+									<p class="text-secondary">無効</p>
+								<% end %>
+							</td>
+							<td class="text-center"><%= link_to "編集", edit_company_car_name_path(current_company.id, car_name), class: "btn btn-success" %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+		<%= render partial: 'shared/pagination', locals: { items: @car_names } %>
 	</div>
-	</div>
-	</div>
+</div>
