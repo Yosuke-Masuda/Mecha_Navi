@@ -1,4 +1,5 @@
 class Employee::LikesController < ApplicationController
+  
   def create
     @post_comment = PostComment.find(params[:post_comment_id])
     puts "@post_comment: #{@post_comment.inspect}"
@@ -17,4 +18,5 @@ class Employee::LikesController < ApplicationController
     like.destroy if like
     redirect_to request.referer
   end
+  
 end

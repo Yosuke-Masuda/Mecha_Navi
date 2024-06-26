@@ -3,7 +3,6 @@ class Company::TasksController < ApplicationController
   before_action :set_current_company, only: [:index, :calendar, :edit, :update, :destroy]
   before_action :ensure_normal_company, only: [:update, :destroy]
 
-
   def index
     @tasks = @company.tasks
     @task = Task.new
@@ -18,7 +17,6 @@ class Company::TasksController < ApplicationController
       @tasks = current_company.tasks
       render :index
     end
-
   end
 
   def calendar
@@ -36,7 +34,6 @@ class Company::TasksController < ApplicationController
     else
       render "edit"
     end
-
   end
 
 
@@ -72,4 +69,5 @@ class Company::TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:company_id, :name, :body)
   end
+
 end

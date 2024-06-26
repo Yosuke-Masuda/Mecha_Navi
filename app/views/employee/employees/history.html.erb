@@ -3,6 +3,6 @@
 
   <% @posts.each do |post| %>
     <%= render 'shared/post', post: post %>
-    <%= render partial: 'shared/pagination' %>
+    <%= render partial: 'shared/pagination', locals: { items: @posts } %>
   <% end %>
 </div>

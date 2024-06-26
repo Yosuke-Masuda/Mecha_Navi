@@ -1,9 +1,9 @@
 class Employee::PostCommentsController < ApplicationController
 
   def create
-   post = Post.find(params[:post_id])
-   comment = current_employee.post_comments.new(post_comment_params)
-   comment.post_id = post.id
+    post = Post.find(params[:post_id])
+    comment = current_employee.post_comments.new(post_comment_params)
+    comment.post_id = post.id
     if comment.save
       flash[:notice] = "コメントが保存されました"
     else
@@ -13,7 +13,7 @@ class Employee::PostCommentsController < ApplicationController
   end
 
   def destroy
-  comment = PostComment.find_by(id: params[:id])
+    comment = PostComment.find_by(id: params[:id])
     if comment
       comment.destroy
       flash[:alert] = '削除しました'  # フラッシュメッセージをセット

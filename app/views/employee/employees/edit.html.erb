@@ -2,25 +2,25 @@
   <blockquote class="blockquote mb-0">
     <div class="container">
       <h1><%= @employee.full_name %>さんの編集</h1>
-        <div class"row">
-          <%= form_with( model: @employee, url: employees_mypage_path, local: true) do |f| %>
-            <table class="table table-bordered">
-              <tbody>
-                <%= render partial: "shared/employee_table_row", locals: { f: f, employee: @employee, user_type: "employee" } %>
-              </tbody>
-            </table>
-            <div class="card-body">
-              <div class="btn-group btn-block" role="group" aria-label="Basic example">
-                <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
-                  <i class="fa-solid fa-floppy-disk"></i> 保存
-                <% end %>
-                <%= link_to mypage_path, class: 'btn btn-outline-primary' do %>
-                  <i class="fa-solid fa-circle-left"></i> 戻る
-                <% end %>
-              </div>
+      <div class"row">
+        <%= form_with( model: @employee, url: employees_mypage_path, local: true) do |f| %>
+          <table class="table table-bordered">
+            <tbody>
+              <%= render partial: "shared/employee_table_row", locals: { f: f, employee: @employee, user_type: "employee" } %>
+            </tbody>
+          </table>
+          <div class="card-body">
+            <div class="btn-group btn-block" role="group" aria-label="Basic example">
+              <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+                <i class="fa-solid fa-floppy-disk"></i> 保存
+              <% end %>
+              <%= link_to mypage_path, class: 'btn btn-outline-primary' do %>
+                <i class="fa-solid fa-circle-left"></i> 戻る
+              <% end %>
             </div>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </blockquote>
 </div>

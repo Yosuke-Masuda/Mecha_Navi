@@ -1,16 +1,6 @@
 class Employee::PostsController < ApplicationController
   before_action :set_current_employee, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @company = current_employee.company
-    @posts = Post.where(company_id: [@company.id, current_employee.company_id]).page(params[:page]).order(created_at: :desc)
-    @images = @posts.map { |post| post.images.map(&:blob) }.flatten.uniq #@postの中から重複を除いた画像を@imagesに代入します。
-    @video = @posts.first.present? ? @posts.first.video : nil
-
-  end
-
-
-
   def new
     @employee = current_employee #所属する会社と従業員の情報を取得します。
     @company = @employee.company #所属する会社と従業員の情報を取得します。
@@ -28,16 +18,21 @@ class Employee::PostsController < ApplicationController
     @post.car_name_id = params[:post][:car_name_id]
     @genres = current_employee.company.genres
     @car_names = current_employee.company.car_names
-
-
     if @post.save
-     flash[:notice] = "作成しました"
-     redirect_to posts_path
+      flash[:notice] = "作成しました"
+      redirect_to posts_path
     else
-     @posts = Post.all
-     @company = Company.find(current_employee.company_id)
-     render :new
+      @posts = Post.all
+      @company = Company.find(current_employee.company_id)
+      render :new
     end
+  end
+
+  def index
+    @company = current_employee.company
+    @posts = Post.where(company_id: [@company.id, current_employee.company_id]).page(params[:page]).order(created_at: :desc)
+    @images = @posts.map { |post| post.images.map(&:blob) }.flatten.uniq #@postの中から重複を除いた画像を@imagesに代入します。
+    @video = @posts.first.present? ? @posts.first.video : nil
   end
 
   def show
@@ -78,7 +73,6 @@ class Employee::PostsController < ApplicationController
   def set_current_employee
     @employee = current_employee
     @post = Post.find_by(id: params[:id], company_id: @employee.company_id)
-
     if @post.present?
       # アクセス権限がある場合の処理
       @post = @post
@@ -92,4 +86,5 @@ class Employee::PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:employee_id, :company_id, :title, :store_id, :genre_id, :car_name_id, :car_type_id, :video, :caption, :is_active, images: [])
   end
+
 end

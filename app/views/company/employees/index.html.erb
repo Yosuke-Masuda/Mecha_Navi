@@ -1,4 +1,4 @@
 <div class="card jumbotron bg-light">
   <%= render 'index', employees: @employees %>
-  <%= render partial: 'shared/pagination_employee' %>
+  <%= render partial: 'shared/pagination', locals: { items: @employees } %>
 </div>

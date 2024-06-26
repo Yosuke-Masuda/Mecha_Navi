@@ -17,4 +17,5 @@ class Company::DailyTasksController < ApplicationController
     @daily_tasks = @tasks.map { |task| task.daily_tasks.find_or_initialize_by(employee_id: @employee.id, start_time: @day) }
     redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
   end
+  
 end

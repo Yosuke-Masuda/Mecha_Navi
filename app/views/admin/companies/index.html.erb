@@ -5,5 +5,5 @@
 	    <%= render 'index', companies: @companies %>
 	  </div>
 	</blockquote>
-	<%= render partial: 'shared/pagination_company' %>
+	<%= render partial: 'shared/pagination', locals: { items: @companies } %>
 </div>

@@ -5,7 +5,7 @@ class Admin::StoresController < ApplicationController
 
   def index
     @store = Store.new
-    @stores = Store.all
+    @stores = Store.page(params[:page])
     @companies = Company.all
   end
 
