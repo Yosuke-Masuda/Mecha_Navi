@@ -1,6 +1,9 @@
-<h3>
-		<%= link_to"マイページへ戻る", mypage_path, class: "btn btn-outline-success" %>
-</h3>
-<% @favorite_posts.each do |post|%>
- <%= render "shared/post", post: post %>
-<% end %>
+<div class="card jumbotron">
+  <div class="container-fluid">
+    <h3><%= link_to"マイページへ戻る", mypage_path, class: "btn btn-outline-success" %></h3>
+    <% @favorite_posts.each do |post|%>
+     <%= render "shared/post", post: post %>
+    <% end %>
+    <%= render partial: 'shared/pagination', locals: { items: @favorite_posts } %>
+  </div>
+</div>

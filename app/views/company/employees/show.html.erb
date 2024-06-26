@@ -3,16 +3,16 @@
     <div class="container">
       <h1><%= @employee.full_name %>さんの詳細</h1>
       <div class"row">
-	    <%= render partial: 'shared/employee_table', locals: { employee: @employee } %>
-	    <div class="btn-group btn-block" role="group" aria-label="Basic example">
-	    	<%= link_to edit_company_employee_path(company_id: current_company.id, id: @employee.id), class: "btn btn-outline-success" do %>
-	    	 <i class="fa-solid fa-pen-to-square"></i> 編集
-	    	<% end %>
-	    	<%= link_to company_employees_path(company_id: current_company.id), class: "btn btn-outline-primary" do %>
-	    	  <i class="fa-solid fa-users"></i> 社員一覧へ
-	      <% end %>
-	    </div>
-  </div>
+		    <%= render partial: 'shared/employee_table', locals: { employee: @employee } %>
+		    <div class="btn-group btn-block" role="group" aria-label="Basic example">
+		    	<%= link_to edit_company_employee_path(company_id: current_company.id, id: @employee.id), class: "btn btn-outline-success" do %>
+		    	 <i class="fa-solid fa-pen-to-square"></i> 編集
+		    	<% end %>
+		    	<%= link_to company_employees_path(company_id: current_company.id), class: "btn btn-outline-primary" do %>
+		    	  <i class="fa-solid fa-users"></i> 社員一覧へ
+		      <% end %>
+		    </div>
+  　　</div>
     </div>
   </blockquote>
 </div>

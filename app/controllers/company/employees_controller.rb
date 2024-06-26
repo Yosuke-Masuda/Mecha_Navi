@@ -23,7 +23,6 @@ class Company::EmployeesController < ApplicationController
   def show
   end
 
-
   def edit
   end
 
@@ -41,7 +40,7 @@ class Company::EmployeesController < ApplicationController
   def set_current_company
     if params[:action].in?(%w[index])
       @company = Company.find(params[:company_id])
-      @employees = current_company.employees.includes(:store).order('stores.name').page(params[:page]).per(10)#店舗順に社員を管理
+      @employees = current_company.employees.includes(:store).order('stores.name').page(params[:page])#店舗順に社員を管理
       @tasks = @company.tasks
       redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
     else

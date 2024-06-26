@@ -3,8 +3,6 @@ class Company::GenresController < ApplicationController
   before_action :set_current_company, only: [:index, :edit, :update]
   before_action :ensure_normal_company, only: :update
 
-
-
   def index
   end
 
@@ -18,7 +16,6 @@ class Company::GenresController < ApplicationController
       @genres = current_company.genres
       render :index
     end
-
   end
 
   def edit
@@ -31,7 +28,6 @@ class Company::GenresController < ApplicationController
     else
       render "edit"
     end
-
   end
 
   private
@@ -40,7 +36,7 @@ class Company::GenresController < ApplicationController
     if params[:action].in?(%w[index])
       @company = Company.find(params[:company_id])
       @genre = Genre.new
-      @genres = current_company.genres
+      @genres = current_company.genres.page(params[:page])
       redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
     else
       @genre = current_company.genres.find_by(id: params[:id])

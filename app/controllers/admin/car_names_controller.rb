@@ -4,7 +4,7 @@ class Admin::CarNamesController < ApplicationController
 
   def index
     @car_name = CarName.new
-    @car_names = CarName.all
+    @car_names = CarName.page(params[:page])
     @companies = Company.all
   end
 

@@ -6,8 +6,6 @@ class Company::StoresController < ApplicationController
   def index
   end
 
-
-
   def create
     @store =Store.new(store_params)
     @store.company_id = current_company.id
@@ -18,14 +16,12 @@ class Company::StoresController < ApplicationController
       @stores = current_company.stores
       render :index
     end
-
   end
 
   def show
   end
 
   def edit
-
   end
 
   def update
@@ -35,16 +31,14 @@ class Company::StoresController < ApplicationController
     else
       render "edit"
     end
-
   end
 
   private
 
-
   def set_current_company
     if params[:action].in?(%w[index])
       @company = Company.find(params[:company_id])
-      @stores = @company.stores
+      @stores = @company.stores.page(params[:page])
       @store = Store.new
       redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
     else
