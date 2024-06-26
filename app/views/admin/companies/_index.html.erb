@@ -1,0 +1,32 @@
+<div class="row table-row">
+  <div class="col-12 mx-auto">
+    <table class="table">
+      <thead class="thead-light">
+       <tr>
+         <th>会員ID</th>
+         <th>氏名</th>
+         <th>メールアドレス</th>
+         <th>ステータス</th>
+         <th></th>
+       </tr>
+      </thead>
+      <tbody>
+        <% companies.each do |company| %>
+          <tr>
+            <td><%= company.id %></td>
+            <td><%= link_to "#{company.company_name}", admin_company_path(company.id), class: "text-dark border-bottom border-dark" %></td>
+            <td><%= company.email %></td>
+            <td>
+              <% if company.is_active == true %>
+                <p class="text-success">有効</p>
+              <% else %>
+                <p class="text-secondary">退会</p>
+              <% end %>
+            </td>
+            <td><%= link_to "社員一覧へ", admin_company_employees_path(id: @employee, company_id: company.id), class: 'btn btn-outline-primary' %></td>
+          </tr>
+          <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="card jumbotron bg-light">
+  <blockquote>
+    <div class="container">
+      <h1><%= @store.name %>店の所属社員</h1>
+      <div class="row">
+        <table class="table table-bordered">
+          <thead class="thead-light">
+            <tr>
+              <th>所属社員</th>
+              <th>メールアドレス</th>
+              <th>ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @store.employees.each do |employee| %>
+               <tr>
+                 <td><%= link_to "#{employee.full_name}", admin_company_employee_path(@company, employee), class: "text-blue border-bottom border-dark" %></td>
+                 <td><%= employee.email %></td>
+                 <td>
+                   <% if employee.is_active == true %>
+                     <p class="text-success">有効</p>
+                   <% else %>
+                     <p class="text-secondary">退職</p>
+                   <% end %>
+                 </td>
+               </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= link_to admin_stores_path, class: 'col mx-auto btn btn-outline-primary btn-sm' do %>
+          <i class="fa-solid fa-shop"></i> 店舗一覧</a>
+        <% end %>
+      </div>
+    </div>
+  </blockquote>
+</div>

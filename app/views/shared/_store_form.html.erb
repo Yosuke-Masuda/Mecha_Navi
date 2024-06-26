@@ -1,0 +1,55 @@
+<%= form_with(model: store, url: url, local: true) do |f| %>
+  <%= render 'layouts/error_messages', resource: f.object %>
+  <div class="row">
+    <% if admin_signed_in? %>
+      <div class="col">
+        <%= f.label :company_id, "企業選択：", class: "col-form-label" %>
+      </div>
+      <div class="col-sm-3">
+        <%= f.collection_select :company_id, @companies, :id, :company_name, { prompt: "--選択して下さい--" }, class: 'form-control text-center' %>
+      </div>
+    <% end %>
+    <div class="col">
+      <%= f.label :name, "店舗名：", class: "col-form-label" %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <div class="col">
+      <div class="form-check form-check-inline">
+        <%= f.radio_button :is_active, true %>
+        <%= f.label :is_active, "有効", class: "text-active" %>
+        <%= f.radio_button :is_active, false %>
+        <%= f.label :is_active, "無効", class: "text-invalid" %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <div class="text-center">
+          <% if store.new_record? %>
+            <div class="button-layout">
+              <button type="submit" class="btn btn-outline-primary">
+                <i class="fa-solid fa-registered"></i> 登録
+              </button>
+            </div>
+          <% else %>
+            <div class="button-layout">
+              <button type="submit" class="btn btn-outline-success">
+                <i class="fa-solid fa-floppy-disk"></i> 保存
+              </button>
+              <% if admin_signed_in? %>
+                <%= link_to admin_stores_path, class: 'btn btn-outline-primary' do %>
+                  <i class="fa-solid fa-circle-left"></i> 戻る
+                <% end %>
+              <% else company_signed_in? %>
+                <%= link_to company_stores_path(current_company.id), class: 'btn btn-outline-primary' do %>
+                  <i class="fa-solid fa-circle-left"></i> 戻る
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

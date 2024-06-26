@@ -6,11 +6,197 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <script src="https://kit.fontawesome.com/e0dc052d03.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container-fulid card">
+      <div class="card-header">
+        <header class="shadow-sm">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <%= link_to image_tag("repair service.png", size: "50x50"), root_path, class: "image mt-2" %>
+            <a class="navbar-brand font-italic" href="/">MechaNavi</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <% if admin_signed_in? %>
+                  <li class="nav-item">
+                    <%= link_to admin_top_path, class: 'nav-link' do %>
+                      <i class="fa-regular fa-file-image"></i> 投稿履歴
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to admin_companies_path, class: 'nav-link' do %>
+                      <i class="fa-solid fa-users-viewfinder"></i> 顧客一覧
+                    <% end %>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa-solid fa-layer-group"></i> サービス
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <%= link_to admin_stores_path, class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-shop"></i> 店舗管理
+                      <% end %>
+                      <%= link_to admin_genres_path, class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-list"></i> ジャンル管理
+                      <% end %>
+                      <%= link_to admin_car_names_path, class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-car"></i> 車両管理
+                      <% end %>
+                      <%= link_to admin_tasks_path, class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-thumbtack"></i> タスク管理
+                      <% end %>
+                    </div>
+                    <li class="nav-item">
+                      <%= link_to destroy_admin_session_path, class: 'nav-link', method: :delete do %>
+                        <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+                      <% end %>
+                    </li>
+                  </li>
+                <% elsif company_signed_in? %>
+                  <li class="nav-item">
+                    <%= link_to companies_mypage_path, class: 'nav-link' do %>
+                      <i class="fa-solid fa-house"></i> マイページ
+                    <% end %>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa-solid fa-users"></i> 社員
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <%= link_to new_company_employee_path(current_company.id), class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-user-plus"></i> 社員登録</a>
+                      <% end %>
+                      <%= link_to company_employees_path(current_company.id), class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-users-viewfinder"></i> 社員一覧</a>
+                      <% end %>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa-solid fa-layer-group"></i> サービス
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <%= link_to top_path, class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-clock-rotate-left"></i> 投稿履歴管理
+                      <% end %>
+                      <%= link_to company_employee_posts_path(current_company.id), class: 'dropdown-item' do %>
+                        <i class="fa-regular fa-image"></i> 投稿管理</a>
+                      <% end %>
+                      <%= link_to company_stores_path(current_company.id), class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-shop"></i> 店舗管理
+                      <% end %>
+                      <%= link_to company_car_names_path(current_company.id), class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-car"></i> 車両管理
+                      <% end %>
+                      <%= link_to company_genres_path(current_company.id), class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-list"></i> ジャンル管理
+                      <% end %>
+                      <%= link_to company_tasks_path(current_company.id), class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-thumbtack"></i> タスク管理
+                      <% end %>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to destroy_company_session_path, class: 'nav-link', method: :delete do %>
+                      <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+                    <% end %>
+                  </li>
+                  <li class="nav-item text-center">
+                     <a class="navbar-brand">　<%= current_company.company_name %>様</a>
+                  </li>
+                <% elsif employee_signed_in? %>
+                  <li class="nav-item">
+                    <%= link_to mypage_path, class: 'nav-link' do %>
+                      <i class="fa-solid fa-house"></i> マイページ
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to about_path, class: 'nav-link' do %>
+                      <i class="fa-regular fa-message"></i> About
+                    <% end %>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa-solid fa-layer-group"></i> サービス
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <%= link_to new_post_path, class: 'dropdown-item' do %>
+                        <i class="fa-regular fa-square-plus"></i> 新規投稿
+                      <% end %>
+                      <%= link_to posts_path, class: 'dropdown-item' do %>
+                        <i class="fa-regular fa-file-image"></i> 投稿一覧
+                      <% end %>
+                      <%= link_to employee_tasks_path(employee_id: current_employee), class: 'dropdown-item' do %>
+                        <i class="fa-solid fa-list-check"></i> タスクカレンダー
+                      <% end %>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to destroy_employee_session_path, class: 'nav-link', method: :delete do %>
+                      <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <a class="navbar-brand">　<%= current_employee.full_name %> 様</a>
+                  </li>
+                <% else %>
+                  <li class="nav-item">
+                    <%= link_to about_path, class: 'nav-link' do %>
+                      <i class="fa-regular fa-message"></i> About
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to new_company_registration_path, class: 'nav-link' do %>
+                     <i class="fa-solid fa-right-from-bracket"></i> 新規登録
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to new_company_session_path, class: 'nav-link' do %>
+                      <i class="fa-solid fa-right-from-bracket"></i> 企業ログイン
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to new_employee_session_path, class: 'nav-link' do %>
+                      <i class="fa-solid fa-right-from-bracket"></i> 社員ログイン
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
+                    <h6 class= "navbar">　　※会員でない方は下記のゲストログインからお試し頂けます</h6>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+            <% if admin_signed_in? %>
+              <% if @company.present? %>
+                <%= render "layouts/serach", genres: @company.genres %>
+              <% else %>
+                <%= render "layouts/serach", genres: Genre.all %>
+              <% end %>
+            <% elsif company_signed_in? %>
+              <%= render "layouts/serach", genres: current_company.genres %>
+            <% elsif employee_signed_in? %>
+              <%= render "layouts/serach", genres: current_employee.company.genres %>
+            <% else %>
+            <% end %>
+          </nav>
+        </header>
+        <main>
+          <div id="flash">
+            <%= render "layouts/flash" %>
+          </div>
+          <%= yield %>
+        </main>
+          <%= render 'layouts/footer' %>
+          <%= debug params if Rails.env.development? %>
+      </div>
+    </div>
   </body>
 </html>

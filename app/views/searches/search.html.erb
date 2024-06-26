@@ -1,0 +1,22 @@
+<h2>Results index</h2>
+
+<% if admin_signed_in? %>
+  <table class="table table-hover table-inverse">
+    <tbody>
+      <%= render partial: 'post', collection: @posts %>
+    </tbody>
+  </table>
+<% elsif company_signed_in? %>
+  <table class="table table-hover table-inverse">
+    <tbody>
+      <%= render partial: 'post', collection: @posts.select { |post| post.company.employee_ids == current_company.employee_ids } %>
+    </tbody>
+  </table>
+<% elsif employee_signed_in? %>
+  <table class="table table-hover table-inverse">
+    <tbody>
+      <%= render partial: 'post', collection: @posts.select { |post| post.employee.company_id == current_employee.company_id } %>
+    </tbody>
+  </table>
+<% end %>
+

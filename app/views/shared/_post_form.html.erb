@@ -1,0 +1,47 @@
+<div class="field mb-1">
+  <div class="d-sm-none">
+    <%= f.label :genre_id, "ジャンル選択", class: 'col-sm-3' %>
+  </div>
+  <div class="d-none d-sm-block">
+    <%= f.label :genre_id, "ジャンル選択", class: 'col-12' %>
+  </div>
+    <%= f.collection_select :genre_id, @genres, :id, :name, prompt: "--選択して下さい--", class: 'rounded col-sm-3' %>
+</div>
+<div class="field mb-1">
+  <div class="d-sm-none">
+    <%= f.label :car_name_id, "車名選択", class: 'col-sm-3' %>
+  </div>
+  <div class="d-none d-sm-block">
+    <%= f.label :car_name_id, "車名選択", class: 'col-12' %>
+  </div>
+    <%= f.collection_select :car_name_id, @car_names, :id, :name, :prompt => "--選択して下さい--", class: 'rounded col-sm-3' %>
+</div>
+<div class="field mb-1">
+  <div class="d-sm-none">
+    <%= f.label :car_name_id, "型式選択", class: 'col-sm-3' %>
+  </div>
+  <div class="d-none d-sm-block">
+    <%= f.label :car_name_id, "型式選択", class: 'col-12' %>
+  </div>
+    <%= f.collection_select :car_type_id, @car_names, :id, :car_type, :prompt => "--選択して下さい--", class: 'rounded col-sm-3' %>
+</div>
+<div class="field mb-1">
+  <div><%= f.label :title, 'タイトル', class: 'col-sm-3' %></div>
+  <div><%= f.text_field :title, class: 'col-sm-3', placeholder: "タイトル記入" %></div>
+</div>
+<div class="field mb-1">
+  <label for="post_images" style="cursor: pointer;">
+    <i class="col-3 fas fa-image fa-lg"></i>
+  </label>
+  <div class="col-9">
+    <div><%= f.file_field :images, id: "post_images", multiple: true, accept: "image/jpeg, image/gif, image/png" %></div>
+  </div>
+</div>
+<div class="field mb-1">
+  <label for="post_video" style="cursor: pointer;">
+    <i class="col-3 fas fa-video fa-lg"></i>
+  </label>
+  <div class="col-9">
+    <%= f.file_field :video %>
+  </div>
+</div>

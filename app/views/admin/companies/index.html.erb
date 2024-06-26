@@ -1,0 +1,9 @@
+<div class="card jumbotron bg-light">
+	<blockquote>
+		<div class="container">
+	    <h2 class="section-ttl">企業一覧</h2>
+	    <%= render 'index', companies: @companies %>
+	  </div>
+	</blockquote>
+	<%= render partial: 'shared/pagination_company' %>
+</div>

@@ -1,0 +1,45 @@
+<div class="card">
+  <blockquote class="blockquote mb-0">
+    <div class="container">
+      <h1><%= @employee.full_name %>さんの編集</h1>
+        <div class"row">
+          <%= form_with( model: @employee, url: company_employee_path(company_id: current_company.id, id: @employee.id), local: true) do |f| %>
+            <table class="table table-bordered">
+              <tbody>
+                <%= render partial: "shared/employee_table_row", locals: { f: f, employee: @employee, user_type: "company" } %>
+                  <tr>
+                    <th>ステータス</th>
+                    <td>
+                      <%= f.label :is_active, '有効', value: true %>
+                      <%= f.radio_button :is_active, true %>
+                      <%= f.label :is_active, '退職', value: false %>
+                      <%= f.radio_button :is_active, false %>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+            <% if current_company.email == 'guest_company@example.com' %>
+              <h5>※ゲストユーザーは編集処理ができません。</h5>
+              <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+                  <i class="fa-solid fa-floppy-disk"></i> 保存
+                <% end %>
+                <%= link_to company_employee_path(company_id: current_company.id, id: @employee.id), class: 'btn btn-outline-primary' do %>
+                  <i class="fa-solid fa-user"></i> 戻る
+                <% end %>
+              </div>
+            <% else %>
+              <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+                  <i class="fa-solid fa-floppy-disk"></i> 保存
+                <% end %>
+                <%= link_to company_employee_path(company_id: current_company.id, id: @employee.id), class: 'btn btn-outline-primary' do %>
+                  <i class="fa-solid fa-user"></i> 戻る
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+    </div>
+  </blockquote>
+</div>

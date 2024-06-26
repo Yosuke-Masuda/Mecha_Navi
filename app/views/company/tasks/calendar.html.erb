@@ -1,0 +1,18 @@
+<div class="container">
+  <h2><%= @employee.full_name %>のタスク状況</h2>
+  <%= link_to "社員一覧へ", company_employees_path(company_id: current_company.id), class: 'btn btn-outline-primary' %>
+  <div class="row">
+    <div class="card col-12 mx-auto">
+      <%= month_calendar(events: @daily_tasks) do |date, events| %>
+        <%= date.day %>
+        <% if events.size == 0 %>
+          <%= link_to "タスク未入力", company_employee_daily_tasks_path(@company, @employee, date: date) %>
+        <% elsif events.size == @tasks.size %>
+          完了
+        <% else %>
+         <%= link_to "#{events.size}/#{@tasks.size}", company_employee_daily_tasks_path(@company, @employee, date: date) %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

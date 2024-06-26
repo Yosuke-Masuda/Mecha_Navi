@@ -1,0 +1,134 @@
+@import '~bootstrap/scss/bootstrap';
+
+
+
+@media (max-width: 768px) {
+  .carousel-item{
+    font-size: 10px !important;
+  }
+}
+
+  .card.jumbotron {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+
+.simple-calendar {
+  table {
+    -webkit-border-horizontal-spacing: 0px;
+    -webkit-border-vertical-spacing: 0px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid rgb(221, 221, 221);
+    border-collapse: collapse;
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  tr {
+    border-collapse: collapse;
+  }
+
+  th {
+    padding: 6px;
+    border-bottom: 2px solid rgb(221, 221, 221);
+    border-collapse: collapse;
+    border-left: 1px solid rgb(221, 221, 221);
+    border-right: 1px solid rgb(221, 221, 221);
+    border-top: 0px none rgb(51, 51, 51);
+    box-sizing: border-box;
+    text-align: left;
+  }
+
+  td {
+    padding: 6px;
+    vertical-align: top;
+    width: 14%;
+
+    border: 1px solid #ddd;
+    border-top-color: rgb(221, 221, 221);
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-right-color: rgb(221, 221, 221);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-bottom-color: rgb(221, 221, 221);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: rgb(221, 221, 221);
+    border-left-style: solid;
+    border-left-width: 1px;
+  }
+
+  .calendar-heading nav {
+    display: inline-block;
+  }
+
+  .day {
+    height: 80px;
+  }
+
+  .wday-0 {}
+  .wday-1 {}
+  .wday-2 {}
+  .wday-3 {}
+  .wday-4 {}
+  .wday-5 {}
+  .wday-6 {}
+
+  .today {
+    background: #FFFFC0
+  }
+
+  .past {}
+  .future {}
+
+  .start-date {}
+
+  .prev-month {
+    background: #DDD;
+  }
+  .next-month {
+    background: #DDD;
+  }
+  .current-month {}
+
+  .has-events {}
+}
+
+  .error {
+    color: red;
+  }
+
+  .rounded-button {
+
+  border-radius: 50%;
+
+}
+
+  .vertical-text {
+    color: white;
+    writing-mode: vertical-rl;  /* 右から左に縦書き */
+    /* writing-mode: vertical-lr;  左から右に縦書き */
+    position: absolute;
+    top: 100px;
+    right: 150px;
+    width: 500px;
+    font-size: 30px;
+    line-height: 100px;    /* すべての行の高さ */
+  }
+
+  p:nth-child(1) {
+    margin-top: 0;
+  }
+
+  p:nth-child(2) {
+    margin-top: 50px;
+  }
+
+  p:nth-child(3) {
+    margin-top: 100px;
+  }
+
+

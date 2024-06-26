@@ -1,0 +1,6 @@
+<div class="card jumbotron mx-auto">
+  <div class="container">
+  	<h2 class="section-ttl">ジャンル編集</h2>
+    <%= render 'shared/genre_form', genre: @genre, url: company_genre_path(current_company.id, @genre) %>
+  </div>
+</div>

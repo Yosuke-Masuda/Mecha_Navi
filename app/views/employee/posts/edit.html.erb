@@ -1,0 +1,11 @@
+<div class="card jumbotron">
+  <blockquote class="blockquote mb-0">
+    <div class="container">
+      <%= form_with(model: @post, local: true) do |f| %>
+        <%= render 'shared/post_form', f: f, user_type: "employee" %>
+        <%= render 'shared/post_edit', f: f, post: @post %>
+      <% end %>
+    </div>
+  </blockquote>
+</div>
+

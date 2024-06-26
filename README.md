@@ -5,8 +5,8 @@
 「自動車整備士のスキルアップ・業務効率化」を目的とした企業内でのコミュニティサイト
 ​
 ### テーマを選んだ理由
-前職でマニュアルだけではイメージし難いスタッフがいた事です。  
-また各スタッフと今後の作業予定内容を擦り合わせ方法は面談でした。大事な事と思う一方、効率よくできないものかと考えていました。  
+前職でマニュアルだけではイメージし難いスタッフがいた事です。
+また各スタッフと今後の作業予定内容を擦り合わせ方法は面談でした。大事な事と思う一方、効率よくできないものかと考えていました。
 そしてミスや故障などの共有できるものが今までなく共有できれば対応が迅速になりお客様満足に繋がると思っていたからです。
 ​
 ### ターゲットユーザ
@@ -20,14 +20,19 @@
 `作業ミスをしてしまった時に使用します。`
 - ミスをしてしまったお店と本社間で終わる場合が多いので会社全体で共有できれば多発してしまうミスを防ぐことができる。
 
-`次の日の作業予定を確認する時に使用します。`
+`タスク管理及び作業予定を確認する時に使用します。`
 - 今まで面談で予定の擦り合わせをしているのであれば、その面談時間がなくなり業務効率化に繋がります。
 
 `難問診断や新しい故障が起きて解決した時に使用します。`
 - 共有することで企業としての業務効率化・お客様満足に繋がります。
 
 ## 設計書
-<!--テーマを設定・提出する時点では不要です-->
+- ER図.
+https://drive.google.com/file/d/12MJdVg16038Iocix1Jl_8mjPC-K8XapP/view?usp=sharing
+- テーブル定義書.
+https://docs.google.com/spreadsheets/d/19EI3O9hzCiey3ttdHfMXlccY5uMUfIrT/edit?usp=sharing&ouid=114599228704168091645&rtpof=true&sd=true
+- 詳細設計書.
+https://docs.google.com/spreadsheets/d/1DEpw1ERK6g9Yh6Qqvq34DiLpi1Euhjn9bmmB658gcmQ/edit?usp=sharing
 
 ## 機能一覧
 https://docs.google.com/spreadsheets/d/1CCE7Wu45S2r62zzCTohjviIXxafNDy7KSE8kTRSoeVU/edit?usp=sharing
@@ -40,4 +45,5 @@ https://docs.google.com/spreadsheets/d/1CCE7Wu45S2r62zzCTohjviIXxafNDy7KSE8kTRSo
 - IDE：Cloud9
 ​
 ## 使用素材
-- 検討中
+- photoAC（画像）
+- canva（ロゴデザイン）

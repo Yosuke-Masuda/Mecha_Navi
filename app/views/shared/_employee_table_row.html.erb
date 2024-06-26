@@ -1,0 +1,35 @@
+<tr>
+  <th>プロフィール画像</th>
+  <td>
+		<% if employee.image.attached? %>
+      <%= image_tag(employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+    <% else %>
+      <%= image_tag("no_image.jpg", class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+    <% end %>
+    <%= f.file_field :image, class: 'rounded' %>
+  </td>
+</tr>
+<tr>
+  <th>勤務地</th>
+  <td>
+    <% if user_type == "admin" %>
+      <%= f.collection_select :store_id, @stores, :id, :name, prompt: "--選択して下さい--", class: 'rounded' %>店
+    <% elsif user_type == "company" %>
+      <%= f.collection_select :store_id, current_company.stores, :id, :name, :prompt => "--選択して下さい--", class: 'rounded' %>店
+    <% elsif user_type == "employee" %>
+      <%= employee.store.name %> 店
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <th>氏名</th>
+  <td><%= f.text_field :last_name, class: 'rounded col-4' %><%= f.text_field :first_name, class: 'rounded col-4' %></td>
+</tr>
+<tr>
+  <th>フリガナ</th>
+  <td><%= f.text_field :last_name_kana, class: 'rounded col-4' %><%= f.text_field :first_name_kana, class: 'rounded col-4' %></td>
+</tr>
+<tr>
+  <th>メールアドレス</th>
+  <td><%= f.text_field :email, class: 'rounded col-8' %></td>
+</tr>

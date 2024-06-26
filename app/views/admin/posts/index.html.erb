@@ -1,0 +1,21 @@
+<div class="card jumbotron">
+  <div class="row">
+    <%= render partial: 'shared/admin_heading' %>
+    <div class="col-12 mx-auto">
+      <%= link_to '企業投稿一覧へ', admin_top_path, class: "btn btn-outline-primary" %>
+      <table class="table table_border">
+        <%= render partial: 'shared/table_header' %>
+        <tbody>
+        <% @recent_posts.each do |post| %>
+          <tr>
+            <td><%= link_to post.employee.full_name, history_admin_company_employee_posts_path(company_id: @company, employee_id: post.employee_id) %></td>
+            <td><%= post.recent_post_count %>件</td>
+            <td><%= @all_posts_count_by_employee[post.employee_id] %>件</td>
+            <td><%= @favorites_count_by_employee[post.employee_id].to_i.zero? ? 0 : @favorites_count_by_employee[post.employee_id] %>件</td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

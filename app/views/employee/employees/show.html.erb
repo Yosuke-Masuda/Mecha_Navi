@@ -1,0 +1,35 @@
+<div class="card">
+  <blockquote class="blockquote mb-0">
+    <div class="container">
+      <h1>マイページ</h1>
+      <div class"row">
+		    <h3 class="text-right">
+			    <%= link_to favorites_mypage_path, class: "btn btn-outline-warning" do %>
+			      <i class="fa-regular fa-bookmark"></i> お気に入り
+			    <% end %>
+		    </h3>
+	      <%= render partial: 'shared/employee_table', locals: { employee: @employee } %>
+      	<% if current_employee.email == 'guest_employee@example.com' %>
+          <h5>※ゲストログインはマイページの編集ができません。</h5>
+          <div class="btn-group btn-block" role="group" aria-label="Basic example">
+          	<%= link_to edit_mypage_path, class: "btn btn-outline-success" do %>
+		    	    <i class="fa-solid fa-pen-to-square"></i> 編集
+		    	  <% end %>
+			      <%= link_to history_mypage_path, class: "btn btn-outline-primary" do %>
+			        <i class="fa-solid fa-clock-rotate-left"></i> 投稿履歴
+			      <% end %>
+			    </div>
+        <% else %>
+          <div class="btn-group btn-block" role="group" aria-label="Basic example">
+		      	<%= link_to edit_mypage_path, class: "btn btn-outline-success" do %>
+		    	    <i class="fa-solid fa-pen-to-square"></i> 編集
+		    	  <% end %>
+			      <%= link_to history_mypage_path, class: "btn btn-outline-primary" do %>
+			        <i class="fa-solid fa-clock-rotate-left"></i> 投稿履歴
+			      <% end %>
+			    </div>
+			  <% end %>
+      </div>
+    </div>
+  </blockquote>
+</div>

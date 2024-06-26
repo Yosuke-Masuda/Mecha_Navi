@@ -1,0 +1,42 @@
+<div class="card mx-auto">
+  <div class="container">
+    <h2 class="mb-3 text-center">車名管理</h2>
+	    <h3>車名新規登録</h3>
+	    <%= render 'shared/car_name_form', car_name: @car_name, url: admin_car_names_path(@car_name) %>
+		  <h3>車名一覧</h3>
+		  <table class="table">
+			  <thead>
+				  <tr>
+					  <th>企業名</th>
+					  <th>車名</th>
+					  <th>型式</th>
+					  <th>状態</th>
+				  </tr>
+			  </thead>
+		    <tbody>
+          <% unique_companies = @car_names.map { |car| car.company.company_name }.uniq %>
+          <% unique_companies.each do |company_name| %>
+            <% cars_for_company = @car_names.select { |car| car.company.company_name == company_name } %>
+            <% cars_for_company.sort_by! { |car| car.name } %>
+            <% cars_for_company.each_with_index do |car_name, index| %>
+              <tr>
+                <% if index == 0 %>
+                  <td rowspan="<%= cars_for_company.size %>"><%= car_name.company.company_name %></td>
+                <% end %>
+                  <td><%= car_name.name %></td>
+                  <td><%= car_name.car_type %></td>
+                  <td>
+                    <% if car_name.is_active? %>
+                      <p class="text-success">有効</p>
+                    <% else %>
+                      <p class="text-secondary">無効</p>
+                    <% end %>
+                  </td>
+                  <td class="text-center"><%= link_to "編集", edit_admin_car_name_path(car_name), class: "btn btn-success" %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+		  </table>
+  </div>
+</div>

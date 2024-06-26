@@ -1,0 +1,59 @@
+<%= form_with(model: car_name, url: url, local: true) do |f| %>
+  <%= render 'layouts/error_messages', resource: f.object %>
+  	<% if admin_signed_in? %>
+  	  <div class="col">
+		    <%= f.label :company_id, "企業の選択：", class: "col-form-label" %>
+		  </div>
+		  <div class="col-sm-3">
+		    <%= f.collection_select :company_id, @companies, :id, :company_name, { prompt: "--選択して下さい--" }, class: 'form-control text-center' %>
+		  </div>
+	  <% end %>
+	  <div class="col">
+    	<%= f.label :name, "車名：", class: "col-form-label" %>
+    </div>
+    <div class="col-sm-3">
+    	<%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <div class="col">
+    	<%= f.label :car_type, "型式：", class: "col-form-label" %>
+    </div>
+    <div class="col-sm-3">
+    	<%= f.text_field :car_type, class: 'form-control' %>
+    </div>
+    <div class="col-sm-3">
+    	<div class="form-check form-check-inline">
+    	  <%= f.radio_button :is_active, true %>
+  	    <%= f.label :is_active, "有効", class: "text-active" %>
+  	    <%= f.radio_button :is_active, false %>
+  	    <%= f.label :is_active, "無効", class: "text-invalid" %>
+  	  </div>
+  	 </div>
+  	 <div class="col-sm-3">
+      <div class="btn-group btn-block" role="group" aria-label="Basic example">
+        <div class="text-center">
+      	  <% if car_name.new_record? %>
+            <div class="button-layout">
+              <button type="submit" class="btn btn-outline-primary">
+                <i class="fa-solid fa-registered"></i> 登録
+              </button>
+            </div>
+          <% else %>
+            <div class="button-layout">
+              <button type="submit" class="btn btn-outline-success">
+                <i class="fa-solid fa-floppy-disk"></i> 保存
+              </button>
+              <% if admin_signed_in? %>
+                <%= link_to admin_car_names_path, class: 'btn btn-outline-primary' do %>
+                  <i class="fa-solid fa-circle-left"></i> 戻る
+                <% end %>
+              <% else company_signed_in? %>
+                <%= link_to company_car_names_path(current_company.id), class: 'btn btn-outline-primary' do %>
+                  <i class="fa-solid fa-circle-left"></i> 戻る
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>

@@ -1,0 +1,46 @@
+<% if post.images.present? %>
+  <p>現在登録されている画像（削除するものはチェックしてください）</p>
+  <% post.images.each do |image| %>
+    <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
+    <%= image_tag image, size:"100x100" %> <br>
+  <% end %>
+<% end %>
+<div class="field mb-1">
+  <div><%= f.label :caption, '説明', class: 'col-3' %></div>
+  <div><%= f.text_area :caption, class: "form-control" %></div>
+</div>
+<% if admin_signed_in? %>
+  <div class="field mb-1">
+    <div class="btn-group btn-block" role="group" aria-label="Basic example">
+      <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+        <i class="fa-solid fa-floppy-disk"></i> 保存
+      <% end %>
+      <%= link_to admin_company_employee_post_path(company_id: post.company_id, employee_id: post.employee_id, id: post.id), class: 'btn btn-outline-primary' do %>
+       <i class="fa-solid fa-circle-left"></i> 詳細
+      <% end %>
+    </div>
+  </div>
+<% elsif company_signed_in? %>
+  <div class="field mb-1">
+    <div class="btn-group btn-block" role="group" aria-label="Basic example">
+      <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+        <i class="fa-solid fa-floppy-disk"></i> 保存
+      <% end %>
+      <%= link_to company_employee_post_path(company_id: current_company.id, employee_id: post.employee_id, id: post.id), class: "btn btn-outline-primary" do %>
+        <i class="fa-solid fa-circle-left"></i> 戻る
+      <% end %>
+    </div>
+  </div>
+<% elsif employee_signed_in? %>
+  <div class="field mb-1">
+    <div class="btn-group btn-block" role="group" aria-label="Basic example">
+      <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+        <i class="fa-solid fa-floppy-disk"></i> 保存
+      <% end %>
+      <%= link_to post_path(@post.id), class: "btn btn-outline-primary" do %>
+        <i class="fa-solid fa-circle-left"></i> 戻る
+      <% end %>
+    </div>
+  </div>
+<% end %>
+

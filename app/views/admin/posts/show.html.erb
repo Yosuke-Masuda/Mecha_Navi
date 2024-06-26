@@ -1,0 +1,23 @@
+<h1><%= @employee.full_name %>詳細ページ</h1>
+<div class="card" style="width: 100%; margin: 0 auto;">
+  <%= render 'shared/post_card_body', post: @post %>
+    <div>
+      <p>コメント件数：<%= @post.post_comments.count %></p>
+      <p>いいね件数：<%= @post.favorites.count %></p>
+      <% @post.post_comments.each do |post_comment| %>
+
+        <% if @employee.image.attached? %>
+          <%= image_tag(@employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+        <% else %>
+          <%= image_tag("kougu.jpg", class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+        <% end %>
+        <%= post_comment.employee.last_name %><%= post_comment.employee.first_name %>
+        <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+        <div>
+          <%= link_to admin_company_employee_post_post_comment_path(post_comment.post.company, post_comment.post.employee, post_comment.post, post_comment), class: 'btn btn-outline-danger', method: :delete, data: { confirm: "削除しますか？" } do %>
+            <i class="fa-solid fa-trash-can"></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+</div>

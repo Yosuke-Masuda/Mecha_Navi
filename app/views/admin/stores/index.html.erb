@@ -1,0 +1,43 @@
+<div class="card mx-auto">
+	<div class="container">
+		<h2 class="text-center">店舗管理</h2>
+			<div class="mb-3">
+		    <h3>店舗新規登録</h3>
+  	    <%= render 'shared/store_form', store: @store, url: admin_stores_path(@store) %>
+	    </div>
+	    <div class="mb-3">
+		    <h3>一覧</h3>
+		    <table class="table">
+			    <thead>
+				    <tr>
+					    <th>企業名</th>
+					    <th>店舗名</th>
+					    <th>状態</th>
+					    <th></th>
+				    </tr>
+			    </thead>
+			  <tbody>
+          <% @stores.group_by(&:company).each do |company, stores| %>
+            <% stores.each do |store| %>
+              <tr>
+                <% if store == stores.first %>
+                  <td rowspan="<%= stores.size %>"><%= company.company_name %></td>
+                <% end %>
+                  <td><%= link_to store.name, admin_store_path(id: store.id), class: "underline" %> 店</td>
+                  <td>
+                    <% if store.is_active? %>
+                      <p class="text-success">有効</p>
+                    <% else %>
+                      <p class="text-secondary">無効</p>
+                    <% end %>
+                  </td>
+                  <td class="text-center"><%= link_to "編集", edit_admin_store_path(store), class: "btn btn-success" %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+		    </table>
+	    </div>
+    </div>
+	</div>
+</div>

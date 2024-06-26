@@ -1,0 +1,26 @@
+<div class="card jumbotron bg-light">
+  <blockquote class="blockquote mb-0">
+    <div class="container">
+      <h2 class="mb-5"><%= @company.company_name %>の会員情報編集</h2>
+          <%= form_with( model: @company, url: admin_company_path, local: true) do |f| %>
+            <table class="table table-bordered">
+              <tbody>
+                <%= render partial: 'shared/company_form', locals: { f: f, company: @company } %>
+                  <th>会員ステータス</th>
+                  <td>
+                    <%= f.label :is_active, '有効', value: true %>
+                    <%= f.radio_button :is_active, true %>
+                    <%= f.label :is_active, '無効', value: false %>
+                    <%= f.radio_button :is_active, false %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <%= button_tag type: "submit", class: 'btn btn-outline-success btn-block' do %>
+              <i class="fa-solid fa-floppy-disk"></i> 保存する
+            <% end %>
+
+        <% end %>
+    </div>
+  </blockquote>
+</div>

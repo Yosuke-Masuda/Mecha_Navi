@@ -1,0 +1,18 @@
+<div class="card jumbotron mx-auto bg-light container-fluid">
+  <blockquote class="blockquote col-12">
+    <div class="container">
+      <h1>投稿</h1>
+			  <%= form_with(model: @post, url: '/posts', local: true) do |f| %>
+			  <%= render 'layouts/error_messages', resource: @post %>
+        <%= render 'shared/post_form', f: f %>
+        <div class="field mb-1">
+          <%= f.label :caption, '説明', class: 'col-sm-3' %>
+          <%= f.text_area :caption, class: "form-control" %>
+        </div>
+        <div class="field mb-1">
+          <%= f.submit  '投稿する', class: 'btn btn-outline-primary btn-block' %>
+        </div>
+      <% end %>
+    </div>
+  </blockquote>
+</div>

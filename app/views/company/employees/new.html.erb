@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h4 class="mb-5 text-color col-3 text-center">新規社員登録</h4>
+      <%= form_with model: @employee, url: company_employees_path(company_id: current_company.id), local: true do |f| %>
+      <%= render 'layouts/error_messages', resource: @employee %>
+        <div class="sign_up-pages col-12">
+          <%= f.hidden_field :company_id, value: current_company.id %>
+          <div class="filed mb-1">
+            <th><%= f.label :store_id, "店の選択:", class: 'col-3' %></th>
+            <td><%= f.collection_select :store_id, current_company.stores, :id, :name, :prompt => "--選択して下さい--", class: 'rounded' %>店</td>
+          </div>
+          <div class="field mb-1">
+            <%= f.label :"プロフィール画像", class: 'col-3' %>
+            <%= f.file_field :image, class: 'rounded' %>
+          </div>
+          <div class="field mb-1">
+            <%= f.label :"名前　　　　　　　　　　　(姓)", class: 'col-3' %>
+            <%= f.text_field :last_name, autofocus: true, class: 'rounded', placeholder: "令和" %>
+            <%= f.label :"　(名)　", class: '' %>
+            <%= f.text_field :first_name, autofocus: true, class: 'rounded', placeholder: "道子" %>
+          </div>
+          <div class="field mb-1">
+            <%= f.label :"フリガナ　　　　　　　　　(ｾｲ)", class: 'col-3' %>
+            <%= f.text_field :last_name_kana, autofocus: true, class: 'rounded', placeholder: "レイワ" %>
+            <%= f.label :"　(ﾒｲ)　", class: '' %>
+            <%= f.text_field :first_name_kana, autofocus: true, class: 'rounded', placeholder: "ミチコ" %>
+          </div>
+          <div class="field mb-1">
+            <%= f.label :"メールアドレス", class: 'col-3' %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'rounded', placeholder: "sample@examle.com" %>
+          </div>
+          <div class="field mb-1">
+            <%= f.label :"パスワード(6文字以上)", class: 'col-3' %>
+            <% if @minimum_password_length %>
+            <% end %>
+            <%= f.password_field :password, autocomplete: "new-password", class: 'rounded' %>
+          </div>
+          <div class="field mb-1">
+            <%= f.label :"パスワード(確認用)", class: 'col-3' %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'rounded' %>
+          </div>
+          <% if current_company.email == 'guest_company@example.com' %>
+            <h5>※ゲストログインは新規社員登録ができません。</h5>
+            <div class="actions">
+              <%= f.label :"　", class: 'col-3' %>
+              <%= f.submit "新規登録", class: 'btn btn-primary col-2' %>
+            </div>
+          <% else %>
+            <div class="actions">
+              <%= f.label :"　", class: 'col-3' %>
+              <%= f.submit "新規登録", class: 'btn btn-primary col-2' %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

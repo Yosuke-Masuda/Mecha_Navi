@@ -1,0 +1,6 @@
+<h3>
+		<%= link_to"マイページへ戻る", mypage_path, class: "btn btn-outline-success" %>
+</h3>
+<% @favorite_posts.each do |post|%>
+ <%= render "shared/post", post: post %>
+<% end %>

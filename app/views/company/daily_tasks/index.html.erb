@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <h1><%= @employee.full_name %>のタスク進捗</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>タスク名</th>
+          <th>タスク内容</th>
+          <th>チェック</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @daily_tasks.each do |daily_task| %>
+          <% task = daily_task.task %>
+            <tr>
+              <td><%= task.name %></td>
+              <td><%= task.body %></td>
+              <td>
+                <% if daily_task.completed %>
+                 完了
+               <% else %>
+                 未完了
+               <% end %>
+              </td>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= link_to company_employee_calendar_path(@company, @employee), class: "btn btn-outline-primary" do %>
+    <i class="fa-solid fa-circle-left"></i> 戻る
+  <% end %>
+</div>
