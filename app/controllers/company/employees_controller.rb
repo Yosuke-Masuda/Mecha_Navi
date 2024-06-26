@@ -1,6 +1,6 @@
 class Company::EmployeesController < ApplicationController
   before_action :authenticate_company!
-  before_action :set_current_company, only: [:show, :edit, :update]
+  before_action :set_current_company, only: [:index, :show, :edit, :update]
   before_action :ensure_normal_company, only: [:create, :update]
 
   def new
@@ -18,9 +18,6 @@ class Company::EmployeesController < ApplicationController
   end
 
   def index
-    @employees = current_company.employees.includes(:store).order('stores.name').page(params[:page]).per(10)#店舗順に社員を管理
-    @company = current_company
-    @tasks = @company.tasks
   end
 
   def show
@@ -42,11 +39,18 @@ class Company::EmployeesController < ApplicationController
   private
 
   def set_current_company
-    @employee = current_company.employees.find_by(id: params[:id])
-    if @employee.present? && @employee.company_id == current_company.id
-      @employee = Employee.find(params[:id])
+    if params[:action].in?(%w[index])
+      @company = Company.find(params[:company_id])
+      @employees = current_company.employees.includes(:store).order('stores.name').page(params[:page]).per(10)#店舗順に社員を管理
+      @tasks = @company.tasks
+      redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
     else
-      redirect_to company_employees_path(current_company.id), alert: 'アクセス権限がありません'
+      @employee = current_company.employees.find_by(id: params[:id])
+      if @employee.present? && @employee.company_id == current_company.id
+        @employee = Employee.find(params[:id])
+      else
+        redirect_to company_employees_path(current_company.id), alert: 'アクセス権限がありません'
+      end
     end
   end
 

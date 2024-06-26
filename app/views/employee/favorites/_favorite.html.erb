@@ -1,11 +1,11 @@
  <% if post.favorited_by?(current_employee) %>
-   <%= button_to post_favorites_path(post), method: :delete do %>
+   <%= link_to post_favorites_path(post), class: 'btn btn-outline-danger', method: :delete do %>
    <i class="fa-solid fa-heart" aria-hidden="true" style="color: red;"></i>
-   <%= post.favorites.count %>いいね
+   <%= post.favorites.count %>
    <% end %>
 <% else %>
-  <%= button_to post_favorites_path(post) , method: :post do %>
+  <%= link_to post_favorites_path(post) , class: 'btn btn-outline-danger', method: :post do %>
   <i class="fa-regular fa-heart" aria-hidden="true"></i>
-  <%= post.favorites.count %>いいね
+  <%= post.favorites.count %>
   <% end %>
 <% end %>

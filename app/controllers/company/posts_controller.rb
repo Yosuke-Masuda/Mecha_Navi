@@ -1,6 +1,6 @@
 class Company::PostsController < ApplicationController
   before_action :authenticate_company!
-  before_action :set_current_company, only: [:show, :edit, :update, :destroy]
+  before_action :set_current_company, only: [:index, :show, :edit, :update, :destroy]
 
   def index
     @posts = current_company.posts.where(employee_id: current_company.employees.ids).page(params[:page]).order(created_at: :desc)
@@ -52,12 +52,16 @@ class Company::PostsController < ApplicationController
   private
 
   def set_current_company
-
-    @post = current_company.posts.find_by(id: params[:id], employee_id: params[:employee_id])
-    if @post.present?
-      @post = @post
+    if params[:action].in?(%w[index])
+      @company = Company.find(params[:company_id])
+      redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
     else
-      redirect_to company_employee_posts_path(company_id: current_company.id), alert: 'アクセス権限がありません'
+      @post = current_company.posts.find_by(id: params[:id], employee_id: params[:employee_id])
+      if @post.present?
+        @post = @post
+      else
+        redirect_to company_employee_posts_path(company_id: current_company.id), alert: 'アクセス権限がありません'
+      end
     end
 
 

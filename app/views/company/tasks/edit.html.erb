@@ -1,4 +1,4 @@
 <section class="inner text-center">
 	<h2 class="section-ttl">タスク編集</h2>
-  <%= render 'shared/task_form', task: @task, url: company_task_path(@company, @task) %>
+  <%= render 'shared/task_form', task: @task, url: company_task_path(current_company.id, @task) %>
 </section>

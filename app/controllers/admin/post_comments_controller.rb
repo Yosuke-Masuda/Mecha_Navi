@@ -2,9 +2,6 @@ class Admin::PostCommentsController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_post_comment, only: [:destroy]
 
-  def create
-    # コメントの作成処理
-  end
 
   def destroy
     if @post_comment
