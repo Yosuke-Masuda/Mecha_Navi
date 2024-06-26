@@ -81,7 +81,6 @@ class Employee::PostsController < ApplicationController
     else
       redirect_to posts_path, alert: 'アクセス権限がありません'
     end
-    @post = Post.find(params[:id])
   end
 
   def post_params

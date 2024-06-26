@@ -1,5 +1,8 @@
-<h1>自分が投稿した履歴</h1>
+<div class="card jumbotron">
+  <h1>自分が投稿した履歴</h1>
 
-<% @my_posts.each do |post| %>
-  <%= render 'shared/post', post: post %>
-<% end %>
+  <% @posts.each do |post| %>
+    <%= render 'shared/post', post: post %>
+    <%= render partial: 'shared/pagination' %>
+  <% end %>
+</div>

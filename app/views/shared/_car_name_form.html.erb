@@ -1,27 +1,26 @@
 <%= form_with(model: car_name, url: url, local: true) do |f| %>
   <%= render 'layouts/error_messages', resource: f.object %>
-  <div class="row">
   	<% if admin_signed_in? %>
   	  <div class="col">
 		    <%= f.label :company_id, "企業の選択：", class: "col-form-label" %>
 		  </div>
-		  <div class="col">
-		    <%= f.collection_select :company_id, @companies, :id, :company_name, { prompt: "--選択して下さい--" }, class: 'form-control col-md-2 text-center' %>
+		  <div class="col-sm-3">
+		    <%= f.collection_select :company_id, @companies, :id, :company_name, { prompt: "--選択して下さい--" }, class: 'form-control text-center' %>
 		  </div>
 	  <% end %>
 	  <div class="col">
-    	<%= f.label :name, "　車名：", class: "col-form-label" %>
+    	<%= f.label :name, "車名：", class: "col-form-label" %>
     </div>
-    <div class="col">
+    <div class="col-sm-3">
     	<%= f.text_field :name, class: 'form-control' %>
     </div>
     <div class="col">
-    	<%= f.label :car_type, "　型式：", class: "col-form-label" %>
+    	<%= f.label :car_type, "型式：", class: "col-form-label" %>
     </div>
-    <div class="col">
+    <div class="col-sm-3">
     	<%= f.text_field :car_type, class: 'form-control' %>
     </div>
-    <div class="col">
+    <div class="col-sm-3">
     	<div class="form-check form-check-inline">
     	  <%= f.radio_button :is_active, true %>
   	    <%= f.label :is_active, "有効", class: "text-active" %>
@@ -29,8 +28,8 @@
   	    <%= f.label :is_active, "無効", class: "text-invalid" %>
   	  </div>
   	 </div>
-  	 <div class="col">
-      <div class="form-group">
+  	 <div class="col-sm-3">
+      <div class="btn-group btn-block" role="group" aria-label="Basic example">
         <div class="text-center">
       	  <% if car_name.new_record? %>
             <div class="button-layout">
@@ -57,5 +56,4 @@
         </div>
       </div>
     </div>
-  </div>
 <% end %>

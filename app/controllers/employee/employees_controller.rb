@@ -8,7 +8,7 @@ class Employee::EmployeesController < ApplicationController
   end
 
   def history
-    @my_posts = Post.where(employee_id: current_employee.id).order(created_at: :desc).page(params[:page]).per(10)
+    @posts = Post.where(employee_id: current_employee.id).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def edit
