@@ -1,5 +1,6 @@
 class Admin::StoresController < ApplicationController
   before_action :authenticate_admin!
+  before_action :ensure_store, only: [:show, :edit, :update]
 
 
   def index
@@ -23,17 +24,14 @@ class Admin::StoresController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
-    @store = Store.find(params[:id])
     @employees = @store.employees
   end
 
   def edit
-    @store = Store.find(params[:id])
     @companies = Company.all
   end
 
   def update
-    @store = Store.find(params[:id])
     if @store.update(store_params)
       flash[:notice] = "編集しました"
       redirect_to admin_stores_path
@@ -44,8 +42,13 @@ class Admin::StoresController < ApplicationController
   end
 
   private
-   def store_params
+
+  def ensure_store
+    @store = Store.find(params[:id])
+  end
+
+  def store_params
     params.require(:store).permit(:name, :is_active, :company_id)
-   end
+  end
 
 end

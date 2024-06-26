@@ -1,21 +1,24 @@
 class Company::PostsController < ApplicationController
   before_action :authenticate_company!
-  before_action :set_current_company, only: [:edit, :update, :destroy]
+  before_action :set_current_company, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.where(company_id: current_company.id).page(params[:page]).order(created_at: :desc) #他の企業の社員の投稿を見れないようにする
-    @company = Company.find(params[:company_id])
-    @employee = @company.employees
+    @posts = current_company.posts.where(employee_id: current_company.employees.ids).page(params[:page]).order(created_at: :desc)
+    @company = current_company
+    @employee = current_company.employees
 
   end
 
   def show
-    @company = Company.find(params[:company_id])
-    @employee = Employee.find(params[:employee_id])
-    @post = Post.find(params[:id])
+
+    @company = current_company
+    @employee = @company.employees.find(params[:employee_id])
+    @post = @employee.posts.find(params[:id])
     @posts = @employee.posts
     @images = @post.images.map(&:blob).uniq
     @video = @post.video
+
+
   end
 
   def edit
@@ -49,8 +52,17 @@ class Company::PostsController < ApplicationController
   private
 
   def set_current_company
-    @post = Post.find(params[:id])
+
+    @post = current_company.posts.find_by(id: params[:id], employee_id: params[:employee_id])
+    if @post.present?
+      @post = @post
+    else
+      redirect_to company_employee_posts_path(company_id: current_company.id), alert: 'アクセス権限がありません'
+    end
+
+
   end
+
 
   def post_params
     params.require(:post).permit(:company_id, :employee_id, :title, :genre_id, :store_id, :car_name_id, :car_type_id, :image_id, :video_id, :caption, :is_active, images: [])

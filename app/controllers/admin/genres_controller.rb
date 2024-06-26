@@ -1,5 +1,6 @@
 class Admin::GenresController < ApplicationController
   before_action :authenticate_admin!
+  before_action :ensure_genre, only: [:edit, :update]
 
 
   def index
@@ -22,12 +23,10 @@ class Admin::GenresController < ApplicationController
   end
 
   def edit
-    @genre = Genre.find(params[:id])
     @companies = Company.all
   end
 
   def update
-    @genre = Genre.find(params[:id])
     if @genre.update(genre_params)
       flash[:notice] = "編集しました"
       redirect_to admin_genres_path
@@ -38,8 +37,13 @@ class Admin::GenresController < ApplicationController
   end
 
   private
-   def genre_params
+
+  def ensure_genre
+    @genre = Genre.find(params[:id])
+  end
+
+  def genre_params
     params.require(:genre).permit(:name, :is_active, :company_id)
-   end
+  end
 
 end
