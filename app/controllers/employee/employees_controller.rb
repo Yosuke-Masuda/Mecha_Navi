@@ -3,6 +3,12 @@ class Employee::EmployeesController < ApplicationController
   before_action :set_current_employee, only: [:show, :edit, :update]
   before_action :ensure_normal_employee, only: :update
 
+  def index
+    @employee = current_employee.company
+    @employees = @employee.stores.flat_map(&:employees)
+    @employees = Kaminari.paginate_array(@employees).page(params[:page])
+  end
+
   def show
   end
 

@@ -1,5 +1,6 @@
 class Employee::PostsController < ApplicationController
-  before_action :set_current_employee, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_employee!
+  before_action :set_current_employee, only: [:history, :show, :edit, :update, :destroy]
 
   def new
     @employee = current_employee #所属する会社と従業員の情報を取得します。
@@ -33,6 +34,9 @@ class Employee::PostsController < ApplicationController
     @posts = Post.where(company_id: [@company.id, current_employee.company_id]).page(params[:page]).order(created_at: :desc)
     @images = @posts.map { |post| post.images.map(&:blob) }.flatten.uniq #@postの中から重複を除いた画像を@imagesに代入します。
     @video = @posts.first.present? ? @posts.first.video : nil
+  end
+
+  def history
   end
 
   def show
@@ -71,14 +75,26 @@ class Employee::PostsController < ApplicationController
   private
 
   def set_current_employee
-    @employee = current_employee
-    @post = Post.find_by(id: params[:id], company_id: @employee.company_id)
-    if @post.present?
-      # アクセス権限がある場合の処理
-      @post = @post
+    if action_name == 'history'
+      @company = current_employee.company
+      @employee = Employee.find(params[:employee_id])
+      @posts = @employee.posts.page(params[:page])
+      @images = @posts.map { |post| post.images }.flatten.uniq
+      @video = @posts.first.present? ? @posts.first.video : nil
+      if current_employee.company != @employee.company
+        #　他企業の場合の処理
+        redirect_to root_path, alert: "アクセス権限がありません。"
+      end
     else
-      # アクセス権限がない場合の処理
-      redirect_to posts_path, alert: 'アクセス権限がありません'
+      @employee = current_employee
+      @post = Post.find_by(id: params[:id], company_id: @employee.company_id)
+      if @post.present?
+        # アクセス権限がある場合の処理
+        @post = @post
+      else
+        # 他企業の場合の処理
+        redirect_to posts_path, alert: 'アクセス権限がありません'
+      end
     end
   end
 
