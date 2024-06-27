@@ -1,0 +1,4 @@
+<div class="card">
+  <%= render partial: 'shared/employee_index', locals: { employees: @employees, employee: @employee } %>
+  <%= render partial: 'shared/pagination', locals: { items: @employees } %>
+</div>

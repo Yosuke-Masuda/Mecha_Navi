@@ -1,0 +1,5 @@
+<div class="card jumbotron bg-light">
+  <h5><%= @employee.full_name %>の投稿履歴</h5>
+  <%= render partial: 'shared/post', collection: @posts %>
+  <%= render partial: 'shared/pagination', locals: { items: @posts } %>
+</div>
