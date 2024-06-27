@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="col mx-auto">
+        <h4 class="text-center">社員一覧</h4>
+      </div>
+    </div>
+  </div>
+  <div class="row table-row">
+    <div class="col-12">
+      <% store_names = employees.map { |employee| employee.store.name }.uniq %>
+      <% store_names.each do |store_name| %>
+        <h5><%= store_name %>店</h5>
+        <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th>社員ID</th>
+              <th>社員名</th>
+              <th>メールアドレス</th>
+              <th>ステータス</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% employees_of_store = employees.select { |employee| employee.store.name == store_name } %>
+            <% employees_of_store.each do |employee| %>
+              <tr>
+                <% if employee.is_active == true %>
+                  <td><%= employee.id %></td>
+                  <td><%= link_to "#{employee.full_name}", history_posts_path(employee_id: employee.id), class: "text-blue border-bottom border-dark" %></td>
+                  <td><%= employee.email %></td>
+                  <td><p class="text-success">有効</p></td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

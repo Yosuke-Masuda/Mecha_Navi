@@ -78,13 +78,14 @@ Rails.application.routes.draw do
         patch 'employees/mypage', to: 'employees#update'
         get 'employees/mypage/favorites', to: 'employees#favorites', as: 'favorites_mypage'
         get 'employees/mypage/history', to: 'employees#history', as: 'history_mypage'
+        get '/employees/:employee_id/posts/history', to: 'posts#history', as: 'history_posts'
         resources :posts do
             resource :favorites, only: [:create, :destroy]
             resources :post_comments, only: [:create, :destroy] do
                 resource :likes, only: [:create, :destroy]
             end
         end
-        resources :employees, only: [] do
+        resources :employees, only: [:index] do
             resources :tasks, only: [:index]
             resources :daily_tasks, only: [:new, :create]
         end
