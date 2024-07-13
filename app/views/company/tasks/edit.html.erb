@@ -1,4 +1,6 @@
-<section class="inner text-center">
-	<h2 class="section-ttl">タスク編集</h2>
-  <%= render 'shared/task_form', task: @task, url: company_task_path(current_company.id, @task) %>
-</section>
+<div class="container-fluid">
+  <div class="card jumbotron bg-light mx-auto">
+	  <h2 class="col-sm-5 mx-auto text-center">タスク編集</h2>
+    <%= render 'shared/task_form', task: @task, url: company_task_path(current_company.id, @task) %>
+  </div>
+</div>

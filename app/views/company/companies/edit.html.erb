@@ -1,15 +1,27 @@
-<div class="card">
-  <blockquote class="blockquote mb-0">
-    <div class="container">
-      <h2 class="mb-2"><%= @company.company_name %>の会員情報編集</h2>
+<div class="container-fluid">
+    <div class="card jumbotron bg-white">
+      <h2 class="mb-3 text-center"><%= @company.company_name %>の会員情報編集</h2>
       <%= form_with model: @company, url: companies_mypage_path, local: true do |f| %>
-        <table class="table table-bordered mx-auto">
+        <table class="table table-bordered col-sm-10 mx-auto">
           <tbody>
             <%= render partial: 'shared/company_form', locals: { f: f, company: @company } %>
           </tbody>
         </table>
-        <% if current_company.email == 'guest_company@example.com' %>
-          <h5>※ゲストユーザーは編集・退会処理ができません。</h5>
+        <div class="col-sm-10 mx-auto">
+          <% if current_company.email == 'guest_company@example.com' %>
+            <h5>※ゲストユーザーは編集・退会処理ができません。</h5>
+              <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+                  <i class="fa-solid fa-floppy-disk"></i> 保存
+                <% end %>
+                <%= link_to unsubscribe_companies_path, class: 'btn btn-outline-danger' do %>
+                  <i class="fa-solid fa-user-minus"></i> 退会
+                <% end %>
+                <%= link_to companies_mypage_path, class: 'btn btn-outline-primary' do %>
+                  <i class="fa-solid fa-circle-left"></i> 戻る
+                <% end %>
+              </div>
+          <% else %>
             <div class="btn-group btn-block" role="group" aria-label="Basic example">
               <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
                 <i class="fa-solid fa-floppy-disk"></i> 保存
@@ -21,20 +33,8 @@
                 <i class="fa-solid fa-circle-left"></i> 戻る
               <% end %>
             </div>
-        <% else %>
-          <div class="btn-group btn-block" role="group" aria-label="Basic example">
-            <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
-              <i class="fa-solid fa-floppy-disk"></i> 保存
-            <% end %>
-            <%= link_to unsubscribe_companies_path, class: 'btn btn-outline-danger' do %>
-              <i class="fa-solid fa-user-minus"></i> 退会
-            <% end %>
-            <%= link_to companies_mypage_path, class: 'btn btn-outline-primary' do %>
-              <i class="fa-solid fa-circle-left"></i> 戻る
-            <% end %>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       <% end %>
     </div>
-  </blockquote>
 </div>

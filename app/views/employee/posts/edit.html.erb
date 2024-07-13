@@ -1,9 +1,11 @@
-<div class="card jumbotron">
+<div class="container-fluid">
   <blockquote class="blockquote mb-0">
-    <div class="container">
+    <div class="card jumbotron bg-light">
+      <h2 class="text-center mb-3">投稿編集</h2>
       <%= form_with(model: @post, local: true) do |f| %>
-        <%= render 'shared/post_form', f: f, user_type: "employee" %>
-        <%= render 'shared/post_edit', f: f, post: @post %>
+  			  <%= render 'layouts/error_messages', resource: @post %>
+          <%= render 'shared/post_form', f: f %>
+          <%= render 'shared/post_edit', f: f, post: @post %>
       <% end %>
     </div>
   </blockquote>

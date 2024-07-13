@@ -45,9 +45,11 @@ class Company::TasksController < ApplicationController
   private
 
   def set_current_company
-    if params[:action].in?(%w[index calendar])
+    if action_name == "index" || action_name == "calendar"
       @company = Company.find(params[:company_id])
-      redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
+      if current_company.tasks != @company.tasks
+        redirect_to root_path, alert: 'アクセス権限がありません'
+      end
     else
       @task = current_company.tasks.find_by(id: params[:id])
       if @task.present? && @task.company_id == current_company.id

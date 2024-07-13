@@ -1,6 +1,6 @@
-<div class="card jumbotron" style="margin-bottom: 0px;">
-	<div class="container">
-		<h2 class="text-center">店舗編集</h2>
+<div class="container-fluid">
+  <div class="card jumbotron bg-light mx-auto">
+		<h2 class="col-sm-5 mx-auto text-center">店舗編集</h2>
 		<%= render 'shared/store_form', store: @store, url: company_store_path(current_company.id, @store) %>
   </div>
 </div>

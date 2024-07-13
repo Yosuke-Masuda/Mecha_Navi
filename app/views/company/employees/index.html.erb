@@ -1,4 +1,6 @@
-<div class="card jumbotron bg-light">
-  <%= render 'index', employees: @employees %>
-  <%= render partial: 'shared/pagination', locals: { items: @employees } %>
+<div class="container-fluid">
+  <div class="card jumbotron bg-light mx-auto">
+    <%= render 'index', employees: @employees %>
+    <%= render partial: 'shared/pagination', locals: { items: @employees } %>
+  </div>
 </div>

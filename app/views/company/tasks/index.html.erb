@@ -1,34 +1,30 @@
-<div class="card jumbotron">
-  <h2 class="text-center mb-3">タスク管理</h2>
-  <div class="card-body mb-3">
-    <div class="container-fluid">
-		  <h3>タスク新規登録</h3>
-		  <%= render 'shared/task_form', task: @task, url: company_tasks_path(@tasks) %>
-		  <h3>一覧</h3>
-		  <div class="table-responsive-sm">
-		    <table class="table">
-		      <thead>
-			    <tr>
-			      <th>タスク名</th>
-				  <th>タスク内容</th>
-				  <th></th>
+<div class="container-fluid">
+  <div class="card jumbotron bg-light mx-auto">
+    <h2 class="text-center mb-3">タスク管理</h2>
+	  <h3 class="col-sm-5 mx-auto">新規登録</h3>
+	  <%= render 'shared/task_form', task: @task, url: company_tasks_path(@tasks) %>
+	  <h3 class="col-sm-10 mx-auto">タスク一覧</h3>
+	  <table class="table col-sm-10 mx-auto">
+	    <thead>
+		    <tr>
+		      <th>タスク名</th>
+			    <th>タスク内容</th>
+			    <th></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <% @tasks.each do |task| %>
+		      <tr>
+			      <td><%= task.name %></td>
+			      <td><%= task.body %></td>
+			      <td class="text-center">
+			        <%= link_to edit_company_task_path(company_id: current_company.id, id: task.id), class: "btn btn-outline-success col-sm-4" do %>
+				        <i class="fa-solid fa-pen-to-square"></i> 編集
+				      <% end %>
+			      </td>
 			    </tr>
-			  </thead>
-			  <tbody>
-			    <% @tasks.each do |task| %>
-			      <tr>
-				    <td><%= task.name %></td>
-				    <td><%= task.body %></td>
-				    <td class="text-center">
-				      <%= link_to edit_company_task_path(company_id: current_company.id, id: task.id), class: "btn btn-outline-success" do %>
-					    <i class="fa-solid fa-pen-to-square"></i> 編集
-					  <% end %>
-				    </td>
-				  </tr>
-			    <% end %>
-			  </tbody>
-		    </table>
-		  </div>
-		</div>
+		    <% end %>
+		  </tbody>
+	  </table>
   </div>
 </div>
