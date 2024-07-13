@@ -15,7 +15,7 @@ class Admin::StoresController < ApplicationController
       flash[:notice] = "作成しました"
       redirect_to admin_stores_path
     else
-      @stores = Store.all
+      @stores = Store.page(params[:page])
       @companies = Company.all
       render :index
     end
@@ -24,7 +24,7 @@ class Admin::StoresController < ApplicationController
 
   def show
     @company = Company.find(params[:id])
-    @employees = @store.employees
+    @employees = @store.employees.page(params[:page])
   end
 
   def edit

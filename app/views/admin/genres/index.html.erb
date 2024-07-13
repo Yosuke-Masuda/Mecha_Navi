@@ -1,44 +1,47 @@
-<div class="card mx-auto">
-	<div class="container">
-		<h2 class="text-center">ジャンル管理</h2>
-			<div class="mb-3">
-		    <h3>ジャンル新規登録</h3>
-		    <%= render 'shared/genre_form', genre: @genre, url: admin_genres_path(@genre) %>
-	    </div>
-	    <div class="mb-3">
-		    <h3>ジャンル一覧</h3>
-		    <table class="table">
-			    <thead>
-				    <tr>
-					    <th>企業名</th>
-					    <th>ジャンル名</th>
-					    <th>状態</th>
-					    <th></th>
-				    </tr>
-			    </thead>
-			  <tbody>
-          <% @genres.group_by(&:company).each do |company, genres| %>
-            <% genres.each do |genre| %>
-              <tr>
-                <% if genre == genres.first %>
-                  <td rowspan="<%= genres.size %>"><%= company.company_name %></td>
-                <% end %>
-                  <td><%= genre.name %></td>
-                  <td>
-                    <% if genre.is_active? %>
-                      <p class="text-success">有効</p>
-                    <% else %>
-                      <p class="text-secondary">無効</p>
-                    <% end %>
-                  </td>
-                  <td class="text-center"><%= link_to "編集", edit_admin_genre_path(genre), class: "btn btn-success" %></td>
-                </tr>
+<div class="card jumbotron bg-light mx-auto">
+	<h2 class="text-center mb-3">ジャンル管理</h2>
+	<div class="mb-3">
+    <h4 class="col-md-5 mx-auto">ジャンル新規登録</h4>
+    <%= render 'shared/genre_form', genre: @genre, url: admin_genres_path(@genre) %>
+  </div>
+  <div class="mb-3">
+    <h4 class="col-md-10 mx-auto mb-3">ジャンル一覧</h4>
+    <div class="table-responsive">
+	    <table class="table col-md-10 mx-auto">
+		    <thead>
+			    <tr>
+				    <th scope="col">企業名</th>
+				    <th scope="col">ジャンル名</th>
+				    <th scope="col">状態</th>
+				    <th scope="col"></th>
+			    </tr>
+		    </thead>
+		  <tbody>
+        <% @genres.group_by(&:company).each do |company, genres| %>
+          <% genres.each do |genre| %>
+            <tr>
+              <% if genre == genres.first %>
+                <td rowspan="<%= genres.size %>"><%= company.company_name %></td>
               <% end %>
+                <td><%= genre.name %></td>
+                <td>
+                  <% if genre.is_active? %>
+                    <p class="text-success">有効</p>
+                  <% else %>
+                    <p class="text-secondary">無効</p>
+                  <% end %>
+                </td>
+                <td class="text-center">
+                  <%= link_to edit_admin_genre_path(genre), class: "btn btn-outline-success" do %>
+                    <i class="fa-solid fa-pen-to-square"></i> 編集
+                  <% end %>
+                </td>
+              </tr>
             <% end %>
-          </tbody>
-		    </table>
-	    </div>
+          <% end %>
+        </tbody>
+	    </table>
     </div>
-    <%= render partial: 'shared/pagination', locals: { items: @genres } %>
-	</div>
+  </div>
+  <%= render 'shared/pagination', items: @genres %>
 </div>

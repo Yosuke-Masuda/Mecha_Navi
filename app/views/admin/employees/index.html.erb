@@ -1,32 +1,32 @@
-<div class="card jumbotron bg-light">
-  <div class="container">
-    <h1><%= @company.company_name %>様の社員一覧</h1>
-    <%= link_to admin_companies_path, class: 'btn btn-outline-primary' do %>
-      <i class="fa-regular fa-file-image"></i> 投稿履歴一覧
-    <% end %>
-    <%= link_to admin_companies_path, class: 'btn btn-outline-primary' do %>
-      <i class="fa-solid fa-users-viewfinder"></i> 顧客一覧
-    <% end %>
-
+  <div class="card jumbotron bg-light">
+    <h4 class="text-center mb-3"><%= @company.company_name %>様の社員一覧</h4>
+    <div class="col-md-10 mx-auto mb-3">
+      <%= link_to admin_companies_path, class: 'btn btn-outline-primary' do %>
+        <i class="fa-solid fa-users-viewfinder"></i> 顧客一覧
+      <% end %>
+    </div>
     <% @stores.each do |store| %>
       <% employees_in_store = @employees.select { |employee| employee.store_id == store.id } %>
       <% if employees_in_store.any? %>
-        <h2><%= store.name %>店</h2>
-        <table class="table">
-          <thead>
+      <h3 class="col-md-10 mx-auto mb-3"><%= store.name %>店</h3>
+      <div class="table-responsive">
+        <table class="table col-md-10 mx-auto">
+          <thead class="thead-light">
             <tr>
-              <th>社員ID</th>
-              <th>社員名</th>
-              <th>メールアドレス</th>
-              <th>ステータス</th>
-              <th></th>
+              <th scope="col">#</th>
+              <th scope="col">社員名</th>
+              <th scope="col">社員ID</th>
+              <th scope="col">メールアドレス</th>
+              <th scope="col">ステータス</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
             <% employees_in_store.each do |employee| %>
               <tr>
+                <th scope="row"><%= @employees.index(employee) + 1 %></th>
+                <td><%= link_to "#{employee.full_name}", admin_company_employee_path(@company.id, employee.id), class: "text-blue border-bottom border-blue" %></td>
                 <td><%= employee.id %></td>
-                <td><%= link_to "#{employee.full_name}の詳細ページ", admin_company_employee_path(id: employee.id, company_id: @company.id), class: "text-blue border-bottom border-blue" %></td>
                 <td><%= employee.email %></td>
                 <td>
                   <% if employee.is_active? %>
@@ -37,11 +37,11 @@
                 </td>
                 <td>
                   <% if employee.is_active == true %>
-                    <%= link_to admin_employee_calendar_path(company_id: @company, employee_id: employee), class: "btn btn-outline-primary" do %>
-                      <i class="fa-regular fa-chart-bar"></i> タスク状況
+                    <%= link_to admin_employee_calendar_path(@company, employee), class: "btn btn-primary rounded-circle btn-sm" do %>
+                      <i class="fa-solid fa-calendar-days"></i>
                     <% end %>
-                    <%= link_to history_admin_company_employee_posts_path(company_id: @company, employee_id: employee), class: "btn btn-outline-primary" do %>
-                      <i class="fa-regular fa-file-image"></i> 投稿一覧
+                    <%= link_to history_admin_company_employee_posts_path(@company, employee), class: "btn btn-primary rounded-circle btn-sm" do %>
+                      <i class="fa-solid fa-photo-film"></i>
                     <% end %>
                   <% end %>
                 </td>
@@ -49,8 +49,8 @@
             <% end %>
           </tbody>
         </table>
+      </div>
       <% end %>
     <% end %>
+    <%= render partial: 'shared/pagination', locals: { items: @employees } %>
   </div>
-  <%= render partial: 'shared/pagination', locals: { items: @employees } %>
-</div>

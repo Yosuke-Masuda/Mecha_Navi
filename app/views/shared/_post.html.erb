@@ -1,4 +1,4 @@
-<div class="card mb-3 jumbotron" style="max-width: autopx;">
+<div class="card jumbotron mb-3 bg-light" style="max-width: autopx;">
   <div class="row no-gutters">
     <div class="col-md-4">
       <div class="post-partial">
@@ -32,49 +32,55 @@
     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title">タイトル:<%= post.title %></h5>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">会社名：<%= post.employee.company.company_name %>　店舗名：<%= post.employee.store.name %>店　投稿者：<%= post.employee.last_name %>　<%= post.employee.first_name %></li>
-          <li class="list-group-item">車名：<%= post.car_name.name if post.car_name.present? %>　型式：<%= post.car_name.car_type if post.car_name.present? %>　ジャンル：<%= post.genre.name if post.genre.present? %></li>
-        </ul>
-        <p class="card-text">説明文：<%= post.caption %></p>
-        <p class="card-text"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d/%H:%M') %></small></p>
-        <div class="card-body">
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <% if admin_signed_in? %>
-                <%= link_to admin_company_employee_post_path(company_id: post.company_id, employee_id: post.employee_id, id: post.id), class: 'btn btn-outline-primary' do %>
-                 <i class="fa-solid fa-circle-info"></i> 詳細
-                <% end %>
-                <%= link_to edit_admin_company_employee_post_path(post.company_id, post.employee_id, post.id), class: "btn btn-outline-success" do %>
-                  <i class="fa-solid fa-pen-to-square"></i> 編集
-                <% end %>
-                <%= link_to admin_company_employee_post_path(company_id: post.company_id, employee_id: post.employee_id, id: post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
-                  <i class="fa-solid fa-trash"></i> 削除
-                <% end %>
-            <% elsif company_signed_in? %>
-              <%= link_to company_employee_post_path(company_id: current_company.id, employee_id: post.employee_id, id: post.id), class: "btn btn-outline-primary" do %>
-                <i class="fa-solid fa-circle-info"></i> 詳細
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">会社名：<%= post.employee.company.company_name %>　店舗名：<%= post.employee.store.name %>店　投稿者：<%= post.employee.last_name %>　<%= post.employee.first_name %></li>
+        <li class="list-group-item">車名：<%= post.car_name.name if post.car_name.present? %>　型式：<%= post.car_name.car_type if post.car_name.present? %>　ジャンル：<%= post.genre.name if post.genre.present? %></li>
+      </ul>
+      <div class="card-body">
+        <p class="card-text">
+          説明文</br><%= post.caption %></br>
+          <small class="text-muted">
+            投稿日：<%= post.created_at.strftime('%Y/%m/%d/%H:%M') %>
+          </small>
+          　❤️ <%= post.favorites.count %>
+        </p>
+      </div>
+      <div class="card-body col-sm-5 mx-auto">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <% if admin_signed_in? %>
+              <%= link_to admin_company_employee_post_path(company_id: post.company_id, employee_id: post.employee_id, id: post.id), class: 'btn btn-outline-primary' do %>
+               <i class="fa-solid fa-circle-info"></i> 詳細
               <% end %>
-              <%= link_to edit_company_employee_post_path(company_id: current_company.id,employee_id: post.employee.id, id: post.id), class: "btn btn-outline-success" do %>
+              <%= link_to edit_admin_company_employee_post_path(post.company_id, post.employee_id, post.id), class: "btn btn-outline-success" do %>
                 <i class="fa-solid fa-pen-to-square"></i> 編集
               <% end %>
-              <%= link_to company_employee_post_path(company_id: current_company.id, employee_id: post.employee.id, id: post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
+              <%= link_to admin_company_employee_post_path(company_id: post.company_id, employee_id: post.employee_id, id: post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
                 <i class="fa-solid fa-trash"></i> 削除
               <% end %>
-            <% elsif employee_signed_in? %>
-              <%= link_to post_path(post.id), class: "btn btn-outline-primary" do %>
-                <i class="fa-solid fa-circle-info"></i> 詳細
+          <% elsif company_signed_in? %>
+            <%= link_to company_employee_post_path(company_id: current_company.id, employee_id: post.employee_id, id: post.id), class: "btn btn-outline-primary" do %>
+              <i class="fa-solid fa-circle-info"></i> 詳細
+            <% end %>
+            <%= link_to edit_company_employee_post_path(company_id: current_company.id,employee_id: post.employee.id, id: post.id), class: "btn btn-outline-success" do %>
+              <i class="fa-solid fa-pen-to-square"></i> 編集
+            <% end %>
+            <%= link_to company_employee_post_path(company_id: current_company.id, employee_id: post.employee.id, id: post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
+              <i class="fa-solid fa-trash"></i> 削除
+            <% end %>
+          <% elsif employee_signed_in? %>
+            <%= link_to post_path(post.id), class: "btn btn-outline-primary" do %>
+              <i class="fa-solid fa-circle-info"></i> 詳細
+            <% end %>
+            <% if post.employee_id == current_employee.id %>
+              <%= link_to edit_post_path(post.id), class: "btn btn-outline-success" do %>
+                <i class="fa-solid fa-pen-to-square"></i> 編集
               <% end %>
-              <% if post.employee_id == current_employee.id %>
-                <%= link_to edit_post_path(post.id), class: "btn btn-outline-success" do %>
-                  <i class="fa-solid fa-pen-to-square"></i> 編集
-                <% end %>
-                <%= link_to post_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
-                  <i class="fa-solid fa-trash"></i> 削除
-                <% end %>
+              <%= link_to post_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
+                <i class="fa-solid fa-trash"></i> 削除
               <% end %>
             <% end %>
-          </div>
-          <p class="text-right">いいね件数：<%= post.favorites.count %></p>
+          <% end %>
         </div>
       </div>
     </div>

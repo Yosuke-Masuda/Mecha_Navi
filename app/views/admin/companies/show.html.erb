@@ -6,7 +6,7 @@
 		    <table class="table table-bordered">
 		    	<tbody>
 		    		<tr>
-				      <td>会員ID</td>
+				      <td>企業ID</td>
 				      <td colspan="2"><%= @company.id %></td>
 			      </tr>
 			      <tr>
@@ -17,11 +17,6 @@
 				      <td>フリガナ</td>
 				      <td><%= @company.company_name_kana %></td>
 			      </tr>
-			      <tr>
-				      <td>メールアドレス</td>
-				      <td colspan="2"><%= @company.email %></td>
-				    </tr>
-			      <tr>
 				      <td>郵便番号</td>
 				      <td colspan="2"><%= @company.postal_code %></td>
 			      </tr>
@@ -34,7 +29,12 @@
 				      <td colspan="2"><%= @company.phone_number %></td>
 			      </tr>
 			      <tr>
-				      <td>会員ステータス</td>
+				      <td>メールアドレス</td>
+				      <td colspan="2"><%= @company.email %></td>
+				    </tr>
+			      <tr>
+			      <tr>
+				      <td>ステータス</td>
 				      <td colspan="2">
 					      <% if @company.is_active? %>
 						      <span class="text-active">有効	</span>

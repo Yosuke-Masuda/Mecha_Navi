@@ -25,7 +25,7 @@ class Company::PostsController < ApplicationController
   def update
     if params[:post][:image_ids]
        params[:post][:image_ids].each do |image_id|
-        image = post.images.find_by_id(image_id)
+        image = @post.images.find_by_id(image_id)
         image.purge if image
        end
     end
@@ -46,9 +46,11 @@ class Company::PostsController < ApplicationController
   private
 
   def set_current_company
-    if params[:action].in?(%w[index])
+    if action_name == 'index'
       @company = Company.find(params[:company_id])
-      redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
+      if current_company.posts != @company.posts
+        redirect_to root_path, alert: 'アクセス権限がありません'
+      end
     else
       @post = current_company.posts.find_by(id: params[:id], employee_id: current_company.employees)
       if @post.present?

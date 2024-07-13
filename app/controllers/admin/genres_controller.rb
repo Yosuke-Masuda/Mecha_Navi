@@ -15,7 +15,7 @@ class Admin::GenresController < ApplicationController
       flash[:notice] = "作成しました"
       redirect_to admin_genres_path
     else
-      @genres = Genre.all
+      @genres = Genre.page(params[:page])
       @companies = Company.all
       render :index
     end

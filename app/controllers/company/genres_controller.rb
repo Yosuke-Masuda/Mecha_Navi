@@ -13,7 +13,7 @@ class Company::GenresController < ApplicationController
       flash[:notice] = "作成しました"
       redirect_to company_genres_path(current_company.id)
     else
-      @genres = current_company.genres
+      @genres = current_company.genres.page(params[:page])
       render :index
     end
   end
@@ -33,11 +33,13 @@ class Company::GenresController < ApplicationController
   private
 
   def set_current_company
-    if params[:action].in?(%w[index])
+    if action_name == 'index'
       @company = Company.find(params[:company_id])
       @genre = Genre.new
       @genres = current_company.genres.page(params[:page])
-      redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
+      if current_company.genres != @company.genres
+        redirect_to root_path, alert: 'アクセス権限がありません'
+      end
     else
       @genre = current_company.genres.find_by(id: params[:id])
       if @genre.present? && @genre.company_id == current_company.id

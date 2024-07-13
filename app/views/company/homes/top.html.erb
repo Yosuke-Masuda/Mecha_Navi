@@ -1,19 +1,9 @@
-<div class="card jumbotron">
+<div class="card jumbotron bg-light">
   <div class="row">
-    <%= render partial: 'shared/admin_heading' %>
-    <div class="col-12 mx-auto">
-      <table class="table table_border">
+    <h4 class="mb-3"><%= @company.company_name %>様の投稿履歴一覧</h4>
+    <div class="table-responsive">
+      <table class="table">
         <%= render partial: 'shared/table_header' %>
-        <tbody>
-        <% @recent_posts.each do |post| %>
-          <tr>
-            <td><%= link_to post.employee.full_name, company_employee_post_path(company_id: post.company_id, employee_id: post.employee_id, id: post.id) %></td>
-            <td><%= post.recent_post_count %>件</td>
-            <td><%= @all_posts_count_by_employee[post.employee_id] %>件</td>
-            <td><%= @favorites_count_by_employee[post.employee_id].to_i.zero? ? 0 : @favorites_count_by_employee[post.employee_id] %>件</td>
-          </tr>
-        <% end %>
-        </tbody>
       </table>
     </div>
   </div>

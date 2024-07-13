@@ -1,7 +1,8 @@
-<div class="card jumbotron">
 <div class="card-body">
-  <h5 class="card-title">タイトル:<%= post.title %></h5>
   <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+    <h5 class="card-title">タイトル：<%= post.title %></h5>
+    </li>
     <li class="list-group-item">
       会社名：<%= post.company.company_name %>　店舗名：<%= post.employee.store.name %>店　投稿者：<%= post.employee.full_name %>
     </li>
@@ -13,58 +14,58 @@
   </ul>
 
   <% if post.images.attached? %>
-    <div style="text-align: center;">
+    <div class="image-container">
       <% post.images.each do |image| %>
-       <%= image_tag(image, width: "75%", class: "img-fluid") %>
+        <%= link_to image_tag(image), url_for(image), target: "_blank" %>
       <% end %>
     </div>
+    <h6 class="text-center">※画像クリックで拡大</h6>
   <% elsif post.video.attached? %>
     <div class='file-container'>
       <%= video_tag rails_blob_path(post.video), controls: true, class: 'responsive-video rounded', width: '100%' %>
     </div>
   <% end %>
-    <div class="card-body">
-      <p class="card-text">説明文</br><%= post.caption%></p>
-      <p class="card-text text-center"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></small></p>
-    </div>
-    <div class="card-body text-center">
-      <div class="btn-group btn-block" role="group" aria-label="Basic example">
-        <% if admin_signed_in? %>
-          <%= link_to history_admin_company_employee_posts_path(company_id: post.company_id, employee_id: post.employee), class: "btn btn-outline-primary" do %>
-            <i class="fa-solid fa-photo-film"></i> 一覧
-          <% end %>
-          <%= link_to edit_admin_company_employee_post_path(post.company_id, post.employee_id, post.id), class: "btn btn-outline-success" do %>
-            <i class="fa-solid fa-pen-to-square"></i> 編集
-          <% end %>
-          <%= link_to admin_company_employee_post_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
-            <i class="fa-solid fa-trash"></i> 削除
-          <% end %>
-        <% elsif company_signed_in? %>
-          <%= link_to company_employee_posts_path(@company), class: "btn btn-outline-primary" do %>
-            <i class="fa-solid fa-photo-film"></i> 一覧
-          <% end %>
-            <% if post.employee.company_id == current_company.id %>
-              <%= link_to edit_company_employee_post_path(company_id: current_company.id,employee_id: post.employee_id, id: post.id), class: "btn btn-outline-success" do %>
-                <i class="fa-solid fa-pen-to-square"></i> 編集
-              <% end %>
-              <%= link_to company_employee_post_path(company_id: current_company.id, employee_id: post.employee_id, id: post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
-                <i class="fa-solid fa-trash"></i> 削除
-              <% end %>
-            <% end %>
-        <% elsif employee_signed_in? %>
-          <%= link_to posts_path(post.id), class: "btn btn-outline-primary" do %>
-           <i class="fa-solid fa-photo-film"></i> 一覧
-          <% end %>
-            <% if post.employee_id == current_employee.id %>
-              <%= link_to edit_post_path(post.id), class: "btn btn-outline-success" do %>
-                <i class="fa-solid fa-pen-to-square"></i> 編集
-              <% end %>
-              <%= link_to post_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
-                <i class="fa-solid fa-trash"></i> 削除
-              <% end %>
-            <% end %>
+  <div class="card-body">
+    <p class="card-text">説明文</br><%= post.caption%></p>
+    <p class="card-text text-center"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></small></p>
+  </div>
+  <div class="card-body text-center">
+    <div class="btn-group btn-block" role="group" aria-label="Basic example">
+      <% if admin_signed_in? %>
+        <%= link_to history_admin_company_employee_posts_path(company_id: post.company_id, employee_id: post.employee), class: "btn btn-outline-primary" do %>
+          <i class="fa-solid fa-photo-film"></i> 一覧
         <% end %>
-      </div>
+        <%= link_to edit_admin_company_employee_post_path(post.company_id, post.employee_id, post.id), class: "btn btn-outline-success" do %>
+          <i class="fa-solid fa-pen-to-square"></i> 編集
+        <% end %>
+        <%= link_to admin_company_employee_post_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
+          <i class="fa-solid fa-trash"></i> 削除
+        <% end %>
+      <% elsif company_signed_in? %>
+        <%= link_to company_employee_posts_path(@company), class: "btn btn-outline-primary" do %>
+          <i class="fa-solid fa-photo-film"></i> 一覧
+        <% end %>
+          <% if post.employee.company_id == current_company.id %>
+            <%= link_to edit_company_employee_post_path(company_id: current_company.id,employee_id: post.employee_id, id: post.id), class: "btn btn-outline-success" do %>
+              <i class="fa-solid fa-pen-to-square"></i> 編集
+            <% end %>
+            <%= link_to company_employee_post_path(company_id: current_company.id, employee_id: post.employee_id, id: post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
+              <i class="fa-solid fa-trash"></i> 削除
+            <% end %>
+          <% end %>
+      <% elsif employee_signed_in? %>
+        <%= link_to posts_path(post.id), class: "btn btn-outline-primary" do %>
+         <i class="fa-solid fa-photo-film"></i> 一覧
+        <% end %>
+          <% if post.employee_id == current_employee.id %>
+            <%= link_to edit_post_path(post.id), class: "btn btn-outline-success" do %>
+              <i class="fa-solid fa-pen-to-square"></i> 編集
+            <% end %>
+            <%= link_to post_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
+              <i class="fa-solid fa-trash"></i> 削除
+            <% end %>
+          <% end %>
+      <% end %>
     </div>
   </div>
 </div>

@@ -11,7 +11,7 @@ class Company::EmployeesController < ApplicationController
     @employee = Employee.new(employee_params)
     @employee.company_id = current_company.id if current_company
       if @employee.save
-        redirect_to company_employees_path(@employee.id), notice: '社員登録が完了しました。'
+        redirect_to company_employees_path(current_company.id), notice: '社員登録が完了しました。'
       else
         render :new
       end
@@ -38,11 +38,14 @@ class Company::EmployeesController < ApplicationController
   private
 
   def set_current_company
-    if params[:action].in?(%w[index])
+    if action_name == 'index'
       @company = Company.find(params[:company_id])
       @employees = current_company.employees.includes(:store).order('stores.name').page(params[:page])#店舗順に社員を管理
       @tasks = @company.tasks
-      redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
+      if current_company.employees != @company.employees
+        #　他企業の場合の処理
+        redirect_to root_path, alert: "アクセス権限がありません。"
+      end
     else
       @employee = current_company.employees.find_by(id: params[:id])
       if @employee.present? && @employee.company_id == current_company.id

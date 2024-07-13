@@ -1,19 +1,19 @@
-<div class="card mx-auto">
-	<div class="container">
-		<h2 class="text-center">店舗管理</h2>
-		<div class="mb-3">
-	    <h3>店舗新規登録</h3>
-	    <%= render 'shared/store_form', store: @store, url: admin_stores_path(@store) %>
-    </div>
-    <div class="mb-3">
-	    <h3>一覧</h3>
-	    <table class="table">
+<div class="card jumbotron bg-light mx-auto">
+	<h2 class="text-center">店舗管理</h2>
+	<div class="mb-3">
+    <h4 class="col-md-5 mx-auto">店舗新規登録</h4>
+    <%= render 'shared/store_form', store: @store, url: admin_stores_path(@store) %>
+  </div>
+  <div class="mb-3">
+    <h4 class="col-md-10 mx-auto">一覧</h4>
+    <div class="table-responsive">
+	    <table class="table col-md-10 mx-auto">
 		    <thead>
 			    <tr>
-				    <th>企業名</th>
-				    <th>店舗名</th>
-				    <th>状態</th>
-				    <th></th>
+				    <th scope="col">企業名</th>
+				    <th scope="col">店舗名</th>
+				    <th scope="col">状態</th>
+				    <th scope="col"></th>
 			    </tr>
 		    </thead>
   		  <tbody>
@@ -31,13 +31,17 @@
                     <p class="text-secondary">無効</p>
                   <% end %>
                 </td>
-                <td class="text-center"><%= link_to "編集", edit_admin_store_path(store), class: "btn btn-success" %></td>
+                <td class="text-center">
+                  <%= link_to edit_admin_store_path(store), class: "btn btn-outline-success" do %>
+                    <i class="fa-solid fa-pen-to-square"></i> 編集
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           <% end %>
         </tbody>
   	  </table>
-    </div>
-    <%= render partial: 'shared/pagination', locals: { items: @stores } %>
-	</div>
+	  </div>
+  </div>
+  <%= render 'shared/pagination', items: @stores %>
 </div>
