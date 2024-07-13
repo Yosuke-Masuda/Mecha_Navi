@@ -14,7 +14,7 @@ class Admin::TasksController < ApplicationController
       flash[:notice] = "作成しました"
       redirect_to admin_tasks_path
     else
-      @tasks = Task.all
+      @tasks = Task.page(params[:page])
       @companies = Company.all
       render :index
     end

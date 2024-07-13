@@ -14,8 +14,8 @@
   </head>
 
   <body>
-    <div class="container-fulid card">
-      <div class="card-header">
+    <div class="container-fluid">
+      <div class="header">
         <header class="shadow-sm">
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <%= link_to image_tag("repair service.png", size: "50x50"), root_path, class: "image mt-2" %>
@@ -75,7 +75,7 @@
                         <i class="fa-solid fa-user-plus"></i> 社員登録</a>
                       <% end %>
                       <%= link_to company_employees_path(current_company.id), class: 'dropdown-item' do %>
-                        <i class="fa-solid fa-users-viewfinder"></i> 社員一覧</a>
+                        <i class="fa-solid fa-users-viewfinder"></i> 社員一覧 / タスク進捗</a>
                       <% end %>
                     </div>
                   </li>
@@ -172,7 +172,7 @@
                     <% end %>
                   </li>
                   <li class="nav-item">
-                    <h6 class= "navbar">　　※会員でない方は下記のゲストログインからお試し頂けます</h6>
+                    <h6 class= "navbar">　　※会員でない方はトップページ下記のゲストログインからお試し頂けます</h6>
                   </li>
                 <% end %>
               </ul>
@@ -191,15 +191,24 @@
             <% end %>
           </nav>
         </header>
-        <main>
+      </div>
+      <div class="row flex-xl-nowrap">
+        <main class="col-md-12 col-xl-12 bd-content" role="main">
           <div id="flash">
             <%= render "layouts/flash" %>
           </div>
           <%= yield %>
         </main>
-          <%= render 'layouts/footer' %>
-          <%= debug params if Rails.env.development? %>
       </div>
+      <%= render 'layouts/footer' %>
+      <%= debug params if Rails.env.development? %>
+      <% if Rails.env.development? %>
+      	<ul>
+	　	    <li>company: <%= current_company.inspect %></li>
+	　	    <li>employee: <%= current_employee.inspect %></li>
+	　	    <li>admin: <%= current_admin.inspect %></li>
+	　    </ul>
+      <% end %>
     </div>
   </body>
 </html>

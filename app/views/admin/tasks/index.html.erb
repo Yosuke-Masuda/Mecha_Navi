@@ -1,26 +1,25 @@
-<div class="card jumbotron container-fluid">
+<div class="card jumbotron bg-light mx-auto">
 	<h2 class="text-center mb-3">タスク管理</h2>
-	<div class="card-body">
-		<h3>タスク新規登録</h3>
-  	<%= render 'shared/task_form', task: @task, url: admin_tasks_path %>
-		<h3>一覧</h3>
-		<div class="table-responsive-sm">
-		  <table class="table">
-			  <thead>
-				  <tr>
-				  	<th>企業名</th>
-				    <th>タスク名</th>
-				    <th>タスク内容</th>
-				    <th></th>
-				  </tr>
-			  </thead>
-			  <tbody>
-			  	<% @tasks.group_by(&:company).each do |company, tasks| %>
+	<h4 class="col-md-5 mx-auto mb-3">タスク新規登録</h4>
+	<%= render 'shared/task_form', task: @task, url: admin_tasks_path %>
+	<h4 class="col-md-10 mx-auto">一覧</h4>
+	<div class="table-responsive">
+	  <table class="table col-md-10 mx-auto">
+		  <thead>
+			  <tr>
+			  	<th scope="col">企業名</th>
+			    <th scope="col">タスク名</th>
+			    <th scope="col">タスク内容</th>
+			    <th scope="col"></th>
+			  </tr>
+		  </thead>
+		  <tbody>
+		  	<% @tasks.group_by(&:company).each do |company, tasks| %>
 				  <% tasks.each do |task| %>
 					  <tr>
 					  	<% if task == tasks.first %>
-                            <td rowspan="<%= tasks.size %>"><%= company.company_name %></td>
-                          <% end %>
+		            <td rowspan="<%= tasks.size %>"><%= company.company_name %></td>
+		          <% end %>
 						  <td><%= task.name %></td>
 						  <td><%= task.body %></td>
 						  <td class="text-center">
@@ -30,10 +29,9 @@
 						  </td>
 					  </tr>
 				  <% end %>
-				  <% end %>
-			  </tbody>
-		  </table>
-	  </div>
-  </div>
-  <%= render partial: 'shared/pagination', locals: { items: @tasks } %>
+			  <% end %>
+		  </tbody>
+	  </table>
+	</div>
+	<%= render 'shared/pagination', items: @tasks %>
 </div>

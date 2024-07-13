@@ -1,17 +1,23 @@
-<div class="container">
-  <h2><%= @employee.full_name %>のタスク状況</h2>
-  <%= link_to "社員一覧へ", company_employees_path(company_id: current_company.id), class: 'btn btn-outline-primary' %>
-  <div class="row">
-    <div class="card col-12 mx-auto">
-      <%= month_calendar(events: @daily_tasks) do |date, events| %>
-        <%= date.day %>
-        <% if events.size == 0 %>
-          <%= link_to "タスク未入力", company_employee_daily_tasks_path(@company, @employee, date: date) %>
-        <% elsif events.size == @tasks.size %>
-          完了
-        <% else %>
-         <%= link_to "#{events.size}/#{@tasks.size}", company_employee_daily_tasks_path(@company, @employee, date: date) %>
+<div class="container-fluid">
+  <div class="card jumbotron bg-light">
+    <h2 class="col-sm-10 mx-auto mb-3"><%= @employee.full_name %>のタスク進捗</h2>
+    <div class="row">
+      <div class="col-sm-10 mx-auto">
+        <%= month_calendar(events: @daily_tasks) do |date, events| %>
+          <%= date.day %>
+          <% if events.size == 0 %>
+            <%= link_to "タスク未入力", company_employee_daily_tasks_path(@company, @employee, date: date) %>
+          <% elsif events.size == @tasks.size %>
+            完了
+          <% else %>
+           <%= link_to "#{events.size}/#{@tasks.size}", company_employee_daily_tasks_path(@company, @employee, date: date) %>
+          <% end %>
         <% end %>
+      </div>
+    </div>
+    <div class="col-sm-10 mx-auto">
+      <%= link_to company_employees_path(company_id: current_company.id), class: 'btn btn-outline-primary mb-3' do %>
+        <i class="fa-solid fa-users"></i> 社員一覧
       <% end %>
     </div>
   </div>

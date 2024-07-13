@@ -1,12 +1,14 @@
-<% if resource.errors.any? %>
-  <div id="error_explanation">
-    <div class="alert alert-danger">
-      <h4>エラーが発生しました。以下をご確認ください。</h4>
+<div class="container-fluid">
+  <% if resource.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-danger">
+        <h4>エラーが発生しました。以下をご確認ください。</h4>
+      </div>
+      <ul>
+        <% resource.errors.full_messages.each do |message| %>
+          <li><%= raw message %></li>
+        <% end %>
+      </ul>
     </div>
-    <ul>
-      <% resource.errors.full_messages.each do |message| %>
-        <li><%= raw message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+  <% end %>
+</div>

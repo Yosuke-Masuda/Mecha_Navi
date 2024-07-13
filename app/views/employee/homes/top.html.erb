@@ -1,59 +1,71 @@
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="<%= asset_path('top.jpg') %>", class="d-block w-100" alt="top">
-      <div class="card-img-overlay d-flex">
-        <div class="vertical-text">
-          <p>作業イメージができない時や</p>
-          <p>診断内容を共有する時などに使用し</p>
-          <p>作業の効率と質の向上させましょう</p>
+<div class="container-fluid">
+  <div class="card mx-auto">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="<%= asset_path('top.jpg') %>", class="d-block w-100" alt="top">
+          <div class="card-img-overlay d-flex">
+            <div class="vertical-text">
+              <p>作業イメージができない時や</p>
+              <p>診断内容を共有する時などに使用し</p>
+              <p>作業効率と質の向上させましょう</p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="<%= asset_path('top1.jpg') %>", class="d-block w-100" alt="top1">
+          <div class="card-img-overlay d-flex">
+            <div class="vertical-text">
+              <p>【 積極的に投稿を 】</p>
+              <p>作業内容の情報共有をして</p>
+              <p>効率と質を向上しましょう</p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="<%= asset_path('top2.jpg') %>", class="d-block w-100" alt="top2">
+          <div class="card-img-overlay d-flex">
+            <div class="vertical-text">
+              <p>【 タスク確認を 】</p>
+              <p>お客様を迎える準備をしましょう</p>
+            </div>
+          </div>
         </div>
       </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
-    <div class="carousel-item">
-      <img src="<%= asset_path('top1.jpg') %>", class="d-block w-100" alt="top1">
-      <div class="card-img-overlay d-flex">
-        <div class="vertical-text">
-          <p>【 積極的に投稿を 】</p>
-          <p>作業内容の情報共有をして</p>
-          <p>効率と質を向上しましょう</p>
-        </div>
-      </div>
+    <div class="mb-3">
+      <% if !current_company && !current_admin && !current_employee %>
+      <h6>会員でない方はこちらからお試し頂けます。</h6>
+        <%= link_to  companies_guest_sign_in_path, class: 'btn btn-outline-primary col-sm-3 mb-3', method: :post do %>
+         <i class="fa-solid fa-right-from-bracket"></i> ゲストログイン（企業用）
+        <% end %>
+        <%= link_to  employees_guest_sign_in_path, class: 'btn btn-outline-primary col-sm-3 mb-3', method: :post do %>
+         <i class="fa-solid fa-right-from-bracket"></i> ゲストログイン（社員用）
+        <% end %>
+      <h6>会員でない方はこちらから新規登録頂けます。</h6>
+        <%= link_to new_company_registration_path, class: 'btn btn-outline-primary col-sm-3' do %>
+         <i class="fa-solid fa-right-from-bracket"></i> 新規登録
+        <% end %>
+      <% end %>
     </div>
-    <div class="carousel-item">
-      <img src="<%= asset_path('top2.jpg') %>", class="d-block w-100" alt="top2">
-      <div class="card-img-overlay d-flex">
-        <div class="vertical-text">
-          <p>【 タスク確認を 】</p>
-          <p>お客様を迎える準備をしましょう</p>
-        </div>
-      </div>
+    <% if employee_signed_in? %>
+    <div class="card-body">
+      <h2 class="col-sm-4 mb-3">新しい投稿（５件）</h2>
+      <%= render partial: 'shared/post', collection: @posts %>
     </div>
+    <% end %>
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
 </div>
-<% if !current_company && !current_admin && !current_employee %>
-<h6>会員でない方はこちらからお試し頂けます。</h6>
-  <%= link_to  companies_guest_sign_in_path, class: 'btn btn-outline-primary', method: :post do %>
-   <i class="fa-solid fa-right-from-bracket"></i> ゲストログイン（企業用）
-  <% end %>
-  <%= link_to  employees_guest_sign_in_path, class: 'btn btn-outline-primary', method: :post do %>
-   <i class="fa-solid fa-right-from-bracket"></i> ゲストログイン（社員用）
-  <% end %>
-<h6>会員でない方はこちらから新規登録頂けます。</h6>
-  <%= link_to new_company_registration_path, class: 'btn btn-outline-primary' do %>
-   <i class="fa-solid fa-right-from-bracket"></i> 新規登録
-  <% end %>
-<% end %>

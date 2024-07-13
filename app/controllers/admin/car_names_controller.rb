@@ -14,7 +14,7 @@ class Admin::CarNamesController < ApplicationController
       flash[:notice] = "作成しました"
       redirect_to admin_car_names_path
     else
-      @car_names = CarName.all
+      @car_names = CarName.page(params[:page])
       @companies = Company.all
       render :index
     end

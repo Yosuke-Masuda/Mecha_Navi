@@ -33,7 +33,7 @@
               <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
                 <i class="fa-solid fa-floppy-disk"></i> 保存
               <% end %>
-              <%= link_to company_employee_path(company_id: current_company.id, id: @employee.id), class: 'btn btn-outline-primary' do %>
+              <%= link_to company_employees_path(company_id: current_company.id), class: 'btn btn-outline-primary' do %>
                 <i class="fa-solid fa-user"></i> 戻る
               <% end %>
             </div>

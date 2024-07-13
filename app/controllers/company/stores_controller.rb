@@ -13,12 +13,13 @@ class Company::StoresController < ApplicationController
       flash[:notice] = "作成しました"
       redirect_to company_stores_path(current_company.id)
     else
-      @stores = current_company.stores
+      @stores = current_company.stores.page(params[:page])
       render :index
     end
   end
 
   def show
+    @employees = @store.employees.page(params[:page])
   end
 
   def edit
@@ -36,11 +37,13 @@ class Company::StoresController < ApplicationController
   private
 
   def set_current_company
-    if params[:action].in?(%w[index])
+    if action_name == 'index'
       @company = Company.find(params[:company_id])
-      @stores = @company.stores.page(params[:page])
       @store = Store.new
-      redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
+      @stores = current_company.stores.page(params[:page])
+      if current_company.stores != @company.stores
+        redirect_to root_path, alert: 'アクセス権限がありません'
+      end
     else
       @store = current_company.stores.find_by(id: params[:id])
       if @store.present? && @store.company_id == current_company.id

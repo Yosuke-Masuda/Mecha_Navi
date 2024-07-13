@@ -1,18 +1,18 @@
-<div class="card jumbotron bg-light">
-  <blockquote>
-    <div class="container">
-      <h1><%= @store.name %>店の所属社員</h1>
+<div class="container-fluid">
+  <div class="card jumbotron bg-light">
+    <blockquote>
+      <h2 class="col-sm-10 mx-auto mb-3"><%= @store.name %>店の所属社員</h2>
       <div class="row">
-        <table class="table table-bordered">
+        <table class="table col-sm-10 mx-auto">
           <thead class="thead-light">
             <tr>
-              <th>所属社員</th>
+              <th>社員名</th>
               <th>メールアドレス</th>
               <th>ステータス</th>
             </tr>
           </thead>
           <tbody>
-            <% @store.employees.each do |employee| %>
+            <% @employees.each do |employee| %>
                <tr>
                  <td><%= link_to "#{employee.full_name}", company_employee_path(company_id: current_company.id, id: employee.id), class: "text-blue border-bottom border-dark" %></td>
                  <td><%= employee.email %></td>
@@ -27,10 +27,11 @@
             <% end %>
           </tbody>
         </table>
-        <%= link_to company_stores_path(current_company.id), class: 'col mx-auto btn btn-outline-primary btn-sm' do %>
+        <%= link_to company_stores_path(current_company.id), class: 'btn btn-outline-primary btn-blockquote col-sm-10 mx-auto mb-3' do %>
           <i class="fa-solid fa-shop"></i> 店舗一覧</a>
         <% end %>
       </div>
-    </div>
-  </blockquote>
+    </blockquote>
+    <%= render partial: 'shared/pagination', locals: { items: @employees } %>
+  </div>
 </div>

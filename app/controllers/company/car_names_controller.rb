@@ -13,7 +13,7 @@ class Company::CarNamesController < ApplicationController
       flash[:notice] = "作成しました"
       redirect_to company_car_names_path(current_company.id)
     else
-      @car_names = current_company.car_names
+      @car_names = current_company.car_names.page(params[:page])
       render :index
     end
   end
@@ -33,11 +33,13 @@ class Company::CarNamesController < ApplicationController
   private
 
   def set_current_company
-    if params[:action].in?(%w[index])
+    if action_name == "index"
       @company = Company.find(params[:company_id])
       @car_name = CarName.new
       @car_names = current_company.car_names.page(params[:page])
-      redirect_to root_path, alert: 'アクセス権限がありません' unless current_company == @company
+      if current_company.car_names != @company.car_names
+        redirect_to root_path, alert: 'アクセス権限がありません'
+      end
     else
       @car_name = current_company.car_names.find_by(id: params[:id])
       if @car_name.present? && @car_name.company_id == current_company.id
