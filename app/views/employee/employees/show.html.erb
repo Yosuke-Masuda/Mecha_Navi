@@ -1,27 +1,28 @@
-<div class="container-fluid">
-	<blockquote class="blockquote mb-0">
-	<div class="card jumbotron bg-white">
-      <h2 class="text-center">マイページ</h2>
-      <div class"row">
-		    <h3 class="text-right col-sm-10 mx-auto">
-			    <%= link_to favorites_mypage_path, class: "btn btn-outline-warning" do %>
-			      <i class="fa-regular fa-bookmark"></i> お気に入り
-			    <% end %>
-		    </h3>
-	      <%= render partial: 'shared/employee_table', locals: { employee: @employee } %>
-	      <div class="col-sm-10 mx-auto">
-	      	<% if current_employee.email == 'guest_employee@example.com' %>
-	          <h5>※ゲストログインはマイページの編集ができません。</h5>
-	          <div class="btn-group btn-block" role="group" aria-label="Basic example">
-	          	<%= link_to edit_mypage_path, class: "btn btn-outline-success" do %>
+<div class="card jumbotron bg-white">
+  <h2 class="text-center">マイページ</h2>
+  <div class"row">
+    <h3 class="col-sm-10 mx-auto">
+	    <%= link_to favorites_mypage_path, class: "btn btn-outline-warning" do %>
+	      <i class="fa-regular fa-bookmark"></i> お気に入り
+	    <% end %>
+    </h3>
+    <%= render partial: 'shared/employee_table', locals: { employee: @employee } %>
+
+    <div class="row mt-3">
+      <div class="col-md-6 mx-auto">
+		    <div class="col-sm-10 mx-auto">
+		    	<% if current_employee.email == 'guest_employee@example.com' %>
+		        <h5>※ゲストログインはマイページの編集ができません。</h5>
+		        <div class="btn-group btn-block" role="group" aria-label="Basic example">
+		        	<%= link_to edit_mypage_path, class: "btn btn-outline-success" do %>
 			    	    <i class="fa-solid fa-pen-to-square"></i> 編集
 			    	  <% end %>
 				      <%= link_to history_mypage_path, class: "btn btn-outline-primary" do %>
 				        <i class="fa-solid fa-clock-rotate-left"></i> 投稿履歴
 				      <% end %>
 				    </div>
-	        <% else %>
-	          <div class="btn-group btn-block" role="group" aria-label="Basic example">
+		      <% else %>
+		        <div class="btn-group btn-block" role="group" aria-label="Basic example">
 			      	<%= link_to edit_mypage_path, class: "btn btn-outline-success" do %>
 			    	    <i class="fa-solid fa-pen-to-square"></i> 編集
 			    	  <% end %>
@@ -31,7 +32,8 @@
 				    </div>
 				  <% end %>
 				</div>
-      </div>
-	</div>
-	</blockquote>
+			</div>
+		</div>
+
+  </div>
 </div>

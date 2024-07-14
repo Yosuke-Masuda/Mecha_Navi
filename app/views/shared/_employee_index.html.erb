@@ -1,25 +1,19 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <div class="col mx-auto">
-        <h4 class="text-center">社員一覧</h4>
-      </div>
-    </div>
+  <div class="col-md-10 mx-auto">
+    <h2 class="text-center">社員一覧</h2>
   </div>
-  <div class="row table-row">
-    <div class="col-12">
-      <% store_names = employees.map { |employee| employee.store.name }.uniq %>
-      <% store_names.each do |store_name| %>
-        <h5><%= store_name %>店</h5>
-        <div class="table-responsive">
-        <table class="table">
+  <div class="col-md-12">
+    <% store_names = employees.map { |employee| employee.store.name }.uniq %>
+    <% store_names.each do |store_name| %>
+      <h4 class="col-md-10 mx-auto"><%= store_name %>店</h4>
+      <div class="table-responsive">
+        <table class="table col-md-10 mx-auto">
           <thead class="thead-light">
             <tr>
-              <th>社員ID</th>
-              <th>社員名</th>
-              <th>メールアドレス</th>
-              <th>ステータス</th>
-              <th></th>
+              <th scope="col">#</th>
+              <th scope="col">社員名</th>
+              <th scope="col">メールアドレス</th>
+              <th scope="col">ステータス</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -27,7 +21,7 @@
             <% employees_of_store.each do |employee| %>
               <tr>
                 <% if employee.is_active == true %>
-                  <td><%= employee.id %></td>
+                  <th scope="row"><%= employees.index(employee) + 1 %></th>
                   <td><%= link_to "#{employee.full_name}", history_posts_path(employee_id: employee.id), class: "text-blue border-bottom border-dark" %></td>
                   <td><%= employee.email %></td>
                   <td><p class="text-success">有効</p></td>
@@ -36,8 +30,6 @@
             <% end %>
           </tbody>
         </table>
-        </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
-</div>

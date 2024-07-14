@@ -17,7 +17,7 @@
     <div class="container-fluid">
       <div class="header">
         <header class="shadow-sm">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <nav class="navbar navbar-expand-xl navbar-light bg-light">
             <%= link_to image_tag("repair service.png", size: "50x50"), root_path, class: "image mt-2" %>
             <a class="navbar-brand font-italic" href="/">MechaNavi</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -171,11 +171,16 @@
                       <i class="fa-solid fa-right-from-bracket"></i> 社員ログイン
                     <% end %>
                   </li>
-                  <li class="nav-item">
-                    <h6 class= "navbar">　　※会員でない方はトップページ下記のゲストログインからお試し頂けます</h6>
-                  </li>
+                  <!--<li class="nav-item">-->
+
+                  <!--</li>-->
                 <% end %>
               </ul>
+              <% unless admin_signed_in? || company_signed_in? || employee_signed_in? %>
+                <div class="d-flex align-items-center">
+                  <small class="text-black-50">※ 会員でない方はトップページ下記のゲストログインからお試し頂けます</small>
+                </div>
+              <% end %>
             </div>
             <% if admin_signed_in? %>
               <% if @company.present? %>

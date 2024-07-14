@@ -4,7 +4,7 @@ class Company::TasksController < ApplicationController
   before_action :ensure_normal_company, only: [:update, :destroy]
 
   def index
-    @tasks = @company.tasks
+    @tasks = @company.tasks.page(params[:page])
     @task = Task.new
   end
 
@@ -14,7 +14,7 @@ class Company::TasksController < ApplicationController
     if @task.save
       redirect_to company_tasks_path(company_id: current_company.id), notice: "タスクを作成しました"
     else
-      @tasks = current_company.tasks
+      @tasks = current_company.tasks.page(params[:page])
       render :index
     end
   end

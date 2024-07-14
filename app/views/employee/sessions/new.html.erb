@@ -1,22 +1,28 @@
 <div class="card jumbotron">
   <div class="row">
-    <div class="col-12 mx-auto">
+    <div class="col-md-12 mx-auto">
       <p class="mb-5 text-center"><%= image_tag("repair service.png", class: "rounded-circle", style: "width: 200px; height: 200px;") %></p>
       <h4 class="mb-5 text-center">社員ログイン</h4>
       <%= form_with model: @employee, url: employee_session_path, local: true do |f| %>
         <div class="field mb-3">
-          <%= f.label :"メールアドレス", class: 'col-4 text-right' %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@example.com", class: 'col-4' %>
+          <div class="col-md-4 mx-auto">
+            <%= f.label :"メールアドレス", class: 'col-form_label' %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@example.com", class: 'form-control' %>
+          </div>
         </div>
         <div class="field mb-3">
-          <%= f.label :"パスワード（６文字以上）", class: "col-4 text-right" %>
-          <% if @minimum_password_length %>
-          <% end %>
-          <%= f.password_field :password, autocomplete: "new-password", placeholder: "Password", class: 'col-4 rounded'%>
+          <div class="col-md-4 mx-auto">
+            <%= f.label :"パスワード（６文字以上）", class: "col-form_label" %>
+            <% if @minimum_password_length %>
+            <% end %>
+            <%= f.password_field :password, autocomplete: "new-password", placeholder: "Password", class: 'form-control'%>
+          </div>
         </div>
         <div class="actions">
-         <%= f.label :" ", class: 'col-4' %>
-         <%= f.submit "ログイン", class: 'btn btn-outline-primary col-4' %>
+          <div class="col-md-4 mx-auto">
+            <%= f.label :" ", class: 'col-form_label' %>
+            <%= f.submit "ログイン", class: 'btn btn-outline-primary btn-block' %>
+          </div>
         </div>
       <% end %>
     </div>

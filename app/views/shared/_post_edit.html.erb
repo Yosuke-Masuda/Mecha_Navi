@@ -1,4 +1,4 @@
-<div class="col-sm-10 mx-auto mb-3">
+<div class="col-md-10 mx-auto mb-3">
   <% if post.images.present? %>
     <p>現在登録されている画像（削除するものはチェックしてください）</p>
     <div class="image-container">
@@ -10,36 +10,42 @@
   <% end %>
 </div>
 <% if admin_signed_in? %>
-  <div class="col-sm-10 mx-auto mb-3">
-    <div class="btn-group btn-block" role="group" aria-label="Basic example">
-      <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
-        <i class="fa-solid fa-floppy-disk"></i> 保存
-      <% end %>
-      <%= link_to admin_company_employee_post_path(company_id: post.company_id, employee_id: post.employee_id, id: post.id), class: 'btn btn-outline-primary' do %>
-       <i class="fa-solid fa-circle-left"></i> 詳細
-      <% end %>
+  <div class="row mt-3 mb-5">
+    <div class="col-md-6 mx-auto">
+      <div class="btn-group btn-block" role="group" aria-label="Basic example">
+        <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+          <i class="fa-solid fa-floppy-disk"></i> 保存
+        <% end %>
+        <%= link_to admin_company_employee_post_path(company_id: post.company_id, employee_id: post.employee_id, id: post.id), class: 'btn btn-outline-primary' do %>
+         <i class="fa-solid fa-circle-left"></i> 詳細
+        <% end %>
+      </div>
     </div>
   </div>
 <% elsif company_signed_in? %>
-  <div class="col-sm-10 mx-auto mb-3">
-    <div class="btn-group btn-block" role="group" aria-label="Basic example">
-      <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
-        <i class="fa-solid fa-floppy-disk"></i> 保存
-      <% end %>
-      <%= link_to company_employee_posts_path(current_company.id), class: "btn btn-outline-primary" do %>
-        <i class="fa-solid fa-circle-left"></i> 詳細
-      <% end %>
+  <div class="row mt-3 mb-5">
+    <div class="col-md-6 mx-auto">
+      <div class="btn-group btn-block" role="group" aria-label="Basic example">
+        <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+          <i class="fa-solid fa-floppy-disk"></i> 保存
+        <% end %>
+        <%= link_to company_employee_posts_path(current_company.id), class: "btn btn-outline-primary" do %>
+          <i class="fa-solid fa-circle-left"></i> 詳細
+        <% end %>
+      </div>
     </div>
   </div>
 <% elsif employee_signed_in? %>
-  <div class="col-sm-10 mx-auto mb-3">
-    <div class="btn-group btn-block" role="group" aria-label="Basic example">
-      <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
-        <i class="fa-solid fa-floppy-disk"></i> 保存
-      <% end %>
-      <%= link_to post_path(@post.id), class: "btn btn-outline-primary" do %>
-        <i class="fa-solid fa-circle-left"></i> 詳細
-      <% end %>
+  <div class="row mt-3 mb-5">
+    <div class="col-md-6 mx-auto">
+      <div class="btn-group btn-block" role="group" aria-label="Basic example">
+        <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+          <i class="fa-solid fa-floppy-disk"></i> 保存
+        <% end %>
+        <%= link_to post_path(@post.id), class: "btn btn-outline-primary" do %>
+          <i class="fa-solid fa-circle-left"></i> 詳細
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>

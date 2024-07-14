@@ -1,28 +1,172 @@
-<tr>
-  <th>会員ID</th>
-    <td><%= company.id %></td>
-</tr>
-<tr>
-  <th>会社名</th>
-  <td><%= f.text_field :company_name, class: 'form-control' %></td>
-</tr>
-<tr>
-  <th>フリガナ</th>
-  <td><%= f.text_field :company_name_kana, class: 'form-control' %></td>
-</tr>
-<tr>
-  <th>郵便番号</th>
-  <td><%= f.text_field :postal_code, class: 'form-control' %></td>
-</tr>
-<tr>
-  <th>住所</th>
-  <td><%= f.text_field :address, class: 'form-control' %></td>
-</tr>
-<tr>
-  <th>電話番号</th>
-  <td><%= f.text_field :phone_number, class: 'form-control' %></td>
-</tr>
-<tr>
-  <th>メールアドレス</th>
-  <td><%= f.text_field :email, class: 'form-control' %></td>
-</tr>
+<%= form_with(model: company, url: url, local: true) do |f| %>
+  <%= render 'layouts/error_messages', resource: f.object %>
+  <div class="row">
+    <div class="col-12 col-lg-10 mx-auto">
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+            <%= f.label :company_name, "企業名", class: 'col-form-label' %>
+          </div>
+          <div class="col-md-8">
+            <%= f.text_field :company_name, autofocus: true, class: 'form-control', placeholder: "株式会社◯◯" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+            <%= f.label :company_name_kana, "フリガナ", class: 'col-form-label' %>
+          </div>
+          <div class="col-md-8">
+            <%= f.text_field :company_name_kana, class: 'form-control', placeholder: "カブシキガイシャ◯◯" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+            <%= f.label :email, "メールアドレス", class: 'col-form-label' %>
+          </div>
+          <div class="col-md-8">
+            <%= f.email_field :email, autocomplete: "email", class: 'form-control', placeholder: "sample@example.com" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+            <%= f.label :postal_code, "郵便番号", class: 'col-form-label' %>
+          </div>
+          <div class="col-md-8">
+            <%= f.text_field :postal_code, class: 'form-control', placeholder: "0000000" %>
+            <small class="text-black-50">
+              (ハイフンなし)
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+            <%= f.label :address, "住所", class: 'col-form-label' %>
+          </div>
+          <div class="col-md-8">
+            <%= f.text_field :address, class: 'form-control', placeholder: "テスト1-2-3" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+            <%= f.label :phone_number, "電話番号", class: 'col-form-label' %>
+          </div>
+          <div class="col-md-8">
+            <%= f.text_field :phone_number, class: 'form-control', placeholder: "00000000000" %>
+            <small class="text-black-50">
+              (ハイフンなし)
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <% if admin_signed_in? %>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+              <%= f.label :is_active, "会員ステータス", class: 'col-form-label' %>
+            </div>
+            <div class="col-md-8">
+              <%= f.label :is_active, '有効', value: true %>
+              <%= f.radio_button :is_active, true %>
+              <%= f.label :is_active, '無効', value: false %>
+              <%= f.radio_button :is_active, false %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% unless admin_signed_in? || company_signed_in? || employee_signed_in? %>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+              <%= f.label :password, "パスワード(６文字以上)", class: 'form-label' %>
+            </div>
+            <div class="col-md-8">
+              <%= f.password_field :password, autocomplete: "new-password", class: 'form-control', minlength: 6, placeholder: "Password" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+              <%= f.label :password_confirmation, "パスワード（確認用）", class: 'col-form-label' %>
+            </div>
+            <div class="col-md-8">
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', placeholder: "Password" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="row mt-3 mb-5">
+        <div class="col-md-6 mx-auto">
+          <% if company.new_record? %>
+            <div class="button-layout">
+              <button type="submit" class="btn btn-outline-primary btn-block">
+                <i class="fa-solid fa-registered"></i> 登録
+              </button>
+            </div>
+          <% else %>
+            <% if admin_signed_in? %>
+              <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+                  <i class="fa-solid fa-floppy-disk"></i> 保存
+                <% end %>
+                <%= link_to admin_company_path(company.id), class: 'btn btn-outline-primary' do %>
+                  <i class="fa-solid fa-circle-left"></i> 戻る
+                <% end %>
+              </div>
+            <% else company_signed_in? %>
+              <% if current_company.email == 'guest_company@example.com' %>
+                <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                  <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+                    <i class="fa-solid fa-floppy-disk"></i> 保存
+                  <% end %>
+                  <%= link_to unsubscribe_companies_path, class: 'btn btn-outline-danger' do %>
+                    <i class="fa-solid fa-user-minus"></i> 退会
+                  <% end %>
+                  <%= link_to companies_mypage_path, class: 'btn btn-outline-primary' do %>
+                    <i class="fa-solid fa-circle-left"></i> 戻る
+                  <% end %>
+                </div>
+                <small class="text-black-50">
+                  ※ゲストユーザーはマイページの編集ができません。
+                </small>
+              <% else %>
+                <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                  <%= button_tag type: "submit", class: 'btn btn-outline-success' do %>
+                    <i class="fa-solid fa-floppy-disk"></i> 保存
+                  <% end %>
+                  <%= link_to unsubscribe_companies_path, class: 'btn btn-outline-danger' do %>
+                    <i class="fa-solid fa-user-minus"></i> 退会
+                  <% end %>
+                  <%= link_to companies_mypage_path, class: 'btn btn-outline-primary' do %>
+                    <i class="fa-solid fa-circle-left"></i> 戻る
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+<% end %>

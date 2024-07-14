@@ -1,7 +1,7 @@
 <div class="card jumbotron bg-light">
-	<blockquote class="mb-3">
+  <div class="row">
     <h2 class="col-md-10 mx-auto mb-3">顧客一覧</h2>
     <%= render 'index', companies: @companies %>
-	</blockquote>
-	<%= render 'shared/pagination', items: @companies %>
+  </div>
+  <%= render 'shared/pagination', items: @companies %>
 </div>

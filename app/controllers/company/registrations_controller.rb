@@ -58,6 +58,11 @@ class Company::RegistrationsController < Devise::RegistrationsController
     companies_mypage_path
   end
 
+  def after_update_path_for(resource)
+    flash[:notice] = "変更に成功しました"
+    companies_mypage_path
+  end
+
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
