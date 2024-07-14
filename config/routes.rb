@@ -9,13 +9,14 @@ Rails.application.routes.draw do
     namespace :admin do
         get 'top' => 'homes#top', as: 'top'
         get 'companies/:company_id/employees/:employee_id/calendar' => 'tasks#calendar', as: 'employee_calendar'
+        get 'companies/:company_id/employees/posts' => 'posts#index', as: 'company_employee_posts'
         resources :stores, only: [:index, :create, :show, :edit, :update]
         resources :genres, only: [:index, :create, :edit, :update]
         resources :car_names, only: [:index, :create, :edit, :update]
         resources :tasks, except: [:new, :show]
         resources :companies, only: [:index, :show, :edit, :update, :destroy] do
             resources :employees, only: [:index, :show, :edit, :update] do
-                resources :posts,  except: [:new, :create] do
+                resources :posts,  except: [:new, :create, :index] do
                     collection do
                         get :history
                     end
@@ -62,11 +63,14 @@ Rails.application.routes.draw do
     end
 
     scope module: :employee do
-        devise_for :employees, skip: [:registrations] ,controllers: {
-            sessions: 'employee/sessions',
+        devise_for :employees, skip: [:registrations, :passwords] ,controllers: {
+            sessions: 'employee/sessions'
         }
+
         devise_scope :employee do
             post 'employees/guest_sign_in', to: 'sessions#guest_sign_in'
+            get 'employees/edit', to: 'registrations#edit', as: 'edit_employee_registration'
+            patch 'employees', to: 'registrations#update', as: 'employee_registration'
         end
     end
 

@@ -1,14 +1,12 @@
 <div class="card jumbotron bg-light mx-auto">
-	<h2 class="text-center">店舗管理</h2>
-	<div class="mb-3">
-    <h4 class="col-md-5 mx-auto">店舗新規登録</h4>
-    <%= render 'shared/store_form', store: @store, url: admin_stores_path(@store) %>
-  </div>
+	<h3 class="text-center mb-3">店舗管理</h3>
+  <h4 class="col-md-5 mx-auto mb-3">新規登録</h4>
+  <%= render 'shared/store_form', store: @store, url: admin_stores_path(@store) %>
   <div class="mb-3">
-    <h4 class="col-md-10 mx-auto">一覧</h4>
+    <h4 class="col-md-10 mx-auto mb-3">店舗一覧</h4>
     <div class="table-responsive">
 	    <table class="table col-md-10 mx-auto">
-		    <thead>
+		    <thead class="thead-light">
 			    <tr>
 				    <th scope="col">企業名</th>
 				    <th scope="col">店舗名</th>
@@ -31,7 +29,7 @@
                     <p class="text-secondary">無効</p>
                   <% end %>
                 </td>
-                <td class="text-center">
+                <td>
                   <%= link_to edit_admin_store_path(store), class: "btn btn-outline-success" do %>
                     <i class="fa-solid fa-pen-to-square"></i> 編集
                   <% end %>

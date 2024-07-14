@@ -57,6 +57,10 @@ class Employee::RegistrationsController < Devise::RegistrationsController
   # def after_sign_up_path_for(resource)
   #   company_employees_path(company_id: current_company.id)
   # end
+  def after_update_path_for(resource)
+    flash[:notice] = "変更に成功しました"
+    mypage_path
+  end
 
   # def after_update_path_for(resource)
   #   mypage_path

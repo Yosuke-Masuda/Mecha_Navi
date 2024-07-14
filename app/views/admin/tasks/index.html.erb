@@ -1,11 +1,11 @@
 <div class="card jumbotron bg-light mx-auto">
-	<h2 class="text-center mb-3">タスク管理</h2>
-	<h4 class="col-md-5 mx-auto mb-3">タスク新規登録</h4>
+	<h3 class="text-center mb-3">タスク管理</h3>
+	<h4 class="col-md-5 mx-auto mb-3">新規登録</h4>
 	<%= render 'shared/task_form', task: @task, url: admin_tasks_path %>
-	<h4 class="col-md-10 mx-auto">一覧</h4>
+	<h4 class="col-md-10 mx-auto mb-3">タスク一覧</h4>
 	<div class="table-responsive">
 	  <table class="table col-md-10 mx-auto">
-		  <thead>
+		  <thead class="thead-light">
 			  <tr>
 			  	<th scope="col">企業名</th>
 			    <th scope="col">タスク名</th>
@@ -22,7 +22,7 @@
 		          <% end %>
 						  <td><%= task.name %></td>
 						  <td><%= task.body %></td>
-						  <td class="text-center">
+						  <td>
 						  	<%= link_to edit_admin_task_path(id: task.id), class: "btn btn-outline-success" do %>
 						  	 <i class="fa-solid fa-pen-to-square"></i> 編集
 						  	<% end %>

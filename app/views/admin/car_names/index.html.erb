@@ -1,16 +1,17 @@
 <div class="card jumbotron bg-light">
-  <h2 class="text-center mb-3">車名管理</h2>
-  <h4 class="col-md-5 mx-auto">車名新規登録</h4>
+  <h3 class="text-center mb-3">車両管理</h3>
+  <h4 class="col-md-5 mx-auto mb-3">新規登録</h4>
   <%= render 'shared/car_name_form', car_name: @car_name, url: admin_car_names_path(@car_name) %>
-  <h4 class="col-md-10 mx-auto mb-3">車名一覧</h4>
+  <h4 class="col-md-10 mx-auto mb-3">車両一覧</h4>
   <div class="table-responsive">
 	  <table class="table col-md-10 mx-auto">
-		  <thead>
+		  <thead class="thead-light">
 			  <tr>
 				  <th scope="col">企業名</th>
 				  <th scope="col">車名</th>
 				  <th scope="col">型式</th>
 				  <th scope="col">状態</th>
+				  <th scope="col"></th>
 			  </tr>
 		  </thead>
 	    <tbody>
@@ -32,7 +33,7 @@
                   <p class="text-secondary">無効</p>
                 <% end %>
               </td>
-              <td class="text-center">
+              <td>
                 <%= link_to edit_admin_car_name_path(car_name), class: "btn btn-outline-success" do %>
                   <i class="fa-solid fa-pen-to-square"></i> 編集
                 <% end %>

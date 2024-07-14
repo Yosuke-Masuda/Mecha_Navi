@@ -1,11 +1,11 @@
 <div class="card jumbotron bg-white">
-  <h2 class="text-center">マイページ</h2>
+  <h3 class="text-center mb-3">マイページ</h3>
   <div class"row">
-    <h3 class="col-sm-10 mx-auto">
+    <div class="col-sm-10 mx-auto mb-3">
 	    <%= link_to favorites_mypage_path, class: "btn btn-outline-warning" do %>
 	      <i class="fa-regular fa-bookmark"></i> お気に入り
 	    <% end %>
-    </h3>
+    </div>
     <%= render partial: 'shared/employee_table', locals: { employee: @employee } %>
 
     <div class="row mt-3">
@@ -28,6 +28,9 @@
 			    	  <% end %>
 				      <%= link_to history_mypage_path, class: "btn btn-outline-primary" do %>
 				        <i class="fa-solid fa-clock-rotate-left"></i> 投稿履歴
+				      <% end %>
+				      <%= link_to edit_employee_registration_path, class: "btn btn-outline-info" do %>
+				        <i class="fa-solid fa-key"></i> パスワード変更
 				      <% end %>
 				    </div>
 				  <% end %>
