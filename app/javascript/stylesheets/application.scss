@@ -1,6 +1,10 @@
 @import '~bootstrap/scss/bootstrap';
 
 
+body {
+  line-height: 2.5;
+}
+
 
 @media (max-width: 768px) {
   .carousel-item{
@@ -123,13 +127,14 @@
 }
 
   .vertical-text {
+    font-size: calc(12px + .5vw);
     color: white;
     writing-mode: vertical-rl;  /* 右から左に縦書き */
     /* writing-mode: vertical-lr;  左から右に縦書き */
     position: absolute;
     top: 100px;
     right: 150px;
-    font-size: 30px;
+    // font-size: 30px;
     line-height: 100px;    /* すべての行の高さ */
   }
 
@@ -172,7 +177,7 @@
 
 @media screen and (min-width: 481px) and (max-width: 767px) {
   .vertical-text {
-    font-size: 12px;
+    // font-size: calc(12px + .3vw);
     color: white;
     writing-mode: vertical-rl;  /* 右から左に縦書き */
     /* writing-mode: vertical-lr;  左から右に縦書き */
@@ -200,7 +205,7 @@
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   .vertical-text {
-    font-size: 100%;
+    // font-size: calc(12px + .3vw);
     color: white;
     writing-mode: vertical-rl;  /* 右から左に縦書き */
     /* writing-mode: vertical-lr;  左から右に縦書き */
@@ -229,7 +234,7 @@
   .image-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* 画像を水平方向に中央に揃える */
+    justify-content: flex-start;
     align-items: center; /* 画像を垂直方向に中央に揃える */
 
     img {

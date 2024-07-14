@@ -1,77 +1,50 @@
-<div class="container-fluid">
-  <div class="card jumbotron bg-light">
-    <h4 class="mb-5 text-color text-center">新規社員登録</h4>
-    <%= form_with model: @employee, url: company_employees_path(company_id: current_company.id), local: true do |f| %>
+<div class="card jumbotron bg-light">
+  <h4 class="mb-5 text-color text-center">新規社員登録</h4>
+  <%= form_with model: @employee, url: company_employees_path(company_id: current_company.id), local: true do |f| %>
     <%= render 'layouts/error_messages', resource: @employee %>
-      <div class="form-row">
-        <%= f.hidden_field :company_id, value: current_company.id %>
-        <div class="col-sm-2 mx-auto">
-          <%= f.label :store_id, "店の選択", class: 'col-form-label' %>
-        </div>
-        <div class="col-sm-10 mx-auto mb-3">
-          <%= f.collection_select :store_id, current_company.stores, :id, :name, :prompt => "--選択して下さい--", class: 'col-form-control' %>店
-        </div>
-        <div class="col-sm-2 mx-auto mb-3">
-          <%= f.label :"プロフィール画像", class: 'col-form-label' %>
-        </div>
-        <div class="col-sm-10 mx-auto mb-3">
-          <%= f.file_field :image, class: 'col-rounded' %>
-        </div>
-        <div class="col-sm-2 mx-auto">
-          <%= f.label :"名前", class: 'col-form-label' %>
-        </div>
-        <div class="col-sm-5 mx-auto mb-3">
-          <%= f.label :"(姓)", class: 'col-form-label' %>
-          <%= f.text_field :last_name, autofocus: true, class: 'form-control', placeholder: "令和" %>
-        </div>
-        <div class="col-sm-5 mx-auto mb-3">
-          <%= f.label :"(名)", class: 'col-form-label' %>
-          <%= f.text_field :first_name, autofocus: true, class: 'form-control', placeholder: "道子" %>
-        </div>
-        <div class="col-sm-2 mx-auto">
-          <%= f.label :"フリガナ", class: 'col-form-label' %>
-        </div>
-        <div class="col-sm-5 mx-auto mb-3">
-          <%= f.label :"(ｾｲ)", class: 'col-form-label' %>
-          <%= f.text_field :last_name_kana, autofocus: true, class: 'form-control', placeholder: "レイワ" %>
-        </div>
-        <div class="col-sm-5 mx-auto mb-3">
-          <%= f.label :"(ﾒｲ)", class: 'col-form-label' %>
-          <%= f.text_field :first_name_kana, autofocus: true, class: 'form-control', placeholder: "ミチコ" %>
-        </div>
-        <div class="col-sm-2 mx-auto mb-3">
-          <%= f.label :"メールアドレス", class: 'col-form-label' %>
-        </div>
-        <div class="col-sm-10 mx-auto mb-3">
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control col-sm-5', placeholder: "sample@examle.com" %>
-        </div>
-        <div class="col-sm-2 mx-auto mb-3">
-          <%= f.label :"パスワード(6文字以上)", class: 'col-form-label' %>
-        </div>
-        <div class="col-sm-10 mx-auto mb-3">
-          <% if @minimum_password_length %>
-          <% end %>
-          <%= f.password_field :password, autocomplete: "new-password", class: 'form-control col-sm-5', placeholder: "Password" %>
-        </div>
-        <div class="col-sm-2 mx-auto mb-3">
-          <%= f.label :"パスワード(確認用)", class: 'col-form-label' %>
-        </div>
-        <div class="col-sm-10 mx-auto mb-3">
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control col-sm-5', placeholder: "Password" %>
-        </div>
-        <% if current_company.email == 'guest_company@example.com' %>
-          <h5>※ゲストログインは新規社員登録ができません。</h5>
-          <div class="actions col-sm-5 mx-auto">
-            <%= f.label :"　", class: '' %>
-            <%= f.submit "新規登録", class: 'btn btn-outline-primary btn-block' %>
+    <%= f.hidden_field :company_id, value: current_company.id %>
+    <div class="row">
+      <div class="col-12 col-lg-10 mx-auto">
+        <%= render 'shared/employee_form', f: f, user_type: "company" %>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+               <%= f.label :password, "パスワード(６文字以上)", class: 'col-form-label' %>
+            </div>
+            <div class="col-md-8">
+              <%= f.password_field :password, autocomplete: "new-password", class: 'form-control col-md-5', minlength: 6, placeholder: "Password" %>
+            </div>
           </div>
-        <% else %>
-          <div class="actions col-sm-5 mx-auto">
-            <%= f.label :"　", class: '' %>
-            <%= f.submit "新規登録", class: 'btn btn-outline-primary btn-block' %>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+               <%= f.label :password_confirmation, "パスワード（確認用）", class: 'col-form-label' %>
+            </div>
+            <div class="col-md-8">
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control col-md-5', placeholder: "Password" %>
+            </div>
           </div>
-        <% end %>
+        </div>
+
+        <div class="row mt-3 mb-5">
+          <div class="col-md-6 mx-auto">
+            <div class="button-layout">
+              <button type="submit" class="btn btn-outline-primary btn-block">
+                <i class="fa-solid fa-registered"></i> 登録
+              </button>
+              <% if current_company.email == 'guest_company@example.com' %>
+                <small class="text-black-50">
+                  ※ゲストログインは新規社員登録ができません。
+                </small>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

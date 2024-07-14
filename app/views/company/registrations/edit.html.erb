@@ -1,0 +1,66 @@
+<div class="card jumbotron bg-light">
+  <div class="row">
+    <div class="col-md-10 mx-auto">
+      <h4 class="mb-5 text-color text-center">パスワード変更</h4>
+      <%= form_with model: @company, url: company_registration_path, local: true do |f| %>
+        <%= render "layouts/error_messages", resource: resource %>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+              <%= f.label :email, "メールアドレス", class: 'col-form-label' %>
+            </div>
+            <div class="col-md-8">
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: "sample@example.com" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+              <%= f.label :current_password, "現在のパスワード", class: 'form-label' %>
+            </div>
+            <div class="col-md-8">
+              <%= f.password_field :current_password, autocomplete: "current-password", class: 'form-control', placeholder: "Password" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+              <%= f.label :password, "新しいパスワード", class: 'form-label' %>
+            </div>
+            <div class="col-md-8">
+              <%= f.password_field :password, autocomplete: "new-password", class: 'form-control', minlength: 6, placeholder: "Password" %>
+              <small class="text-black-50">
+                (６文字以上)
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+              <%= f.label :password_confirmation, "新しいパスワード(確認用)", class: 'col-form-label' %>
+            </div>
+            <div class="col-md-8">
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', placeholder: "Password" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-3 mb-5">
+          <div class="col-md-6 mx-auto">
+            <%= button_tag type: "submit", class: 'btn btn-outline-info btn-block' do %>
+              <i class="fa-solid fa-lock"></i> 変更する
+            <% end %>
+
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,13 +1,13 @@
-<div class="container-fluid">
-  <blockquote class="blockquote mb-0">
-    <div class="card jumbotron bg-light">
-      <h2 class="text-center mb-3">投稿編集</h2>
-      <%= form_with(model: @post, local: true) do |f| %>
-  			  <%= render 'layouts/error_messages', resource: @post %>
-          <%= render 'shared/post_form', f: f %>
-          <%= render 'shared/post_edit', f: f, post: @post %>
-      <% end %>
+<div class="card jumbotron bg-light">
+  <h4 class="mb-5 text-color text-center">新規投稿</h4>
+  <%= form_with(model: @post, local: true) do |f| %>
+	  <%= render 'layouts/error_messages', resource: @post %>
+	  <div class="row">
+      <div class="col-12 col-lg-10 mx-auto">
+        <%= render 'shared/post_form', f: f %>
+        <%= render 'shared/post_edit', f: f, post: @post %>
+      </div>
     </div>
-  </blockquote>
+  <% end %>
 </div>
 

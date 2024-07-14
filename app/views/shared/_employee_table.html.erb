@@ -1,40 +1,42 @@
-<table class="table table-bordered col-sm-10 mx-auto">
-  <tbody>
-    <tr>
-      <th>プロフィール画像</th>
-      <td colspan="2">
-				<% if employee.image.attached? %>
-          <%= image_tag(employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
-        <% else %>
-          <%= image_tag("no_image.jpg", class: "rounded-circle", style: "width: 100px; height: 100px;") %>
-        <% end %>
-      </td>
-    </tr>
-    <tr>
-      <th>勤務地</th>
-      <td colspan="2"><%= employee.store.name %> 店</td>
-    </tr>
-    <tr>
-      <th>氏名</th>
-      <td colspan="2">（姓）<%= employee.last_name %>　（名）<%= employee.first_name %></td>
-    </tr>
-    <tr>
-      <th>フリガナ</th>
-      <td colspan="2">（セイ）<%= employee.last_name_kana %>　（メイ）<%= employee.first_name_kana %></td>
-    </tr>
-    <tr>
-      <th>メールアドレス</th>
-      <td colspan="2"><%= employee.email %></td>
-    </tr>
-    <tr>
-      <th>ステータス</th>
-      <td colspan="2">
-        <% if employee.is_active? %>
-				  <p class="text-success">有効</p>
-				<% else %>
-					<p class="text-secondary">退職</p>
-				<% end %>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-bordered col-12 col-lg-10 mx-auto">
+    <tbody>
+      <tr>
+        <th>プロフィール画像</th>
+        <td colspan="2">
+  				<% if employee.image.attached? %>
+            <%= image_tag(employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+          <% else %>
+            <%= image_tag("no_image.jpg", class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th>勤務地</th>
+        <td colspan="2"><%= employee.store.name %> 店</td>
+      </tr>
+      <tr>
+        <th>氏名</th>
+        <td colspan="2">（姓）<%= employee.last_name %>　（名）<%= employee.first_name %></td>
+      </tr>
+      <tr>
+        <th>フリガナ</th>
+        <td colspan="2">（セイ）<%= employee.last_name_kana %>　（メイ）<%= employee.first_name_kana %></td>
+      </tr>
+      <tr>
+        <th>メールアドレス</th>
+        <td colspan="2"><%= employee.email %></td>
+      </tr>
+      <tr>
+        <th>ステータス</th>
+        <td colspan="2">
+          <% if employee.is_active? %>
+  				  <p class="text-success">有効</p>
+  				<% else %>
+  					<p class="text-secondary">退職</p>
+  				<% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
