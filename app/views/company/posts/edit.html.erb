@@ -1,10 +1,12 @@
-<div class="card jumbotron">
-  <blockquote class="blockquote mb-0">
-    <div class="container">
-      <%= form_with(model: @post, url: company_employee_post_path(company_id: current_company.id, employee_id: current_company.employee_ids, id: @post.id), method: :patch, local: true) do |f| %>
+<div class="card jumbotron bg-light">
+  <h4 class="mb-5 text-color text-center">投稿編集</h4>
+  <%= form_with(model: @post, url: company_employee_post_path(company_id: current_company.id, employee_id: current_company.employee_ids, id: @post.id), method: :patch, local: true) do |f| %>
+    <%= render 'layouts/error_messages', resource: @post %>
+    <div class="row">
+      <div class="col-12 col-lg-10 mx-auto">
         <%= render 'shared/post_form', f: f, user_type: "company" %>
         <%= render 'shared/post_edit', f: f, post: @post %>
-      <% end %>
+      </div>
     </div>
-  </blockquote>
+  <% end %>
 </div>

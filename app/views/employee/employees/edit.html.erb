@@ -1,5 +1,5 @@
 <div class="card jumbotron bg-light">
-  <h4 class="mb-5 text-color text-center"><%= @employee.full_name %>さんの編集</h4>
+  <h3 class="mb-5 text-color text-center"><%= @employee.full_name %>さんの編集</h3>
   <%= form_with( model: @employee, url: employees_mypage_path, local: true) do |f| %>
     <%= render 'layouts/error_messages', resource: @employee %>
     <%= render "shared/employee_form", f: f, employee: @employee, user_type: "employee" %>
