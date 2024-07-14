@@ -3,8 +3,10 @@
     <p>現在登録されている画像（削除するものはチェックしてください）</p>
     <div class="image-container">
       <% post.images.each do |image| %>
-        <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
-        <%= image_tag image%>
+        <div>
+          <%= f.check_box :image_ids, {multiple: true}, image.id, false %>
+          <%= image_tag image%>
+        </div>
       <% end %>
     </div>
   <% end %>
