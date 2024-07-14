@@ -1,5 +1,4 @@
-<div class="container-fluid">
-  <div class="card jumbotron">
+  <div class="card jumbotron bg-light">
     <%= render 'shared/post_card_body', post: @post %>
     <div class="mb-3">
       <p>いいね件数：<%= @post.favorites.count %></p>
@@ -20,4 +19,3 @@
       <% end %>
     </div>
   </div>
-</div>

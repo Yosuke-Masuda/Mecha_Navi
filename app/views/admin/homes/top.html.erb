@@ -1,7 +1,7 @@
 <div class="card jumbotron bg-light">
-    <h4 class="col-md-12 mb-3">投稿履歴一覧</h4>
+    <h4 class="col-md-10 mx-auto mb-3">投稿履歴一覧</h4>
     <div class="table-responsive">
-      <table class="table">
+      <table class="table col-md-10 mx-auto">
         <thead class="thead-light">
           <tr>
             <th scope="col">企業名</th>
@@ -12,7 +12,7 @@
         <tbody>
           <% @employees.group_by(&:company).sort_by { |company, employees| -employees.sum { |e| e.posts.count } }.reject { |company, employees| employees.sum { |e| e.posts.count } == 0 }.each do |company, employees| %>
             <tr>
-              <td><%= link_to "#{company.company_name}", admin_company_employee_posts_path(company_id: company.id, employee_id: employees.first.id), class: "text-b border-bottom border-dark" %></td>
+              <td><%= link_to "#{company.company_name}", admin_company_employee_posts_path(company_id: company.id), class: "text-b border-bottom border-dark" %></td>
               <td><%= company.posts.distinct.count(:employee_id) %>人</td>
               <td><%= employees.sum { |e| e.posts.count } %>件</td>
             </tr>

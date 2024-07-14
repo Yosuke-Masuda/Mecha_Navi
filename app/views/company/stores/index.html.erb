@@ -1,18 +1,16 @@
 <div class="card jumbotron bg-light mx-auto">
-  <h2 class="text-center">店舗管理</h2>
+  <h3 class="text-center mb-3">店舗管理</h3>
+  <h4 class="col-sm-5 mx-auto mb-3">新規登録</h4>
+  <%= render 'shared/store_form', store: @store, url: company_stores_path(current_company.id, @store) %>
   <div class="mb-3">
-    <h3 class="col-sm-5 mx-auto mb-3">新規登録</h3>
-    <%= render 'shared/store_form', store: @store, url: company_stores_path(current_company.id, @store) %>
-  </div>
-  <div class="mb-3">
-    <h3 class="col-sm-10 mx-auto">店舗一覧</h3>
+    <h4 class="col-sm-10 mx-auto mb-3">店舗一覧</h4>
     <div class="table-responsive">
 			<table class="table col-sm-10 mx-auto">
 				<thead class="thead-light">
 					<tr>
-						<th>店舗名</th>
-						<th>状態</th>
-						<th></th>
+						<th scope="col">店舗名</th>
+						<th scope="col">状態</th>
+						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -37,5 +35,5 @@
 			</table>
 		</div>
 	</div>
-　<%= render partial: 'shared/pagination', locals: { items: @stores } %>
+　<%= render 'shared/pagination', items: @stores %>
 </div>
