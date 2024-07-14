@@ -10,7 +10,7 @@ class Company::CompaniesController < ApplicationController
   end
 
   def update
-    if @company.update(company_params)
+    if current_company.update(company_params)
       redirect_to companies_mypage_path, notice: "登録情報を変更しました"
     else
       render "edit"

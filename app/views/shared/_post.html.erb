@@ -38,13 +38,21 @@
         <li class="list-group-item">車名：<%= post.car_name.name if post.car_name.present? %>　型式：<%= post.car_name.car_type if post.car_name.present? %>　ジャンル：<%= post.genre.name if post.genre.present? %></li>
       </ul>
       <div class="card-body">
-        <p class="card-text">
-          説明文</br><%= post.caption %></br>
+
+          <div class="row">
+            <div class="col-2 text-truncate">
+              <h6 class="card-text">
+                説明文</br>
+              </h6>
+              <h6 class="card-text"><%= post.caption %></h6>
+            </div>
+          </div>
+
           <small class="text-muted">
             投稿日：<%= post.created_at.strftime('%Y/%m/%d/%H:%M') %>
           </small>
-          　❤️ <%= post.favorites.count %>
-        </p>
+          ❤️ <%= post.favorites.count %>
+
       </div>
       <div class="card-body col-sm-5 mx-auto">
         <div class="btn-group" role="group" aria-label="Basic example">

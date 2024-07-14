@@ -1,7 +1,5 @@
-<div class="container-fluid">
-  <div class="card jumbotron bg-white">
-    <h2 class="display-5 mb-3">投稿一覧</h2>
-    <%= render partial: 'shared/post', collection: @posts %>
-    <%= render partial: 'shared/pagination', locals: { items: @posts } %>
-  </div>
+<div class="card jumbotron bg-light">
+  <h2 class="display-5 mb-3">投稿一覧</h2>
+  <%= render partial: 'shared/post', collection: @posts %>
+  <%= render 'shared/pagination', items: @posts %>
 </div>

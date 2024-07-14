@@ -1,10 +1,5 @@
   <div class="card jumbotron bg-light">
     <h4 class="text-center mb-3"><%= @company.company_name %>様の社員一覧</h4>
-    <div class="col-md-10 mx-auto mb-3">
-      <%= link_to admin_companies_path, class: 'btn btn-outline-primary' do %>
-        <i class="fa-solid fa-users-viewfinder"></i> 顧客一覧
-      <% end %>
-    </div>
     <% @stores.each do |store| %>
       <% employees_in_store = @employees.select { |employee| employee.store_id == store.id } %>
       <% if employees_in_store.any? %>
@@ -37,11 +32,11 @@
                 </td>
                 <td>
                   <% if employee.is_active == true %>
-                    <%= link_to admin_employee_calendar_path(@company, employee), class: "btn btn-primary rounded-circle btn-sm" do %>
-                      <i class="fa-solid fa-calendar-days"></i>
+                    <%= link_to admin_employee_calendar_path(@company, employee), class: "btn btn-outline-warning mr-1" do %>
+                      <i class="fa-solid fa-calendar-days"></i> タスクカレンダー
                     <% end %>
-                    <%= link_to history_admin_company_employee_posts_path(@company, employee), class: "btn btn-primary rounded-circle btn-sm" do %>
-                      <i class="fa-solid fa-photo-film"></i>
+                    <%= link_to history_admin_company_employee_posts_path(@company, employee), class: "btn btn-outline-primary" do %>
+                      <i class="fa-solid fa-photo-film"></i> 投稿一覧
                     <% end %>
                   <% end %>
                 </td>

@@ -1,38 +1,36 @@
-<div class="db example">
-  <div class="table-responsive">
-    <table class="table col-md-10 mx-auto">
-      <thead class="thead-light">
+<div class="table-responsive">
+  <table class="table col-md-10 mx-auto">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">会員ID</th>
+        <th scope="col">氏名</th>
+        <th scope="col">メールアドレス</th>
+        <th scope="col">ステータス</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% companies.each do |company| %>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">会員ID</th>
-          <th scope="col">氏名</th>
-          <th scope="col">メールアドレス</th>
-          <th scope="col">ステータス</th>
-          <th scope="col"></th>
+          <th scope="row"><%= companies.index(company) + 1 %></th>
+          <td><%= company.id %></td>
+          <td><%= link_to "#{company.company_name}", admin_company_path(company.id), class: "text-blue border-bottom border-blue" %></td>
+          <td><%= company.email %></td>
+          <td>
+            <% if company.is_active == true %>
+              <p class="text-success">有効</p>
+            <% else %>
+              <p class="text-secondary">退会</p>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to admin_company_employees_path(id: @employee, company_id: company.id), class: 'btn btn-outline-primary' do %>
+              <i class="fa-solid fa-users"></i> 社員一覧
+            <% end %>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        <% companies.each do |company| %>
-          <tr>
-            <th scope="row"><%= companies.index(company) + 1 %></th>
-            <td><%= company.id %></td>
-            <td><%= link_to "#{company.company_name}", admin_company_path(company.id), class: "text-blue border-bottom border-blue" %></td>
-            <td><%= company.email %></td>
-            <td>
-              <% if company.is_active == true %>
-                <p class="text-success">有効</p>
-              <% else %>
-                <p class="text-secondary">退会</p>
-              <% end %>
-            </td>
-            <td>
-              <%= link_to admin_company_employees_path(id: @employee, company_id: company.id), class: 'btn btn-primary rounded-circle btn-sm' do %>
-                <i class="fa-solid fa-users"></i>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+      <% end %>
+    </tbody>
+  </table>
 </div>

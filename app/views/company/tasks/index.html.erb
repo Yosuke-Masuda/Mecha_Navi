@@ -1,11 +1,11 @@
-<div class="container-fluid">
-  <div class="card jumbotron bg-light mx-auto">
-    <h2 class="text-center mb-3">タスク管理</h2>
-	  <h3 class="col-sm-5 mx-auto">新規登録</h3>
-	  <%= render 'shared/task_form', task: @task, url: company_tasks_path(@tasks) %>
-	  <h3 class="col-sm-10 mx-auto">タスク一覧</h3>
+<div class="card jumbotron bg-light mx-auto">
+  <h2 class="text-center mb-3">タスク管理</h2>
+  <h3 class="col-sm-5 mx-auto">新規登録</h3>
+  <%= render 'shared/task_form', task: @task, url: company_tasks_path(@tasks) %>
+  <h3 class="col-sm-10 mx-auto">タスク一覧</h3>
+  <div class="table-responsive">
 	  <table class="table col-sm-10 mx-auto">
-	    <thead>
+	    <thead class="thead-light">
 		    <tr>
 		      <th>タスク名</th>
 			    <th>タスク内容</th>
@@ -27,4 +27,5 @@
 		  </tbody>
 	  </table>
   </div>
+  <%= render 'shared/pagination', items: @tasks %>
 </div>
