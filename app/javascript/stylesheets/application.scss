@@ -2,7 +2,7 @@
 
 
 body {
-  line-height: 2.5;
+  line-height: 2;
 }
 
 
@@ -301,6 +301,12 @@ body {
   white-space: nowrap;
   }
 
+.carousel-image {
+  height: 300px;
+  width: 100%;
+  object-fit: cover;
+}
 
-
-
+.hr {
+  border-top: 3px double #aaa;
+}
