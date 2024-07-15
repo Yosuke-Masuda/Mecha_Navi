@@ -28,11 +28,15 @@
 
 ## 設計書
 - ER図.
-https://drive.google.com/file/d/12MJdVg16038Iocix1Jl_8mjPC-K8XapP/view?usp=sharing
+https://drive.google.com/file/d/1f8vGCx-aCVxgHc8jJkSXrNiOAjALlLmm/view?usp=sharing.
 - テーブル定義書.
-https://docs.google.com/spreadsheets/d/19EI3O9hzCiey3ttdHfMXlccY5uMUfIrT/edit?usp=sharing&ouid=114599228704168091645&rtpof=true&sd=true
+https://docs.google.com/spreadsheets/d/19EI3O9hzCiey3ttdHfMXlccY5uMUfIrT/edit?usp=sharing&ouid=114599228704168091645&rtpof=true&sd=true.
 - 詳細設計書.
-https://docs.google.com/spreadsheets/d/1DEpw1ERK6g9Yh6Qqvq34DiLpi1Euhjn9bmmB658gcmQ/edit?usp=sharing
+https://docs.google.com/spreadsheets/d/1DEpw1ERK6g9Yh6Qqvq34DiLpi1Euhjn9bmmB658gcmQ/edit?usp=sharing.
+- 画面遷移図.
+https://drive.google.com/file/d/1f8vGCx-aCVxgHc8jJkSXrNiOAjALlLmm/view?usp=sharing.
+- ワイヤーフレーム.
+https://drive.google.com/file/d/1OAYI0yuTGc_G4q1FDCxm6rxiheGWbadW/view?usp=sharing.
 
 ## 機能一覧
 https://docs.google.com/spreadsheets/d/1CCE7Wu45S2r62zzCTohjviIXxafNDy7KSE8kTRSoeVU/edit?usp=sharing

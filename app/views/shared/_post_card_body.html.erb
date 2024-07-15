@@ -47,7 +47,7 @@
         <%= video_tag rails_blob_path(post.video), controls: true, class: 'responsive-video rounded', width: '100%' %>
       </div>
     <% end %>
-    <p class="card-text">説明文</br><%= simple_format(post.caption, sanitaize: true, class: 'm-0') %></p>
+    <p class="card-text">内容</br><%= simple_format(post.caption, sanitaize: true, class: 'm-0') %></p>
     <p class="card-text text-center"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></small></p>
   </div>
   <div class="card-footer">
