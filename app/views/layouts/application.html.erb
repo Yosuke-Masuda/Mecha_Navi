@@ -171,9 +171,6 @@
                       <i class="fa-solid fa-right-from-bracket"></i> 社員ログイン
                     <% end %>
                   </li>
-                  <!--<li class="nav-item">-->
-
-                  <!--</li>-->
                 <% end %>
               </ul>
               <% unless admin_signed_in? || company_signed_in? || employee_signed_in? %>
@@ -212,7 +209,7 @@
 	　	    <li>company: <%= current_company.inspect %></li>
 	　	    <li>employee: <%= current_employee.inspect %></li>
 	　	    <li>admin: <%= current_admin.inspect %></li>
-	　    </ul>
+　      </ul>
       <% end %>
     </div>
   </body>

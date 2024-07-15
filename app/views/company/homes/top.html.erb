@@ -1,11 +1,13 @@
-<div class="card jumbotron bg-light">
+<div class="card bg-light">
+  <h3 class="text-center my-5">投稿履歴一覧</h3>
   <div class="row">
-    <h4 class="col-md-10 mx-auto mb-3"><%= @company.company_name %>様の投稿履歴一覧</h4>
-    <div class="table-responsive">
-      <table class="table col-md-10 mx-auto">
+    <div class="table-responsive col-10 col-md-10 mx-auto">
+      <table class="table">
         <%= render partial: 'shared/table_header' %>
       </table>
     </div>
   </div>
-  <%= render partial: 'shared/pagination', locals: { items: @recent_posts } %>
+  <div class="my-5">
+    <%= render 'shared/pagination', items: @recent_posts %>
+  </div>
 </div>
