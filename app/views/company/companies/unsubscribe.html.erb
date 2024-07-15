@@ -1,12 +1,22 @@
-<div class="container">
-  <div class="row">
-    <div class="text-center col-12 mt-5">
-      <h5 class="mb-3">本当に退会しますか？</h5>
-      <h5 class="mt-4">退会すると、会員登録情報や</h5>
-      <h5>これまでの投稿履歴など閲覧できなくなります。</h5>
-      <h5>退会する場合は、「退会する」をクリックしてください。</h5>
-      <%= link_to "退会しない", companies_mypage_path, class: "btn btn-primary col-3 mt-4" %>
-      <%= link_to "退会する", withdraw_companies_path, data: {confirm: "本当に退会しますか？"}, method: :patch, class: "btn btn-danger col-3 offset-1 mt-4" %>
+  <div class="card bg-light">
+    <div class="row">
+      <div class="text-center col-10 col-md-10 mx-auto mt-5">
+        <h5 class="mb-3">本当に退会しますか？</h5>
+        <h5 class="mt-4">退会すると、会員登録情報や</h5>
+        <h5>これまでの投稿履歴など閲覧できなくなります。</h5>
+        <h5>退会する場合は、「退会する」をクリックしてください。</h5>
+        <div class="row my-3">
+          <div class="col-md-6 mx-auto">
+            <div class="btn-group btn-block">
+              <%= link_to companies_mypage_path, class: "btn btn-primary" do %>
+                <i class="fa-solid fa-circle-left"></i> 戻る
+              <% end %>
+              <%= link_to withdraw_companies_path, data: {confirm: "本当に退会しますか？"}, method: :patch, class: "btn btn-danger" do %>
+                <i class="fa-solid fa-user-minus"></i> 退会
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>

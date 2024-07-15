@@ -45,25 +45,25 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
-  <div class="mb-3">
-    <% if !current_company && !current_admin && !current_employee %>
-    <h6>会員でない方はこちらからお試し頂けます。</h6>
+  <% if !current_company && !current_admin && !current_employee %>
+    <div class="my-3">
+      <h6>会員でない方はこちらからお試し頂けます。</h6>
       <%= link_to  companies_guest_sign_in_path, class: 'btn btn-outline-primary col-sm-3 mb-3', method: :post do %>
        <i class="fa-solid fa-right-from-bracket"></i> ゲストログイン（企業用）
       <% end %>
       <%= link_to  employees_guest_sign_in_path, class: 'btn btn-outline-primary col-sm-3 mb-3', method: :post do %>
        <i class="fa-solid fa-right-from-bracket"></i> ゲストログイン（社員用）
       <% end %>
-    <h6>会員でない方はこちらから新規登録頂けます。</h6>
+      <h6>会員でない方はこちらから新規登録頂けます。</h6>
       <%= link_to new_company_registration_path, class: 'btn btn-outline-primary col-sm-3' do %>
        <i class="fa-solid fa-right-from-bracket"></i> 新規登録
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
   <% if employee_signed_in? %>
-  <div class="card-body">
-    <h2 class="col-sm-4 mb-3">新しい投稿（５件まで表示）</h2>
-    <%= render partial: 'shared/post', collection: @posts %>
-  </div>
+    <div class="card-body">
+      <h2 class="col-sm-4 mb-3">新しい投稿（５件まで表示）</h2>
+      <%= render partial: 'shared/post', collection: @posts %>
+    </div>
   <% end %>
 </div>

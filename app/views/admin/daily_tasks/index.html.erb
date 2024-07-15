@@ -1,33 +1,39 @@
-<div class="container">
+<div class="card jumbotron bg-light">
   <div class="row">
-    <h1><%= @employee.full_name %>のタスク進捗画面</h1>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>タスク名</th>
-          <th>タスク内容</th>
-          <th>チェック</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @daily_tasks.each do |daily_task| %>
-          <% task = daily_task.task %>
-            <tr>
-              <td><%= task.name %></td>
-              <td><%= task.body %></td>
-              <td>
-                <% if daily_task.completed %>
-                 完了
-               <% else %>
-                 未完了
-               <% end %>
-              </td>
-            </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <h3 class="col-12 col-md-10 mx-auto mb-3"><%= @employee.full_name %>のタスク状況</h3>
+    <div class="table-responsive col-12 col-md-10 mx-auto">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">タスク名</th>
+            <th scope="col">タスク内容</th>
+            <th scope="col">チェック</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @daily_tasks.each do |daily_task| %>
+            <% task = daily_task.task %>
+              <tr>
+                <td><%= task.name %></td>
+                <td><%= task.body %></td>
+                <td>
+                  <% if daily_task.completed %>
+                   完了
+                 <% else %>
+                   未完了
+                 <% end %>
+                </td>
+              </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <%= link_to  admin_employee_calendar_path(@company, @employee), class: "btn btn-outline-primary" do %>
-    <i class="fa-solid fa-circle-left"></i> 戻る
-  <% end %>
+  <div class="row mt-3 mb-5">
+    <div class="col-md-6 mx-auto">
+      <%= link_to  admin_employee_calendar_path(@company, @employee), class: "btn btn-outline-primary btn-block" do %>
+        <i class="fa-solid fa-circle-left"></i> 戻る
+      <% end %>
+    </div>
+  </div>
 </div>

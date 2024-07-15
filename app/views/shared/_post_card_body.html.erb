@@ -1,54 +1,56 @@
-<div class="card-header">
-  <h5 class="m-0"><%= post.title %></h5>
-</div>
-<div class="card-body">
-  <div class="row">
-    <div class="col-md-4">
-      <h6 class="m-0">会社名</h6>
-      <%= post.employee.company.company_name %>
-    </div>
-    <div class="mt-3 mt-md-0 col-md-4">
-      <h6 class="m-0">店舗名</h6>
-      <%= post.employee.store.name %>店
-    </div>
-    <div class="mt-3 mt-md-0 col-md-4">
-      <h6 class="m-0">投稿者</h6>
-      <%= "#{post.employee.last_name} #{post.employee.first_name}" %>
-    </div>
+<div class="card">
+  <div class="card-header">
+    <h5 class="m-0"><%= post.title %></h5>
   </div>
-  <hr class="hr">
-  <div class="row">
-    <div class="mt-3 mt-md-0 col-md-4">
-      <h5 class="m-0">車名</h5>
-      <%= post.car_name.present? ? post.car_name.name : "不明" %>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-4">
+        <h6 class="m-0">会社名</h6>
+        <%= post.employee.company.company_name %>
+      </div>
+      <div class="mt-3 mt-md-0 col-md-4">
+        <h6 class="m-0">店舗名</h6>
+        <%= post.employee.store.name %>店
+      </div>
+      <div class="mt-3 mt-md-0 col-md-4">
+        <h6 class="m-0">投稿者</h6>
+        <%= "#{post.employee.last_name} #{post.employee.first_name}" %>
+      </div>
     </div>
-    <div class="mt-3 mt-md-0 col-md-4">
-      <h5 class="m-0">型式</h5>
-      <%= post.car_name.present? ? post.car_name.car_type : "不明" %>
+    <hr class="hr">
+    <div class="row">
+      <div class="mt-3 mt-md-0 col-md-4">
+        <h5 class="m-0">車名</h5>
+        <%= post.car_name.present? ? post.car_name.name : "不明" %>
+      </div>
+      <div class="mt-3 mt-md-0 col-md-4">
+        <h5 class="m-0">型式</h5>
+        <%= post.car_name.present? ? post.car_name.car_type : "不明" %>
+      </div>
+      <div class="mt-3 mt-md-0 col-md-4">
+        <h5 class="m-0">ジャンル</h5>
+        <%= post.genre.present? ? post.genre.name : "不明" %>
+      </div>
     </div>
-    <div class="mt-3 mt-md-0 col-md-4">
-      <h5 class="m-0">ジャンル</h5>
-      <%= post.genre.present? ? post.genre.name : "不明" %>
-    </div>
+    <hr class="hr">
+    <% if post.images.attached? %>
+      <div class="image-container my-3">
+        <% post.images.each do |image| %>
+          <%= link_to image_tag(image), url_for(image), target: "_blank" %>
+        <% end %>
+      </div>
+      <small class="text-black-50">
+        ※画像クリックで拡大
+      </small>
+    <% elsif post.video.attached? %>
+      <div class='file-container'>
+        <%= video_tag rails_blob_path(post.video), controls: true, class: 'responsive-video rounded', width: '100%' %>
+      </div>
+    <% end %>
+    <p class="card-text">説明文</br><%= simple_format(post.caption, sanitaize: true, class: 'm-0') %></p>
+    <p class="card-text text-center"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></small></p>
   </div>
-  <hr class="hr">
-  <% if post.images.attached? %>
-    <div class="image-container my-3">
-      <% post.images.each do |image| %>
-        <%= link_to image_tag(image), url_for(image), target: "_blank" %>
-      <% end %>
-    </div>
-    <small class="text-black-50">
-      ※画像クリックで拡大
-    </small>
-  <% elsif post.video.attached? %>
-    <div class='file-container'>
-      <%= video_tag rails_blob_path(post.video), controls: true, class: 'responsive-video rounded', width: '100%' %>
-    </div>
-  <% end %>
-  <p class="card-text">説明文</br><%= simple_format(post.caption, sanitaize: true, class: 'm-0') %></p>
-  <p class="card-text text-center"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></small></p>
-  <div class="text-center">
+  <div class="card-footer">
     <div class="btn-group btn-block" role="group" aria-label="Basic example">
       <% if admin_signed_in? %>
         <%= link_to history_admin_company_employee_posts_path(company_id: post.company_id, employee_id: post.employee), class: "btn btn-outline-primary" do %>
