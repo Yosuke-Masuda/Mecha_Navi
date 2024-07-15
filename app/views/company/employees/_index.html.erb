@@ -1,10 +1,10 @@
-<h3 class="text-center mb-3">社員一覧</h3>
+<h3 class="text-center my-5">社員一覧</h3>
 <div class="row">
   <% store_names = employees.map { |employee| employee.store.name }.uniq %>
   <% store_names.each do |store_name| %>
-    <h5 class="col-sm-10 mx-auto mb-3"><%= store_name %>店</h5>
-    <div class="table-responsive">
-      <table class="table col-sm-10 mx-auto">
+    <h4 class="col-10 col-lg-10 mx-auto mb-3"><%= store_name %>店</h4>
+    <div class="table-responsive col-10 col-md-10 mx-auto">
+      <table class="table">
         <thead class="thead-light">
           <tr>
             <th>社員ID</th>

@@ -1,25 +1,25 @@
 <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item <%= 'disabled' if items.current_page == 1 %>">
-        <% if items.current_page == 1 %>
-          <span class="page-link">Previous</span>
-        <% else %>
-          <%= link_to 'Previous', url_for(page: items.current_page - 1), class: 'page-link' %>
-        <% end %>
-      </li>
-
-      <% (1..items.total_pages).each do |page| %>
-        <li class="page-item <%= 'active' if page == items.current_page %>">
-          <%= link_to page, url_for(page: page), class: 'page-link' %>
-        </li>
+  <ul class="pagination justify-content-center m-0">
+    <li class="page-item <%= 'disabled' if items.current_page == 1 %>">
+      <% if items.current_page == 1 %>
+        <span class="page-link">Previous</span>
+      <% else %>
+        <%= link_to 'Previous', url_for(page: items.current_page - 1), class: 'page-link' %>
       <% end %>
+    </li>
 
-      <li class="page-item <%= 'disabled' if items.current_page == items.total_pages %>">
-        <% if items.current_page == items.total_pages %>
-          <span class="page-link">Next</span>
-        <% else %>
-          <%= link_to 'Next', url_for(page: items.current_page + 1), class: 'page-link' %>
-        <% end %>
+    <% (1..items.total_pages).each do |page| %>
+      <li class="page-item <%= 'active' if page == items.current_page %>">
+        <%= link_to page, url_for(page: page), class: 'page-link' %>
       </li>
-    </ul>
-  </nav>
+    <% end %>
+
+    <li class="page-item <%= 'disabled' if items.current_page == items.total_pages %>">
+      <% if items.current_page == items.total_pages %>
+        <span class="page-link">Next</span>
+      <% else %>
+        <%= link_to 'Next', url_for(page: items.current_page + 1), class: 'page-link' %>
+      <% end %>
+    </li>
+  </ul>
+</nav>

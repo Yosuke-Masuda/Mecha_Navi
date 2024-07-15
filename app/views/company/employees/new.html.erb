@@ -1,10 +1,10 @@
-<div class="card jumbotron bg-light">
-  <h4 class="mb-5 text-color text-center">新規社員登録</h4>
+<div class="card bg-light">
+  <h4 class="my-5 text-color text-center">新規社員登録</h4>
   <%= form_with model: @employee, url: company_employees_path(company_id: current_company.id), local: true do |f| %>
     <%= render 'layouts/error_messages', resource: @employee %>
     <%= f.hidden_field :company_id, value: current_company.id %>
     <div class="row">
-      <div class="col-12 col-lg-10 mx-auto">
+      <div class="col-10 col-lg-10 mx-auto">
         <%= render 'shared/employee_form', f: f, user_type: "company" %>
 
         <div class="form-group">
@@ -13,7 +13,7 @@
                <%= f.label :password, "パスワード(６文字以上)", class: 'col-form-label' %>
             </div>
             <div class="col-md-8">
-              <%= f.password_field :password, autocomplete: "new-password", class: 'form-control col-md-5', minlength: 6, placeholder: "Password" %>
+              <%= f.password_field :password, autocomplete: "new-password", class: 'form-control', minlength: 6, placeholder: "Password" %>
             </div>
           </div>
         </div>
@@ -24,12 +24,12 @@
                <%= f.label :password_confirmation, "パスワード（確認用）", class: 'col-form-label' %>
             </div>
             <div class="col-md-8">
-              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control col-md-5', placeholder: "Password" %>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', placeholder: "Password" %>
             </div>
           </div>
         </div>
 
-        <div class="row mt-3 mb-5">
+        <div class="row my-5">
           <div class="col-md-6 mx-auto">
             <div class="button-layout">
               <button type="submit" class="btn btn-outline-primary btn-block">

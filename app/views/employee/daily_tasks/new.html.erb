@@ -1,41 +1,43 @@
-<div class="container-fluid">
-  <div class="card jumbotron bg-light">
+<div class="card jumbotron bg-light">
   <div class="row">
-    <h2 class="col-sm-10 mx-auto">タスク確認実行画面</h2>
-    <table class="table col-sm-10 mx-auto">
-      <thead>
-        <tr>
-          <th>タスク名</th>
-          <th>タスク内容</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @daily_tasks.each do |daily_task| %>
-          <% task = daily_task.task %>
-            <tr>
-              <td><%= task.name %></td>
-              <td><%= task.body %></td>
-              <td>
-                <%= form_with(model: daily_task, url: employee_daily_tasks_path(@employee), local: true) do |f| %>
-                  <%= f.hidden_field :task_id %>
-                  <%= f.hidden_field :start_time %>
-                  <% if daily_task.new_record? %>
-                    <%= f.submit "v", class: 'btn btn-outline-success'%>
-                  <% else %>
-                    完了
+    <h3 class="col-12 col-md-10 mx-auto mb-3">タスク確認実行画面</h3>
+    <div class="table-responsive col-12 col-md-10 mx-auto">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">タスク名</th>
+            <th scope="col">タスク内容</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @daily_tasks.each do |daily_task| %>
+            <% task = daily_task.task %>
+              <tr>
+                <td><%= task.name %></td>
+                <td><%= task.body %></td>
+                <td>
+                  <%= form_with(model: daily_task, url: employee_daily_tasks_path(@employee), local: true) do |f| %>
+                    <%= f.hidden_field :task_id %>
+                    <%= f.hidden_field :start_time %>
+                    <% if daily_task.new_record? %>
+                      <%= f.submit "v", class: 'btn btn-outline-success'%>
+                    <% else %>
+                      完了
+                    <% end %>
                   <% end %>
-                <% end %>
-              </td>
-            </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <div class="col-sm-10 mx-auto">
-      <%= link_to employee_tasks_path(@employee), class: 'btn btn-outline-primary' do %>
+                </td>
+              </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row mt-3 mb-5">
+    <div class="col-md-6 mx-auto">
+      <%= link_to employee_tasks_path(@employee), class: 'btn btn-outline-primary btn-block' do %>
         <i class="fa-solid fa-circle-left"></i> 戻る
       <% end %>
     </div>
-  </div>
   </div>
 </div>

@@ -1,8 +1,9 @@
 <div class="card jumbotron bg-light">
+  <h3 class="text-center mb-3">投稿履歴一覧</h3>
   <div class="row">
-    <h4 class="col-md-10 mx-auto mb-3"><%= @company.company_name %>様の投稿履歴一覧</h4>
-    <div class="table-responsive">
-      <table class="table col-md-10 mx-auto">
+    <h4 class="col-12 col-md-10 mx-auto mb-3"><%= @company.company_name %>様</h4>
+    <div class="table-responsive col-12 col-md-10 mx-auto">
+      <table class="table">
         <%= render 'shared/table_header' %>
       </table>
     </div>
