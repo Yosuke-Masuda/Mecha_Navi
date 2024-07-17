@@ -62,8 +62,13 @@
   <% end %>
   <% if employee_signed_in? %>
     <div class="card-body">
-      <h2 class="col-sm-4 mb-3">新しい投稿（５件まで表示）</h2>
-      <%= render partial: 'shared/post', collection: @posts %>
+      <div class="row">
+        <div class="col-12 col-md-12 mx-auto">
+          <h3>新しい投稿</h3>
+          <small class="text-black-50 mb-3">（５件まで表示）</small>
+         <%= render partial: 'shared/post', collection: @posts %>
+       </div>
+       </div>
     </div>
   <% end %>
 </div>
