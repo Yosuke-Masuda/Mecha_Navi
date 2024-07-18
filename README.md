@@ -36,7 +36,9 @@ https://docs.google.com/spreadsheets/d/1DEpw1ERK6g9Yh6Qqvq34DiLpi1Euhjn9bmmB658g
 - 画面遷移図.
 https://drive.google.com/file/d/1f8vGCx-aCVxgHc8jJkSXrNiOAjALlLmm/view?usp=sharing.
 - ワイヤーフレーム.
-https://drive.google.com/file/d/1OAYI0yuTGc_G4q1FDCxm6rxiheGWbadW/view?usp=sharing.
+[企業](<%= asset_path('dwc_Mecha_Navi_ワイヤーフレーム-企業ページ.drawio.pdf') %>). 
+[社員](<%= asset_path('dwc_Mecha_Navi_ワイヤーフレーム-社員ページ.drawio.pdf') %>). 
+[管理者](<%= asset_path('dwc_Mecha_Navi_ワイヤーフレーム-管理者ページ.drawio.pdf') %>). 
 
 ## 機能一覧
 https://docs.google.com/spreadsheets/d/1CCE7Wu45S2r62zzCTohjviIXxafNDy7KSE8kTRSoeVU/edit?usp=sharing
