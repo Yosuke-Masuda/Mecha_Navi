@@ -25,4 +25,5 @@ class Company < ApplicationRecord
   def self.guest
     find_by!(email: 'guest_company@example.com')
   end
+
 end

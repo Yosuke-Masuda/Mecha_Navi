@@ -28,17 +28,6 @@
       <div class="form-group">
         <div class="row">
           <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
-            <%= f.label :email, "メールアドレス", class: 'col-form-label' %>
-          </div>
-          <div class="col-md-8">
-            <%= f.email_field :email, autocomplete: "email", class: 'form-control', placeholder: "sample@example.com" %>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <div class="row">
-          <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
             <%= f.label :postal_code, "郵便番号", class: 'col-form-label' %>
           </div>
           <div class="col-md-8">
@@ -71,6 +60,17 @@
             <small class="text-black-50">
               (ハイフンなし)
             </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end">
+            <%= f.label :email, "メールアドレス", class: 'col-form-label' %>
+          </div>
+          <div class="col-md-8">
+            <%= f.email_field :email, autocomplete: "email", class: 'form-control', placeholder: "sample@example.com" %>
           </div>
         </div>
       </div>
