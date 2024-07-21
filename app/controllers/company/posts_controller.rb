@@ -3,7 +3,7 @@ class Company::PostsController < ApplicationController
   before_action :set_current_company, only: [:index, :show, :edit, :update, :destroy]
 
   def index
-    @posts = current_company.posts.where(employee_id: current_company.employees.ids).page(params[:page]).order(created_at: :desc)
+    @posts = current_company.posts.page(params[:page]).order(created_at: :desc)
     @company = current_company
     @employee = current_company.employees
   end

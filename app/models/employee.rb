@@ -13,6 +13,12 @@ class Employee < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_one_attached :image
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :first_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
+  validates :last_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
+  validates :email, presence: true, uniqueness: true
+
   def full_name
     "#{last_name} #{first_name}"
   end
@@ -24,8 +30,6 @@ class Employee < ApplicationRecord
 
   scope :only_active, -> { where(is_active: true) }
 
-  validates_presence_of :first_name, :last_name, :first_name_kana, :last_name_kana
-  validates_format_of :first_name_kana, :last_name_kana, with: /\A[ァ-ヶー－]+\z/
 
   def self.guest
     find_by!(email: 'guest_employee@example.com')
