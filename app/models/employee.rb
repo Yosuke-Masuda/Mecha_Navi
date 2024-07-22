@@ -3,14 +3,17 @@ class Employee < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+         
   belongs_to :company
   belongs_to :store
+  
   has_many :posts, dependent: :destroy
   has_many :genres, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :daily_tasks, dependent: :destroy
   has_many :likes, dependent: :destroy
+  
   has_one_attached :image
 
   validates :first_name, presence: true

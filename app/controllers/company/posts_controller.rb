@@ -4,22 +4,17 @@ class Company::PostsController < ApplicationController
 
   def index
     @posts = current_company.posts.page(params[:page]).order(created_at: :desc)
-    @company = current_company
     @employee = current_company.employees
   end
 
   def show
-    @company = current_company
     @employee = @company.employees.find(params[:employee_id])
     @post = @employee.posts.find(params[:id])
-    @posts = @employee.posts
-    @images = @post.images.map(&:blob).uniq
-    @video = @post.video
   end
 
   def edit
-    @genres = current_company.genres
-    @car_names = current_company.car_names
+    @genres = @company.genres
+    @car_names = @company.car_names
   end
 
   def update
@@ -31,7 +26,7 @@ class Company::PostsController < ApplicationController
     end
     if @post.update(post_params)
       flash[:notice] = "編集しました"
-      redirect_to company_employee_post_path(company_id: current_company.id, employee_id: @post.employee_id, id: @post)
+      redirect_to company_employee_post_path(@company.id, @post.employee_id, @post)
     else
       render :edit
     end
@@ -40,7 +35,7 @@ class Company::PostsController < ApplicationController
   def destroy
     @post.destroy
     flash[:notice] = "削除しました"
-    redirect_to company_employee_posts_path(company_id: current_company.id)
+    redirect_to company_employee_posts_path(@company.id)
   end
 
   private
@@ -52,11 +47,12 @@ class Company::PostsController < ApplicationController
         redirect_to root_path, alert: 'アクセス権限がありません'
       end
     else
-      @post = current_company.posts.find_by(id: params[:id], employee_id: current_company.employees)
+      @company = current_company
+      @post = @company.posts.find_by(id: params[:id], employee_id: @company.employees)
       if @post.present?
         @post = @post
       else
-        redirect_to company_employee_posts_path(company_id: current_company.id), alert: 'アクセス権限がありません'
+        redirect_to root_path, alert: 'アクセス権限がありません'
       end
     end
   end

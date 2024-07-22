@@ -5,7 +5,7 @@ class Admin::StoresController < ApplicationController
 
   def index
     @store = Store.new
-    @stores = Store.page(params[:page])
+    @stores = Store.page(params[:page]).order(:name)
     @companies = Company.all
   end
 
@@ -15,7 +15,7 @@ class Admin::StoresController < ApplicationController
       flash[:notice] = "作成しました"
       redirect_to admin_stores_path
     else
-      @stores = Store.page(params[:page])
+      @stores = Store.page(params[:page]).order(:name)
       @companies = Company.all
       render :index
     end

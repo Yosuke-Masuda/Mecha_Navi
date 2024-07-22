@@ -4,7 +4,7 @@ class Admin::PostsController < ApplicationController
 
   def index
     @company = Company.find(params[:company_id])
-    @recent_posts = Post.where(company_id: @company.id).group(:employee_id).order(created_at: :desc).page(params[:page]) #最近の投稿
+    @recent_posts = Post.where(company_id: @company.id).group(:employee_id).page(params[:page]).order(created_at: :desc) #最近の投稿
     @all_posts_count_by_employee = @company.posts.group(:employee_id).count #社員１人が投稿した全件数
     @favorites_count_by_employee = Post.joins(:favorites).where(company_id: @company.id).group(:employee_id).count #いいねされた全件数
   end
@@ -12,16 +12,12 @@ class Admin::PostsController < ApplicationController
   def history
     @company = Company.find(params[:company_id])
     @employee = Employee.find(params[:employee_id])
-    @posts = @employee.posts.page(params[:page]).per(10)
-    @images = @posts.map { |post| post.images }.flatten.uniq
-    @video = @posts.first.present? ? @posts.first.video : nil
+    @posts = @employee.posts.page(params[:page]).order(created_at: :desc)
   end
 
   def show
     @employee = @post.employee # @employeeを@postから取得する
     @posts = @employee.posts
-    @images = @post.images.map(&:blob).uniq
-    @video = @post.video
   end
 
   def edit
@@ -48,9 +44,10 @@ class Admin::PostsController < ApplicationController
 
   def destroy
     if @post.destroy
-      redirect_to admin_company_employee_posts_path(@post.employee.company, @post.employee), notice: '投稿を削除しました。'
+
+      redirect_to history_admin_company_employee_posts_path(@post.employee.company, @post.employee), notice: '投稿を削除しました。'
     else
-      redirect_to admin_company_employee_posts_path(@post.employee.company, @post.employee), alert: '投稿の削除に失敗しました。'
+      redirect_to history_admin_company_employee_posts_path(@post.employee.company, @post.employee), alert: '投稿の削除に失敗しました。'
     end
   end
 

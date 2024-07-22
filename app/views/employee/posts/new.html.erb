@@ -1,11 +1,13 @@
 <div class="card jumbotron bg-light">
   <h3 class="mb-5 text-color text-center">新規投稿</h3>
+  
   <%= form_with(model: @post, url: '/posts', local: true) do |f| %>
 	  <%= render 'layouts/error_messages', resource: @post %>
+	  
 	  <div class="row">
-	    
       <div class="col-12 col-lg-10 mx-auto">
         <%= render 'shared/post_form', f: f %>
+        
         <div class="row mt-3 mb-5">
           <div class="col-md-6 mx-auto">
             <div class="button-layout">
@@ -15,8 +17,10 @@
             </div>
           </div>
         </div>
+        
       </div>
-      
     </div>
+    
   <% end %>
+  
 </div>
