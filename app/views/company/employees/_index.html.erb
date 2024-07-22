@@ -9,6 +9,7 @@
           <tr>
             <th>社員ID</th>
             <th>社員名</th>
+            <th>メールアドレス</th>
             <th>ステータス</th>
             <th></th>
           </tr>
@@ -19,6 +20,7 @@
             <tr>
               <td><%= employee.id %></td>
               <td><%= link_to "#{employee.full_name}", company_employee_path(company_id: current_company.id, id: employee.id), class: "text-blue border-bottom border-dark" %></td>
+              <td><%= employee.email %></td>
               <td>
                 <% if employee.is_active == true %>
                   <p class="text-success">有効</p>
