@@ -23,7 +23,8 @@ class Admin::StoresController < ApplicationController
   end
 
   def show
-    @company = Company.find(params[:id])
+    @store = Store.find(params[:id])
+    @company = @store.company
     @employees = @store.employees.page(params[:page])
   end
 
