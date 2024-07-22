@@ -4,7 +4,7 @@ class Admin::CarNamesController < ApplicationController
 
   def index
     @car_name = CarName.new
-    @car_names = CarName.page(params[:page])
+    @car_names = CarName.page(params[:page]).order(:name)
     @companies = Company.all
   end
 
@@ -14,7 +14,7 @@ class Admin::CarNamesController < ApplicationController
       flash[:notice] = "作成しました"
       redirect_to admin_car_names_path
     else
-      @car_names = CarName.page(params[:page])
+      @car_names = CarName.page(params[:page]).order(:name)
       @companies = Company.all
       render :index
     end

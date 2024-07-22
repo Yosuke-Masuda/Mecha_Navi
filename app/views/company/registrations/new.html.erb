@@ -1,12 +1,12 @@
 <div class="card jumbotron bg-light">
-    <div class="row">
-      <div class="col-md-10 mx-auto">
-        <h4 class="mb-5 text-color text-center">新規会員登録</h4>
-        <%= render 'shared/company_form', company: @company, url: company_registration_path %>
-        <div class="col-md-10">
-          <h3>既に登録済みの方</h3>
-          <p><%= link_to "こちら", new_company_session_path, class: 'text-decolation' %>からログインしてください。</p>
-        </div>
+  <div class="row">
+    <div class="col-md-10 mx-auto">
+      <h4 class="mb-5 text-color text-center">新規会員登録</h4>
+      <%= render 'shared/company_form', company: @company, url: company_registration_path %>
+      <div class="col-md-10">
+        <h3>既に登録済みの方</h3>
+        <p><%= link_to "こちら", new_company_session_path, class: 'text-decolation' %>からログインしてください。</p>
       </div>
     </div>
+  </div>
 </div>

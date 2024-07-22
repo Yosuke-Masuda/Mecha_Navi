@@ -3,7 +3,7 @@ class Admin::TasksController < ApplicationController
 
   def index
     @task = Task.new
-    @tasks = Task.page(params[:page])
+    @tasks = Task.page(params[:page]).order(created_at: :desc)
     @companies = Company.all
 
   end
@@ -14,7 +14,7 @@ class Admin::TasksController < ApplicationController
       flash[:notice] = "作成しました"
       redirect_to admin_tasks_path
     else
-      @tasks = Task.page(params[:page])
+      @tasks = Task.page(params[:page]).order(created_at: :desc)
       @companies = Company.all
       render :index
     end

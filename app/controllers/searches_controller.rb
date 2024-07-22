@@ -11,4 +11,5 @@ class SearchesController < ApplicationController
 
     @posts = @posts.looks(params[:genre_id], params[:word])
   end
+  
 end
