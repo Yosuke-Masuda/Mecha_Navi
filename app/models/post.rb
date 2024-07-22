@@ -1,14 +1,15 @@
 class Post < ApplicationRecord
+
   belongs_to :employee
   belongs_to :store
   belongs_to :company
   belongs_to :genre
   belongs_to :car_name
+
   has_many_attached :images
   has_one_attached :video
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-
 
   validates :car_type_id, presence: true
   validates :title, presence: true
@@ -18,11 +19,9 @@ class Post < ApplicationRecord
     employee_id == employee.id
   end
 
-
   def favorited_by?(employee)
     favorites.where(employee_id: employee.id).exists?
   end
-
 
   #最近の投稿件数を表示するためのメソッド
   def recent_post_count
@@ -37,4 +36,5 @@ class Post < ApplicationRecord
     end
     posts = posts.order(created_at: :desc)
   end
+
 end

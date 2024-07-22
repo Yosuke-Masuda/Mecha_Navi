@@ -10,17 +10,14 @@ class Company < ApplicationRecord
   has_many :genres, dependent: :destroy
   has_many :car_names, dependent: :destroy
   has_many :tasks, dependent: :destroy
+
   validates :company_name, presence: true
   validates :company_name_kana, presence: true
   validates :postal_code, presence: true
   validates :address, presence: true
   validates :phone_number, presence: true
 
-
-
-  def active_for_authentication?
-    super && (is_active?)
-  end
+  scope :only_active, -> { where(is_active: true) }
 
   def self.guest
     find_by!(email: 'guest_company@example.com')

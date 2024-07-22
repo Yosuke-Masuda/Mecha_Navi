@@ -43,6 +43,9 @@
 **ワイヤーフレーム**
  * [drawio](https://drive.google.com/file/d/1OAYI0yuTGc_G4q1FDCxm6rxiheGWbadW/view?usp=sharing)
 
+**テスト仕様書**
+ * [spreadsheets](https://docs.google.com/spreadsheets/d/1DZtUhzMEA87Nd86gfJRE7pRhiYESDp929zvisRovuqc/edit?usp=sharing)
+
 `PDF（ダウンロード）でも確認ができます`
  * [企業](https://drive.google.com/file/d/1aB9cwmA1jPna8yB_mbqgRWlGQVdo8TXO/view?usp=sharing)
  * [社員](https://drive.google.com/file/d/1S3vz2BttsqtI2Hke5HEIZaaxkFrfDXEL/view?usp=sharing)

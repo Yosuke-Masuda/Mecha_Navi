@@ -2,10 +2,13 @@
 	<h3 class="text-center mb-3">ジャンル管理</h3>
   <h4 class="col-md-5 mx-auto mb-3">新規登録</h4>
   <%= render 'shared/genre_form', genre: @genre, url: admin_genres_path(@genre) %>
+
   <div class="mb-3">
     <h4 class="col-md-10 mx-auto mb-3">ジャンル一覧</h4>
+
     <div class="table-responsive">
 	    <table class="table col-md-10 mx-auto">
+
 		    <thead class="thead-light">
 			    <tr>
 				    <th scope="col">企業名</th>
@@ -14,13 +17,14 @@
 				    <th scope="col"></th>
 			    </tr>
 		    </thead>
-		  <tbody>
-        <% @genres.group_by(&:company).each do |company, genres| %>
-          <% genres.each do |genre| %>
-            <tr>
-              <% if genre == genres.first %>
-                <td rowspan="<%= genres.size %>"><%= company.company_name %></td>
-              <% end %>
+
+  		  <tbody>
+          <% @genres.group_by(&:company).each do |company, genres| %>
+            <% genres.each do |genre| %>
+              <tr>
+                <% if genre == genres.first %>
+                  <td rowspan="<%= genres.size %>"><%= company.company_name %></td>
+                <% end %>
                 <td><%= genre.name %></td>
                 <td>
                   <% if genre.is_active? %>
@@ -38,8 +42,10 @@
             <% end %>
           <% end %>
         </tbody>
+
 	    </table>
     </div>
+
   </div>
   <%= render 'shared/pagination', items: @genres %>
 </div>

@@ -4,7 +4,7 @@ class Admin::EmployeesController < ApplicationController
 
   def index
     @company = Company.find(params[:company_id])
-    @employees = @company.employees.includes(:store).order('stores.name').page(params[:page]).per(10)#店舗順に社員を管理
+    @employees = @company.employees.includes(:store).page(params[:page]).order('stores.name')#店舗順に社員を管理
     @stores = Store.all
   end
 

@@ -1,8 +1,8 @@
 <div class="table-responsive">
   <table class="table col-md-10 mx-auto">
+    
     <thead class="thead-light">
       <tr>
-        <th scope="col">#</th>
         <th scope="col">会員ID</th>
         <th scope="col">氏名</th>
         <th scope="col">メールアドレス</th>
@@ -10,10 +10,10 @@
         <th scope="col"></th>
       </tr>
     </thead>
+    
     <tbody>
       <% companies.each do |company| %>
         <tr>
-          <th scope="row"><%= companies.index(company) + 1 %></th>
           <td><%= company.id %></td>
           <td><%= link_to "#{company.company_name}", admin_company_path(company.id), class: "text-blue border-bottom border-blue" %></td>
           <td><%= company.email %></td>
@@ -32,5 +32,6 @@
         </tr>
       <% end %>
     </tbody>
+    
   </table>
 </div>
