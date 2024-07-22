@@ -3,7 +3,7 @@ class Admin::HomesController < ApplicationController
 
   def top
     @employees = Employee.all
-    @companies = Company.all
+    @companies = Company.page(params[:page]).order(created_at: :desc)
   end
 
 end
