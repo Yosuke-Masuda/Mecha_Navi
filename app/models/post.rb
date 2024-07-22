@@ -14,6 +14,11 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :caption, presence: true, length: { maximum: 500 }
 
+  def written_by?(employee)
+    employee_id == employee.id
+  end
+
+
   def favorited_by?(employee)
     favorites.where(employee_id: employee.id).exists?
   end

@@ -1,39 +1,55 @@
 <div class="card">
+
   <div class="card-header">
     <h5 class="m-0"><%= post.title %></h5>
   </div>
+
   <div class="card-body">
+
     <div class="row">
+
       <div class="col-md-4">
         <h6 class="m-0">会社名</h6>
         <%= post.employee.company.company_name %>
       </div>
+
       <div class="mt-3 mt-md-0 col-md-4">
         <h6 class="m-0">店舗名</h6>
         <%= post.employee.store.name %>店
       </div>
+
       <div class="mt-3 mt-md-0 col-md-4">
         <h6 class="m-0">投稿者</h6>
         <%= "#{post.employee.last_name} #{post.employee.first_name}" %>
       </div>
+
     </div>
+
     <hr class="hr">
+
     <div class="row">
+
       <div class="mt-3 mt-md-0 col-md-4">
         <h5 class="m-0">車名</h5>
         <%= post.car_name.present? ? post.car_name.name : "不明" %>
       </div>
+
       <div class="mt-3 mt-md-0 col-md-4">
         <h5 class="m-0">型式</h5>
         <%= post.car_name.present? ? post.car_name.car_type : "不明" %>
       </div>
+
       <div class="mt-3 mt-md-0 col-md-4">
         <h5 class="m-0">ジャンル</h5>
         <%= post.genre.present? ? post.genre.name : "不明" %>
       </div>
+
     </div>
+
     <hr class="hr">
+
     <% if post.images.attached? %>
+
       <div class="image-container my-3">
         <% post.images.each do |image| %>
           <%= link_to image_tag(image), url_for(image), target: "_blank" %>
@@ -42,51 +58,77 @@
       <small class="text-black-50">
         ※画像クリックで拡大
       </small>
+
     <% elsif post.video.attached? %>
+
       <div class='file-container'>
         <%= video_tag rails_blob_path(post.video), controls: true, class: 'responsive-video rounded', width: '100%' %>
       </div>
+
     <% end %>
+
     <p class="card-text">内容</br><%= simple_format(post.caption, sanitaize: true, class: 'm-0') %></p>
     <p class="card-text text-center"><small class="text-muted">投稿日：<%= post.created_at.strftime('%Y/%m/%d') %></small></p>
+
   </div>
+
   <div class="card-footer">
-    <div class="btn-group btn-block" role="group" aria-label="Basic example">
-      <% if admin_signed_in? %>
-        <%= link_to history_admin_company_employee_posts_path(company_id: post.company_id, employee_id: post.employee), class: "btn btn-outline-primary" do %>
-          <i class="fa-solid fa-photo-film"></i> 一覧
-        <% end %>
-        <%= link_to edit_admin_company_employee_post_path(post.company_id, post.employee_id, post.id), class: "btn btn-outline-success" do %>
-          <i class="fa-solid fa-pen-to-square"></i> 編集
-        <% end %>
-        <%= link_to admin_company_employee_post_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
-          <i class="fa-solid fa-trash"></i> 削除
-        <% end %>
-      <% elsif company_signed_in? %>
-        <%= link_to company_employee_posts_path(@company), class: "btn btn-outline-primary" do %>
-          <i class="fa-solid fa-photo-film"></i> 一覧
-        <% end %>
-          <% if post.employee.company_id == current_company.id %>
-            <%= link_to edit_company_employee_post_path(company_id: current_company.id,employee_id: post.employee_id, id: post.id), class: "btn btn-outline-success" do %>
-              <i class="fa-solid fa-pen-to-square"></i> 編集
-            <% end %>
-            <%= link_to company_employee_post_path(company_id: current_company.id, employee_id: post.employee_id, id: post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
-              <i class="fa-solid fa-trash"></i> 削除
-            <% end %>
+
+    <div class="col-md-6 mx-auto">
+
+      <div class="btn-group btn-block" role="group" aria-label="Basic example">
+
+        <% if admin_signed_in? %>
+
+          <%= link_to history_admin_company_employee_posts_path(company_id: post.company_id, employee_id: post.employee), class: "btn btn-outline-primary" do %>
+            <i class="fa-solid fa-photo-film"></i> 一覧
           <% end %>
-      <% elsif employee_signed_in? %>
-        <%= link_to posts_path(post.id), class: "btn btn-outline-primary" do %>
-         <i class="fa-solid fa-photo-film"></i> 一覧
-        <% end %>
-        <% if post.employee_id == current_employee.id %>
-          <%= link_to edit_post_path(post.id), class: "btn btn-outline-success" do %>
+
+          <%= link_to edit_admin_company_employee_post_path(post.company_id, post.employee_id, post.id), class: "btn btn-outline-success" do %>
             <i class="fa-solid fa-pen-to-square"></i> 編集
           <% end %>
-          <%= link_to post_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
+
+          <%= link_to admin_company_employee_post_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
             <i class="fa-solid fa-trash"></i> 削除
           <% end %>
+
+        <% elsif company_signed_in? %>
+
+          <%= link_to company_employee_posts_path(@company), class: "btn btn-outline-primary" do %>
+            <i class="fa-solid fa-photo-film"></i> 一覧
+          <% end %>
+
+          <%= link_to edit_company_employee_post_path(current_company.id, post.employee_id, post.id), class: "btn btn-outline-success" do %>
+            <i class="fa-solid fa-pen-to-square"></i> 編集
+          <% end %>
+
+          <%= link_to company_employee_post_path(current_company.id, post.employee_id, post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
+            <i class="fa-solid fa-trash"></i> 削除
+          <% end %>
+
+        <% else employee_signed_in? %>
+
+          <%= link_to posts_path(post.id), class: "btn btn-outline-primary" do %>
+           <i class="fa-solid fa-photo-film"></i> 一覧
+          <% end %>
+
+          <% if post.written_by?(current_employee) %>
+
+            <%= link_to edit_post_path(post.id), class: "btn btn-outline-success" do %>
+              <i class="fa-solid fa-pen-to-square"></i> 編集
+            <% end %>
+
+            <%= link_to post_path(post.id), method: :delete, data: { confirm: '削除してよろしいですか?' }, class: "btn btn-outline-danger" do %>
+              <i class="fa-solid fa-trash"></i> 削除
+            <% end %>
+
+          <% end %>
+
         <% end %>
-      <% end %>
+      </div>
+
     </div>
+
   </div>
+
 </div>

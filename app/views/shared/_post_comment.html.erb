@@ -1,0 +1,35 @@
+<% post.post_comments.each do |post_comment| %>
+  <% if @employee.image.attached? %>
+    <%= image_tag(@employee.image, class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+  <% else %>
+    <%= image_tag("kougu.jpg", class: "rounded-circle", style: "width: 100px; height: 100px;") %>
+  <% end %>
+  <%= post_comment.employee.last_name %><%= post_comment.employee.first_name %></br>
+  <%= post_comment.created_at.strftime('%Y/%m/%d') %></br><%= post_comment.comment %></br>
+  <% if admin_signed_in? %>
+    <div class="mb-1">
+      <%= link_to admin_company_employee_post_post_comment_path(post_comment.post.company, post_comment.post.employee, post_comment.post, post_comment), class: 'btn btn-danger rounded-circle', method: :delete, data: { confirm: "削除しますか？" } do %>
+        <i class="fa-solid fa-trash-can"></i>
+      <% end %>
+    </div>
+  <% elsif company_signed_in? %>
+    <div class="mb-1">
+      <%= link_to company_employee_post_post_comment_path(post_comment.post.company, post_comment.post.employee, post_comment.post, post_comment), class: 'btn btn-danger btn-sm rounded-circle', method: :delete,  data: { confirm: "削除してもよろしいですか？" } do %>
+        <i class="fa-solid fa-trash-can"></i>
+      <% end %>
+    </div>
+  <% else employee_signed_in? %>
+    <div class="btn-group">
+      <div class="mr-1">
+        <%= render "/employee/likes/like", post_comment: post_comment %>
+      </div>
+      <% if post_comment.written_by?(current_employee) %>
+        <div class="ml-1">
+          <%= link_to post_post_comment_path(post_comment.post, post_comment), class: 'btn btn-danger btn-sm rounded-circle', method: :delete, data: { confirm: "削除してもよろしいですか？" }  do %>
+            <i class="fa-solid fa-trash-can"></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
