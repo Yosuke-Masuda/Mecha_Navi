@@ -2,7 +2,7 @@ class Admin::HomesController < ApplicationController
   before_action :authenticate_admin!
 
   def top
-    @employees = Employee.page(params[:page]).order(:name)
+    @employees = Employee.includes(:company).page(params[:page]).order(:name)
   end
 
 end
