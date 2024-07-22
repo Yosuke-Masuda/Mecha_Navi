@@ -1,4 +1,7 @@
 <div class="card jumbotron bg-light">
+  <div class="col-md-10 mx-auto">
+    <h3 class="text-center">社員一覧</h3>
+  </div>
   <%= render partial: 'shared/employee_index', locals: { employees: @employees, employee: @employee } %>
   <%= render 'shared/pagination', items: @employees %>
 </div>
