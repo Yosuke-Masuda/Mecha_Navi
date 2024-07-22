@@ -1,6 +1,5 @@
-<div class="card bg-light mx-auto">
-  <%= render 'index', employees: @employees %>
-  <div class="my-5">
-    <%= render 'shared/pagination', items: @employees %>
-  </div>
+<div class="card jumbotron bg-light">
+  <h4 class="text-center mb-3">社員一覧</h4>
+  <%= render 'shared/employee_index', company: @company, employees: @employees, employee: @employee %>
+  <%= render 'shared/pagination', items: @employees %>
 </div>

@@ -36,11 +36,11 @@ class Employee::SessionsController < Devise::SessionsController
   end
 
   def after_sign_in_path_for(resource)
-    if current_employee.is_active
+    if current_employee.is_active && current_employee.company.is_active
       flash[:notice] = "ログインしました。"
       root_path
     else
-      flash[:alert] = "退職済みのアカウントです。"
+      flash[:alert] = "無効のアカウントです。"
       sign_out(resource)
       new_employee_session_path
     end

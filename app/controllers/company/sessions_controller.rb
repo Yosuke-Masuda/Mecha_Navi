@@ -31,8 +31,14 @@ class Company::SessionsController < Devise::SessionsController
   end
 
   def after_sign_in_path_for(resource)
-    flash[:notice] = "ログインしました。"
-    top_path
+    if @company.is_active
+      flash[:notice] = "ログインしました。"
+      top_path
+    else
+      flash[:alert] = "無効のアカウントです。"
+      sign_out(resource)
+      new_company_session_path
+    end
   end
 
   def after_sign_out_path_for(resource)

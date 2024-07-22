@@ -3,7 +3,7 @@ class Admin::CompaniesController < ApplicationController
   before_action :ensure_company, only: [:show, :edit, :update]
 
   def index
-    @companies = Company.page(params[:page]).order(:name)
+    @companies = Company.page(params[:page]).order(company_name: :asc)
   end
 
   def show
