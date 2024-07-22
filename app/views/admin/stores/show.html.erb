@@ -14,7 +14,7 @@
           <tbody>
             <% @employees.each do |employee| %>
                <tr>
-                 <td><%= link_to "#{employee.full_name}", admin_company_employee_path(@company, employee), class: "text-blue border-bottom border-dark" %></td>
+                 <td><%= link_to "#{employee.full_name}", admin_company_employee_path(@company.id, employee.id), class: "text-blue border-bottom border-dark" %></td>
                  <td><%= employee.email %></td>
                  <td>
                    <% if employee.is_active == true %>

@@ -1,35 +1,85 @@
-  <div class="col-md-10 mx-auto">
-    <h3 class="text-center">社員一覧</h3>
-  </div>
-  <div class="col-md-12">
-    <% store_names = employees.map { |employee| employee.store.name }.uniq %>
-    <% store_names.each do |store_name| %>
-      <h4 class="col-md-10 mx-auto"><%= store_name %>店</h4>
-      <div class="table-responsive">
-        <table class="table col-md-10 mx-auto">
-          <thead class="thead-light">
+<% store_names = employees.map { |employee| employee.store.name }.uniq %>
+<% store_names.each do |store_name| %>
+  <h4 class="col-md-10 mx-auto"><%= store_name %>店</h4>
+  <div class="table-responsive col-10 col-md-10 mx-auto">
+    <table class="table">
+      <thead class="thead-light">
+        <% if admin_signed_in? || company_signed_in? %>
+          <tr>
+            <th scope="col">社員ID</th>
+            <th scope="col">社員名</th>
+            <th scope="col">メールアドレス</th>
+            <th scope="col">ステータス</th>
+            <th scope="col"></th>
+          </tr>
+        <% else employee_signed_in? %>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">社員名</th>
+            <th scope="col">メールアドレス</th>
+            <th scope="col">ステータス</th>
+            <th scope="col"></th>
+          </tr>
+        <% end %>
+      </thead>
+      <tbody>
+        <% employees_of_store = employees.select { |employee| employee.store.name == store_name } %>
+        <% employees_of_store.each do |employee| %>
+          <% if admin_signed_in? %>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">社員名</th>
-              <th scope="col">メールアドレス</th>
-              <th scope="col">ステータス</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% employees_of_store = employees.select { |employee| employee.store.name == store_name } %>
-            <% employees_of_store.each do |employee| %>
-              <tr>
-                <% if employee.is_active == true %>
-                  <th scope="row"><%= employees.index(employee) + 1 %></th>
-                  <td><%= link_to "#{employee.full_name}", history_posts_path(employee_id: employee.id), class: "text-blue border-bottom border-dark" %></td>
-                  <td><%= employee.email %></td>
-                  <td><p class="text-success">有効</p></td>
+              <td><%= employee.id %></td>
+              <td><%= link_to "#{employee.full_name}", admin_company_employee_path(company.id, employee.id), class: "text-blue border-bottom border-blue" %></td>
+              <td><%= employee.email %></td>
+              <td>
+                <% if employee.is_active? %>
+                  <p class="text-success">有効</p>
+                <% else %>
+                  <p class="text-secondary">退職</p>
                 <% end %>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    <% end %>
+              </td>
+              <td>
+                <% if employee.is_active == true %>
+                  <%= link_to admin_employee_calendar_path(company, employee), class: "btn btn-outline-warning mr-1" do %>
+                    <i class="fa-solid fa-calendar-days"></i> タスク進捗
+                  <% end %>
+                  <%= link_to history_admin_company_employee_posts_path(company, employee), class: "btn btn-outline-primary" do %>
+                    <i class="fa-solid fa-photo-film"></i> 投稿一覧
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% elsif company_signed_in? %>
+            <tr>
+              <td><%= employee.id %></td>
+              <td><%= link_to "#{employee.full_name}", company_employee_path(current_company.id, employee.id), class: "text-blue border-bottom border-dark" %></td>
+              <td><%= employee.email %></td>
+              <td>
+                <% if employee.is_active == true %>
+                  <p class="text-success">有効</p>
+                <% else %>
+                  <p class="text-secondary">退職</p>
+                <% end %>
+              </td>
+              <td>
+                <% if employee.is_active == true %>
+                  <%= link_to company_employee_calendar_path(company, employee), class: "btn btn-outline-primary" do %>
+                    <i class="fa-solid fa-calendar-days"></i> タスク進捗
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% else employee_signed_in? %>
+            <tr>
+              <% if employee.is_active == true %>
+                <th scope="row"><%= employees.index(employee) + 1 %></th>
+                <td><%= link_to "#{employee.full_name}", history_posts_path(employee.id), class: "text-blue border-bottom border-dark" %></td>
+                <td><%= employee.email %></td>
+                <td><p class="text-success">有効</p></td>
+              <% end %>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
   </div>
+<% end %>

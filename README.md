@@ -43,13 +43,13 @@
 **ワイヤーフレーム**
  * [drawio](https://drive.google.com/file/d/1OAYI0yuTGc_G4q1FDCxm6rxiheGWbadW/view?usp=sharing)
 
-**テスト仕様書**
- * [spreadsheets](https://docs.google.com/spreadsheets/d/1DZtUhzMEA87Nd86gfJRE7pRhiYESDp929zvisRovuqc/edit?usp=sharing)
-
 `PDF（ダウンロード）でも確認ができます`
  * [企業](https://drive.google.com/file/d/1aB9cwmA1jPna8yB_mbqgRWlGQVdo8TXO/view?usp=sharing)
  * [社員](https://drive.google.com/file/d/1S3vz2BttsqtI2Hke5HEIZaaxkFrfDXEL/view?usp=sharing)
  * [管理者](https://drive.google.com/file/d/1PhZsxzu-szIrC1ra61we4der9-bVEJ-t/view?usp=sharing)
+
+**テスト仕様書**
+ * [spreadsheets](https://docs.google.com/spreadsheets/d/1DZtUhzMEA87Nd86gfJRE7pRhiYESDp929zvisRovuqc/edit?usp=sharing)
 
 ## 機能一覧
 * [機能リスト](https://docs.google.com/spreadsheets/d/1CCE7Wu45S2r62zzCTohjviIXxafNDy7KSE8kTRSoeVU/edit?usp=sharing)
