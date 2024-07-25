@@ -1,0 +1,2 @@
+module Employee::FavoritesHelper
+end

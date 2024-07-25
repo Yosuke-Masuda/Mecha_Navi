@@ -1,9 +1,9 @@
 <% if post_comment.liked_by?(current_employee) %>
-   <%= link_to post_post_comment_likes_path(post_id: @post.id, post_comment_id: post_comment.id), class: 'btn btn-outline-warning btn-sm', method: :delete do %>
+   <%= link_to post_post_comment_likes_path(post_id: @post.id, post_comment_id: post_comment.id), class: 'btn btn-outline-warning btn-sm', method: :delete, remote: true do %>
      <i class="fa-solid fa-thumbs-up" aria-hidden="true" style="color: orange;"></i><%= post_comment.likes.count %>
    <% end %>
 <% else %>
-  <%= link_to post_post_comment_likes_path(post_id: @post.id, post_comment_id: post_comment.id) , class: 'btn btn-outline-warning btn-sm ', method: :post do %>
+  <%= link_to post_post_comment_likes_path(post_id: @post.id, post_comment_id: post_comment.id) , class: 'btn btn-outline-warning btn-sm ', method: :post, remote: true do %>
     <i class="fa-regular fa-thumbs-up" aria-hidden="true"></i><%= post_comment.likes.count %>
   <% end %>
 <% end %>
