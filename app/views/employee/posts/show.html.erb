@@ -7,9 +7,11 @@
       <%= render 'shared/post_show', post: @post %>
 
       <div class="my-3">
+        <div id="favorite_buttons_<%= @post.id %>">
         <%= render "/employee/favorites/favorite", post: @post %>
+        </div>
         <p>コメント件数：<%= @post.post_comments.count %></p>
-        <%= render "shared/post_comment", post: @post %>
+        <%= render "shared/post_comment", post: @post, post_comment: @post_comment %>
       </div>
 
       <div class="mb-3">

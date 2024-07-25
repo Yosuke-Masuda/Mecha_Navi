@@ -1,25 +1,27 @@
 <div class="card jumbotron bg-light">
-    <h4 class="col-md-10 mx-auto mb-3">投稿履歴一覧</h4>
-    <div class="table-responsive">
-      <table class="table col-md-10 mx-auto">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">企業名</th>
-            <th scope="col">社員投稿者数</th>
-            <th scope="col">投稿件数</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @employees.group_by(&:company).sort_by { |company, employees| -employees.sum { |e| e.posts.count } }.reject { |company, employees| employees.sum { |e| e.posts.count } == 0 }.each do |company, employees| %>
-            <tr>
-              <td><%= link_to "#{company.company_name}", admin_company_employee_posts_path(company_id: company.id), class: "text-b border-bottom border-dark" %></td>
-              <td><%= company.posts.distinct.count(:employee_id) %>人</td>
-              <td><%= employees.sum { |e| e.posts.count } %>件</td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-    <%= render partial: 'shared/pagination', locals: { items: @employees } %>
+  <div class="col-md-10 mx-auto">
+    <h3 class="text-center">管理者トップ画面</h3>
   </div>
+  <h4 class="col-md-10 mx-auto mb-3">投稿履歴一覧</h4>
+  <div class="table-responsive col-10 col-md-10 mx-auto">
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">企業名</th>
+          <th scope="col">社員投稿者数</th>
+          <th scope="col">投稿件数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @employees.group_by(&:company).sort_by { |company, employees| -employees.sum { |e| e.posts.count } }.reject { |company, employees| employees.sum { |e| e.posts.count } == 0 }.each do |company, employees| %>
+          <tr>
+            <td><%= link_to "#{company.company_name}", admin_company_employee_posts_path(company_id: company.id), class: "text-b border-bottom border-dark" %></td>
+            <td><%= company.posts.distinct.count(:employee_id) %>人</td>
+            <td><%= employees.sum { |e| e.posts.count } %>件</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= render 'shared/pagination', items: @companies %>
 </div>
