@@ -1,5 +1,7 @@
 class Employee::PostCommentsController < ApplicationController
-
+  before_action :authenticate_employee!
+  before_action :correct_employee, only: [:destroy]
+  
   def create
     post = Post.find(params[:post_id])
     comment = current_employee.post_comments.new(post_comment_params)
@@ -28,6 +30,10 @@ class Employee::PostCommentsController < ApplicationController
 
   def post_comment_params
     params.require(:post_comment).permit(:comment)
+  end
+  
+  def correct_employee
+    @post_comment = current_employee.post_comments.find_by(id: params[:id])
   end
 
 end
