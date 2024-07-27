@@ -15,6 +15,8 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :caption, presence: true, length: { maximum: 500 }
 
+  scope :only_active, -> { where(is_active: true) }
+
   def written_by?(employee)
     employee_id == employee.id
   end
