@@ -1,11 +1,11 @@
 class Genre < ApplicationRecord
   belongs_to :company
+
   has_many :employees, dependent: :destroy
   has_many :posts, dependent: :destroy
 
-  scope :only_active, -> { where(is_active: true) }
+  validates :name, presence: true, uniqueness: { scope: :company_id }
 
-  validates :company_id, presence: true
-  validates :name, presence: true
+  scope :only_active, -> { where(is_active: true) }
 
 end

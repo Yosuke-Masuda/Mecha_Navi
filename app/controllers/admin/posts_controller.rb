@@ -4,9 +4,9 @@ class Admin::PostsController < ApplicationController
 
   def index
     @company = Company.find(params[:company_id])
-    @recent_posts = Post.where(company_id: @company.id).group(:employee_id).page(params[:page]).order(created_at: :desc) #最近の投稿
-    @all_posts_count_by_employee = @company.posts.group(:employee_id).count #社員１人が投稿した全件数
-    @favorites_count_by_employee = Post.joins(:favorites).where(company_id: @company.id).group(:employee_id).count #いいねされた全件数
+    @recent_posts = Post.get_company(@company.id, params[:page]) #最近の投稿
+    @all_posts_count_by_employee = Post.get_all_posts_count_by_employee(@company.id) #社員１人が投稿した全件数
+    @favorites_count_by_employee = Post.get_favorite(@company.id) #いいねされた全件数
   end
 
   def history

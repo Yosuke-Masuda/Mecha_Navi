@@ -64,6 +64,8 @@ gem 'kaminari','~> 1.2.1'
 gem 'jquery-rails'
 gem 'kaminari-bootstrap'
 gem 'simple_calendar'
+gem 'rails-i18n'
+gem 'devise-i18n'
 
 gem 'dotenv-rails'
 group :production do
