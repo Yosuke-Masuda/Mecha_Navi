@@ -31,9 +31,7 @@ class Employee < ApplicationRecord
     company.company_name if company.present?
   end
 
-  def active_for_authentication?
-    super && (is_active?)
-  end
+  scope :only_active, -> { where(is_active: true) }
 
 
   def self.guest

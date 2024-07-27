@@ -1,5 +1,6 @@
 class Employee::LikesController < ApplicationController
-
+  before_action :authenticate_employee!
+  
   def create
     @post_comment = PostComment.find(params[:post_comment_id])
     puts "@post_comment: #{@post_comment.inspect}"

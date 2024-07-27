@@ -41,6 +41,13 @@ class Company::CompaniesController < ApplicationController
     end
   end
 
+  def authenticate_company!
+    if !(current_employee && current_employee.is_active?)
+      flash[:alert] = "failed"
+      redirect_to root_url
+    end
+  end
+
   def company_params
     params.require(:company).permit(:email, :company_name, :company_name_kana, :address, :postal_code, :phone_number, :password, :password_confirmation,)
   end

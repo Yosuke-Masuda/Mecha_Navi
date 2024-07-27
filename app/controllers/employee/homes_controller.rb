@@ -1,4 +1,5 @@
 class Employee::HomesController < ApplicationController
+  
   def top
     if current_employee
       @company = current_employee.company
