@@ -10,8 +10,13 @@ FactoryBot.define do
     email { Faker::Internet.email }
     password { 'password' }
     password_confirmation { 'password' }
-    is_active { true }
+    is_active { [true, false] }
     company
     store
+    after(:build) do |employee|
+      employee.define_singleton_method(:full_name) do
+        "#{last_name} #{first_name}"
+      end
+    end
   end
 end
