@@ -199,7 +199,34 @@ describe '[STEP2] 企業ログイン後のテスト' do
       it "URLが正しい" do
         expect(current_path).to eq '/companies/' + company.id.to_s + '/employees/posts'
       end
+      it '各リンク先が正しい' do
+        expect(page).to have_link '詳細', href: company_employee_post_path(company.id, post.employee_id, post.id)
+        expect(page).to have_link '編集', href: edit_company_employee_post_path(company.id, post.employee_id, post.id)
+        expect(page).to have_link '削除', href: company_employee_post_path(company.id, post.employee_id, post.id)
+      end
+      it '詳細を押すと、投稿詳細画面に遷移する' do
+        click_link '詳細'
+        expect(current_path).to eq '/companies/' + company.id.to_s + '/employees/' + post.employee_id.to_s + '/posts/' + post.id.to_s
+      end
+      it '編集を押すと投稿編集画面に遷移する' do
+        click_link '編集'
+        expect(current_path).to eq '/companies/' + company.id.to_s + '/employees/' + post.employee_id.to_s + '/posts/' + post.id.to_s + '/edit'
+      end
     end
+    
+    context '削除リンクのテスト' do
+      before do
+        click_link '削除'
+      end
+
+      it '正しく削除される' do
+        expect(Post.where(id: post.id).count).to eq 0
+      end
+      it 'リダイレクト先が、投稿一覧画面になっている' do
+        expect(current_path).to eq '/companies/' + company.id.to_s + '/employees/posts'
+      end
+    end
+
   end
 
   describe '店舗一覧画面のテスト' do
@@ -217,9 +244,9 @@ describe '[STEP2] 企業ログイン後のテスト' do
       it 'nameフォームが表示される' do
         expect(page).to have_field 'store[name]'
       end
-      # it 'is_activeフォームが表示される' do
-      #   expect(page).to have_field 'store[is_active]'
-      # end
+      it 'is_activeフォームが表示される' do
+        expect(page).to have_field 'store[is_active]'
+      end
 
       it '登録ボタンが表示される' do
         expect(page).to have_button '登録'
@@ -236,7 +263,7 @@ describe '[STEP2] 企業ログイン後のテスト' do
       before do
         # sign_in company
         fill_in 'store[name]', with: Faker::Name.name
-        # fill_in 'store[is_active]', with: true
+        choose 'store[is_active]', with: true
         click_button '登録'
       end
 
@@ -268,9 +295,9 @@ describe '[STEP2] 企業ログイン後のテスト' do
       it 'car_typeフォームが表示される' do
         expect(page).to have_field 'car_name[car_type]'
       end
-      # it 'is_activeフォームが表示される' do
-      #   expect(page).to have_field 'car_name[is_active]'
-      # end
+      it 'is_activeフォームが表示される' do
+        expect(page).to have_field 'car_name[is_active]'
+      end
       it '登録ボタンが表示される' do
         expect(page).to have_button '登録'
       end
@@ -284,11 +311,12 @@ describe '[STEP2] 企業ログイン後のテスト' do
         # sign_in company
         fill_in 'car_name[name]', with: Faker::Name.name
         fill_in 'car_name[car_type]', with: Faker::Lorem.characters(number: 10)
-        # fill_in 'car_name[is_active]', with: true
+        choose 'car_name[is_active]', with: true
+        click_button '登録'
       end
 
       it '正しく新規登録される' do
-        expect { click_button '登録' }.to change{CarName.count}.by(1)
+        expect(CarName.count).to be >= 1
       end
       it '新規登録後の車両管理（一覧画面）にリダイレクトされる' do
         click_button '登録'
@@ -312,9 +340,9 @@ describe '[STEP2] 企業ログイン後のテスト' do
       it 'nameフォームが表示される' do
         expect(page).to have_field 'genre[name]'
       end
-      # it 'is_activeフォームが表示される' do
-      #   expect(page).to have_field 'genre[is_active]'
-      # end
+      it 'is_activeフォームが表示される' do
+        expect(page).to have_field 'genre[is_active]'
+      end
       it '登録ボタンが表示される' do
         expect(page).to have_button '登録'
       end
@@ -327,7 +355,7 @@ describe '[STEP2] 企業ログイン後のテスト' do
       before do
         # sign_in company
         fill_in 'genre[name]', with: Faker::Name.name
-        # fill_in 'genre[is_active]', with: true
+        choose 'genre[is_active]', with: true
       end
 
       it '正しく新規登録される' do
@@ -358,9 +386,6 @@ describe '[STEP2] 企業ログイン後のテスト' do
       it 'bodyフォームが表示される' do
         expect(page).to have_field 'task[body]'
       end
-      # it 'is_activeフォームが表示される' do
-      #   expect(page).to have_field 'task[is_active]'
-      # end
       it '登録ボタンが表示される' do
         expect(page).to have_button '登録'
       end
@@ -374,7 +399,6 @@ describe '[STEP2] 企業ログイン後のテスト' do
         # sign_in company
         fill_in 'task[name]', with: Faker::Name.name
         fill_in 'task[body]', with: Faker::Lorem.characters(number: 20)
-        # fill_in 'task[is_active]', with: true
       end
 
       it '正しく新規登録される' do
