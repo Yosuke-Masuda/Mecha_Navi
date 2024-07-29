@@ -15,7 +15,7 @@ import "popper.js";
 import "bootstrap";
 import "../stylesheets/application.scss"
 import '@fortawesome/fontawesome-free/js/all'
-//import 'simple_calendar'
+
 
 
 Rails.start()

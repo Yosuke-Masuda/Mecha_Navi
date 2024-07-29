@@ -4,7 +4,7 @@
       <%= f.label :genre_id, "ジャンル選択", class: 'col-form-label' %>
     </div>
     <div class="col-md-8">
-      <%= f.collection_select :genre_id, @genres, :id, :name, { prompt: "--選択して下さい--" }, class: 'form-control text-center' %>
+      <%= f.collection_select :genre_id, @genres.select{ |genre| genre.is_active }, :id, :name, { prompt: "--選択して下さい--" }, class: 'form-control text-center' %>
     </div>
   </div>
 </div>
@@ -15,7 +15,7 @@
       <%= f.label :car_name_id, "車名選択", class: 'col-form-label' %>
     </div>
     <div class="col-md-8">
-      <%= f.collection_select :car_name_id, @car_names, :id, :name, { prompt: "--選択して下さい--" }, class: 'form-control text-center' %>
+      <%= f.collection_select :car_name_id, @car_names.select{ |car_name| car_name.is_active }, :id, :name, { prompt: "--選択して下さい--" }, class: 'form-control text-center' %>
     </div>
   </div>
 </div>
@@ -26,7 +26,7 @@
       <%= f.label :car_type_id, "型式選択", class: 'col-form-label' %>
     </div>
     <div class="col-md-8">
-      <%= f.collection_select :car_type_id, @car_names, :id, :car_type, {prompt: "--選択して下さい--" }, class: 'form-control text-center' %>
+      <%= f.collection_select :car_type_id, @car_names.select{ |car_name| car_name.is_active }, :id, :car_type, {prompt: "--選択して下さい--" }, class: 'form-control text-center' %>
     </div>
   </div>
 </div>

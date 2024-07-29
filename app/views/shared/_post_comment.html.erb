@@ -4,7 +4,7 @@
   <% else %>
     <%= image_tag("kougu.jpg", class: "rounded-circle", style: "width: 100px; height: 100px;") %>
   <% end %>
-  <%= post_comment.employee.last_name %><%= post_comment.employee.first_name %></br>
+  <%= post_comment.employee.full_name %></br>
   <%= post_comment.created_at.strftime('%Y/%m/%d') %></br><%= post_comment.comment %></br>
   <% if admin_signed_in? %>
     <div class="mb-1">
@@ -19,9 +19,11 @@
       <% end %>
     </div>
   <% else employee_signed_in? %>
-    <div class="btn-group">
+    <div class="btn-group mb-3">
       <div class="mr-1">
+        <div id="like_buttons_<%= post_comment.id %>">
         <%= render "/employee/likes/like", post_comment: post_comment %>
+        </div>
       </div>
       <% if post_comment.written_by?(current_employee) %>
         <div class="ml-1">
@@ -30,6 +32,6 @@
           <% end %>
         </div>
       <% end %>
-    </div>
+    </div></br>
   <% end %>
 <% end %>

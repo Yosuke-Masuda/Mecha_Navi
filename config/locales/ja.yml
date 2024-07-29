@@ -1,0 +1,41 @@
+ja:
+ activerecord:
+   attributes:
+     car_name:
+       company: '企業'
+       name: '車名'
+       car_type: '型式'
+     company:
+       company_name: '企業名'
+       company_name_kana: 'フリガナ'
+       postal_code: '郵便番号'
+       address: '住所'
+       phone_number: '電話番号'
+       email: 'メールアドレス'
+       password: 'パスワード'
+       password_confirmation: 'パスワード確認'
+     employee:
+       store: '店舗'
+       first_name: '名'
+       last_name: '姓'
+       first_name_kana: '(名)フリガナ'
+       last_name_kana: '(姓)フリガナ'
+       email: 'メールアドレス'
+       password: 'パスワード'
+       password_confirmation: 'パスワード確認'
+     genre:
+       company: '企業'
+       name: 'ジャンル名'
+     post:
+       genre: 'ジャンル'
+       car_name: '車名'
+       car_type_id: '型式'
+       title: 'タイトル'
+       caption: '内容'
+     store:
+       company: '企業'
+       name: '店舗名'
+     task:
+       company: '企業'
+       name: 'タスク名'
+       body: 'タスク内容'

@@ -4,7 +4,7 @@
     <% if admin_signed_in? %>
       <div class="col-sm-5 mx-auto mb-3">
 	      <%= f.label :company_id, "企業の選択", class: "col-form-label" %>
-        <%= f.collection_select :company_id, @companies, :id, :company_name, { prompt: "--選択して下さい--" }, class: 'form-control text-center' %>
+        <%= f.collection_select :company_id, @companies.select{ |company| company.is_active }, :id, :company_name, { prompt: "--選択して下さい--" }, class: 'form-control text-center' %>
 	    </div>
 	  <% end %>
 		<div class="col-sm-5 mx-auto mb-3">

@@ -15,6 +15,8 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :caption, presence: true, length: { maximum: 500 }
 
+  scope :only_active, -> { where(is_active: true) }
+
   def written_by?(employee)
     employee_id == employee.id
   end
@@ -35,6 +37,19 @@ class Post < ApplicationRecord
       posts = posts.where("title LIKE ? OR car_names.name LIKE ? OR car_names.car_type LIKE ?", "%#{word}%", "%#{word}%", "%#{word}%")
     end
     posts = posts.order(created_at: :desc)
+  end
+
+  #admin/posts controller/indexのリファクタリング
+  def self.get_company(company_id, now_page)
+    return where(company_id: company_id).group(:employee_id).page(now_page).order(created_at: :desc) #最近の投稿
+  end
+
+  def self.get_all_posts_count_by_employee(company_id)
+    return where(company_id: company_id).group(:employee_id).count
+  end
+
+  def self.get_favorite(company_id)
+    return joins(:favorites).where(company_id: company_id).group(:employee_id).count #いいねされた全件数
   end
 
 end

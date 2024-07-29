@@ -1,5 +1,5 @@
 <div class="card mb-3">
-
+  <% if post.car_name.is_active == true && post.genre.is_active == true %>
   <div class="card-header">
     <h5 class="m-0"><%= post.title %></h5>
   </div>
@@ -52,17 +52,17 @@
 
           <div class="mt-3 mt-md-0 col-md-4">
             <h5 class="m-0">車名</h5>
-            <%= post.car_name.present? ? post.car_name.name : "不明" %>
+            <%= post.car_name.name %>
           </div>
 
           <div class="mt-3 mt-md-0 col-md-4">
             <h5 class="m-0">型式</h5>
-            <%= post.car_name.present? ? post.car_name.car_type : "不明" %>
+            <%= post.car_name.car_type %>
           </div>
 
           <div class="mt-3 mt-md-0 col-md-4">
             <h5 class="m-0">ジャンル</h5>
-            <%= post.genre.present? ? post.genre.name : "不明" %>
+            <%= post.genre.name %>
           </div>
 
         </div>
@@ -145,12 +145,20 @@
 
       <div class="mt-3 mt-md-0 col-md-4">
         <h6 class="m-0">店舗名</h6>
-        <%= post.employee.store.name %>店
+        <% if post.store.is_active == true %>
+          <%= post.employee.store.name %>店
+        <% else %>
+          ＊＊＊店
+        <% end %>
       </div>
 
       <div class="mt-3 mt-md-0 col-md-4">
         <h6 class="m-0">投稿者</h6>
-        <%= "#{post.employee.last_name} #{post.employee.first_name}" %>
+        <% if post.employee.is_active == true %>
+          <%= post.employee.full_name %>
+        <% else %>
+          ＊＊＊＊
+        <% end %>
       </div>
 
     </div>
@@ -163,5 +171,5 @@
     </div>
 
   </div>
-
+  <% end %>
 </div>

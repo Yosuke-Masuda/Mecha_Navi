@@ -13,11 +13,12 @@
         </tr>
       </thead>
       <tbody>
-        <% @employees.group_by(&:company).sort_by { |company, employees| -employees.sum { |e| e.posts.count } }.reject { |company, employees| employees.sum { |e| e.posts.count } == 0 }.each do |company, employees| %>
+        <!--Employeeモデルに記述したメソッド名(get_employee)で呼び出す-->
+        <% @employees.get_employees.each do |company, employees| %>
           <tr>
             <td><%= link_to "#{company.company_name}", admin_company_employee_posts_path(company_id: company.id), class: "text-b border-bottom border-dark" %></td>
             <td><%= company.posts.distinct.count(:employee_id) %>人</td>
-            <td><%= employees.sum { |e| e.posts.count } %>件</td>
+            <td><%= employees.sum(&:post_count) %>件</td>
           </tr>
         <% end %>
       </tbody>

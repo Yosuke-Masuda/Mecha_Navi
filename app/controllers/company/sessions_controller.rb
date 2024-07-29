@@ -32,9 +32,9 @@ class Company::SessionsController < Devise::SessionsController
 
   def after_sign_in_path_for(resource)
     if @company.is_active
-      flash[:notice] = "ログインしました。"
       top_path
     else
+      flash.discard(:notice) # 「ログインしました」メッセージを削除
       flash[:alert] = "無効のアカウントです。"
       sign_out(resource)
       new_company_session_path
