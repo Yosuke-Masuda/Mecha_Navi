@@ -90,7 +90,7 @@ describe '[STEP2] 企業ログイン後のテスト' do
 
     context '表示内容の確認' do
       it 'URLが正しい' do
-        expect(current_path).to eq '/companies/2/employees/new'
+        expect(current_path).to eq '/companies/' + company.id.to_s + '/employees/new'
       end
       it '「新規社員登録」と表示される' do
         expect(page).to have_content '新規社員登録'
@@ -169,7 +169,148 @@ describe '[STEP2] 企業ログイン後のテスト' do
     end
 
     context '社員一覧画面のテスト' do
+      it '社員名をクリックすると社員詳細画面へ遷移する' do
+        click_link employee.full_name
+        expect(current_path).to eq '/companies/' + company.id.to_s + '/employees/' + employee.id.to_s
+      end
+      it 'タスク進捗ボタンをクリックするとタスクカレンダー画面へ遷移する' do
+        click_link 'タスク進捗'
+        expect(current_path).to eq company_employee_calendar_path(company, employee)
+      end
+    end
+  end
 
+  describe '社員詳細画面のテスト' do
+    before do
+      visit company_employee_path(company, employee)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/companies/' + company.id.to_s + '/employees/' + employee.id.to_s
+      end
+      it 'プロフィール画像が表示される' do
+        expect(page).to have_css('img') # imgタグが表示されることを確認
+      end
+      it '勤務地が表示される' do
+        expect(page).to have_content(employee.store.name) # 勤務地の店名が表示されることを確認
+      end
+      it '氏名が表示される' do
+        expect(page).to have_content(employee.last_name) # 姓が表示されることを確認
+        expect(page).to have_content(employee.first_name) # 名が表示されることを確認
+      end
+
+      it 'フリガナが表示される' do
+        expect(page).to have_content(employee.last_name_kana) # セイが表示されることを確認
+        expect(page).to have_content(employee.first_name_kana) # メイが表示されることを確認
+      end
+
+      it 'メールアドレスが表示される' do
+        expect(page).to have_content(employee.email) # メールアドレスが表示されることを確認
+      end
+
+      it 'ステータスが表示される' do
+        if employee.is_active?
+          expect(page).to have_css('p.text-success', text: '有効') # 有効ステータスが表示されることを確認
+        else
+          expect(page).to have_css('p.text-secondary', text: '退職') # 退職ステータスが表示されることを確認
+        end
+      end
+
+      it '編集、社員一覧ボタンが存在する' do
+        expect(page).to have_link "編集", href: edit_company_employee_path(company, employee)
+        expect(page).to have_link "社員一覧", href: company_employees_path(company)
+      end
+    end
+  end
+
+  describe '社員編集画面のテスト' do
+    before do
+      visit edit_company_employee_path(company, employee)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/companies/' + company.id.to_s + '/employees/' + employee.id.to_s + '/edit'
+      end
+      it '店舗セレクトボックスが表示される' do
+        store_options = company.stores.select{ |store| store.is_active }.map { |store| [store.name, store.id] }
+
+        select_options = page.find('#employee_store_id').all('option')
+
+        expect(select_options.size).to eq(store_options.size)
+        select_options.drop(1).each_with_index do |option, index|
+          expect(option.text).to eq(store_options[index][0]) # オプションのテキストが正しいことを確認
+          expect(option.value).to eq(store_options[index][1].to_s) # オプションの値が正しいことを確認
+        end
+      end
+      it '画像選択ファイルが表示されること' do
+        expect(page).to have_selector("img")
+      end
+      it '姓と名が正しく表示されること' do
+        expect(page).to have_field('employee_last_name')
+        expect(page).to have_field('employee_first_name')
+      end
+      it 'セイとメイが正しく表示されること' do
+        expect(page).to have_field('employee_last_name_kana')
+        expect(page).to have_field('employee_first_name_kana')
+      end
+      it 'メールアドレスが正しく表示されること' do
+        expect(page).to have_field('employee_email')
+      end
+      it 'ステータスが表示されること' do
+        if employee.is_active?
+          expect(page).to have_css('div.form-group', text: '有効') # 有効ステータスが表示されることを確認
+        else
+          expect(page).to have_css('div.form-group', text: '退職') # 退職ステータスが表示されることを確認
+        end
+      end
+      it '保存、戻るボタンが存在すること' do
+        expect(page).to have_button('保存')
+        expect(page).to have_link('', href: company_employee_path(company.id, employee.id))
+      end
+    end
+
+    context '社員編集のテスト' do
+      before do
+        employee = FactoryBot.create(:employee)
+        @employee_old_store = employee.store
+        @employee_old_last_name = employee.last_name
+        @employee_old_first_name = employee.first_name
+        @employee_old_last_name_kana = employee.last_name_kana
+        @employee_old_first_name_kana = employee.first_name_kana
+        @employee_old_email = employee.email
+        select store.name, from: "employee[store_id]"
+        attach_file 'employee[image]', Rails.root.join("spec/support/images/no_image.jpg")
+        fill_in 'employee[last_name]', with: Gimei.name.kanji
+        fill_in 'employee[first_name]', with: Gimei.name.kanji
+        fill_in 'employee[last_name_kana]', with: Gimei.name.katakana
+        fill_in 'employee[first_name_kana]', with: Gimei.name.katakana
+        fill_in 'employee[email]', with: Faker::Internet.email
+        choose 'employee[is_active]', with: true
+        find(:xpath, all('button')[2].path).click
+      end
+      it 'storeが正しく更新される' do
+        expect(employee.reload.store).not_to eq @employee_old_store
+      end
+      it 'last_nameが正しく更新される' do
+        expect(employee.reload.last_name).not_to eq @employee_old_last_name
+      end
+      it 'first_nameが正しく更新される' do
+        expect(employee.reload.first_name).not_to eq @employee_old_first_name
+      end
+      it 'last_name_kanaが正しく更新される' do
+        expect(employee.reload.last_name_kana).not_to eq @employee_old_last_name_kana
+      end
+      it 'first_name_kanaが正しく更新される' do
+        expect(employee.reload.first_name_kana).not_to eq @employee_old_first_name_kana
+      end
+      it 'emailが正しく更新される' do
+        expect(employee.reload.email).not_to eq @employee_old_email
+      end
+      it 'リダイレクト先が、更新した投稿の詳細画面になっている' do
+        expect(current_path).to eq company_employee_path(company.id, employee.id)
+      end
     end
   end
 
@@ -213,7 +354,7 @@ describe '[STEP2] 企業ログイン後のテスト' do
         expect(current_path).to eq '/companies/' + company.id.to_s + '/employees/' + post.employee_id.to_s + '/posts/' + post.id.to_s + '/edit'
       end
     end
-    
+
     context '削除リンクのテスト' do
       before do
         click_link '削除'
@@ -259,7 +400,7 @@ describe '[STEP2] 企業ログイン後のテスト' do
       end
     end
 
-    context '店舗のテスト' do
+    context '店舗登録のテスト' do
       before do
         # sign_in company
         fill_in 'store[name]', with: Faker::Name.name
