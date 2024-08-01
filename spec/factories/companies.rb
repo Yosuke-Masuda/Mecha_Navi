@@ -1,9 +1,7 @@
 FactoryBot.define do
   factory :company do
-    company_name { Faker::Lorem.characters(number: 10) }
-    #company_name_kana { Faker::Lorem.characters(number: 10) }
-    company_name_kana { Gimei.address.katakana[0, rand(3..10)] }
-    #postal_code { Faker::Address.zip_code }
+    company_name { Faker::Company.name[0, rand(3..10)] }
+    company_name_kana { Gimei.last.katakana[0, rand(3..10)] }
     postal_code { 7.times.map { rand(0..9) }.join("") }
     address { Faker::Address.full_address }
     email { Faker::Internet.email }
