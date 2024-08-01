@@ -269,6 +269,10 @@ describe '[STEP2] 企業ログイン後のテスト' do
         expect(page).to have_button('保存')
         expect(page).to have_link('', href: company_employee_path(company.id, employee.id))
       end
+      it '戻るボタンを押すと詳細画面へ遷移する' do
+        click_link '戻る'
+        expect(current_path).to eq company_employee_path(company.id, employee.id)
+      end
     end
 
     context '社員編集のテスト' do
@@ -282,10 +286,10 @@ describe '[STEP2] 企業ログイン後のテスト' do
         @employee_old_email = employee.email
         select store.name, from: "employee[store_id]"
         attach_file 'employee[image]', Rails.root.join("spec/support/images/no_image.jpg")
-        fill_in 'employee[last_name]', with: Gimei.name.kanji
-        fill_in 'employee[first_name]', with: Gimei.name.kanji
-        fill_in 'employee[last_name_kana]', with: Gimei.name.katakana
-        fill_in 'employee[first_name_kana]', with: Gimei.name.katakana
+        fill_in 'employee[last_name]', with: Gimei.name.last.kanji
+        fill_in 'employee[first_name]', with: Gimei.name.first.kanji
+        fill_in 'employee[last_name_kana]', with: Gimei.name.last.katakana
+        fill_in 'employee[first_name_kana]', with: Gimei.name.first.katakana
         fill_in 'employee[email]', with: Faker::Internet.email
         choose 'employee[is_active]', with: true
         find(:xpath, all('button')[2].path).click
@@ -414,6 +418,56 @@ describe '[STEP2] 企業ログイン後のテスト' do
       it '新規登録後の店舗管理（一覧画面）にリダイレクトされる' do
         click_button '登録'
         expect(current_path).to eq '/companies/' + company.id.to_s + '/stores'
+      end
+    end
+
+  end
+
+  describe '店舗編集画面のテスト' do
+    before do
+      visit edit_company_store_path(company, store)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/companies/' + company.id.to_s + '/stores/' + store.id.to_s + '/edit'
+      end
+      it '「店舗編集」と表示される' do
+        expect(page).to have_content '店舗編集'
+      end
+      it '店舗名が正しく表示されること' do
+        expect(page).to have_field('store_name')
+      end
+      it 'ステータスが表示されること' do
+        if store.is_active?
+          expect(page).to have_css('div.form-group', text: '有効') # 有効ステータスが表示されることを確認
+        else
+          expect(page).to have_css('div.form-group', text: '退職') # 退職ステータスが表示されることを確認
+        end
+      end
+      it '保存、戻るボタンが存在すること' do
+        expect(page).to have_button('保存')
+        expect(page).to have_link('', href: company_stores_path(company.id))
+      end
+      it '戻るボタンを押すと詳細画面へ遷移する' do
+        click_link '戻る'
+        expect(current_path).to eq company_stores_path(company.id)
+      end
+    end
+
+    context '店舗編集のテスト' do
+      before do
+        store = FactoryBot.create(:store)
+        @store_old_name = store.name
+        fill_in 'store[name]', with: Faker::Name.name
+        choose 'store[is_active]', with: true
+        find(:xpath, all('button')[2].path).click
+      end
+      it '店舗名が正しく更新される' do
+        expect(employee.reload.email).not_to eq @store_old_name
+      end
+      it 'リダイレクト先が、更新した店舗の一覧画面になっている' do
+        expect(current_path).to eq company_stores_path(company.id)
       end
     end
   end
