@@ -464,7 +464,7 @@ describe '[STEP2] 企業ログイン後のテスト' do
         find(:xpath, all('button')[2].path).click
       end
       it '店舗名が正しく更新される' do
-        expect(employee.reload.email).not_to eq @store_old_name
+        expect(store.reload.name).not_to eq @store_old_name
       end
       it 'リダイレクト先が、更新した店舗の一覧画面になっている' do
         expect(current_path).to eq company_stores_path(company.id)
@@ -503,7 +503,6 @@ describe '[STEP2] 企業ログイン後のテスト' do
 
     context '一覧画面のテスト' do
       before do
-        # sign_in company
         fill_in 'car_name[name]', with: Faker::Name.name
         fill_in 'car_name[car_type]', with: Faker::Lorem.characters(number: 10)
         choose 'car_name[is_active]', with: true
@@ -605,7 +604,6 @@ describe '[STEP2] 企業ログイン後のテスト' do
 
     context '一覧画面のテスト' do
       before do
-        # sign_in company
         fill_in 'genre[name]', with: Faker::Name.name
         choose 'genre[is_active]', with: true
       end
@@ -620,7 +618,54 @@ describe '[STEP2] 企業ログイン後のテスト' do
     end
   end
 
+  describe 'ジャンル編集画面のテスト' do
+    before do
+      visit edit_company_genre_path(company, genre)
+    end
 
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/companies/' + company.id.to_s + '/genres/' + genre.id.to_s + '/edit'
+      end
+      it '「ジャンル編集」と表示される' do
+        expect(page).to have_content 'ジャンル編集'
+      end
+      it 'ジャンル名が正しく表示されること' do
+        expect(page).to have_field('genre_name')
+      end
+      it 'ステータスが表示されること' do
+        if genre.is_active?
+          expect(page).to have_css('div.form-group', text: '有効') # 有効ステータスが表示されることを確認
+        else
+          expect(page).to have_css('div.form-group', text: '退職') # 退職ステータスが表示されることを確認
+        end
+      end
+      it '保存、戻るボタンが存在すること' do
+        expect(page).to have_button('保存')
+        expect(page).to have_link('', href: company_genres_path(company.id))
+      end
+      it '戻るボタンを押すと詳細画面へ遷移する' do
+        click_link '戻る'
+        expect(current_path).to eq company_genres_path(company.id)
+      end
+    end
+
+    context 'ジャンル編集のテスト' do
+      before do
+        genre = FactoryBot.create(:store)
+        @genre_old_name = genre.name
+        fill_in 'genre[name]', with: Faker::Name.name
+        choose 'genre[is_active]', with: true
+        find(:xpath, all('button')[2].path).click
+      end
+      it 'ジャンル名が正しく更新される' do
+        expect(genre.reload.name).not_to eq @genre_old_name
+      end
+      it 'リダイレクト先が、更新した店舗の一覧画面になっている' do
+        expect(current_path).to eq company_genres_path(company.id)
+      end
+    end
+  end
 
   describe 'タスク管理画面のテスト' do
     before do
