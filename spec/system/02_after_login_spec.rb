@@ -406,7 +406,6 @@ describe '[STEP2] 企業ログイン後のテスト' do
 
     context '店舗登録のテスト' do
       before do
-        # sign_in company
         fill_in 'store[name]', with: Faker::Name.name
         choose 'store[is_active]', with: true
         click_button '登録'
@@ -695,7 +694,6 @@ describe '[STEP2] 企業ログイン後のテスト' do
 
     context '一覧画面のテスト' do
       before do
-        # sign_in company
         fill_in 'task[name]', with: Faker::Name.name
         fill_in 'task[body]', with: Faker::Lorem.characters(number: 20)
       end
@@ -706,6 +704,69 @@ describe '[STEP2] 企業ログイン後のテスト' do
       it '新規登録後の車両管理（一覧画面）にリダイレクトされる' do
         click_button '登録'
         expect(current_path).to eq '/companies/' + company.id.to_s + '/tasks'
+      end
+    end
+  end
+
+  describe 'タスク編集画面のテスト' do
+    before do
+      visit edit_company_task_path(company, task)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/companies/' + company.id.to_s + '/tasks/' + task.id.to_s + '/edit'
+      end
+      it '「タスク編集」と表示される' do
+        expect(page).to have_content 'タスク編集'
+      end
+      it 'タスク名が正しく表示されること' do
+        expect(page).to have_field('task_name')
+      end
+      it 'タスク内容が正しく表示されること' do
+        expect(page).to have_field('task_body')
+      end
+      it '保存、削除、戻るボタンが存在すること' do
+        expect(page).to have_button('保存')
+        expect(page).to have_link "", href: company_task_path(company.id, task.id)
+        expect(page).to have_link "", href: company_tasks_path(company.id)
+      end
+      it '戻るボタンを押すとタスク一覧画面へ遷移する' do
+        click_link '戻る'
+        expect(current_path).to eq company_tasks_path(company.id)
+      end
+    end
+
+    context 'タスク編集のテスト' do
+      before do
+        task = FactoryBot.create(:task)
+        @task_old_name = task.name
+        @task_old_body = task.body
+        fill_in 'task[name]', with: Faker::Name.name
+        fill_in 'task[body]', with: Faker::Lorem.characters(number: 20)
+        find(:xpath, all('button')[2].path).click
+      end
+      it 'タスク名が正しく更新される' do
+        expect(task.reload.name).not_to eq @task_old_name
+      end
+      it 'タスク内容が正しく更新される' do
+        expect(task.reload.body).not_to eq @task_old_body
+      end
+      it 'リダイレクト先が、更新した店舗の一覧画面になっている' do
+        expect(current_path).to eq company_tasks_path(company.id)
+      end
+    end
+
+    context '削除リンクのテスト' do
+      before do
+        click_link '削除'
+      end
+
+      it '正しく削除される' do
+        expect(Task.where(id: task.id).count).to eq 0
+      end
+      it 'リダイレクト先が、投稿一覧画面になっている' do
+        expect(current_path).to eq company_tasks_path(company.id)
       end
     end
   end
