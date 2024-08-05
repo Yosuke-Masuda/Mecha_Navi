@@ -520,6 +520,63 @@ describe '[STEP2] 企業ログイン後のテスト' do
     end
   end
 
+  describe '店舗編集画面のテスト' do
+    before do
+      visit edit_company_car_name_path(company, car_name)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/companies/' + company.id.to_s + '/car_names/' + car_name.id.to_s + '/edit'
+      end
+      it '「車名編集」と表示される' do
+        expect(page).to have_content '車名編集'
+      end
+      it '車名が正しく表示されること' do
+        expect(page).to have_field('car_name_name')
+      end
+      it '車名が正しく表示されること' do
+        expect(page).to have_field('car_name_car_type')
+      end
+      it 'ステータスが表示されること' do
+        if car_name.is_active?
+          expect(page).to have_css('div.form-group', text: '有効') # 有効ステータスが表示されることを確認
+        else
+          expect(page).to have_css('div.form-group', text: '退職') # 退職ステータスが表示されることを確認
+        end
+      end
+      it '保存、戻るボタンが存在すること' do
+        expect(page).to have_button('保存')
+        expect(page).to have_link('', href: company_car_names_path(company.id))
+      end
+      it '戻るボタンを押すと詳細画面へ遷移する' do
+        click_link '戻る'
+        expect(current_path).to eq company_car_names_path(company.id)
+      end
+    end
+
+    context '車名編集のテスト' do
+      before do
+        car_name = FactoryBot.create(:car_name)
+        @car_name_old_name = car_name.name
+        @car_name_old_car_type = car_name.car_type
+        fill_in 'car_name[name]', with: Faker::Name.name
+        fill_in 'car_name[car_type]', with: Faker::Lorem.characters(number: 10)
+        choose 'car_name[is_active]', with: true
+        find(:xpath, all('button')[2].path).click
+      end
+      it '車名が正しく更新される' do
+        expect(car_name.reload.name).not_to eq @car_name_old_name
+      end
+      it '型式が正しく更新される' do
+        expect(car_name.reload.car_type).not_to eq @car_name_old_car_type
+      end
+      it 'リダイレクト先が、更新した店舗の一覧画面になっている' do
+        expect(current_path).to eq company_car_names_path(company.id)
+      end
+    end
+  end
+
   describe 'ジャンル管理画面のテスト' do
     before do
       visit company_genres_path(company)
@@ -562,6 +619,8 @@ describe '[STEP2] 企業ログイン後のテスト' do
       end
     end
   end
+
+
 
   describe 'タスク管理画面のテスト' do
     before do
