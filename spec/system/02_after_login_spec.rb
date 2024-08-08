@@ -240,8 +240,8 @@ describe '[STEP2] 企業ログイン後のテスト' do
 
         expect(select_options.size).to eq(store_options.size)
         select_options.drop(1).each_with_index do |option, index|
-          expect(option.text).to eq(store_options[index][0]) # オプションのテキストが正しいことを確認
-          expect(option.value).to eq(store_options[index][1].to_s) # オプションの値が正しいことを確認
+          expect(option.text).to eq(store_options[index][0])
+          expect(option.value).to eq(store_options[index][1].to_s)
         end
       end
       it '画像選択ファイルが表示されること' do
@@ -319,7 +319,6 @@ describe '[STEP2] 企業ログイン後のテスト' do
   end
 
   describe '投稿履歴一覧画面のテスト' do
-    # let!(:post) { create(:post, company: company, employee: employee, car_name: car_name, car_type_id: car_name) }
     before do
       visit top_path
     end
@@ -335,7 +334,6 @@ describe '[STEP2] 企業ログイン後のテスト' do
   end
 
   describe '投稿一覧画面のテスト' do
-    # let!(:post) { create(:post, employee: employee) }
     before do
       visit company_employee_posts_path(company)
     end
