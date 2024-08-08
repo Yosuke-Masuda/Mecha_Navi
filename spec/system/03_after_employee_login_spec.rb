@@ -53,7 +53,7 @@ describe '[STEP3] 社員ログイン後のテスト' do
       end
     end
   end
-  
+
   describe 'マイページのテスト' do
     before do
       visit mypage_path
@@ -62,6 +62,37 @@ describe '[STEP3] 社員ログイン後のテスト' do
     context '表示内容の確認' do
       it 'URLが正しい' do
         expect(current_path).to eq '/employees/mypage'
+      end
+      it "お気に入りのリンク先が正しい" do
+        expect(page).to have_link '', href: favorites_mypage_path
+      end
+      it "編集ボタンのリンク先が正しい" do
+        expect(page).to have_link '', href: edit_mypage_path
+      end
+      it "投稿履歴ボタンのリンク先が正しい" do
+        expect(page).to have_link '', href: history_mypage_path
+      end
+      it "変更ボタン（パスワード）のリンク先が正しい" do
+        expect(page).to have_link '', href: edit_employee_registration_path
+      end
+    end
+
+    context 'マイページ画面のテスト' do
+      it 'お気に入りボタンをクリックするとお気に入り画面へ遷移する' do
+        click_link "お気に入り"
+        expect(current_path).to eq favorites_mypage_path
+      end
+      it '編集ボタンをクリックするとマイページ編集画面へ遷移する' do
+        click_link '編集'
+        expect(current_path).to eq edit_mypage_path
+      end
+      it '投稿履歴ボタンをクリックすると投稿履歴画面へ遷移する' do
+        click_link '投稿履歴'
+        expect(current_path).to eq history_mypage_path
+      end
+      it '変更ボタンをクリックするとパスワード変更画面へ遷移する' do
+        click_link '変更'
+        expect(current_path).to eq edit_employee_registration_path
       end
     end
   end
