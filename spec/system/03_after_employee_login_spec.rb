@@ -54,7 +54,7 @@ describe '[STEP3] 社員ログイン後のテスト' do
     end
   end
 
-  describe 'マイページのテスト' do
+  describe 'マイページ画面のテスト' do
     before do
       visit mypage_path
     end
@@ -96,5 +96,80 @@ describe '[STEP3] 社員ログイン後のテスト' do
       end
     end
   end
+
+  describe 'マイページ編集画面のテスト' do
+    before do
+      visit edit_mypage_path
+    end
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/employees/mypage/edit'
+      end
+      it '店舗名が表示される' do
+        expect(page).to have_content(employee.store.name)
+      end
+      it '画像選択ファイルが表示されること' do
+        expect(page).to have_selector("img")
+      end
+      it '姓と名が正しく表示されること' do
+        expect(page).to have_field('employee_last_name')
+        expect(page).to have_field('employee_first_name')
+      end
+      it 'セイとメイが正しく表示されること' do
+        expect(page).to have_field('employee_last_name_kana')
+        expect(page).to have_field('employee_first_name_kana')
+      end
+      it 'メールアドレスが正しく表示されること' do
+        expect(page).to have_field('employee_email')
+      end
+      it '保存、戻るボタンが存在すること' do
+        expect(page).to have_button('保存')
+        expect(page).to have_link('', href: mypage_path)
+      end
+      it '戻るボタンを押すとマイページ画面へ遷移する' do
+        click_link '戻る'
+        expect(current_path).to eq mypage_path
+      end
+    end
+
+    context '社員編集のテスト' do
+      before do
+        employee = FactoryBot.create(:employee)
+        @employee_old_last_name = employee.last_name
+        @employee_old_first_name = employee.first_name
+        @employee_old_last_name_kana = employee.last_name_kana
+        @employee_old_first_name_kana = employee.first_name_kana
+        @employee_old_email = employee.email
+        attach_file 'employee[image]', Rails.root.join("spec/support/images/no_image.jpg")
+        fill_in 'employee[last_name]', with: Gimei.name.last.kanji
+        fill_in 'employee[first_name]', with: Gimei.name.first.kanji
+        fill_in 'employee[last_name_kana]', with: Gimei.name.last.katakana
+        fill_in 'employee[first_name_kana]', with: Gimei.name.first.katakana
+        fill_in 'employee[email]', with: Faker::Internet.email
+        find(:xpath, all('button')[2].path).click
+      end
+      
+      it 'last_nameが正しく更新される' do
+        expect(employee.reload.last_name).not_to eq @employee_old_last_name
+      end
+      it 'first_nameが正しく更新される' do
+        expect(employee.reload.first_name).not_to eq @employee_old_first_name
+      end
+      it 'last_name_kanaが正しく更新される' do
+        expect(employee.reload.last_name_kana).not_to eq @employee_old_last_name_kana
+      end
+      it 'first_name_kanaが正しく更新される' do
+        expect(employee.reload.first_name_kana).not_to eq @employee_old_first_name_kana
+      end
+      it 'emailが正しく更新される' do
+        expect(employee.reload.email).not_to eq @employee_old_email
+      end
+      it 'リダイレクト先が、更新したマイページ画面になっている' do
+        expect(current_path).to eq mypage_path
+      end
+    end
+  end
+
+
 
 end
