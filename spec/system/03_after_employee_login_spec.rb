@@ -1,8 +1,12 @@
 require 'rails_helper'
 
 describe '[STEP3] 社員ログイン後のテスト' do
-  let!(:employee) { create(:employee) }
-  #let!(:post) { create(:post, company: company, employee: employee, car_name: car_name) }
+  let(:company) { create(:company) }
+  let!(:car_name) { create(:car_name, company: company) }
+  let!(:store) { create(:store, company: company) }
+  let!(:genre) { create(:genre, company: company) }
+  let!(:employee) { create(:employee, company: company) }
+  let!(:post) { create(:post, company: company, employee: employee, car_name: car_name, store: store, genre: genre) }
 
   before do
     visit new_employee_session_path
@@ -101,6 +105,7 @@ describe '[STEP3] 社員ログイン後のテスト' do
     before do
       visit edit_mypage_path
     end
+
     context '表示内容の確認' do
       it 'URLが正しい' do
         expect(current_path).to eq '/employees/mypage/edit'
@@ -148,7 +153,7 @@ describe '[STEP3] 社員ログイン後のテスト' do
         fill_in 'employee[email]', with: Faker::Internet.email
         find(:xpath, all('button')[2].path).click
       end
-      
+
       it 'last_nameが正しく更新される' do
         expect(employee.reload.last_name).not_to eq @employee_old_last_name
       end
@@ -166,6 +171,47 @@ describe '[STEP3] 社員ログイン後のテスト' do
       end
       it 'リダイレクト先が、更新したマイページ画面になっている' do
         expect(current_path).to eq mypage_path
+      end
+    end
+  end
+
+  describe 'パスワード変更画面のテスト' do
+    before do
+      visit edit_employee_registration_path
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/employees/edit'
+      end
+      it 'メールアドレスが正しく表示されること' do
+        expect(page).to have_field('employee_email')
+      end
+      it '現在のパスワード入力フォームが表示されること' do
+        expect(page).to have_field('employee_current_password')
+      end
+      it '新しいパスワード入力フォームが表示されること' do
+        expect(page).to have_field('employee_password')
+      end
+      it '確認用パスワード入力フォームが表示されること' do
+        expect(page).to have_field('employee_password_confirmation')
+      end
+      it "変更ボタン（パスワード）のリンク先が正しい" do
+        expect(page).to have_link '', href: employee_registration_path
+      end
+    end
+
+     context '社員パスワード変更のテスト' do
+      before do
+        employee = FactoryBot.create(:employee)
+        fill_in 'employee[current_password]', with: employee.password
+        fill_in 'employee[password]', with: Faker::Internet.password(min_length: 6)
+        fill_in 'employee[password_confirmation]', with: Faker::Internet.password(min_length: 6)
+        click_button '変更する'
+      end
+
+      it 'パスワードがが正しく更新される' do
+        expect(employee.reload.password).not_to eq current_path
       end
     end
   end
