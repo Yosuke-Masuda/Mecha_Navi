@@ -15,7 +15,6 @@ describe '[STEP2] 企業ログイン後のテスト' do
   let!(:post) { create(:post, company: company, employee: employee, car_name: car_name) }
 
   before do
-    # sign_in company
     visit new_company_session_path
     fill_in 'company[email]', with: company.email
     fill_in 'company[password]', with: company.password
@@ -99,7 +98,7 @@ describe '[STEP2] 企業ログイン後のテスト' do
         expect(page).to have_field 'employee[store_id]'
       end
       it 'プロフィール画像の選択が表示される' do
-
+        expect(page).to have_selector("img")
       end
       it 'last_nameフォームが表示される' do
         expect(page).to have_field 'employee[last_name]'

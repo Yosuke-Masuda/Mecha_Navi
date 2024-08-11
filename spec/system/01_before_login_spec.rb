@@ -140,9 +140,9 @@ describe '[STEP1] ログイン前のテスト' do
     context '新規登録成功のテスト' do
       # let!(:company) { create(:company) }
       before do
-        fill_in 'company[company_name]', with: Faker::Lorem.characters(number: 10)
-        fill_in 'company[company_name_kana]', with: Faker::Lorem.characters(number: 10)
-        fill_in 'company[postal_code]', with: Faker::Address.zip_code
+        fill_in 'company[company_name]', with: Faker::Company.name[0, rand(3..10)]
+        fill_in 'company[company_name_kana]', with: Gimei.last.katakana[0, rand(3..10)]
+        fill_in 'company[postal_code]', with: 7.times.map { rand(0..9) }.join("")
         fill_in 'company[address]', with: Faker::Address.full_address
         fill_in 'company[phone_number]', with: Faker::PhoneNumber.phone_number
         fill_in 'company[email]', with: Faker::Internet.email
@@ -151,7 +151,7 @@ describe '[STEP1] ログイン前のテスト' do
       end
 
       it '正しく新規登録される' do
-        expect { click_button '登録' }.to change{Company.count}.by(1)
+        expect { click_button '登録' }.to (change{Company.count}).by(1)
       end
       it '新規登録後のリダイレクト先が、新規登録できた企業の詳細画面になっている' do
         click_button '登録'
