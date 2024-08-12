@@ -275,7 +275,7 @@ describe '[STEP3] 社員ログイン後のテスト' do
     end
   end
 
-  describe '投稿一覧のテスト' do
+  describe '投稿一覧画面のテスト' do
     before do
       visit posts_path
     end
@@ -329,7 +329,79 @@ describe '[STEP3] 社員ログイン後のテスト' do
         expect(current_path).to eq '/employees/mypage/history'
       end
     end
+  end
 
+  describe '投稿詳細画面のテスト' do
+    before do
+      visit post_path(post.id)
+    end
+
+    context '表示内容の確認: ※遷移先と削除は『投稿一覧画面のテスト』でテスト済みになります。' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/posts/' + post.id.to_s
+      end
+      it '各リンク先が正しい' do
+        expect(page).to have_link '一覧', href: posts_path
+        expect(page).to have_link '編集', href: edit_post_path(post.id)
+        expect(page).to have_link '削除', href: post_path(post.id)
+      end
+    end
+  end
+
+  describe '投稿編集画面のテスト' do
+    before do
+      visit edit_post_path(post.id)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/posts/' + post.id.to_s + '/edit'
+      end
+      it 'リンク先が正しい' do
+        expect(page).to have_button('保存')
+        expect(page).to have_link '詳細', href: post_path(post.id)
+      end
+    end
+
+    context '投稿編集のテスト' do
+      before do
+        post = FactoryBot.create(:post)
+        @post_old_genre_id = post.genre_id
+        @post_old_car_name_id = post.car_name_id
+        @post_old_car_type_id = post.car_type_id
+        @post_old_title = post.title
+        @post_old_caption = post.caption
+        select genre.name, from: "post[genre_id]"
+        select car_name.name, from: "post[car_name_id]"
+        select car_name.car_type, from: "post[car_type_id]"
+        fill_in 'post[title]', with: Faker::Lorem.characters(number: 5)
+        attach_file 'post[images][]', Rails.root.join("spec/support/images/no_image.jpg")
+        fill_in 'post[caption]', with: Faker::Lorem.characters(number: 20)
+        find(:xpath, all('button')[2].path).click
+      end
+
+      it 'ジャンルが正しく更新される' do
+        expect(post.reload.genre_id).not_to eq @post_old_genre_id
+      end
+      it '車名が正しく更新される' do
+        expect(post.reload.car_name_id).not_to eq @post_old_car_name_id
+      end
+      it '型式が正しく更新される' do
+        expect(post.reload.car_name.car_type).not_to eq @post_old_car_type_id
+      end
+      it 'タイトルが正しく更新される' do
+        expect(post.reload.title).not_to eq @post_old_title
+      end
+      it '画像が表示される' do
+        expect(page).to have_css('img')
+      end
+      it '内容が正しく更新される' do
+        expect(post.reload.caption).not_to eq @post_old_caption
+      end
+      it 'リダイレクト先が、更新した投稿一覧画面になっている' do
+        expect(current_path).to eq posts_path
+      end
+    end
   end
 
 
