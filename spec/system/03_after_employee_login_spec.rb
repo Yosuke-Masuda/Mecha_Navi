@@ -275,6 +275,63 @@ describe '[STEP3] 社員ログイン後のテスト' do
     end
   end
 
+  describe '投稿一覧のテスト' do
+    before do
+      visit posts_path
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/posts'
+      end
+      it 'タイトルが表示される' do
+        expect(page).to have_content(post.title)
+      end
+      it '画像が表示される' do
+        expect(page).to have_css('img')
+      end
+      it '車名が表示される' do
+        expect(page).to have_content(post.car_name.name)
+      end
+      it '型式が表示される' do
+        expect(page).to have_content(post.car_name.car_type)
+      end
+      it 'ジャンルが表示される' do
+        expect(page).to have_content(post.genre.name)
+      end
+      it '内容が表示される' do
+        expect(page).to have_content(post.caption.truncate(50))
+      end
+      it '各リンク先が正しい' do
+        expect(page).to have_link '詳細', href: post_path(post.id)
+        expect(page).to have_link '編集', href: edit_post_path(post.id)
+        expect(page).to have_link '削除', href: post_path(post.id)
+      end
+      it '詳細を押すと、投稿詳細画面に遷移する' do
+        click_link '詳細'
+        expect(current_path).to eq '/posts/' + post.id.to_s
+      end
+      it '編集を押すと投稿編集画面に遷移する' do
+        click_link '編集'
+        expect(current_path).to eq '/posts/' + post.id.to_s + '/edit'
+      end
+    end
+
+    context '削除リンクのテスト' do
+      before do
+        click_link '削除'
+      end
+
+      it '正しく削除される' do
+        expect(Post.where(id: post.id).count).to eq 0
+      end
+      it 'リダイレクト先が、投稿履歴一覧画面になっている' do
+        expect(current_path).to eq '/employees/mypage/history'
+      end
+    end
+
+  end
+
 
 
 
