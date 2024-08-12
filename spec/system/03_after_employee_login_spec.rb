@@ -2,9 +2,13 @@ require 'rails_helper'
 
 describe '[STEP3] 社員ログイン後のテスト' do
   let(:company) { create(:company) }
+  let!(:other_company) { create(:company) }
   let!(:car_name) { create(:car_name, company: company) }
+  let!(:other_car_name) { create(:car_name, company: other_company) }
   let!(:store) { create(:store, company: company) }
+  let!(:othere_store) { create(:store, company: company) }
   let!(:genre) { create(:genre, company: company) }
+  let!(:other_genre) { create(:genre, company: company) }
   let!(:employee) { create(:employee, company: company) }
   let!(:post) { create(:post, company: company, employee: employee, car_name: car_name, store: store, genre: genre) }
 
@@ -215,6 +219,62 @@ describe '[STEP3] 社員ログイン後のテスト' do
       end
     end
   end
+
+  describe '新規投稿画面のテスト' do
+    before do
+      visit new_post_path
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/posts/new'
+      end
+      it 'ジャンルの選択フォームが表示される' do
+        expect(page).to have_field 'post[genre_id]'
+      end
+      it '車名の選択フォームが表示される' do
+        expect(page).to have_field 'post[car_name_id]'
+      end
+      it '型式の選択フォームが表示される' do
+        expect(page).to have_field 'post[car_type_id]'
+      end
+      it 'タイトルフォームが表示される' do
+        expect(page).to have_field 'post[title]'
+      end
+      it '画像選択ファイルが表示される' do
+        expect(page).to have_field 'post[images][]'
+      end
+      it '動画選択ファイルが表示される' do
+        expect(page).to have_field 'post[video]'
+      end
+      it '内容入力フォームが表示される' do
+        expect(page).to have_field 'post[caption]'
+      end
+      it '登録ボタンが表示される' do
+        expect(page).to have_button '登録'
+      end
+    end
+
+    context '新規投稿成功のテスト' do
+      before do
+        select genre.name, from: "post[genre_id]"
+        select car_name.name, from: "post[car_name_id]"
+        select car_name.car_type, from: "post[car_type_id]"
+        fill_in 'post[title]', with: Faker::Lorem.characters(number: 5)
+        attach_file 'post[images][]', Rails.root.join("spec/support/images/no_image.jpg")
+        fill_in 'post[caption]', with: Faker::Lorem.characters(number: 20)
+        find(:xpath, all('button')[2].path).click
+      end
+
+      it '正しく新規登録される' do
+        expect(Post.count).to be >= 1
+      end
+      it '新規登録後のリダイレクト先が、新規登録できたユーザの一覧画面になっている' do
+        expect(current_path).to eq '/posts'
+      end
+    end
+  end
+
 
 
 
