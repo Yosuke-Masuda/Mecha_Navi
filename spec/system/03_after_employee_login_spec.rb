@@ -404,6 +404,19 @@ describe '[STEP3] 社員ログイン後のテスト' do
     end
   end
 
+  describe 'タスクカレンダー画面のテスト' do
+    before do
+      visit employee_tasks_path(employee.id)
+    end
+
+    context '表示内容の確認' do
+      it 'URLが正しい' do
+        expect(current_path).to eq '/employees/' + employee.id.to_s + '/tasks'
+      end
+      it 
+    end
+  end
+
 
 
 
