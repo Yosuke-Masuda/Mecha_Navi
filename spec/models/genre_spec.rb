@@ -7,7 +7,6 @@ RSpec.describe 'Genreモデルのテスト', type: :model do
     let(:company) { create(:company) }
     let!(:genre) { build(:genre, company_id: company.id) }
     let!(:other_genre) { create(:genre, company_id: company.id) }
-    #let!(:post) {build(:post, company_id: company.id, employee_id: employee.id) }
 
     context 'nameカラム' do
       it '空欄でないこと' do
@@ -46,22 +45,16 @@ RSpec.describe 'Genreモデルのテスト', type: :model do
       end
     end
 
-    # context 'Employeeモデルとの関係' do
-    #   it 'N:1となっている' do
-    #     expect(Genre.reflect_on_association(:employee).macro).to eq :has_many
-    #   end
-    # end
+    context 'Employeeモデルとの関係' do
+      it 'N:1となっている' do
+        expect(Genre.reflect_on_association(:employees).macro).to eq :has_many
+      end
+    end
 
-    # context 'Postモデルとの関係' do
-    #   it 'postsとの関連付け正しく設定されていること' do
-    #   # genreと関連付けされたpostを作成
-    #   post = FactoryBot.create(:post)
-    #   # 「@user.shop_saved_lists」を実行したときに、作成したリストを含んでいるかを確認
-    #   expect(genre.id.posts).to include post
-    # end
-    #   it 'N:1となっている' do
-    #     expect(Genre.reflect_on_association(:post).macro).to eq :has_many
-    #   end
-    # end
+    context 'Postモデルとの関係' do
+      it 'N:1となっている' do
+        expect(Genre.reflect_on_association(:posts).macro).to eq :has_many
+      end
+    end
   end
 end
