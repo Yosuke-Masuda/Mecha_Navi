@@ -19,10 +19,10 @@ class Company::PostsController < ApplicationController
 
   def update
     if params[:post][:image_ids]
-       params[:post][:image_ids].each do |image_id|
+      params[:post][:image_ids].each do |image_id|
         image = @post.images.find_by_id(image_id)
         image.purge if image
-       end
+      end
     end
     if @post.update(post_params)
       flash[:notice] = "編集しました"
@@ -39,27 +39,24 @@ class Company::PostsController < ApplicationController
   end
 
   private
-
-  def set_current_company
-    if action_name == 'index'
-      @company = Company.find(params[:company_id])
-      if current_company.posts != @company.posts
-        redirect_to root_path, alert: 'アクセス権限がありません'
-      end
-    else
-      @company = current_company
-      @post = @company.posts.find_by(id: params[:id], employee_id: @company.employees)
-      if @post.present?
-        @post = @post
+    def set_current_company
+      if action_name == "index"
+        @company = Company.find(params[:company_id])
+        if current_company.posts != @company.posts
+          redirect_to root_path, alert: "アクセス権限がありません"
+        end
       else
-        redirect_to root_path, alert: 'アクセス権限がありません'
+        @company = current_company
+        @post = @company.posts.find_by(id: params[:id], employee_id: @company.employees)
+        if @post.present?
+          @post = @post
+        else
+          redirect_to root_path, alert: "アクセス権限がありません"
+        end
       end
     end
-  end
 
-  def post_params
-    params.require(:post).permit(:company_id, :employee_id, :title, :genre_id, :store_id, :car_name_id, :car_type_id, :image_id, :video_id, :caption, :is_active, images: [])
-  end
-
+    def post_params
+      params.require(:post).permit(:company_id, :employee_id, :title, :genre_id, :store_id, :car_name_id, :car_type_id, :image_id, :video_id, :caption, :is_active, images: [])
+    end
 end
-

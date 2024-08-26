@@ -23,17 +23,15 @@ class Company < ApplicationRecord
   end
 
   def self.guest
-    find_by!(email: 'guest_company@example.com')
-  end
-  
-  before_validation :reject_char
-  
-  private
-  
-  def reject_char
-    if self.phone_number.present?
-      self.phone_number = self.phone_number.to_s.gsub("-", "")
-    end
+    find_by!(email: "guest_company@example.com")
   end
 
+  before_validation :reject_char
+
+  private
+    def reject_char
+      if self.phone_number.present?
+        self.phone_number = self.phone_number.to_s.delete("-")
+      end
+    end
 end

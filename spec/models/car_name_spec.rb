@@ -1,22 +1,22 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'CarNameモデルのテスト', type: :model do
-  describe 'バリデーションのテスト' do
+RSpec.describe "CarNameモデルのテスト", type: :model do
+  describe "バリデーションのテスト" do
     subject { car_name.valid? }
 
     let(:company) { create(:company) }
     let!(:car_name) { build(:car_name, company_id: company.id) }
     let!(:other_car_name) { create(:car_name, company_id: company.id) }
 
-    context '各カラム' do
-      it '空欄でないこと' do
-        car_name.name = ''
-        car_name.car_type = ''
+    context "各カラム" do
+      it "空欄でないこと" do
+        car_name.name = ""
+        car_name.car_type = ""
         is_expected.to eq false
       end
-      it '空欄の場合はエラーが出る' do
-        car_name.name = ''
-        car_name.car_type = ''
+      it "空欄の場合はエラーが出る" do
+        car_name.name = ""
+        car_name.car_type = ""
         car_name.valid?
         expect(car_name.errors[:name]).to include("を入力してください")
         expect(car_name.errors[:car_type]).to include("を入力してください")
@@ -41,21 +41,21 @@ RSpec.describe 'CarNameモデルのテスト', type: :model do
     end
   end
 
-  describe 'アソシエーションのテスト' do
-    context 'Companyモデルとの関係' do
-      it 'N:1となっている' do
+  describe "アソシエーションのテスト" do
+    context "Companyモデルとの関係" do
+      it "N:1となっている" do
         expect(CarName.reflect_on_association(:company).macro).to eq :belongs_to
       end
     end
 
-    context 'Employeeモデルとの関係' do
-      it 'N:1となっている' do
+    context "Employeeモデルとの関係" do
+      it "N:1となっている" do
         expect(CarName.reflect_on_association(:employees).macro).to eq :has_many
       end
     end
 
-    context 'Postモデルとの関係' do
-      it 'N:1となっている' do
+    context "Postモデルとの関係" do
+      it "N:1となっている" do
         expect(CarName.reflect_on_association(:posts).macro).to eq :has_many
       end
     end

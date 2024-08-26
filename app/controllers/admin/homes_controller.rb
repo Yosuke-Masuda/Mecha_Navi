@@ -5,5 +5,4 @@ class Admin::HomesController < ApplicationController
     @employees = Employee.all
     @companies = Company.page(params[:page]).order(created_at: :desc)
   end
-
 end

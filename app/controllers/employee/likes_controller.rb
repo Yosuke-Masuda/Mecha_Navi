@@ -1,6 +1,6 @@
 class Employee::LikesController < ApplicationController
   before_action :authenticate_employee!
-  
+
   def create
     @post_comment = PostComment.find(params[:post_comment_id])
     puts "@post_comment: #{@post_comment.inspect}"
@@ -15,5 +15,4 @@ class Employee::LikesController < ApplicationController
     like = current_employee.likes.find_by(post_comment_id: @post_comment.id)
     like.destroy if like
   end
-
 end

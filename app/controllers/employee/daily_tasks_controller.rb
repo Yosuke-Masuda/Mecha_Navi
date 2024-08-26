@@ -25,13 +25,11 @@ class Employee::DailyTasksController < ApplicationController
   end
 
   private
+    def set_current_employee
+      @employee = current_employee # ログインしている社員を取得する処理を実装する
+    end
 
-  def set_current_employee
-    @employee = current_employee # ログインしている社員を取得する処理を実装する
-  end
-
-  def daily_task_params
-    params.require(:daily_task).permit(:employee_id, :task_id, :start_time)
-  end
-
+    def daily_task_params
+      params.require(:daily_task).permit(:employee_id, :task_id, :start_time)
+    end
 end
