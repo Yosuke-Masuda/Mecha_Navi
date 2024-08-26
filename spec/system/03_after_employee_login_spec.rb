@@ -413,7 +413,7 @@ describe '[STEP3] 社員ログイン後のテスト' do
       it 'URLが正しい' do
         expect(current_path).to eq '/employees/' + employee.id.to_s + '/tasks'
       end
-      it 
+      it
     end
   end
 
