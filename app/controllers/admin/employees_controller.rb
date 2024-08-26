@@ -4,7 +4,7 @@ class Admin::EmployeesController < ApplicationController
 
   def index
     @company = Company.find(params[:company_id])
-    @employees = @company.employees.includes(:store).page(params[:page]).order('stores.name')#店舗順に社員を管理
+    @employees = @company.employees.includes(:store).page(params[:page]).order("stores.name") # 店舗順に社員を管理
     @stores = Store.all
   end
 
@@ -29,14 +29,11 @@ class Admin::EmployeesController < ApplicationController
   end
 
   private
+    def ensure_employee
+      @employee = Employee.find(params[:id])
+    end
 
-  def ensure_employee
-    @employee = Employee.find(params[:id])
-  end
-
-  def employee_params
-    params.require(:employee).permit(:company_id, :employee_id, :store_id, :image, :last_name, :first_name, :last_name_kana, :first_name_kana, :email, :is_active)
-  end
-
-
+    def employee_params
+      params.require(:employee).permit(:company_id, :employee_id, :store_id, :image, :last_name, :first_name, :last_name_kana, :first_name_kana, :email, :is_active)
+    end
 end

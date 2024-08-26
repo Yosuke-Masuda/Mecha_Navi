@@ -1,5 +1,5 @@
 class Employee::HomesController < ApplicationController
-  before_action :authenticate_employee!,except: [:top, :about]
+  before_action :authenticate_employee!, except: [:top, :about]
 
   def top
     if current_employee

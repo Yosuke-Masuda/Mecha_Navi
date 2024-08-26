@@ -17,13 +17,11 @@ class Admin::CompaniesController < ApplicationController
   end
 
   private
+    def company_params
+      params.require(:company).permit(:company_name, :company_name_kana, :email, :postal_code, :address, :phone_number, :is_active)
+    end
 
-  def company_params
-    params.require(:company).permit(:company_name, :company_name_kana, :email, :postal_code, :address, :phone_number, :is_active)
-  end
-
-  def ensure_company
-    @company = Company.find(params[:id])
-  end
+    def ensure_company
+      @company = Company.find(params[:id])
+    end
 end
-

@@ -19,7 +19,6 @@ class Admin::StoresController < ApplicationController
       @companies = Company.all
       render :index
     end
-
   end
 
   def show
@@ -39,17 +38,14 @@ class Admin::StoresController < ApplicationController
     else
       render "edit"
     end
-
   end
 
   private
+    def ensure_store
+      @store = Store.find(params[:id])
+    end
 
-  def ensure_store
-    @store = Store.find(params[:id])
-  end
-
-  def store_params
-    params.require(:store).permit(:name, :is_active, :company_id)
-  end
-
+    def store_params
+      params.require(:store).permit(:name, :is_active, :company_id)
+    end
 end

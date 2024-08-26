@@ -8,9 +8,7 @@ class Employee::TasksController < ApplicationController
   end
 
   private
-
-  def task_params
-    params.require(:task).permit(:company_id, :name, :body)
-  end
-
+    def task_params
+      params.require(:task).permit(:company_id, :name, :body)
+    end
 end

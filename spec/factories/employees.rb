@@ -8,8 +8,8 @@ FactoryBot.define do
     last_name_kana { person.last.katakana }
     first_name_kana { person.first.katakana }
     email { Faker::Internet.email }
-    password { 'password' }
-    password_confirmation { 'password' }
+    password { "password" }
+    password_confirmation { "password" }
     is_active { [true, false] }
     company
     store
