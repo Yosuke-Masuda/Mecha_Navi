@@ -19,7 +19,7 @@ describe "[STEP3] 社員ログイン後のテスト" do
     fill_in "admin[password]", with: admin.password
     click_button "ログイン"
   end
-  
+
   describe "ヘッダーのテスト: ログインしている場合" do
     context "リンクの内容を確認: ※logoutは『ユーザログアウトのテスト』でテスト済みになります。" do
       subject { current_path }
@@ -59,6 +59,53 @@ describe "[STEP3] 社員ログイン後のテスト" do
         post_link = post_link.delete("\n").gsub(/\A\s*/, "").gsub(/\s*\Z/, "")
         click_link post_link
         is_expected.to eq "/employees/" + employee.id.to_s + "/tasks"
+      end
+    end
+  end
+
+  describe "店舗一覧画面のテスト" do
+    before do
+      visit admin_stores_path
+    end
+
+    context "表示内容の確認" do
+      it "URLが正しい" do
+        expect(current_path).to eq "/admin/stores"
+      end
+      it "「店舗管理」と表示される" do
+        expect(page).to have_content "店舗管理"
+      end
+      it "nameフォームが表示される" do
+        expect(page).to have_field "store[name]"
+      end
+      it "is_activeフォームが表示される" do
+        expect(page).to have_field "store[is_active]"
+      end
+
+      it "登録ボタンが表示される" do
+        expect(page).to have_button "登録"
+      end
+      it "店舗名のリンク先が正しい" do
+        expect(page).to have_link store.name, href: admin_store_path(store)
+      end
+      it "編集ボタンのリンク先が正しい" do
+        expect(page).to have_link "", href: edit_adminstore_path(store)
+      end
+    end
+
+    context "店舗登録のテスト" do
+      before do
+        fill_in "store[name]", with: Faker::Name.name
+        choose "store[is_active]", with: true
+        click_button "登録"
+      end
+
+      it "正しく新規登録される" do
+        expect(Store.count).to be >= 1
+      end
+      it "新規登録後の店舗管理（一覧画面）にリダイレクトされる" do
+        click_button "登録"
+        expect(current_path).to eq "/admin/stores"
       end
     end
   end
