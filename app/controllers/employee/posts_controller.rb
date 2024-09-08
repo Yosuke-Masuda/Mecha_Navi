@@ -4,7 +4,7 @@ class Employee::PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @employee = current_employee.company #所属する会社と従業員の情報を取得します。
+    @employee = current_employee.company # 所属する会社と従業員の情報を取得します。
     @genres = @employee.genres
     @car_names = @employee.car_names
   end
@@ -46,10 +46,10 @@ class Employee::PostsController < ApplicationController
 
   def update
     if params[:post][:image_ids]
-       params[:post][:image_ids].each do |image_id|
-        image = @post.images.find(image_id)
-        image.purge
-      end
+      params[:post][:image_ids].each do |image_id|
+       image = @post.images.find(image_id)
+       image.purge
+     end
     end
     if @post.update(post_params)
 
@@ -67,32 +67,30 @@ class Employee::PostsController < ApplicationController
   end
 
   private
-
-  def set_current_employee
-    if action_name == 'history'
-      @company = current_employee.company
-      @employee = Employee.find(params[:employee_id])
-      @posts = @employee.posts.page(params[:page]).order(created_at: :desc)
-      if current_employee.company != @employee.company
-        #　他企業の場合の処理
-        redirect_to root_path, alert: "アクセス権限がありません。"
-      end
-    else
-      @employee = current_employee
-      @post = Post.find_by(id: params[:id], company_id: @employee.company_id)
-      if @post.present?
-        # アクセス権限がある場合の処理
-        @post = @post
+    def set_current_employee
+      if action_name == "history"
+        @company = current_employee.company
+        @employee = Employee.find(params[:employee_id])
+        @posts = @employee.posts.page(params[:page]).order(created_at: :desc)
+        if current_employee.company != @employee.company
+          # 　他企業の場合の処理
+          redirect_to root_path, alert: "アクセス権限がありません。"
+        end
       else
-        # 他企業の場合の処理
-        redirect_to posts_path, alert: 'アクセス権限がありません'
+        @employee = current_employee
+        @post = Post.find_by(id: params[:id], company_id: @employee.company_id)
+        if @post.present?
+          # アクセス権限がある場合の処理
+          @post = @post
+        else
+          # 他企業の場合の処理
+          redirect_to posts_path, alert: "アクセス権限がありません"
+        end
       end
     end
-  end
 
 
-  def post_params
-    params.require(:post).permit(:employee_id, :company_id, :title, :store_id, :genre_id, :car_name_id, :car_type_id, :video, :caption, :is_active, images: [])
-  end
-
+    def post_params
+      params.require(:post).permit(:employee_id, :company_id, :title, :store_id, :genre_id, :car_name_id, :car_type_id, :video, :caption, :is_active, images: [])
+    end
 end

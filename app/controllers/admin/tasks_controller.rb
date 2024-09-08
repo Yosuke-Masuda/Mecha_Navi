@@ -5,7 +5,6 @@ class Admin::TasksController < ApplicationController
     @task = Task.new
     @tasks = Task.page(params[:page]).order(created_at: :desc)
     @companies = Company.all
-
   end
 
   def create
@@ -49,9 +48,7 @@ class Admin::TasksController < ApplicationController
   end
 
   private
-
-  def task_params
-    params.require(:task).permit(:company_id, :employee_id, :task_id, :name, :body, :start_time)
-  end
-
+    def task_params
+      params.require(:task).permit(:company_id, :employee_id, :task_id, :name, :body, :start_time)
+    end
 end

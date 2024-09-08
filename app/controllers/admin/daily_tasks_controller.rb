@@ -8,5 +8,4 @@ class Admin::DailyTasksController < ApplicationController
     @day = Time.zone.parse("#{params[:date]} 00:00:00")
     @daily_tasks = @tasks.map { |task| task.daily_tasks.find_or_initialize_by(employee_id: @employee.id, start_time: @day) }
   end
-
 end

@@ -10,7 +10,7 @@ class Admin::GenresController < ApplicationController
   end
 
   def create
-    @genre =Genre.new(genre_params)
+    @genre = Genre.new(genre_params)
     if @genre.save
       flash[:notice] = "作成しました"
       redirect_to admin_genres_path
@@ -19,7 +19,6 @@ class Admin::GenresController < ApplicationController
       @companies = Company.all
       render :index
     end
-
   end
 
   def edit
@@ -33,17 +32,14 @@ class Admin::GenresController < ApplicationController
     else
       render "edit"
     end
-
   end
 
   private
+    def ensure_genre
+      @genre = Genre.find(params[:id])
+    end
 
-  def ensure_genre
-    @genre = Genre.find(params[:id])
-  end
-
-  def genre_params
-    params.require(:genre).permit(:name, :is_active, :company_id)
-  end
-
+    def genre_params
+      params.require(:genre).permit(:name, :is_active, :company_id)
+    end
 end

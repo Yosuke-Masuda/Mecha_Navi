@@ -3,6 +3,6 @@ FactoryBot.define do
     company
     name { Faker::Name.name }
     car_type { Faker::Lorem.characters(number: 10) }
-    is_active { true }
+    is_active { [true, false] }
   end
 end

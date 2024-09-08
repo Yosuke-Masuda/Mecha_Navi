@@ -40,7 +40,7 @@ class Employee < ApplicationRecord
 
 
   def self.guest
-    find_by!(email: 'guest_employee@example.com')
+    find_by!(email: "guest_employee@example.com")
   end
 
   # admin/homes/top.html.erbのリファクタリング
@@ -53,5 +53,4 @@ class Employee < ApplicationRecord
   def post_count
     posts.count
   end
-
 end

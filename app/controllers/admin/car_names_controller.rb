@@ -18,7 +18,6 @@ class Admin::CarNamesController < ApplicationController
       @companies = Company.all
       render :index
     end
-
   end
 
   def edit
@@ -31,17 +30,15 @@ class Admin::CarNamesController < ApplicationController
     else
       render "edit"
     end
-
   end
 
   private
+    def ensure_car_name
+      @car_name = CarName.find(params[:id])
+      @companies = Company.all
+    end
 
-  def ensure_car_name
-    @car_name = CarName.find(params[:id])
-    @companies = Company.all
-  end
-
-  def car_name_params
-    params.require(:car_name).permit(:name, :car_type, :is_active, :company_id)
-  end
+    def car_name_params
+      params.require(:car_name).permit(:name, :car_type, :is_active, :company_id)
+    end
 end
