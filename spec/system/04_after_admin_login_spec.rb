@@ -12,6 +12,7 @@ describe "[STEP4] 管理者ログイン後のテスト" do
   let!(:other_genre) { create(:genre, company: company) }
   let!(:employee) { create(:employee, company: company) }
   let!(:post) { create(:post, company: company, employee: employee, car_name: car_name, store: store, genre: genre) }
+  let!(:task) { create(:task, company: company) }
 
   before do
     visit new_admin_session_path
@@ -297,6 +298,112 @@ describe "[STEP4] 管理者ログイン後のテスト" do
       it "新規登録後の車両管理（一覧画面）にリダイレクトされる" do
         click_button "登録"
         expect(current_path).to eq "/admin/car_names"
+      end
+    end
+  end
+
+  describe "タスク管理画面のテスト" do
+    before do
+      visit admin_tasks_path
+    end
+
+    context "表示内容の確認" do
+      it "URLが正しい" do
+        expect(current_path).to eq "/admin/tasks"
+      end
+      it "「タスク管理」と表示される" do
+        expect(page).to have_content "タスク管理"
+      end
+      it "nameフォームが表示される" do
+        expect(page).to have_field "task[name]"
+      end
+      it "bodyフォームが表示される" do
+        expect(page).to have_field "task[body]"
+      end
+      it "登録ボタンが表示される" do
+        expect(page).to have_button "登録"
+      end
+      it "編集ボタンのリンク先が正しい" do
+        expect(page).to have_link "", href: edit_admin_task_path(task)
+      end
+    end
+
+    context "一覧画面のテスト" do
+      before do
+        select company.company_name, from: "task[company_id]"
+        fill_in "task[name]", with: Faker::Name.name
+        fill_in "task[body]", with: Faker::Lorem.characters(number: 20)
+      end
+
+      it "正しく新規登録される" do
+        expect { click_button "登録" }.to change { Task.count }.by(1)
+      end
+      it "新規登録後の車両管理（一覧画面）にリダイレクトされる" do
+        click_button "登録"
+        expect(current_path).to eq "/admin/tasks"
+      end
+    end
+  end
+
+  describe "タスク編集画面のテスト" do
+    before do
+      visit edit_admin_task_path(task)
+    end
+
+    context "表示内容の確認" do
+      it "URLが正しい" do
+        expect(current_path).to eq "/admin/tasks/" + task.id.to_s + "/edit"
+      end
+      it "「タスク編集」と表示される" do
+        expect(page).to have_content "タスク編集"
+      end
+      it "タスク名が正しく表示されること" do
+        expect(page).to have_field("task_name")
+      end
+      it "タスク内容が正しく表示されること" do
+        expect(page).to have_field("task_body")
+      end
+      it "保存、削除、戻るボタンが存在すること" do
+        expect(page).to have_button("保存")
+        expect(page).to have_link "", href: admin_task_path(task.id)
+        expect(page).to have_link "", href: admin_tasks_path
+      end
+      it "戻るボタンを押すとタスク一覧画面へ遷移する" do
+        click_link "戻る"
+        expect(current_path).to eq admin_tasks_path
+      end
+    end
+
+    context "タスク編集のテスト" do
+      before do
+        task = FactoryBot.create(:task)
+        @task_old_name = task.name
+        @task_old_body = task.body
+        fill_in "task[name]", with: Faker::Name.name
+        fill_in "task[body]", with: Faker::Lorem.characters(number: 20)
+        find(:xpath, all("button")[2].path).click
+      end
+      it "タスク名が正しく更新される" do
+        expect(task.reload.name).not_to eq @task_old_name
+      end
+      it "タスク内容が正しく更新される" do
+        expect(task.reload.body).not_to eq @task_old_body
+      end
+      it "リダイレクト先が、更新した店舗の一覧画面になっている" do
+        expect(current_path).to eq admin_tasks_path
+      end
+    end
+
+    context "削除リンクのテスト" do
+      before do
+        click_link "削除"
+      end
+
+      it "正しく削除される" do
+        expect(Task.where(id: task.id).count).to eq 0
+      end
+      it "リダイレクト先が、投稿一覧画面になっている" do
+        expect(current_path).to eq admin_tasks_path
       end
     end
   end
