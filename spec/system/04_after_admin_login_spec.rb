@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "[STEP3] 社員ログイン後のテスト" do
+describe "[STEP4] 管理者ログイン後のテスト" do
   let(:admin) { create(:admin) }
   let!(:company) { create(:company) }
   let!(:other_company) { create(:company) }
@@ -109,10 +109,10 @@ describe "[STEP3] 社員ログイン後のテスト" do
       end
     end
   end
-  
+
   describe "店舗編集画面のテスト" do
     before do
-      visit edit_admin_store_path(company, store)
+      visit edit_admin_store_path(store)
     end
 
     context "表示内容の確認" do
@@ -129,12 +129,12 @@ describe "[STEP3] 社員ログイン後のテスト" do
         if store.is_active?
           expect(page).to have_css("div.form-group", text: "有効") # 有効ステータスが表示されることを確認
         else
-          expect(page).to have_css("div.form-group", text: "退職") # 退職ステータスが表示されることを確認
+          expect(page).to have_css("div.form-group", text: "無効") # 退職ステータスが表示されることを確認
         end
       end
       it "保存、戻るボタンが存在すること" do
         expect(page).to have_button("保存")
-        expect(page).to have_link("", href: admin_store_path(store))
+        expect(page).to have_link("戻る", href: admin_stores_path)
       end
       it "戻るボタンを押すと一覧画面へ遷移する" do
         click_link "戻る"
@@ -155,6 +155,49 @@ describe "[STEP3] 社員ログイン後のテスト" do
       end
       it "リダイレクト先が、更新した店舗の一覧画面になっている" do
         expect(current_path).to eq admin_stores_path
+      end
+    end
+  end
+
+  describe "ジャンル管理画面のテスト" do
+    before do
+      visit admin_genres_path
+    end
+
+    context "表示内容の確認" do
+      it "URLが正しい" do
+        expect(current_path).to eq "/admin/genres"
+      end
+      it "「車両管理」と表示される" do
+        expect(page).to have_content "ジャンル管理"
+      end
+      it "nameフォームが表示される" do
+        expect(page).to have_field "genre[name]"
+      end
+      it "is_activeフォームが表示される" do
+        expect(page).to have_field "genre[is_active]"
+      end
+      it "登録ボタンが表示される" do
+        expect(page).to have_button "登録"
+      end
+      it "編集ボタンのリンク先が正しい" do
+        expect(page).to have_link "", href: edit_admin_genre_path(genre)
+      end
+    end
+
+    context "一覧画面のテスト" do
+      before do
+        fill_in "genre[name]", with: Faker::Name.name
+        choose "genre[is_active]", with: true
+        click_button "登録"
+      end
+
+      it "正しく新規登録される" do
+        expect(Genre.count).to be >= 1
+      end
+      it "新規登録後の車両管理（一覧画面）にリダイレクトされる" do
+        click_button "登録"
+        expect(current_path).to eq "/admin/genres"
       end
     end
   end
