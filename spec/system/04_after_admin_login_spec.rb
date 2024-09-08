@@ -95,6 +95,7 @@ describe "[STEP4] 管理者ログイン後のテスト" do
 
     context "店舗登録のテスト" do
       before do
+        select company.company_name, from: "store[company_id]"
         fill_in "store[name]", with: Faker::Name.name
         choose "store[is_active]", with: true
         click_button "登録"
@@ -187,6 +188,7 @@ describe "[STEP4] 管理者ログイン後のテスト" do
 
     context "一覧画面のテスト" do
       before do
+        select company.company_name, from: "genre[company_id]"
         fill_in "genre[name]", with: Faker::Name.name
         choose "genre[is_active]", with: true
         click_button "登録"
@@ -247,6 +249,54 @@ describe "[STEP4] 管理者ログイン後のテスト" do
       end
       it "リダイレクト先が、更新した店舗の一覧画面になっている" do
         expect(current_path).to eq admin_genres_path
+      end
+    end
+  end
+
+  describe "車両管理画面のテスト" do
+    before do
+      visit admin_car_names_path
+    end
+
+    context "表示内容の確認" do
+      it "URLが正しい" do
+        expect(current_path).to eq "/admin/car_names"
+      end
+      it "「車両管理」と表示される" do
+        expect(page).to have_content "車両管理"
+      end
+      it "nameフォームが表示される" do
+        expect(page).to have_field "car_name[name]"
+      end
+      it "car_typeフォームが表示される" do
+        expect(page).to have_field "car_name[car_type]"
+      end
+      it "is_activeフォームが表示される" do
+        expect(page).to have_field "car_name[is_active]"
+      end
+      it "登録ボタンが表示される" do
+        expect(page).to have_button "登録"
+      end
+      it "編集ボタンのリンク先が正しい" do
+        expect(page).to have_link "", href: edit_admin_car_name_path(car_name)
+      end
+    end
+
+    context "一覧画面のテスト" do
+      before do
+        select company.company_name, from: "car_name[company_id]"
+        fill_in "car_name[name]", with: Faker::Name.name
+        fill_in "car_name[car_type]", with: Faker::Lorem.characters(number: 10)
+        choose "car_name[is_active]", with: true
+        click_button "登録"
+      end
+
+      it "正しく新規登録される" do
+        expect(CarName.count).to be >= 1
+      end
+      it "新規登録後の車両管理（一覧画面）にリダイレクトされる" do
+        click_button "登録"
+        expect(current_path).to eq "/admin/car_names"
       end
     end
   end
