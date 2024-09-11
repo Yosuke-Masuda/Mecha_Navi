@@ -63,6 +63,18 @@ describe "[STEP4] 管理者ログイン後のテスト" do
       end
     end
   end
+  
+  describe "顧客一覧画面のテスト" do
+    before do
+      visit admin_companies_path
+    end
+    
+    context "表示内容の確認" do
+      it "URLが正しい" do
+        expect(current_path).to eq "/admin/companies"
+      end
+    end
+  end
 
   describe "店舗一覧画面のテスト" do
     before do
