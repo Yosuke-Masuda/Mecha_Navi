@@ -73,9 +73,12 @@ describe "[STEP4] 管理者ログイン後のテスト" do
       it "URLが正しい" do
         expect(current_path).to eq "/admin/companies"
       end
+      it "「顧客一覧と表示される」" do
+        expect(page).to have_centent "顧客一覧"
+      end
     end
   end
-
+  
   describe "店舗一覧画面のテスト" do
     before do
       visit admin_stores_path
