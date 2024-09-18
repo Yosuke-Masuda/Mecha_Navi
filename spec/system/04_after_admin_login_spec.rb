@@ -89,6 +89,53 @@ describe "[STEP4] 管理者ログイン後のテスト" do
           expect(page).to have_content "無効" # 退職ステータスが表示されることを確認
         end
       end
+      it "社員一覧ボタンが存在する" do
+        expect(page).to have_link "社員一覧", href: admin_company_employees_path(company.id)
+      end
+    end
+  end
+
+   describe "顧客詳細画面のテスト" do
+    before do
+      visit admin_company_path(company.id)
+    end
+
+    context "表示内容の確認" do
+      it "URLが正しい" do
+        expect(current_path).to eq "/admin/companies/" + company.id.to_s
+      end
+      it "「企業ID」が表示される" do
+        expect(page).to have_content "#{company.id}"
+      end
+      it "「会社名」が表示される" do
+        expect(page).to have_content "#{company.company_name}"
+      end
+      it "「フリガナ」が表示される" do
+        expect(page).to have_content "#{company.company_name_kana}"
+      end
+      it "「郵便番号」が表示される" do
+        expect(page).to have_content "#{company.postal_code}"
+      end
+      it "「住所」が表示される" do
+        expect(page).to have_content "#{company.address}"
+      end
+      it "「電話番号」が表示される" do
+        expect(page).to have_content "#{company.phone_number}"
+      end
+      it "「メールアドレス」が表示される" do
+        expect(page).to have_content "#{company.email}"
+      end
+      it "ステータスが表示されること" do
+        if company.is_active?
+          expect(page).to have_content "有効" # 有効ステータスが表示されることを確認
+        else
+          expect(page).to have_content "無効" # 退職ステータスが表示されることを確認
+        end
+      end
+      it "編集と企業一覧ボタンが存在する" do
+        expect(page).to have_link "編集", href: edit_admin_company_path(company.id)
+        expect(page).to have_link "企業一覧", href: admin_companies_path
+      end
     end
   end
 
