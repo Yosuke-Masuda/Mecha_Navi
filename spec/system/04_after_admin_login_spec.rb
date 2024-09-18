@@ -63,22 +63,35 @@ describe "[STEP4] 管理者ログイン後のテスト" do
       end
     end
   end
-  
+
   describe "顧客一覧画面のテスト" do
     before do
       visit admin_companies_path
     end
-    
+
     context "表示内容の確認" do
       it "URLが正しい" do
         expect(current_path).to eq "/admin/companies"
       end
       it "「顧客一覧と表示される」" do
-        expect(page).to have_centent "顧客一覧"
+        expect(page).to have_content "顧客一覧"
+      end
+      it "企業名が表示される" do
+        expect(page).to have_link "#{company.company_name}", href: admin_company_path(company.id)
+      end
+      it "Emailが表示される" do
+        expect(page).to have_content "#{company.email}"
+      end
+      it "ステータスが表示されること" do
+        if company.is_active?
+          expect(page).to have_content "有効" # 有効ステータスが表示されることを確認
+        else
+          expect(page).to have_content "無効" # 退職ステータスが表示されることを確認
+        end
       end
     end
   end
-  
+
   describe "店舗一覧画面のテスト" do
     before do
       visit admin_stores_path
